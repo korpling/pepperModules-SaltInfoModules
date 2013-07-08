@@ -17,11 +17,15 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 
+import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 
+import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperExporterImpl;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
+import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 /**
@@ -35,21 +39,21 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
  *  <li>a place where resources of this bundle are, can be accessed via {@link #getResources()}</li>
  *  <li>a logService can be accessed via {@link #getLogService()}</li>
  * </ul>
- * @author Florian Zipser
+ * @author Jakob Schmolling
  * @version 1.0
  *
  */
 //TODO /1/: change the name of the component, for example use the format name and the ending Exporter (FORMATExporterComponent)
-@Component(name="SampleExporterComponent", factory="PepperExporterComponentFactory")
-public class SampleExporter extends PepperExporterImpl implements PepperExporter
+@Component(name="InfoModuleExporterComponent", factory="PepperExporterComponentFactory")
+public class InfoModuleExporter extends PepperExporterImpl implements PepperExporter
 {
-	public SampleExporter()
+	public InfoModuleExporter()
 	{
 		super();
 		//TODO /2/: change the name of the module, for example use the format name and the ending Exporter (FORMATExporter)
-		this.name= "SampleExporter";
+		this.name= "InfoModuleExporter";
 		//TODO /4/:change "sample" with format name and 1.0 with format version to support
-		this.addSupportedFormat("sample", "1.0", null);
+		this.addSupportedFormat("info", "1.0", null);
 	}
 	
 	/**
@@ -59,8 +63,28 @@ public class SampleExporter extends PepperExporterImpl implements PepperExporter
 	@Override
 	public PepperMapper createPepperMapper(SElementId sElementId)
 	{
-		Salt2InfoMapper mapper= new Salt2InfoMapper();
+		PepperMapper mapper= new PepperMapperImpl()
+		{
+			@Override
+			public MAPPING_RESULT mapSDocument() {
+				return(MAPPING_RESULT.FINISHED);
+			}
+			@Override
+			public MAPPING_RESULT mapSCorpus() {
+				System.out.println("Printing SCorpus" + getSCorpus());
+				getSCorpus().printInfo(URI.createFileURI("/Developer/saltnpepper/speedy/ridges/ridgesInfo.xml"));
+				return(MAPPING_RESULT.FINISHED);
+			}
+		};
+		
+		String segments= "";
+		URI outputURI= null;
+		
+		for (String segment: sElementId.getSElementPath().segmentsList())
+			segments= segments+ "/"+segment;
+		outputURI= URI.createFileURI(this.getCorpusDefinition().getCorpusPath().toFileString() + segments+"."+SaltFactory.FILE_ENDING_DOT);
+		
+		mapper.setResourceURI(outputURI);
 		return(mapper);
 	}
-	
 }

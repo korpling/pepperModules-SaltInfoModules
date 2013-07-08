@@ -17,18 +17,11 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 
-import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.log.LogService;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperManipulator;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperManipulatorImpl;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.paula.PAULA2SaltMapper;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 /**
