@@ -149,22 +149,22 @@
                         
                         <!-- ids for maincorpora -->
             <xsl:for-each select="//saltProjectInfo/sCorpusInfo">
-                Tree[<xsl:value-of select="position()-1"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="0"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="@id"/>";
+                Tree[<xsl:value-of select="position()-1"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="0"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
                     </xsl:for-each>
                         <!--
                 id's for subcorpora//-->
                            <xsl:for-each select="//sCorpusInfo/sCorpusInfo">    
-                               Tree[<xsl:value-of select="position() + count(parent::node()) -1"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="@id"/>";
+                               Tree[<xsl:value-of select="position() + count(parent::node()) -1"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
                      </xsl:for-each>
                         <!--
                 id's for documents with subcorpora//-->
             <xsl:for-each select="//sCorpusInfo/sCorpusInfo/sDocumentInfo">
-                         Tree[<xsl:value-of select="position() + count(parent::node()[sCorpusInfo]) + count(../parent::node()[sCorpusInfo])"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="@id"/>";
+                Tree[<xsl:value-of select="position() + count(parent::node()[sCorpusInfo]) + count(../parent::node()[sCorpusInfo])"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
                      </xsl:for-each>
                         <!--
                 id's for documents without subcorpora//-->
             <xsl:for-each select="//saltProjectInfo/sCorpusInfo/sDocumentInfo">
-                Tree[<xsl:value-of select="position() + count(parent::node()[sCorpusInfo])"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="@id"/>";
+                Tree[<xsl:value-of select="position() + count(parent::node()[sCorpusInfo])"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
             </xsl:for-each>}
                 </script>
         <xsl:copy-of select="$TextFont"/>
@@ -175,7 +175,7 @@
         <xsl:param name="NO_LAYER" select="./sLayerInfo[@sName=NO_LAYER]/@sName"/>
         <div style="display:none;">
             <xsl:attribute name="id">
-                <xsl:value-of select="@id"/>
+                <xsl:value-of select="translate(@id,'/,-,.','')"/>
             </xsl:attribute>
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
                 <!-- <xsl:with-param name="metaDataInfo"
@@ -323,7 +323,7 @@
     <xsl:template match="//sCorpusInfo/sCorpusInfo" mode="SubCorpusTable">
         <div style="display:none;">
             <xsl:attribute name="id">
-                <xsl:value-of select="@id"/>
+                <xsl:value-of select="translate(@id,'/,-,.','')"/>
             </xsl:attribute>
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
                 <!-- <xsl:with-param name="metaDataInfo"
@@ -388,7 +388,7 @@
     <xsl:template match="/saltProjectInfo/sCorpusInfo" mode="MainCorpusTable">
         <div style="display:none;">
             <xsl:attribute name="id">
-                <xsl:value-of select="@id"/>
+                <xsl:value-of select="translate(@id,'/,-,.','')"/>
             </xsl:attribute>
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
                 <!-- <xsl:with-param name="metaDataInfo"
