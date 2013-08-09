@@ -178,15 +178,15 @@
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
-                <xsl:with-param name="metaDataInfo"
-                    select="$MappingList2/elem[@maptype='metaDataInfo']"/>
+                <!-- <xsl:with-param name="metaDataInfo"
+                    select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
             </xsl:apply-templates>
 
             <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
                 <tr>
                     <td colspan="{$tdcolspan}" style="{$tdstyle}">
                         <a class="tooltip">
-                            <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/>
+                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="structTooltip"/>
                         </a>
@@ -202,15 +202,15 @@
             </table>
             <br/>
             <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
-                <xsl:with-param name="totalSAnno"
-                    select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/>
+                <!-- <xsl:with-param name="totalSAnno"
+                    select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
             </xsl:apply-templates>
             <xsl:for-each select="sLayerInfo">
                 <xsl:sort select="@sName" order="ascending"/>
                 <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
                     <xsl:call-template name="ChildNodeControl">
-                        <xsl:with-param name="NO_LAYER"
-                            select="$MappingList2/elem[@maptype='NO_LAYER']"/>
+                        <!-- <xsl:with-param name="NO_LAYER"
+                            select="$MappingList2/elem[@maptype='NO_LAYER']"/> -->
                     </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="child::node()=structuralInfo">
@@ -219,9 +219,9 @@
                                     align="{$tdAlignExtinction}">
                                     <a class="tooltip">
                                         <b>
-                                            <xsl:value-of
+                                            <!-- <xsl:value-of
                                                 select="$MappingList2/elem[@maptype='structuralInfo']"
-                                            />
+                                            /> -->
                                         </b>
                                         <xsl:copy-of select="$InfoImg"/>
                                         <xsl:call-template name="structTooltip"/>
@@ -264,9 +264,9 @@
                                     align="{$tdAlignExtinction}">
                                     <a class="tooltip">
                                         <b>
-                                            <xsl:value-of
+                                            <!-- <xsl:value-of
                                                 select="$MappingList2/elem[@maptype='sAnnotationInfo']"
-                                            />
+                                            /> -->
                                         </b>
                                         <xsl:copy-of select="$InfoImg"/>
                                         <xsl:call-template name="AnnoTooltip"/>
@@ -326,14 +326,14 @@
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
-                <xsl:with-param name="metaDataInfo"
-                    select="$MappingList2/elem[@maptype='metaDataInfo']"/>
+                <!-- <xsl:with-param name="metaDataInfo"
+                    select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
             </xsl:apply-templates>
             <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
                 <tr>
                     <td colspan="{$tdcolspan}" style="{$tdstyle}">
                         <a class="tooltip">
-                            <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/>
+                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="structTooltip"/>
                         </a>
@@ -363,8 +363,8 @@
                 </xsl:when>
             </xsl:choose>
 
-            <!--<xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
-                <xsl:with-param name="totalSAnno" select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/>
+            <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
+                <!-- <xsl:with-param name="totalSAnno" select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
             </xsl:apply-templates>-->
         </div>
     </xsl:template>
@@ -391,14 +391,14 @@
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
-                <xsl:with-param name="metaDataInfo"
-                    select="$MappingList2/elem[@maptype='metaDataInfo']"/>
+                <!-- <xsl:with-param name="metaDataInfo"
+                    select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
             </xsl:apply-templates>
             <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
                 <tr>
                     <td colspan="{$tdcolspan}" style="{$tdstyle}">
                         <a class="tooltip">
-                            <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/>
+                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="structTooltip"/>
                         </a>
@@ -423,26 +423,26 @@
                         </tr>
                     </xsl:when>
                 </xsl:choose>
-                <xsl:choose>
+       <!--         <xsl:choose>
                     <xsl:when test="count(child::node()=sCorpusInfo) &lt; 2">
                         <xsl:call-template name="structInfoCorpus"/>
                     </xsl:when>
-                    <!-- insert rule for maincorpus with more than one subcorpus -->
-                </xsl:choose>
+                    <!-\- insert rule for maincorpus with more than one subcorpus -\->
+                </xsl:choose>-->
             </table>
             <br/>
             <xsl:choose>
                 <xsl:when test="$accumulation">
-            <xsl:choose>
+      <!--      <xsl:choose>
                 <xsl:when test="count(child::node()=sCorpusInfo) &lt; 2">
                     <xsl:call-template name="totalAnnoCorpus"/>
                 </xsl:when>
-            </xsl:choose>
+            </xsl:choose>-->
                 </xsl:when>
             </xsl:choose>
             <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
-                <xsl:with-param name="totalSAnno"
-                    select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/>
+                <!-- <xsl:with-param name="totalSAnno"
+                    select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
             </xsl:apply-templates>
         </div>
     </xsl:template>
@@ -468,7 +468,7 @@
             <tr>
                 <td colspan="{$tdcolspan}" style="{$tdstyle}">
                     <a class="tooltip">
-                        <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/>
+                        <!-- <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
                         <xsl:copy-of select="$InfoImg"/>
                         <xsl:call-template name="metaTooltip"/>
                     </a>
@@ -622,8 +622,8 @@
 
     <!-- creates table-rows for each structural entry and value plus infobox -->
     <xsl:template match="structuralInfo/entry" mode="Entry">
-        <xsl:for-each select="current()[@key != 'SNode']">
-            <xsl:for-each select="current()[@key != 'SRelation']">
+        <xsl:for-each select="self::node()[@key != 'SNode'][@key != 'SRelation']">
+            <!--<xsl:for-each select="current()[@key != 'SRelation']">-->
                 <tr>
                     <td>
                         <a class="tooltip">
@@ -640,7 +640,7 @@
                         </b>
                     </td>
                 </tr>
-            </xsl:for-each>
+            <!--</xsl:for-each>-->
         </xsl:for-each>
     </xsl:template>
 
@@ -833,7 +833,7 @@
             <tr>
                 <td colspan="{$tdcolspan}" style="{$tdstyle}">
                     <a class="tooltip">
-                        <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/>
+                        <!-- <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
                         <xsl:copy-of select="$InfoImg"/>
                         <xsl:call-template name="totalAnnoTooltip"/>
                     </a>

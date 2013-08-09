@@ -17,10 +17,17 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.CharBuffer;
 
 import org.eclipse.emf.common.util.URI;
 import org.omg.CORBA.INITIALIZE;
@@ -88,15 +95,31 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		String[] resources = {"/css/saltinfo.css",
 							  "/css/tree.css",
 							  "/js/tree.js",
-							  "/js/saltinfo.js"};
+							  "/js/saltinfo.js",
+							  "/img/information.png",
+							  "/img/SaltNPepper_logo2010.svg"};
 		for (String resName : resources) {
 			URL res = this.getClass().getResource(resName);
-			URI out = URI.createFileURI(resName).resolve(outputPath);
+			URI out = URI.createFileURI("."+resName).resolve(outputPath);
 			System.out.println("Creating resource file: " + res + " saving to: " + out);
 			File fout = new File(out.toFileString());
-			if(!fout.isFile()){
+			//TODO: Switch overwriting
+			if(true){
 				fout.getParentFile().mkdirs();
-//				res.op
+				try {
+					FileOutputStream fos = new FileOutputStream(fout);
+					InputStream is = res.openStream();
+					byte[] buffer = new byte[1024];
+					int len = 0;
+					while((len = is.read(buffer)) != -1){
+						fos.write(buffer, 0, len);
+					}
+					is.close();
+					fos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

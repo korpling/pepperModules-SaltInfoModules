@@ -24,22 +24,23 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 
 	private URI outputPath;
 	
-	static private Templates cachedXSLT = null;
+	static private Transformer cachedXSLT = null;
 	
-	synchronized private Transformer getCachedTemplate() {
+	private Transformer getCachedTemplate() {
 		Transformer t = null;
 		try{
 			if(cachedXSLT == null){
 				URL res = this.getClass().getResource(("/xslt/salt-info.xslt"));
 				Source xsltSource = new StreamSource(res.openStream(), res.toString());
 				TransformerFactory transFac = TransformerFactory.newInstance();
-				cachedXSLT = transFac.newTemplates(xsltSource);
+//				cachedXSLT = transFac.newTemplates(xsltSource);
+				cachedXSLT = transFac.newTransformer(xsltSource);
 			}
-			t = cachedXSLT.newTransformer();
+//			t = cachedXSLT.newTransformer();
 		}catch (Exception e){
 			throw new PepperModuleException("Can't create xslt cache", e);
 		}
-		return t;
+		return cachedXSLT;
 	}
 	public void setOutputPath(final URI outputPath) {
 		this.outputPath = outputPath;

@@ -71,13 +71,13 @@
 
     <!-- info-img style -->
     <xsl:variable name="InfoImgSrc"
-        >https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/information.png</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
+        >img/information.png</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
     <xsl:variable name="InfoImgAlign">top</xsl:variable>
     <xsl:variable name="InfoImgStyle">padding:5px;</xsl:variable>
     
     <!-- stylesheet-link -->
-    <xsl:variable name="saltinfocss">saltinfo.css</xsl:variable>
-    <xsl:variable name="treecss">tree.css</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
+    <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
+    <xsl:variable name="treecss">css/tree.css</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
     <!-- javascript-source -->
-    <xsl:variable name="treejs">tree.js</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
+    <xsl:variable name="treejs">js/tree.js</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
 </xsl:stylesheet>

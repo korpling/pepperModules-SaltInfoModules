@@ -56,7 +56,7 @@
     
     <xsl:key name="hierarchicalTypeKey" match="//sLayerInfo/sAnnotationInfo" use="@type"/>
     <!-- Mappinglists -->
-    <xsl:variable name="MappingList1">
+<!--    <xsl:variable name="MappingList1">
         <attr maptype="SToken">token annotations</attr>
         <attr maptype="SSpan">spanning annotations</attr>
         <attr maptype="SStructure">hierarchical annotations</attr>
@@ -68,14 +68,14 @@
         <attr maptype="SRelation">all relations</attr>
         <attr maptype="SNode">nodes</attr>
         <attr maptype="STextualDS"></attr>
-    </xsl:variable>
-    <xsl:variable name="MappingList2">
+    </xsl:variable>-->
+<!--    <xsl:variable name="MappingList2">
         <elem maptype="metaDataInfo">meta data</elem>
         <elem maptype="structuralInfo">structural info</elem>
         <elem maptype="sAnnotationInfo">annotations</elem>
         <elem maptype="totalSAnnotationInfo">all annotations</elem>
         <elem maptype="NO_LAYER">objects having no layer</elem>
-    </xsl:variable>
+    </xsl:variable>-->
     
     
     <!-- further variables -->
@@ -184,7 +184,7 @@
             <xsl:choose>
                 <xsl:when test="@sName='NO_LAYER'">
                     <b>
-                        <xsl:value-of select="$MappingList2/elem[@maptype='NO_LAYER']"/>
+                        <!-- <xsl:value-of select="$MappingList2/elem[@maptype='NO_LAYER']"/> -->
                     </b>
                 </xsl:when>
                 <xsl:otherwise>
@@ -201,7 +201,7 @@
     <xsl:template name="metaTooltip">
         <span>
             <b>
-                <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/>
+                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
             </b>
             This section displays all the metadata of the corpus for instance the annotator's name, the author of the primary text etc. The content of this representation depends of which data are annotated in the corpus.
         </span>
@@ -211,7 +211,7 @@
    <xsl:template name="structTooltip">
        <span>
            <b>
-               <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/>
+               <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
            </b>
            This section displays information about the structure of the corpus. For instance you can see the amount of tokens and primary texts. Since in Salt everything is a graph, you can see here all nodes and relations of your corpus.
        </span>
@@ -221,7 +221,7 @@
     <xsl:template name="totalAnnoTooltip">
         <span>
             <b>
-                <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/>
+                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
             </b>
             This section displays the overall utterance of an annotation. For instance if 5 nodes are annotated with a POS annotation, the number of POS annotations in this section is 5. Even if 3 of them belongs to a morphology layer and 2 of them to a syntactical layer. Please note, that a node annotated like this can also belong to two several layers (e.g. to a morphology and syntax layer as well).
         </span>
@@ -230,7 +230,7 @@
     <xsl:template name="AnnoTooltip">
         <span>
             <b>
-                <xsl:value-of select="$MappingList2/elem[@maptype='sAnnotationInfo']"/>
+                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='sAnnotationInfo']"/> -->
             </b>
             This section displays all annotations being contained in this layer. Please note, that these annotations can belong to nodes or edges of different subtypes.
         </span>
@@ -295,7 +295,7 @@
     
     <!--<xsl:template match="@key" mode="ReplaceFunct">
         <xsl:variable name="Replacements" select="current()"/>
-        <xsl:variable name="Mapping" select="$MappingList1/*[@maptype=$Replacements]"/>
+         <xsl:variable name="Mapping" select="$MappingList1/*[@maptype=$Replacements]"/> 
         <xsl:choose>
             <xsl:when test="$Mapping">
                 <xsl:value-of select="$Mapping"/>
