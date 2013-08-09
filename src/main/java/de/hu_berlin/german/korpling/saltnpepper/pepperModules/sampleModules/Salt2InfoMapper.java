@@ -95,10 +95,11 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		
 //		if ((Boolean) this.getProperties()
 //				.getProperty(InfoModuleProperties.HTML_OUTPUT).getValue()) {
-		if(true){
-			System.out.println("Produce HTML to "
-					+ getResourceURI().trimFileExtension().appendFileExtension(
-							"html"));
+		System.out.println("Checking for  HTML output "
+				+ getResourceURI().trimFileExtension().appendFileExtension(
+						"html"));
+		System.out.println(getResourceURI().deresolve(outputPath).segmentCount());
+		if(getResourceURI().deresolve(outputPath).segmentCount() == 1){
 			URI htmlOutput = getResourceURI().trimFileExtension()
 					.appendFileExtension("html");
 			Transformer htmlTransform = getCachedTemplate();
