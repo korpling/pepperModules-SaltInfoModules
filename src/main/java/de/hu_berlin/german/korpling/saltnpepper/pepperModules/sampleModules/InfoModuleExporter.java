@@ -17,74 +17,149 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import org.eclipse.emf.common.util.URI;
+import org.omg.CORBA.INITIALIZE;
 import org.osgi.service.component.annotations.Component;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
+import com.google.common.io.Files;
+
+import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleNotReadyException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperExporterImpl;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
-import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
+import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SIdentifiableElement;
 
 /**
- * This is a sample {@link PepperExporter}, which can be used for creating individual Exporters for the 
- * Pepper Framework. Therefore you have to take a look to todo's and adapt the code.
+ * This is a sample {@link PepperExporter}, which can be used for creating
+ * individual Exporters for the Pepper Framework. Therefore you have to take a
+ * look to todo's and adapt the code.
  * 
  * <ul>
- *  <li>the salt model to fill, manipulate or export can be accessed via {@link #getSaltProject()}</li>
- * 	<li>special parameters given by Pepper workflow can be accessed via {@link #getSpecialParams()}</li>
- *  <li>a place to store temprorary datas for processing can be accessed via {@link #getTemproraries()}</li>
- *  <li>a place where resources of this bundle are, can be accessed via {@link #getResources()}</li>
- *  <li>a logService can be accessed via {@link #getLogService()}</li>
+ * <li>the salt model to fill, manipulate or export can be accessed via
+ * {@link #getSaltProject()}</li>
+ * <li>special parameters given by Pepper workflow can be accessed via
+ * {@link #getSpecialParams()}</li>
+ * <li>a place to store temprorary datas for processing can be accessed via
+ * {@link #getTemproraries()}</li>
+ * <li>a place where resources of this bundle are, can be accessed via
+ * {@link #getResources()}</li>
+ * <li>a logService can be accessed via {@link #getLogService()}</li>
  * </ul>
+ * 
  * @author Jakob Schmolling
- * @version 1.0
- *
+ * @version 0.1
+ * 
  */
-//TODO /1/: change the name of the component, for example use the format name and the ending Exporter (FORMATExporterComponent)
-@Component(name="InfoModuleExporterComponent", factory="PepperExporterComponentFactory")
-public class InfoModuleExporter extends PepperExporterImpl implements PepperExporter
-{
-	public InfoModuleExporter()
-	{
+@Component(name = "InfoModuleExporterComponent", factory = "PepperExporterComponentFactory")
+public class InfoModuleExporter extends PepperExporterImpl implements
+		PepperExporter {
+	
+	URI outputPath;
+
+	public InfoModuleExporter() {
 		super();
-		//TODO /2/: change the name of the module, for example use the format name and the ending Exporter (FORMATExporter)
-		this.name= "InfoModuleExporter";
-		//TODO /4/:change "sample" with format name and 1.0 with format version to support
-		this.addSupportedFormat("info", "1.0", null);
+		// TODO /2/: change the name of the module, for example use the format
+		// name and the ending Exporter (FORMATExporter)
+		this.name = "InfoModuleExporter";
+		// TODO /4/:change "sample" with format name and 1.0 with format version
+		// to support
+		this.addSupportedFormat("info", "0.1",
+				URI.createURI("http://change.me"));
+		this.setProperties(new InfoModuleProperties());
+
+	}
+	
+	@Override
+	public void end() throws PepperModuleException {
+		super.end();
+//		URL saltinfocss = this.getClass().getResource(("/xslt/salt-info.xslt"));
+		String[] resources = {"/css/saltinfo.css",
+							  "/css/tree.css",
+							  "/js/tree.js",
+							  "/js/saltinfo.js"};
+		for (String resName : resources) {
+			URL res = this.getClass().getResource(resName);
+			URI out = URI.createFileURI(resName).resolve(outputPath);
+			System.out.println("Creating resource file: " + res + " saving to: " + out);
+			File fout = new File(out.toFileString());
+			if(!fout.isFile()){
+				fout.getParentFile().mkdirs();
+//				res.op
+			}
+		}
+	}
+	/**
+	 * Creates a mapper of type {@link Salt2InfoMapper}.
+	 */
+	@Override
+	public PepperMapper createPepperMapper(SElementId sElementId) {
+		outputPath = getCorpusDefinition().getCorpusPath();
+		if(!outputPath.hasTrailingPathSeparator()){
+			outputPath = outputPath.appendSegment(URI.encodeSegment("", false));
+		}
+		PepperMapper mapper = new Salt2InfoMapper();
+		((Salt2InfoMapper)mapper).setOutputPath(outputPath);
+		mapper.setProperties(this.getProperties());
+		
+		// Location für Ressourcen Folder
+		getResources();
+		System.out.println("+Creating PepperMapper for "
+				+ sElementId.getIdentifiableElement());
+		IdentifiableElement elem = sElementId.getIdentifiableElement();
+		if (elem instanceof SDocument) {
+			final SDocument sdoc = (SDocument) elem;
+			System.out.println("> Mapping SDocument" + sElementId);
+			
+			//Move to export Graph
+//			String infoFileLocation = sdoc.getSElementPath().toString()
+//					.substring("salt:/".length())
+//					+ ".xml";
+//			URI out = getCorpusDefinition().getCorpusPath().appendSegments(
+//					infoFileLocation.split("/"));
+			URI out = getDocumentLocationURI(sdoc, outputPath);
+			getSElementId2ResourceTable().put(sElementId, out);
+			System.out.println("ElementPath: " + sdoc.getSElementPath());
+			System.out.println("RessourceTable: Entries= "
+					+ getSElementId2ResourceTable().size());
+			for (URI resource : getSElementId2ResourceTable().values()) {
+				System.out.println("\tR= " + resource);
+			}
+			mapper.setResourceURI(out);
+		} else if (elem instanceof SCorpus) {
+			final SCorpus scorpus = (SCorpus) elem;
+			URI out = getDocumentLocationURI(scorpus, outputPath);
+			getSElementId2ResourceTable().put(sElementId, out);
+			mapper.setResourceURI(out);
+			System.out.println("> Mapping SCorpus " + elem + " to " + out);
+		}
+		return (mapper);
+
 	}
 	
 	/**
-	 * Creates a mapper of type {@link Salt2InfoMapper}.
-	 * {@inheritDoc PepperModule#createPepperMapper(SElementId)}
+	 * FIXME: This function appears in 
+	 * de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.helper.modules.InfoModule also
+	 * @param sdoc
+	 * @param root
+	 * @return
 	 */
-	@Override
-	public PepperMapper createPepperMapper(SElementId sElementId)
-	{
-		PepperMapper mapper= new PepperMapperImpl()
-		{
-			@Override
-			public MAPPING_RESULT mapSDocument() {
-				return(MAPPING_RESULT.FINISHED);
-			}
-			@Override
-			public MAPPING_RESULT mapSCorpus() {
-				System.out.println("Printing SCorpus" + getSCorpus());
-				getSCorpus().printInfo(URI.createFileURI("/Developer/saltnpepper/speedy/ridges/ridgesInfo.xml"));
-				return(MAPPING_RESULT.FINISHED);
-			}
-		};
-		
-		String segments= "";
-		URI outputURI= null;
-		
-		for (String segment: sElementId.getSElementPath().segmentsList())
-			segments= segments+ "/"+segment;
-		outputURI= URI.createFileURI(this.getCorpusDefinition().getCorpusPath().toFileString() + segments+"."+SaltFactory.FILE_ENDING_DOT);
-		
-		mapper.setResourceURI(outputURI);
-		return(mapper);
+	public static URI getDocumentLocationURI(final SIdentifiableElement sdoc,
+			final URI root) {
+		URI infoFileLocation =  URI.createFileURI("." + sdoc.getSElementPath().path()).appendFileExtension("xml");
+		URI partial = infoFileLocation.resolve(root);
+		return partial;
 	}
+
 }
