@@ -3,8 +3,7 @@
 <!-- repair toggleRow for subcorpora-totalTable -->
 <!-- optimize sorting -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-    <xsl:import
-        href="variables.xslt"/>
+    <xsl:import href="variables.xslt"/>
     <xsl:import href="style.xslt"/>
     <xsl:output encoding="UTF-8" method="html" indent="yes"/>
     <xsl:key name="structEntryKey" match="//sDocumentInfo/structuralInfo//entry" use="@key"/>
@@ -12,24 +11,13 @@
         use="@sName"/>
     <xsl:key name="totalValue" match="//sValue" use="."/>
 
-
     <!-- FLAG -->
     <!-- delete content to run without accumulation -->
     <xsl:variable name="accumulation">t</xsl:variable>
 
-
-    <!-- font-informations -->
-    <xsl:variable name="TextFont">
-        <style type="text/css">
-            TD{
-                font-family:Arial;
-                font-size:10pt;
-            }</style>
-    </xsl:variable>
-
     <!-- i-img -->
     <xsl:variable name="InfoImg">
-        <img src="{$InfoImgSrc}" alt="" align="{$InfoImgAlign}" style="{$InfoImgStyle}"/>
+        <img src="{$InfoImgSrc}" alt="" align="{$InfoImgAlign}"/>
     </xsl:variable>
 
 
@@ -42,16 +30,10 @@
                 <xsl:call-template name="JavaScriptElem"/>
             </head>
             <body onload="initTooltips()">
-                <table width="{$htmlWidth}" cellspacing="{$cellspacing}"
-                    cellpadding="{$htmlCellpadding}" border="{$htmlBorder}" style="{$htmlStyle}">
-                    <xsl:call-template name="HeadOfHtml"/>
-                    <tr>
-                        <xsl:call-template name="TreeTable"/>
-                    </tr>
-                    <tr>
-                        <xsl:call-template name="Footer"/>
-                    </tr>
-                </table>
+                <xsl:call-template name="HeadOfHtml"/>
+                <xsl:call-template name="navigation"/>
+                <xsl:call-template name="TreeTable"/>
+                <xsl:call-template name="Footer"/>
             </body>
         </html>
     </xsl:template>
@@ -69,60 +51,48 @@
 
     <!-- creates the header of the html -->
     <xsl:template name="HeadOfHtml">
-        <tr>
-            <td colspan="{$headerColspan}" style="{$headerstyle}" valign="{$headerValign}"><a
-                    href="http://korpling.german.hu-berlin.de/saltnpepper"><img src="{$logoSrc}"
-                        alt="{$logoAlternative}" style="{$logoStyle}"/></a><xsl:call-template
-                    name="RootCorpus"/><xsl:apply-templates select="saltProjectInfo"/> -
-                Overview</td>
-        </tr>
-        <tr>
-            <td height="{$header2height}" colspan="{$headerColspan}" style="{$header2style}">
-                generated with SaltNPepper</td>
-        </tr>
+        <div id="header">
+            <img href="http://korpling.german.hu-berlin.de/saltnpepper" src="{$logoSrc}"
+                alt="{$logoAlternative}"/>
+
+            <h1>
+                <xsl:apply-templates select="saltProjectInfo"/>
+                <xsl:call-template name="RootCorpus"/>
+                <xsl:text>- Overview</xsl:text>
+            </h1>
+            <p>generated with SaltNPepper</p>
+
+        </div>
+
     </xsl:template>
 
     <!-- creates the clickable tree-table -->
     <xsl:template name="TreeTable">
-        <td style="{$htmlTreeTdStyle}" width="{$htmlTreeTdWidth}">
-            <br/>
-            <table width="{$treetablewidth}" border="{$treetableborder}"
-                style="{$treetableBorderStyle}" cellpadding="{$treetableCellpadding}">
-                <tr>
-                    <td style="{$treetableStyle}">
-                        <script type="text/javascript">
-						
-                                                {createTree(Tree);}
-						</script>
-                    </td>
-                </tr>
-            </table>
-        </td>
-        <td style="{$htmlContentPartStyle}">
-            <br/>
-            <div style="{$ContentTableStyle}" align="{$ContentTableAlign}">
-                <xsl:apply-templates select="/saltProjectInfo/sCorpusInfo" mode="MainCorpusTable"/>
-                <xsl:apply-templates select="//sCorpusInfo/sCorpusInfo" mode="SubCorpusTable"> </xsl:apply-templates>
-                <xsl:apply-templates select="//sDocumentInfo" mode="DocumentTable"
-                > </xsl:apply-templates>
-            </div>
-        </td>
+        <div id="content">
+            <!--<xsl:apply-templates select="/saltProjectInfo/sCorpusInfo" mode="MainCorpusTable"/>
+            <xsl:apply-templates select="//sCorpusInfo/sCorpusInfo" mode="SubCorpusTable"/>
+            <xsl:apply-templates select="//sDocumentInfo" mode="DocumentTable"/>-->
+            <xsl:call-template name="sCorpusInfoTables"/>
+            <xsl:call-template name="sDocumentInfoTables"/>
+        </div>
     </xsl:template>
+
+
 
     <!-- creates the html-footer -->
     <xsl:template name="Footer">
-        <td colspan="{$footerColspan}" style="{$footerStyle}">
+        <div id="footer">
             <hr/>
-            <div style="{$footerTextStyle}">the here presented Information of the corpus where
-                generated by the SaltInfoModule module, part of the saltNpepper project, please see
-                    <a href="http://korpling.german.hu-berlin.de/saltnpepper"
-                    >http://korpling.german.hu-berlin.de/saltnpepper</a>
-                <br/> generated on <xsl:call-template name="RootElement"/>
+            <div>the here presented Information of the corpus where generated by the SaltInfoModule
+                module, part of the saltNpepper project, please see <a
+                    href="http://korpling.german.hu-berlin.de/saltnpepper"
+                    >http://korpling.german.hu-berlin.de/saltnpepper</a> generated on
+                    <xsl:call-template name="RootElement"/>
                 <div align="{$impressumAlign}"><a
                         href="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/impressum.html"
                         >Impressum</a></div>
             </div>
-        </td>
+        </div>
     </xsl:template>
 
     <!-- matches on the root-Element and prints the "generatedOn"-date and time -->
@@ -139,59 +109,131 @@
     <!-- contains javascript-information and computes array-elements -->
     <xsl:template name="JavaScriptElem">
         <!-- <script type="text/javascript" src="{$secJsSrc}"/> -->
-       <!--  <script type="text/javascript" src="{$jQuerySrc}"/> -->
+        <script type="text/javascript" src="{$jQuerySrc}"/>
         <script type="text/javascript" src="{$treejs}"/>
+        <script type="text/javascript" src="{$saltinfojs}"/>
+    </xsl:template>
 
-        <script type="text/javascript">
-                       { 
-                       var Tree = new Array;
-                        // nodeId | parentNodeId | nodeName | formId
-                        
-                        <!-- ids for maincorpora -->
-            <xsl:for-each select="//saltProjectInfo/sCorpusInfo">
-                Tree[<xsl:value-of select="position()-1"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="0"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
+    <xsl:template name="navigation">
+        <div id="navigation">
+            <ul class="saltproject-list">
+                <xsl:for-each select="//saltProjectInfo">
+                    <li class="saltproject-item">
+                        <xsl:element name="a">
+                            <!--TODO: SaltProjectInfo soltle auch ne ID haben -->
+                            <xsl:attribute name="href">#salt:rootCorpus"/> </xsl:attribute>
+                            <xsl:value-of select="@sName"/>
+                        </xsl:element>
+                    </li>
+                    <xsl:call-template name="navcorpusInfo"/>
+                </xsl:for-each>
+            </ul>
+        </div>
+    </xsl:template>
+
+    <!-- recursive template which generates tree list with sublists and anchor links to every
+    document and corpus-->
+    <xsl:template name="navcorpusInfo">
+        <ul class="subcorpus-list">
+            <xsl:for-each select="sCorpusInfo">
+                <li class="scorpus-item">
+                    <xsl:element name="a">
+                        <xsl:attribute name="href">#<xsl:value-of
+                                select="translate(@id,':,/,-,.','')"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="@sName"/>
+                    </xsl:element>
+                </li>
+                <xsl:call-template name="navcorpusInfo"/>
+            </xsl:for-each>
+            <xsl:for-each select="sDocumentInfo">
+                <li class="sdocument-item">
+                    <xsl:element name="a">
+                        <xsl:attribute name="href">#<xsl:value-of
+                                select="translate(@id,':,/,-,.','')"/></xsl:attribute>
+                        <xsl:value-of select="@sName"/>
+                    </xsl:element>
+                </li>
+            </xsl:for-each>
+        </ul>
+    </xsl:template>
+
+
+    <xsl:template name="sCorpusInfoTables">
+        <xsl:for-each select="//sCorpusInfo">
+            <div class="data-view" style="display:none;">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="translate(@id,':,/,-,.','')"/>
+                </xsl:attribute>
+                <h2>
+                    <xsl:value-of select="@sName"/>
+                </h2>
+                <xsl:call-template name="SubCorpusTable"/>
+            </div>
+        </xsl:for-each>
+    </xsl:template>
+    <xsl:template name="sDocumentInfoTables" >
+        <xsl:for-each select="//sDocumentInfo">
+            <div class="data-view" style="display:none;">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="translate(@id,':,/,-,.','')"/>
+                </xsl:attribute>
+                <h2>
+                    <xsl:value-of select="@sName"/>
+                </h2>
+                <div class="layer-overview">
+                    Layers:
+                    <xsl:for-each select="sLayerInfo">
+                        <a class="slayer-link">
+                            <xsl:attribute name="href">
+                                <xsl:text>#</xsl:text>
+                                <xsl:value-of select="translate(parent::node()/@id,':,/,-,.','')"/>
+                                <xsl:text>_layer_</xsl:text>
+                                <xsl:value-of select="@sName"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="@sName"/>
+                        </a>
                     </xsl:for-each>
-                        <!--
-                id's for subcorpora//-->
-                           <xsl:for-each select="//sCorpusInfo/sCorpusInfo">    
-                               Tree[<xsl:value-of select="position() + count(parent::node()) -1"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
-                     </xsl:for-each>
-                        <!--
-                id's for documents with subcorpora//-->
-            <xsl:for-each select="//sCorpusInfo/sCorpusInfo/sDocumentInfo">
-                Tree[<xsl:value-of select="position() + count(parent::node()[sCorpusInfo]) + count(../parent::node()[sCorpusInfo])"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
-                     </xsl:for-each>
-                        <!--
-                id's for documents without subcorpora//-->
-            <xsl:for-each select="//saltProjectInfo/sCorpusInfo/sDocumentInfo">
-                Tree[<xsl:value-of select="position() + count(parent::node()[sCorpusInfo])"/>] = "<xsl:value-of select="translate(@id,'/,-,.','')"/>|<xsl:value-of select="translate(parent::node()/@id,'/,-,.','')"/>|<xsl:value-of select="@sName"/>|<xsl:value-of select="translate(@id,'/,-,.','')"/>";
-            </xsl:for-each>}
-                </script>
-        <xsl:copy-of select="$TextFont"/>
+                </div>
+                <xsl:call-template name="sDocumentInfoTable"/>
+            </div>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- creates tables for each document -->
-    <xsl:template mode="DocumentTable" match="//sDocumentInfo">
+    <xsl:template name="sDocumentInfoTable">
         <xsl:param name="NO_LAYER" select="./sLayerInfo[@sName=NO_LAYER]/@sName"/>
-        <div style="display:none;">
-            <xsl:attribute name="id">
-                <xsl:value-of select="translate(@id,'/,-,.','')"/>
-            </xsl:attribute>
-            <xsl:apply-templates mode="MetaData" select="metaDataInfo">
-                <!-- <xsl:with-param name="metaDataInfo"
+        <xsl:apply-templates mode="MetaData" select="metaDataInfo">
+            <!-- <xsl:with-param name="metaDataInfo"
                     select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
-            </xsl:apply-templates>
+        </xsl:apply-templates>
 
-            <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
+        <table>
+            <thead>
                 <tr>
-                    <td colspan="{$tdcolspan}" style="{$tdstyle}">
+                    <th class="name">
                         <a class="tooltip">
                             <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                            <xsl:text>structural info</xsl:text>
+                            <xsl:copy-of select="$InfoImg"/>
+                            <xsl:call-template name="structTooltip"/>
+                        </a>
+                    </th>
+                    <th class="values">
+                        <div class="btn-minimize">...   </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr>
+                    <td>
+                        <a class="tooltip">
+                            <!-\- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -\->
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="structTooltip"/>
                         </a>
                     </td>
-                </tr>
+                </tr>-->
                 <xsl:call-template name="sName"/>
                 <xsl:apply-templates select="structuralInfo/entry[@key = 'SNode']" mode="SNodeEntry"/>
                 <xsl:apply-templates select="structuralInfo/entry[@key = 'SRelation']"
@@ -199,15 +241,39 @@
                 <xsl:apply-templates mode="Entry" select="structuralInfo/entry">
                     <xsl:sort select="@key"/>
                 </xsl:apply-templates>
-            </table>
-            <br/>
-            <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
-                <!-- <xsl:with-param name="totalSAnno"
+
+            </tbody>
+        </table>
+
+        <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
+            <!-- <xsl:with-param name="totalSAnno"
                     select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
-            </xsl:apply-templates>
-            <xsl:for-each select="sLayerInfo">
-                <xsl:sort select="@sName" order="ascending"/>
-                <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
+        </xsl:apply-templates>
+        <xsl:for-each select="sLayerInfo">
+            <xsl:sort select="@sName" order="ascending"/>
+            <div class="sdocument-slayer">
+                <h3>
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="translate(parent::node()/@id,':,/,-,.','')"/>
+                        <xsl:text>_layer_</xsl:text>
+                        <xsl:value-of select="@sName"/>
+                    </xsl:attribute>
+                    <xsl:value-of select="@sName"/>
+                </h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="name">
+                                <a class="tooltip">
+                                    <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                                    <xsl:copy-of select="$InfoImg"/>
+                                    <xsl:call-template name="structTooltip"/>
+                                </a>
+                            </th>
+                            <th class="values">Values</th>
+                        </tr>
+                    </thead>
                     <xsl:call-template name="ChildNodeControl">
                         <!-- <xsl:with-param name="NO_LAYER"
                             select="$MappingList2/elem[@maptype='NO_LAYER']"/> -->
@@ -215,8 +281,7 @@
                     <xsl:choose>
                         <xsl:when test="child::node()=structuralInfo">
                             <tr>
-                                <td colspan="{$tdColspanStructRows}" style="{$tdRowExtinctionStyle}"
-                                    align="{$tdAlignExtinction}">
+                                <td>
                                     <a class="tooltip">
                                         <b>
                                             <!-- <xsl:value-of
@@ -234,11 +299,10 @@
                                 <tr>
                                     <xsl:attribute name="class">
                                         <xsl:value-of select="translate(../../../@id,'/,-,.','_')"
-                                            /><xsl:value-of
-                                            select="translate(../../@sName,'/,-,.','_')"
-                                        />_struct</xsl:attribute>
-                                    <xsl:attribute name="style">display:none;</xsl:attribute>
-                                    <td width="{$tdwidth}" valign="{$tdValignWhenToggled}">
+                                        /><xsl:value-of select="translate(../../@sName,'/,-,.','_')"
+                                        />_struct dropdown</xsl:attribute>
+                                    
+                                    <td>
                                         <a class="tooltip">
                                             <b>
                                                 <xsl:value-of select="@key"/>
@@ -247,8 +311,7 @@
                                             <xsl:call-template name="Tooltip"/>
                                         </a>
                                     </td>
-                                    <td valign="{$tdValignWhenToggled}"
-                                        colspan="{$tdColspanStructRows}">
+                                    <td>
                                         <b>
                                             <xsl:value-of select="text()"/>
                                         </b>
@@ -260,8 +323,7 @@
                     <xsl:choose>
                         <xsl:when test="child::node()=sAnnotationInfo">
                             <tr>
-                                <td colspan="{$tdColspanStructRows}" style="{$tdRowExtinctionStyle}"
-                                    align="{$tdAlignExtinction}">
+                                <td>
                                     <a class="tooltip">
                                         <b>
                                             <!-- <xsl:value-of
@@ -276,96 +338,100 @@
                             </tr>
                             <xsl:for-each select="sAnnotationInfo">
                                 <xsl:sort select="@sName"/>
-
+                                
                                 <tr>
                                     <xsl:attribute name="class">
                                         <xsl:value-of select="translate(../../@id,'/,-,.','_')"
-                                            /><xsl:value-of
-                                            select="translate(../@sName,'/,-,.','_')"
-                                        />_anno</xsl:attribute>
-                                    <xsl:attribute name="style">display:none;</xsl:attribute>
-                                    <td width="{$tdwidth}" valign="{$tdValignWhenToggled}">
+                                        /><xsl:value-of select="translate(../@sName,'/,-,.','_')"
+                                        />_anno dropdown</xsl:attribute>
+                                    <td>
                                         <xsl:call-template name="NameAndOccurances"/>
+                                        <input class="btn-toogle-sannotation-dropdown" type="button"/>
                                     </td>
                                     <!-- if the number of arguments is greater than n, only the first n arguments are shown -->
-                                    <xsl:choose>
-                                        <xsl:when test="count(sValue) &gt; $maxSize">
-                                            <td valign="{$tdValignWhenToggled}"
-                                                style="{$tdStyleRightBorder}">
-                                                <xsl:call-template name="FirstOfMax"/>
-                                                <div style="display:none;">
-                                                  <xsl:attribute name="id"><xsl:value-of
+                                    <!--<xsl:choose>
+                                    <xsl:when test="count(sValue) &gt; $maxSize">
+                                        <td>
+                                            <xsl:call-template name="FirstOfMax"/>
+                                            <div>
+                                                <xsl:attribute name="id"><xsl:value-of
                                                   select="translate(../../@id,'/,-,.','_')"
                                                   /><xsl:value-of
                                                   select="translate(../@sName,'/,-,.','_')"
                                                   />_<xsl:value-of select="position()"/>
-                                                  </xsl:attribute>
-                                                  <xsl:call-template name="RestOfMax"/>
-                                                </div>
-                                            </td>
-                                            <xsl:call-template name="ToggleTd"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:call-template name="UnderMax"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
+                                                </xsl:attribute>
+                                                <xsl:call-template name="RestOfMax"/>
+                                            </div>
+                                        </td>
+                                        <xsl:call-template name="ToggleTd"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:call-template name="UnderMax"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>-->
+                                    <xsl:call-template name="UnderMax"/>
                                 </tr>
                             </xsl:for-each>
                         </xsl:when>
                     </xsl:choose>
                 </table>
-                <br/>
-            </xsl:for-each>
-        </div>
+            </div>
+        </xsl:for-each>
+
     </xsl:template>
 
     <!-- creates a table for each subcorpus -->
-    <xsl:template match="//sCorpusInfo/sCorpusInfo" mode="SubCorpusTable">
-        <div style="display:none;">
-            <xsl:attribute name="id">
-                <xsl:value-of select="translate(@id,'/,-,.','')"/>
-            </xsl:attribute>
+    <xsl:template name="SubCorpusTable">
+        <div class="sub-corpus table">
+            <!-- <xsl:attribute name="id">
+                <xsl:value-of select="translate(@id,':,/,-,.','')"/>
+            </xsl:attribute>-->
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
                 <!-- <xsl:with-param name="metaDataInfo"
                     select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
             </xsl:apply-templates>
-            <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
-                <tr>
-                    <td colspan="{$tdcolspan}" style="{$tdstyle}">
-                        <a class="tooltip">
-                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
-                            <xsl:copy-of select="$InfoImg"/>
-                            <xsl:call-template name="structTooltip"/>
-                        </a>
-                    </td>
-                </tr>
-                <xsl:call-template name="sName"/>
-                <tr>
-                    <td>
-                        <a class="tooltip">
-                            <b>
-                                <xsl:value-of select="$SDocument"/>
-                            </b>
-                            <xsl:copy-of select="$InfoImg"/>
-                            <xsl:call-template name="sDocumentTooltip"/>
-                        </a>
-                    </td>
-                    <td>
-                        <xsl:apply-templates select="sDocumentInfo" mode="Document"/>
-                    </td>
-                </tr>
-                <xsl:call-template name="structInfoCorpus"/>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="name">
+                            <a class="tooltip">
+                                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                                <xsl:copy-of select="$InfoImg"/>
+                                <xsl:call-template name="structTooltip"/>
+                            </a>
+                        </th>
+                        <th class="values">Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <xsl:call-template name="sName"/>
+                    <tr>
+                        <td>
+                            <a class="tooltip">
+                                <b>
+                                    <xsl:value-of select="$SDocument"/>
+                                </b>
+                                <xsl:copy-of select="$InfoImg"/>
+                                <xsl:call-template name="sDocumentTooltip"/>
+                            </a>
+                        </td>
+                        <td>
+                            <xsl:apply-templates select="sDocumentInfo" mode="Document"/>
+                        </td>
+                    </tr>
+                    <xsl:call-template name="structInfoCorpus"/>
+                </tbody>
             </table>
-            <br/>
-            <xsl:choose>
+
+            <!--   <xsl:choose>
                 <xsl:when test="$accumulation">
                     <xsl:call-template name="totalAnnoCorpus"/>
                 </xsl:when>
-            </xsl:choose>
+            </xsl:choose>-->
 
             <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
                 <!-- <xsl:with-param name="totalSAnno" select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
-            </xsl:apply-templates>-->
+            </xsl:apply-templates>
         </div>
     </xsl:template>
 
@@ -384,21 +450,21 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- creates a table for each maincorpus -->
+    <!--   <!-\- creates a table for each maincorpus -\->
     <xsl:template match="/saltProjectInfo/sCorpusInfo" mode="MainCorpusTable">
-        <div style="display:none;">
+        <div class="main-corpus table">
             <xsl:attribute name="id">
-                <xsl:value-of select="translate(@id,'/,-,.','')"/>
+                <xsl:value-of select="translate(@id,':,/,-,.','')"/>
             </xsl:attribute>
             <xsl:apply-templates mode="MetaData" select="metaDataInfo">
-                <!-- <xsl:with-param name="metaDataInfo"
-                    select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
+                <!-\- <xsl:with-param name="metaDataInfo"
+                    select="$MappingList2/elem[@maptype='metaDataInfo']"/> -\->
             </xsl:apply-templates>
-            <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
+            <table>
                 <tr>
-                    <td colspan="{$tdcolspan}" style="{$tdstyle}">
+                    <td>
                         <a class="tooltip">
-                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                            <!-\- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -\->
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="structTooltip"/>
                         </a>
@@ -423,31 +489,30 @@
                         </tr>
                     </xsl:when>
                 </xsl:choose>
-       <!--         <xsl:choose>
+       <!-\-         <xsl:choose>
                     <xsl:when test="count(child::node()=sCorpusInfo) &lt; 2">
                         <xsl:call-template name="structInfoCorpus"/>
                     </xsl:when>
                     <!-\- insert rule for maincorpus with more than one subcorpus -\->
-                </xsl:choose>-->
+                </xsl:choose>-\->
             </table>
-            <br/>
             <xsl:choose>
                 <xsl:when test="$accumulation">
-      <!--      <xsl:choose>
+      <!-\-      <xsl:choose>
                 <xsl:when test="count(child::node()=sCorpusInfo) &lt; 2">
                     <xsl:call-template name="totalAnnoCorpus"/>
                 </xsl:when>
-            </xsl:choose>-->
+            </xsl:choose>-\->
                 </xsl:when>
             </xsl:choose>
             <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
-                <!-- <xsl:with-param name="totalSAnno"
-                    select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
+                <!-\- <xsl:with-param name="totalSAnno"
+                    select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -\->
             </xsl:apply-templates>
         </div>
     </xsl:template>
 
-    <!--  sums up the subcorpora of a maincorpus  -->
+    <!-\-  sums up the subcorpora of a maincorpus  -\->
     <xsl:template match="sCorpusInfo" mode="Subcorpora">
         <b>
             <xsl:value-of select="@sName"/>
@@ -460,42 +525,47 @@
                 <xsl:text>, </xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>-->
 
     <!-- table for meta-data -->
     <xsl:template match="metaDataInfo" mode="MetaData">
-        <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
-            <tr>
-                <td colspan="{$tdcolspan}" style="{$tdstyle}">
-                    <a class="tooltip">
-                        <!-- <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
-                        <xsl:copy-of select="$InfoImg"/>
-                        <xsl:call-template name="metaTooltip"/>
-                    </a>
-                </td>
-            </tr>
+        <table>
+            <thead>
+                <tr>
+                    <th>Meta data
+                        <a class="tooltip">
+                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
+                            <xsl:copy-of select="$InfoImg"/>
+                            <xsl:call-template name="metaTooltip"/>
+                        </a>
+                    </th>
+                    <th>
+                        Data
+                    </th>
+                </tr>
+            </thead>
             <xsl:for-each select="entry">
                 <tr>
-                    <td width="{$tdwidth}">
-                        <b>
+                    <td>
+                        
                             <xsl:value-of select="@key"/>
-                        </b>
+                        
                     </td>
                     <td>
-                        <b>
+                        
                             <xsl:value-of select="text()"/>
-                        </b>
+                        
                     </td>
                 </tr>
             </xsl:for-each>
         </table>
-        <br/>
+
     </xsl:template>
 
 
     <!--  extra-td for the "click"-button in annotations  -->
     <xsl:template name="ToggleTd">
-        <td width="{$toggleTdWidth}" valign="{$toggleValign}" style="{$tdStyleLeftBorder}">
+        <td>
             <img
                 src="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/down_arrow_circle2.png"
                 align="right">
@@ -509,7 +579,7 @@
 
     <!-- totalAnnotation toggle-td -->
     <xsl:template name="ToggleTdTotal">
-        <td width="{$toggleTdWidth}" valign="{$toggleValign}" style="{$tdStyleLeftBorder}">
+        <td>
             <img
                 src="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/down_arrow_circle2.png"
                 align="right">
@@ -520,24 +590,24 @@
             </img>
         </td>
     </xsl:template>
-    
+
     <!-- totalAnnotation toggle-td -->
     <xsl:template name="ToggleTdTotal2">
-        <td width="{$toggleTdWidth}" valign="{$toggleValign}" style="{$tdStyleLeftBorder}">
+        <td>
             <img
                 src="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/down_arrow_circle2.png"
                 align="right">
                 <xsl:attribute name="onclick">toggle_visibility('<xsl:value-of
-                    select="translate(../@id,'/,-,.','_')"/><xsl:value-of
-                        select="translate(@sName,'/,-,.','_')"/>_<xsl:value-of
-                            select="position()"/>_total2');</xsl:attribute>
+                        select="translate(../@id,'/,-,.','_')"/><xsl:value-of
+                        select="translate(@sName,'/,-,.','_')"/>_<xsl:value-of select="position()"
+                    />_total2');</xsl:attribute>
             </img>
         </td>
     </xsl:template>
 
     <!-- structural toggle-td -->
     <xsl:template name="ToggleTd2">
-        <td width="{$toggleTdWidth}" valign="{$toggleValign}" style="{$RowtoggleStyle}">
+        <td>
             <img
                 src="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/down_arrow_circle.png"
                 align="right">
@@ -550,7 +620,7 @@
 
     <!-- annotation toggle-td -->
     <xsl:template name="ToggleTd3">
-        <td width="{$toggleTdWidth}" valign="{$toggleValign}" style="{$RowtoggleStyle}">
+        <td>
             <img
                 src="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/down_arrow_circle.png"
                 align="right">
@@ -564,7 +634,7 @@
     <!-- creates a table-row with SName and value plus infobox -->
     <xsl:template name="sName">
         <tr>
-            <td width="{$tdwidth}">
+            <td>
                 <a class="tooltip">
                     <b>
                         <xsl:value-of select="$SName"/>
@@ -624,22 +694,22 @@
     <xsl:template match="structuralInfo/entry" mode="Entry">
         <xsl:for-each select="self::node()[@key != 'SNode'][@key != 'SRelation']">
             <!--<xsl:for-each select="current()[@key != 'SRelation']">-->
-                <tr>
-                    <td>
-                        <a class="tooltip">
-                            <b>
-                                <xsl:value-of select="@key"/>
-                            </b>
-                            <xsl:copy-of select="$InfoImg"/>
-                            <xsl:call-template name="Tooltip"/>
-                        </a>
-                    </td>
-                    <td>
+            <tr>
+                <td>
+                    <a class="tooltip">
                         <b>
-                            <xsl:value-of select="text()"/>
+                            <xsl:value-of select="@key"/>
                         </b>
-                    </td>
-                </tr>
+                        <xsl:copy-of select="$InfoImg"/>
+                        <xsl:call-template name="Tooltip"/>
+                    </a>
+                </td>
+                <td>
+                    <b>
+                        <xsl:value-of select="text()"/>
+                    </b>
+                </td>
+            </tr>
             <!--</xsl:for-each>-->
         </xsl:for-each>
     </xsl:template>
@@ -649,29 +719,33 @@
     <!-- totalSAnnotation-tables -->
     <xsl:template mode="totalAnno" match="totalSAnnotationInfo">
         <xsl:param name="totalSAnno" select="name(current())"/>
-        <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
-            <tr>
-                <td colspan="{$tdcolspan}" style="{$tdstyle}">
-                    <a class="tooltip">
-                        <xsl:value-of select="$totalSAnno"/>
-                        <xsl:copy-of select="$InfoImg"/>
-                        <xsl:call-template name="totalAnnoTooltip"/>
-                    </a>
-                </td>
-            </tr>
-            <xsl:for-each select="sAnnotationInfo">
-                <xsl:sort select="@sName"/>
+        <table>
+            <thead>
                 <tr>
-                    <td width="{$tdwidth}" valign="{$tdValignWhenToggled}">
-                        <xsl:call-template name="NameAndOccurances"/>
-                    </td>
-                    <!-- if the number of arguments is greater than n, only the first n arguments are shown -->
-                    <xsl:choose>
+                    <th class="name">
+                        <a class="tooltip">
+                            <xsl:value-of select="$totalSAnno"/>
+                            <xsl:copy-of select="$InfoImg"/>
+                            <xsl:call-template name="totalAnnoTooltip"/>
+                        </a>
+                    </th>
+                    <th class="values">Values</th>
+                </tr>
+            </thead>
+            <tbody>
+                <xsl:for-each select="sAnnotationInfo">
+                    <xsl:sort select="@sName"/>
+                    <tr>
+                        <td>
+                            <xsl:call-template name="NameAndOccurances"/>
+                        </td>
+                        <!-- if the number of arguments is greater than n, only the first n arguments are shown -->
+                        <!--<xsl:choose>
                         <xsl:when test="count(sValue) &gt; $maxSize">
-                            <td valign="{$tdValignWhenToggled}" style="{$tdStyleRightBorder}">
+                            <td>
                                 <xsl:call-template name="FirstOfMax"/>
-                                <!-- div for collapsable input -->
-                                <div style="display:none;">
+                                <!-\- div for collapsable input -\->
+                                <div class="dropdown">
                                     <xsl:attribute name="id"><xsl:value-of
                                             select="translate(../../@id,'/,-,.','_')"/><xsl:value-of
                                             select="translate(../@sName,'/,-,.','_')"
@@ -685,11 +759,13 @@
                         <xsl:otherwise>
                             <xsl:call-template name="UnderMax"/>
                         </xsl:otherwise>
-                    </xsl:choose>
-                </tr>
-            </xsl:for-each>
+                    </xsl:choose>-->
+                        <xsl:call-template name="UnderMax"/>
+                    </tr>
+                </xsl:for-each>
+            </tbody>
         </table>
-        <br/>
+
     </xsl:template>
 
     <!-- shows first n values (n = changeable in style.xslt) -->
@@ -736,9 +812,10 @@
 
     <!-- is used, when number of values is lower than n -->
     <xsl:template name="UnderMax">
-        <td valign="{$tdValignWhenToggled}" colspan="{$tdColspanUnderMax}">
+        <td class="count-data">
+            <span class="svalue-data" >
             <xsl:for-each select="sValue">
-                <xsl:sort select="text()"/>
+              <!--  <xsl:sort select="text()"/>
                 <b>
                     <xsl:value-of select="text()"/>
                 </b>
@@ -752,21 +829,43 @@
                         <xsl:value-of select="@occurances"/>
                         <xsl:text>)</xsl:text>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>-->
+                
+                <span class="svalue" style="display: none;" >
+                        <span class="svalue-text">
+                            <xsl:value-of select="text()"/>
+                        </span>
+                        <span class="svalue-occurances">
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="@occurances"/>
+                            <xsl:text>
+
+                            </xsl:text>
+                        </span>
+                    </span>
+               
             </xsl:for-each>
+            </span>
         </td>
     </xsl:template>
 
     <!-- output of name and occurances, separated by ',' -->
     <xsl:template name="NameAndOccurances">
-        <xsl:choose>
-            <xsl:when test="position()!=last">
-                <b><xsl:value-of select="@sName"/></b><xsl:text> (</xsl:text><xsl:value-of
-                    select="sum(sValue/@occurances)"/>),</xsl:when>
+      <!--  <xsl:choose>
+            <xsl:when test="position()!=last">-->
+                <span class="sannotationinfo" >
+                    <span class="sannotationinfo-sname">
+                        <xsl:value-of select="@sName"/>
+                    </span>
+                    <span class="sannotationinfo-count"> 
+                        <xsl:value-of select="sum(sValue/@occurances)"/>
+                    </span>
+                </span>
+          <!--  </xsl:when>
             <xsl:otherwise><b><xsl:value-of select="@sName"
                     /></b><xsl:text> (</xsl:text><xsl:value-of select="sum(sValue/@occurances)"
                 />)</xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose>-->
     </xsl:template>
 
     <!-- creates only tables for annotated layer -->
@@ -775,7 +874,7 @@
         <xsl:choose>
             <xsl:when test="child::node()=sAnnotationInfo|structuralInfo">
                 <tr>
-                    <td colspan="{$tdcolspan}" style="{$tdstyle}">
+                    <td>
                         <xsl:choose>
                             <xsl:when test="@sName='NO_LAYER'">
                                 <a class="tooltip">
@@ -825,15 +924,15 @@
     </xsl:template>
 
     <!-- accumulation of totalSAnnotationInfo for subcorpora -->
-    <xsl:template name="totalAnnoCorpus">
+    <!--<xsl:template name="totalAnnoCorpus">
         <xsl:variable name="totalsNames"
             select="//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[count(.|key('totalAnnoName',@sName)[1])=1]"/>
         <xsl:variable name="totalValues" select="sValue[count(.|key('totalValue',.)[1])=1]"/>
-        <table border="{$tableborder}" cellspacing="{$cellspacing}" width="{$tablewidth}">
+        <table>
             <tr>
-                <td colspan="{$tdcolspan}" style="{$tdstyle}">
+                <td>
                     <a class="tooltip">
-                        <!-- <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
+                        <!-\- <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -\->
                         <xsl:copy-of select="$InfoImg"/>
                         <xsl:call-template name="totalAnnoTooltip"/>
                     </a>
@@ -850,7 +949,7 @@
                         />) </td>
                     <xsl:choose>
                         <xsl:when test="count(sValue) &gt; $maxSize">
-                            <td valign="{$tdValignWhenToggled}" style="{$tdStyleRightBorder}">
+                            <td>
                                 <xsl:for-each
                                     select="//sDocumentInfo/totalSAnnotationInfo/sAnnotationInfo[@sName = current()/@sName]//sValue[position() &lt; $maxSize+1]">
                                     <xsl:sort select="text()"/>
@@ -871,8 +970,8 @@
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:for-each>
-                                <!-- div for collapsable input -->
-                                <div style="display:none;">
+                                <!-\- div for collapsable input -\->
+                                <div class="dropdown">
                                     <xsl:attribute name="id"><xsl:value-of
                                             select="translate(../@id,'/,-,.','_')"/><xsl:value-of
                                             select="translate(@sName,'/,-,.','_')"
@@ -930,6 +1029,6 @@
                 </tr>
             </xsl:for-each>
         </table>
-    </xsl:template>
+    </xsl:template>-->
 
 </xsl:stylesheet>

@@ -76,7 +76,10 @@
     <xsl:variable name="InfoImgStyle">padding:5px;</xsl:variable>
     
     <!-- stylesheet-link -->
+    <xsl:variable name="jQuerySrc">js/jquery.js</xsl:variable>
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
+    <xsl:variable name="saltinfojs">js/saltinfo.js</xsl:variable>
+    
     <xsl:variable name="treecss">css/tree.css</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
     <!-- javascript-source -->
     <xsl:variable name="treejs">js/tree.js</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
