@@ -213,8 +213,7 @@
                 <tr>
                     <th class="name">
                         <a class="tooltip">
-                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
-                            <xsl:value-of select="$metaDataInfoMap"/>
+                             <xsl:value-of select="$structuralInfoMap"/> 
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="structTooltip"/>
                         </a>
@@ -266,7 +265,7 @@
                         <tr>
                             <th class="name">
                                 <a class="tooltip">
-                                    <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                                     <xsl:value-of select="$structuralInfoMap"/> 
                                     <xsl:copy-of select="$InfoImg"/>
                                     <xsl:call-template name="structTooltip"/>
                                 </a>
@@ -284,9 +283,9 @@
                                 <td>
                                     <a class="tooltip">
                                         <b>
-                                            <!-- <xsl:value-of
-                                                select="$MappingList2/elem[@maptype='structuralInfo']"
-                                            /> -->
+                                             <xsl:value-of
+                                                select="$structuralInfoMap"
+                                            /> 
                                         </b>
                                         <xsl:copy-of select="$InfoImg"/>
                                         <xsl:call-template name="structTooltip"/>
@@ -326,9 +325,9 @@
                                 <td>
                                     <a class="tooltip">
                                         <b>
-                                            <!-- <xsl:value-of
-                                                select="$MappingList2/elem[@maptype='sAnnotationInfo']"
-                                            /> -->
+                                             <xsl:value-of
+                                                select="$sAnnotationInfoMap"
+                                            /> 
                                         </b>
                                         <xsl:copy-of select="$InfoImg"/>
                                         <xsl:call-template name="AnnoTooltip"/>
@@ -395,7 +394,7 @@
                     <tr>
                         <th class="name">
                             <a class="tooltip">
-                                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                                 <xsl:value-of select="$structuralInfoMap"/> 
                                 <xsl:copy-of select="$InfoImg"/>
                                 <xsl:call-template name="structTooltip"/>
                             </a>
@@ -548,9 +547,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>Meta data
+                    <th><xsl:value-of select="$metaDataInfoMap"/>
                         <a class="tooltip">
-                            <!-- <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
+                             <xsl:value-of select="$metaDataInfoMap"/> 
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="metaTooltip"/>
                         </a>

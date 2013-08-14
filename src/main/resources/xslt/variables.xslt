@@ -77,6 +77,10 @@
         <elem maptype="NO_LAYER">objects having no layer</elem>
     </xsl:variable>-->
     <xsl:variable name="metaDataInfoMap">meta data</xsl:variable>
+    <xsl:variable name="structuralInfoMap">structural info</xsl:variable>
+    <xsl:variable name="sAnnotationInfoMap">annotations</xsl:variable>
+    <xsl:variable name="totalSAnnotationInfoMap">all annotations</xsl:variable>
+    <xsl:variable name="NO_LAYERMap">objects having no layer</xsl:variable>
     
     
     <!-- further variables -->
