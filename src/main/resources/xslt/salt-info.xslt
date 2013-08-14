@@ -245,8 +245,8 @@
         </table>
 
         <xsl:apply-templates mode="totalAnno" select="totalSAnnotationInfo">
-            <!-- <xsl:with-param name="totalSAnno"
-                    select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
+             <xsl:with-param name="totalSAnno"
+                    select="$totalSAnnotationInfoMap"/> 
         </xsl:apply-templates>
         <xsl:for-each select="sLayerInfo">
             <xsl:sort select="@sName" order="ascending"/>
@@ -264,10 +264,6 @@
                     <thead>
                         <tr>
                             <th class="name">
-                                <xsl:call-template name="ChildNodeControl">
-                                    <xsl:with-param name="NO_LAYER"
-                                        select="$NO_LAYERMap"/> 
-                                </xsl:call-template>
                                 <!--<a class="tooltip">
                                      <xsl:value-of select="$structuralInfoMap"/> 
                                     <xsl:copy-of select="$InfoImg"/>
