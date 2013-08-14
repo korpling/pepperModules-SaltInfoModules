@@ -173,6 +173,11 @@ body {
 	width: 33%;
 	float: left;
 }
+.sdocument{
+	width: 100%;
+	float: left;
+	font-weight: bold;
+}
 .svalue-text{
 	font-weight: bold;
 }

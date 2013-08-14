@@ -416,7 +416,10 @@
                             </a>
                         </td>
                         <td>
-                            <xsl:apply-templates select="sDocumentInfo" mode="Document"/>
+                           <!-- <xsl:for-each select="sDocumentInfo">
+                                <xsl:apply-templates select="sDocumentInfo" mode="Document"/>
+                            </xsl:for-each>-->
+                            <xsl:call-template name="sDocumentList"/>
                         </td>
                     </tr>
                     <xsl:call-template name="structInfoCorpus"/>
@@ -435,6 +438,19 @@
         </div>
     </xsl:template>
 
+    <xsl:template name="sDocumentList">
+        <span class="sdocumentlist-data">
+            <xsl:for-each select="sDocumentInfo">
+                <span class="sdocument">
+                    <xsl:value-of select="@sName"/>
+                </span>
+            </xsl:for-each>
+            <xsl:for-each select="sCorpusInfo">
+                <xsl:call-template name="sDocumentList"/>
+            </xsl:for-each>
+        </span>
+        
+    </xsl:template>
     <!-- sums up the documents of a subcorpus -->
     <xsl:template match="sDocumentInfo" mode="Document">
         <b>
