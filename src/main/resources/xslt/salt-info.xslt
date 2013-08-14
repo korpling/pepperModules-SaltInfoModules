@@ -257,7 +257,8 @@
                         <xsl:text>_layer_</xsl:text>
                         <xsl:value-of select="@sName"/>
                     </xsl:attribute>
-                    <xsl:value-of select="@sName"/>
+                    <xsl:call-template name="ChildNodeControl"><xsl:with-param name="NO_LAYER"
+                        select="$NO_LAYERMap"/></xsl:call-template>
                 </h3>
                 
                 <table>
@@ -275,10 +276,10 @@
                             </th>
                         </tr>
                     </thead>
-                    <xsl:call-template name="ChildNodeControl">
+                    <!--<xsl:call-template name="ChildNodeControl">
                          <xsl:with-param name="NO_LAYER"
                             select="$NO_LAYERMap"/> 
-                    </xsl:call-template>
+                    </xsl:call-template>-->
                     <xsl:choose>
                         <xsl:when test="child::node()=structuralInfo">
                             <tr>
