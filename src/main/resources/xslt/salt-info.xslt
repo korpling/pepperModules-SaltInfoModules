@@ -264,18 +264,20 @@
                     <thead>
                         <tr>
                             <th class="name">
-                                <a class="tooltip">
+                                <!--<a class="tooltip">
                                      <xsl:value-of select="$structuralInfoMap"/> 
                                     <xsl:copy-of select="$InfoImg"/>
                                     <xsl:call-template name="structTooltip"/>
-                                </a>
+                                </a>-->
                             </th>
-                            <th class="values">Values</th>
+                            <th class="values">
+                                <!-- TODO: button to toggle rows-->
+                            </th>
                         </tr>
                     </thead>
                     <xsl:call-template name="ChildNodeControl">
-                        <!-- <xsl:with-param name="NO_LAYER"
-                            select="$MappingList2/elem[@maptype='NO_LAYER']"/> -->
+                         <xsl:with-param name="NO_LAYER"
+                            select="$NO_LAYERMap"/> 
                     </xsl:call-template>
                     <xsl:choose>
                         <xsl:when test="child::node()=structuralInfo">
@@ -399,7 +401,9 @@
                                 <xsl:call-template name="structTooltip"/>
                             </a>
                         </th>
+                        <th>
 <!--                     TODO:   <th class="values">Values</th>-->
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -547,8 +551,9 @@
         <table>
             <thead>
                 <tr>
-                    <th><xsl:value-of select="$metaDataInfoMap"/>
+                    <th>
                         <a class="tooltip">
+                            <xsl:value-of select="$metaDataInfoMap"/>
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="metaTooltip"/>
                         </a>
@@ -742,7 +747,9 @@
                             <xsl:call-template name="totalAnnoTooltip"/>
                         </a>
                     </th>
+                    <th>
 <!--        TODO:   <th class="values">Values</th> -->
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -891,7 +898,7 @@
                         <xsl:choose>
                             <xsl:when test="@sName='NO_LAYER'">
                                 <a class="tooltip">
-                                    <xsl:value-of select="$NO_LAYER"/>
+                                    <xsl:value-of select="$NO_LAYERMap"/>
                                     <xsl:copy-of select="$InfoImg"/>
                                     <xsl:call-template name="layerTooltip"/>
                                 </a>
