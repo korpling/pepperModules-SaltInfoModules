@@ -214,6 +214,7 @@
                     <th class="name">
                         <a class="tooltip">
                             <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                            <xsl:value-of select="$metaDataInfoMap"/>
                             <xsl:text>structural info</xsl:text>
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="structTooltip"/>
