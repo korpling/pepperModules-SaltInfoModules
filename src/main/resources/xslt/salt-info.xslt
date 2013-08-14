@@ -399,7 +399,7 @@
                                 <xsl:call-template name="structTooltip"/>
                             </a>
                         </th>
-                        <th class="values">Values</th>
+<!--                     TODO:   <th class="values">Values</th>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -554,7 +554,7 @@
                         </a>
                     </th>
                     <th>
-                        Data
+                        <!--TODO: button to toggle rows-->
                     </th>
                 </tr>
             </thead>
@@ -732,18 +732,17 @@
 
     <!-- totalSAnnotation-tables -->
     <xsl:template mode="totalAnno" match="totalSAnnotationInfo">
-        <xsl:param name="totalSAnno" select="name(current())"/>
         <table>
             <thead>
                 <tr>
                     <th class="name">
                         <a class="tooltip">
-                            <xsl:value-of select="$totalSAnno"/>
+                            <xsl:value-of select="$totalSAnnotationInfoMap"/>
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="totalAnnoTooltip"/>
                         </a>
                     </th>
-                    <th class="values">Values</th>
+<!--        TODO:   <th class="values">Values</th> -->
                 </tr>
             </thead>
             <tbody>

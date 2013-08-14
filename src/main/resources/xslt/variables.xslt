@@ -189,7 +189,7 @@
             <xsl:choose>
                 <xsl:when test="@sName='NO_LAYER'">
                     <b>
-                        <!-- <xsl:value-of select="$MappingList2/elem[@maptype='NO_LAYER']"/> -->
+                         <xsl:value-of select="$NO_LAYERMap"/> 
                     </b>
                 </xsl:when>
                 <xsl:otherwise>
@@ -216,7 +216,7 @@
    <xsl:template name="structTooltip">
        <span>
            <b>
-               <!-- <xsl:value-of select="$MappingList2/elem[@maptype='structuralInfo']"/> -->
+                <xsl:value-of select="$structuralInfoMap"/> 
            </b>
            This section displays information about the structure of the corpus. For instance you can see the amount of tokens and primary texts. Since in Salt everything is a graph, you can see here all nodes and relations of your corpus.
        </span>
@@ -226,7 +226,7 @@
     <xsl:template name="totalAnnoTooltip">
         <span>
             <b>
-                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/> -->
+                 <xsl:value-of select="$totalSAnnotationInfoMap"/> 
             </b>
             This section displays the overall utterance of an annotation. For instance if 5 nodes are annotated with a POS annotation, the number of POS annotations in this section is 5. Even if 3 of them belongs to a morphology layer and 2 of them to a syntactical layer. Please note, that a node annotated like this can also belong to two several layers (e.g. to a morphology and syntax layer as well).
         </span>
@@ -235,7 +235,7 @@
     <xsl:template name="AnnoTooltip">
         <span>
             <b>
-                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='sAnnotationInfo']"/> -->
+                 <xsl:value-of select="$sAnnotationInfoMap"/> 
             </b>
             This section displays all annotations being contained in this layer. Please note, that these annotations can belong to nodes or edges of different subtypes.
         </span>
