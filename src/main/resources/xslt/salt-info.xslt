@@ -549,7 +549,6 @@
                 <tr>
                     <th><xsl:value-of select="$metaDataInfoMap"/>
                         <a class="tooltip">
-                             <xsl:value-of select="$metaDataInfoMap"/> 
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="metaTooltip"/>
                         </a>

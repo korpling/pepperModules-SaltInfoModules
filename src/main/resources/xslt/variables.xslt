@@ -206,7 +206,7 @@
     <xsl:template name="metaTooltip">
         <span>
             <b>
-                <!-- <xsl:value-of select="$MappingList2/elem[@maptype='metaDataInfo']"/> -->
+                 <xsl:value-of select="$metaDataInfoMap"/> 
             </b>
             This section displays all the metadata of the corpus for instance the annotator's name, the author of the primary text etc. The content of this representation depends of which data are annotated in the corpus.
         </span>
