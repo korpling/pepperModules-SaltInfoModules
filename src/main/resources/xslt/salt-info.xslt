@@ -264,6 +264,10 @@
                     <thead>
                         <tr>
                             <th class="name">
+                                <xsl:call-template name="ChildNodeControl">
+                                    <xsl:with-param name="NO_LAYER"
+                                        select="$NO_LAYERMap"/> 
+                                </xsl:call-template>
                                 <!--<a class="tooltip">
                                      <xsl:value-of select="$structuralInfoMap"/> 
                                     <xsl:copy-of select="$InfoImg"/>
