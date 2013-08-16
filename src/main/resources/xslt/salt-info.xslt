@@ -276,10 +276,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <!--<xsl:call-template name="ChildNodeControl">
-                         <xsl:with-param name="NO_LAYER"
-                            select="$NO_LAYERMap"/> 
-                    </xsl:call-template>-->
+                    
                     <xsl:choose>
                         <xsl:when test="child::node()=structuralInfo">
                             <tr>
