@@ -16,7 +16,7 @@
     <xsl:variable name="headerValign">middle</xsl:variable>
     <xsl:variable name="logoSrc"
         >https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/SaltNPepper_logo2010.svg</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
-    <xsl:variable name="logoAlternative"/>
+    <xsl:variable name="logoAlternative">https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/SaltNPepper_logo2010_large.png</xsl:variable>
     <xsl:variable name="logoStyle">height:60px</xsl:variable>
     <!-- style for second header-td -->
     <xsl:variable name="header2height">1%</xsl:variable>

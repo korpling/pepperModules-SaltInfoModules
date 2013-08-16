@@ -120,7 +120,7 @@
                 <xsl:for-each select="//saltProjectInfo">
                     <li class="saltproject-item">
                         <xsl:element name="a">
-                            <!--TODO: SaltProjectInfo soltle auch ne ID haben -->
+                            <!--TODO: SaltProjectInfo sollte auch ne ID haben -->
                             <xsl:attribute name="href">#salt:rootCorpus"/> </xsl:attribute>
                             <xsl:value-of select="@sName"/>
                         </xsl:element>
