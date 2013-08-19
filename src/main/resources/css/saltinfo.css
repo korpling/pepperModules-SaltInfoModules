@@ -1,7 +1,7 @@
 html, body {
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 body {
@@ -57,7 +57,7 @@ body {
 	float: left;
 	/*height: 100%;*/
 	/* Rectangle 1: */
-	
+
 	/*border: 1px solid #979797;*/
 	/* Border makes the navigation thicker*/
 	/*margin-left: -2px;*/
@@ -90,17 +90,14 @@ body {
 	background-image: linear-gradient(180deg, #D8D8D8 0%, #C8C8C8 100%);
 	padding-left: 0.5em;
 }
-#navigation .scorpus-item:before { 
+#navigation .scorpus-item:before {
 	font-size: 0.8em;
 	content: "▼";
 	color: #888A85;
 	padding-right: 0.5em;
 }
-#navigation .scorpus-item.minimized:before { 
-	font-size: 0.8em;
+#navigation .scorpus-item.minimized:before {
 	content: "►";
-	color: #888A85;
-	padding-right: 0.5em;
 }
 
 
@@ -138,7 +135,7 @@ body {
 #content h2,h3{
 	/*padding: 0.8em;*/
 	/*line-height: 0.8em;*/
-	margin: 0em 0em 0.5em 0;	
+	margin: 0em 0em 0.5em 0;
 }
 
 #content h3{
@@ -202,7 +199,7 @@ body {
 
 table{
     border-collapse: collapse; /* IE7 and lower */
-    border-spacing: 0; 
+    border-spacing: 0;
 	text-align: left;
 	vertical-align: top;
 	border: 1px solid #2D60A6;
@@ -234,7 +231,7 @@ th:only-child{
 	width: 100%;
 	margin-bottom: 10px;
 	background-color: #FFFFFF;
-	
+
 }
 
 #content table th{
