@@ -549,21 +549,19 @@
         <table>
             <thead>
                 <tr>
-                    <th>
+                    <th class="name">
                         <a class="tooltip">
                             <xsl:value-of select="$metaDataInfoMap"/>
                             <xsl:copy-of select="$InfoImg"/>
                             <xsl:call-template name="metaTooltip"/>
                         </a>
                     </th>
-                    <th>
+                    <th class="value">
                         <!--TODO: button to toggle rows-->
                     </th>
                 </tr>
             </thead>
             <tbody>
-               
-            
             <xsl:for-each select="entry">
                 <tr>
                     <td>
