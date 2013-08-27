@@ -565,14 +565,14 @@
             <xsl:for-each select="entry">
                 <tr>
                     <td>
-                        
+                        <b>
                             <xsl:value-of select="@key"/>
-                        
+                        </b>
                     </td>
                     <td>
-                        
+                        <b>
                             <xsl:value-of select="text()"/>
-                        
+                        </b>
                     </td>
                 </tr>
             </xsl:for-each>
