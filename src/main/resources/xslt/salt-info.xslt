@@ -561,6 +561,9 @@
                     </th>
                 </tr>
             </thead>
+            <tbody>
+               
+            
             <xsl:for-each select="entry">
                 <tr>
                     <td>
@@ -575,6 +578,7 @@
                     </td>
                 </tr>
             </xsl:for-each>
+            </tbody>
         </table>
 
     </xsl:template>
