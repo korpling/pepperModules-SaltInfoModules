@@ -76,16 +76,19 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	URI outputPath;
 
 	public InfoModuleExporter() {
-		super();
-		// TODO /2/: change the name of the module, for example use the format
-		// name and the ending Exporter (FORMATExporter)
-		this.name = "InfoModuleExporter";
-		// TODO /4/:change "sample" with format name and 1.0 with format version
-		// to support
-		this.addSupportedFormat("info", "0.1",
-				URI.createURI("http://change.me"));
-		this.setProperties(new InfoModuleProperties());
+			super();
+		{
+			// TODO /2/: change the name of the module, for example use the format
+			// name and the ending Exporter (FORMATExporter)
+			this.name = "InfoModuleExporter";
+			// TODO /4/:change "sample" with format name and 1.0 with format version
+			// to support
+//			this.getSupportedFormats().add(`g)
+			this.addSupportedFormat("info", "0.1",
+					URI.createURI("http://change.me"));
+			this.setProperties(new InfoModuleProperties());
 
+		 }
 	}
 	
 	@Override
