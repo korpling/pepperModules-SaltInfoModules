@@ -99,6 +99,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 							  "/css/tree.css",
 							  "/js/tree.js",
 							  "/js/saltinfo.js",
+							  "/js/jquery.js",
 							  "/img/information.png",
 							  "/img/SaltNPepper_logo2010.svg"};
 		for (String resName : resources) {
