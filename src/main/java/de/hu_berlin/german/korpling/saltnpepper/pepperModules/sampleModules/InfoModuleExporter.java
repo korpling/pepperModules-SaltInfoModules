@@ -17,34 +17,24 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.CharBuffer;
+
+import javax.print.attribute.standard.MediaSize.Other;
 
 import org.eclipse.emf.common.util.URI;
-import org.omg.CORBA.INITIALIZE;
 import org.osgi.service.component.annotations.Component;
 
-import com.google.common.io.Files;
-
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleNotReadyException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperExporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SIdentifiableElement;
 
@@ -75,6 +65,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	
 	URI outputPath;
 
+	private int documentCount = 0;
+	
 	public InfoModuleExporter() {
 			super();
 		{
@@ -133,10 +125,11 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	@Override
 	public PepperMapper createPepperMapper(SElementId sElementId) {
 		outputPath = getCorpusDefinition().getCorpusPath();
+		++documentCount;
 		if(!outputPath.hasTrailingPathSeparator()){
 			outputPath = outputPath.appendSegment(URI.encodeSegment("", false));
 		}
-		PepperMapper mapper = new Salt2InfoMapper();
+		PepperMapper mapper = new Salt2InfoMapper(this);
 		((Salt2InfoMapper)mapper).setOutputPath(outputPath);
 		mapper.setProperties(this.getProperties());
 		
@@ -165,6 +158,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			}
 			mapper.setResourceURI(out);
 		} else if (elem instanceof SCorpus) {
+			// html export is 1 step
+			++documentCount;
 			final SCorpus scorpus = (SCorpus) elem;
 			URI out = getDocumentLocationURI(scorpus, outputPath);
 			getSElementId2ResourceTable().put(sElementId, out);
@@ -187,6 +182,11 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		URI infoFileLocation =  URI.createFileURI("." + sdoc.getSElementPath().path()).appendFileExtension("xml");
 		URI partial = infoFileLocation.resolve(root);
 		return partial;
+	}
+
+	public double getDocumentCount() {
+		// TODO Auto-generated method stub
+		return documentCount;
 	}
 
 }

@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.URL;
 
 import javax.xml.transform.Source;
-import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -20,12 +19,29 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.Pepper
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
+/**
+ * A PepperMapper that generates SaltInfo-XML, as defined in saltProjectInfo.xsd,
+ * for every SDocument and SCorpus.
+ * 
+ * The XML files for every corpus can be transformed to HTML.
+ * 
+ * @author jschmolling
+ *
+ */
 public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 
 	private URI outputPath;
-	
+	final private InfoModuleExporter exporter;
 	static private Transformer cachedXSLT = null;
 	
+	public Salt2InfoMapper(InfoModuleExporter infoModuleExporter) {
+		this.exporter = infoModuleExporter;
+	}
+	/**
+	 * Returns a Transformer definded by the salt-info.xslt
+	 * 
+	 * @return XML Transformer that transform SaltInfo XML to HTML
+	 */
 	private Transformer getCachedTemplate() {
 		Transformer t = null;
 		try{
@@ -33,10 +49,8 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 				URL res = this.getClass().getResource(("/xslt/salt-info.xslt"));
 				Source xsltSource = new StreamSource(res.openStream(), res.toString());
 				TransformerFactory transFac = TransformerFactory.newInstance();
-//				cachedXSLT = transFac.newTemplates(xsltSource);
 				cachedXSLT = transFac.newTransformer(xsltSource);
 			}
-//			t = cachedXSLT.newTransformer();
 		}catch (Exception e){
 			throw new PepperModuleException("Can't create xslt cache", e);
 		}
@@ -58,17 +72,19 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 //	private ResourceSet resourceSet = null;
 
 
-
+	/**
+	 * Creates the SaltInfo-XML for the mapped SDocument
+	 */
 	@Override
 	public MAPPING_RESULT mapSDocument() {
-		System.out.println("Salt2InfoMapper SDocument " + getSDocument());
+//		System.out.println("Salt2InfoMapper SDocument " + getSDocument());
 		SDocument sdoc = getSDocument();
-		System.out.println(":: Location: " + getResourceURI());
-		System.out.println(":: SDocGraph: Annotations"
-				+ sdoc.getSDocumentGraph().getSAnnotations().size());
-		System.out.println("Paths:");
-		System.out.println(getResourceURI());
-		System.out.println(getSDocument().getSElementId().getSElementPath());
+//		System.out.println(":: Location: " + getResourceURI());
+//		System.out.println(":: SDocGraph: Annotations"
+//				+ sdoc.getSDocumentGraph().getSAnnotations().size());
+//		System.out.println("Paths:");
+//		System.out.println(getResourceURI());
+//		System.out.println(getSDocument().getSElementId().getSElementPath());
 
 		try {
 			sdoc.printInfo(getResourceURI());
@@ -77,10 +93,13 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 					+ getSDocument().getSId() + "', nested exception is: ", e);
 		}
 
-		addProgress(1.0);
+		addProgress(1.0 / exporter.getDocumentCount());
 		return MAPPING_RESULT.FINISHED;
 	}
 
+	/**
+	 * Creates the SaltInfo-XML for the mapped corpus
+	 */
 	@Override
 	public MAPPING_RESULT mapSCorpus() {
 		SCorpus scorpus = getSCorpus();
@@ -91,7 +110,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			throw new PepperModuleException("Cannot export document '"
 					+ getSDocument().getSId() + "', nested exception is: ", e);
 		}
-		addProgress(1.0);
+		addProgress(1.0 / exporter.getDocumentCount());
 		
 //		if ((Boolean) this.getProperties()
 //				.getProperty(InfoModuleProperties.HTML_OUTPUT).getValue()) {
@@ -112,6 +131,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 				throw new PepperModuleException("Can't generate HTML output", e);
 			}
 		}
+		addProgress(1.0 / exporter.getDocumentCount());
 		return MAPPING_RESULT.FINISHED;
 	}
 }
