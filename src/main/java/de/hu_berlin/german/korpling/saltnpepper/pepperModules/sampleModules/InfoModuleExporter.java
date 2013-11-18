@@ -75,9 +75,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			this.name = "InfoModuleExporter";
 			// TODO /4/:change "sample" with format name and 1.0 with format version
 			// to support
-//			this.getSupportedFormats().add(`g)
-			this.addSupportedFormat("info", "0.1",
-					URI.createURI("http://change.me"));
+			this.addSupportedFormat("xml", "1.0",
+					URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
 			this.setProperties(new InfoModuleProperties());
 
 		 }
@@ -88,8 +87,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		super.end();
 //		URL saltinfocss = this.getClass().getResource(("/xslt/salt-info.xslt"));
 		String[] resources = {"/css/saltinfo.css",
-							  "/css/tree.css",
-							  "/js/tree.js",
 							  "/js/saltinfo.js",
 							  "/js/jquery.js",
 							  "/img/information.png",
@@ -187,6 +184,17 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	public double getDocumentCount() {
 		// TODO Auto-generated method stub
 		return documentCount;
+	}
+	
+	/*
+	 * TODO: Change path for temporaries
+	 * (non-Javadoc)
+	 * @see de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperModuleImpl#setTemproraries(org.eclipse.emf.common.util.URI)
+	 */
+	@Override
+	public void setTemproraries(URI newTemproraries) {
+		// TODO Auto-generated method stub
+		super.setTemproraries(newTemproraries);
 	}
 
 }

@@ -35,9 +35,9 @@
   <parent>
     <groupId>de.hu_berlin.german.korpling.saltnpepper</groupId>
     <artifactId>pepper-parentModule</artifactId>
-    <version>1.1.6-SNAPSHOT</version>
+    <version>1.1.7-SNAPSHOT</version>
   </parent>
-  <description>This project provides three sample modules for Pepper. It provides an importer, an exporter and a manipulator. The project can be used as a container for creating new PepperModules. One just have to override the areas marked with TODO.</description>
+  <description>This project provides a exporter module to render information on the Salt model that is used in  a given corpus. </description>
   <!-- TODO /4/ change the project homepage to the url of your project. -->
   <url>https://korpling.german.hu-berlin.de/p/projects/peppermodules-samplemodules</url>
   <!-- TODO /5/ change the issue tracker to the one you are using, in case of you do not use any one, remove this entry. -->
@@ -51,7 +51,7 @@
   	<url>https://korpling.german.hu-berlin.de/jenkins/</url>
   </ciManagement>
   <!-- TODO /7/ change the inception year to the current year. -->
-  <inceptionYear>2010</inceptionYear>
+  <inceptionYear>2013</inceptionYear>
    <!-- TODO /8/ change the name of the organization to the one you are working for.-->
   <organization>
   	<name>Humboldt Univerity of Berlin, INRIA</name>
@@ -69,6 +69,7 @@
     	<artifactId>salt-saltCommon</artifactId>
     	<version>1.1.8-SNAPSHOT</version>
     	<type>bundle</type>
+    	<scope>test</scope>
     </dependency>
   </dependencies>
   <build>
