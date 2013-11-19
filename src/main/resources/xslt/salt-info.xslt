@@ -231,7 +231,7 @@
                 </tr>
             </thead>
             <tbody>
-                <xsl:call-template name="sName" select="parent::node()"/>
+                <xsl:apply-templates mode="sName" select="parent::node()"/>
                 <xsl:apply-templates mode="SNodeEntry" select="entry[@key = 'SNode']"/>
                 <xsl:apply-templates mode="SRelationEntry" select="entry[@key = 'SRelation']"/>
                     <xsl:apply-templates mode="Entry" select="entry">
@@ -459,6 +459,24 @@
     </xsl:template>
     <!-- creates a table-row with SName and value plus infobox -->
     <xsl:template name="sName">
+        <tr>
+            <td>
+                <a class="tooltip">
+                    <b>
+                        <xsl:value-of select="$SName"/>
+                    </b>
+                    <xsl:copy-of select="$InfoImg"/>
+                    <xsl:call-template name="sNameTooltip"/>
+                </a>
+            </td>
+            <td>
+                <b>
+                    <xsl:value-of select="@sName"/>
+                </b>
+            </td>
+        </tr>
+    </xsl:template>
+    <xsl:template mode="sName" match="sDocumentInfo|sLayerInfo">
         <tr>
             <td>
                 <a class="tooltip">
