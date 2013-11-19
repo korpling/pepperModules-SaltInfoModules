@@ -1,4 +1,4 @@
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import java.io.File;
 import java.net.URL;

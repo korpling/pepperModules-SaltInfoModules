@@ -8,7 +8,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.CorpusDefin
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.FormatDefinition;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperModulesFactory;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testSuite.moduleTests.PepperExporterTest;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules.InfoModuleExporter;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.InfoModuleExporter;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltCommonFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
 

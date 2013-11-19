@@ -35,7 +35,7 @@
   <parent>
     <groupId>de.hu_berlin.german.korpling.saltnpepper</groupId>
     <artifactId>pepper-parentModule</artifactId>
-    <version>1.1.7-SNAPSHOT</version>
+    <version>1.1.8-SNAPSHOT</version>
   </parent>
   <description>This project provides a exporter module to render information on the Salt model that is used in  a given corpus. </description>
   <!-- TODO /4/ change the project homepage to the url of your project. -->

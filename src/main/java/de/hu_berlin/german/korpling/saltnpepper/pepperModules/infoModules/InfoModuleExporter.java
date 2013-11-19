@@ -15,15 +15,13 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-
-import javax.print.attribute.standard.MediaSize.Other;
 
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
