@@ -1,4 +1,3 @@
-$(document).ready(function(){
 /**************************************************************************
   Copyright (c) 2001-2003 Geir Landrö (drop@destroydrop.com)
   JavaScript Tree - www.destroydrop.com/hjavascripts/tree/
@@ -10,6 +9,7 @@ $(document).ready(function(){
 This script was adopted by the SaltNPepper team see
 http://korpling.german.hu-berlin.de/saltnpepper
 **************************************************************************/
+$(document).ready(function(){
 VISIBLE_ITEMS = 5;
 var infodiv = document.createElement('DIV');
 infodiv.id = 'info';
@@ -109,7 +109,7 @@ hideTip = function (){
    };
    buttons = $('.btn-toogle-sannotation-dropdown');
    for (var i = buttons.length - 1; i >= 0; i--) {
-      dataitems = buttons[i].parentElement.nextSibling.nextSibling.childNodes[0].childNodes;
+      dataitems = buttons[i].parentElement.nextSibling.getElementsByClassName('svalue');
       if (dataitems.length <= VISIBLE_ITEMS) {
         buttons[i].style.display = 'none';
       }else{
@@ -117,13 +117,19 @@ hideTip = function (){
       }
    }
    buttons.click(function(){
-        dataitems = this.parentElement.nextSibling.nextSibling.childNodes[0].childNodes;
+        dataitems = this.parentElement.nextSibling.getElementsByClassName('svalue');
         state = toggleVisibilty(dataitems);
         if (state == 'none') {
           this.value = 'Show more';
         }else{
           this.value = 'Show less';
         }
+   });
+
+   // info button switch
+   infoimgs = $('.infoimg');
+   infoimgs.click(function(){
+    $(this.nextSibling).toggle();
    });
 
    // Show the first 5

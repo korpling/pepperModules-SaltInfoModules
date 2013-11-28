@@ -18,13 +18,19 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Properties;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.log.LogService;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExporter;
@@ -65,20 +71,48 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 
 	private int documentCount = 0;
 	
+	Logger log = LogManager.getLogger(InfoModuleExporter.class);
+	
 	public InfoModuleExporter() {
 			super();
 		{
 			// TODO /2/: change the name of the module, for example use the format
 			// name and the ending Exporter (FORMATExporter)
 			this.name = "InfoModuleExporter";
-			// TODO /4/:change "sample" with format name and 1.0 with format version
-			// to support
 			this.addSupportedFormat("xml", "1.0",
 					URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
 			this.setProperties(new InfoModuleProperties());
 
 		 }
 	}
+	
+	/**
+	 * 
+	 * TODO: load Options
+	 */
+	private Properties loadOptions(final String path){
+		Properties options = new Properties();
+		if (this.getSpecialParams()!= null)
+		{//init options
+			File optionsFile= new File(path);
+			if (!optionsFile.exists())
+				this.getLogService().log(LogService.LOG_WARNING, "Cannot load special param file at location '"+optionsFile.getAbsolutePath()+"', because it does not exist.");
+			else
+			{
+//				this.options= new Properties();
+				try {
+					options.load(new FileInputStream(optionsFile));
+				} catch (FileNotFoundException e) {
+					throw new PepperModuleException("File not found: " + path ,e);
+				} catch (IOException e) {
+					throw new PepperModuleException("Could not read file: " + path, e);
+				}
+			}
+		}//init options
+		return options;
+	}
+	
+	
 	
 	@Override
 	public void end() throws PepperModuleException {
@@ -143,6 +177,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 //					+ ".xml";
 //			URI out = getCorpusDefinition().getCorpusPath().appendSegments(
 //					infoFileLocation.split("/"));
+			log.debug(String.format("path: %s, root: %s", sdoc.getSElementPath().path(), outputPath));
 			URI out = getDocumentLocationURI(sdoc, outputPath);
 			getSElementId2ResourceTable().put(sElementId, out);
 			System.out.println("ElementPath: " + sdoc.getSElementPath());
@@ -174,7 +209,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	 */
 	public static URI getDocumentLocationURI(final SIdentifiableElement sdoc,
 			final URI root) {
-		URI infoFileLocation =  URI.createFileURI("." + sdoc.getSElementPath().path()).appendFileExtension("xml");
+		URI infoFileLocation =  URI.createFileURI("." + sdoc.getSElementId().getSElementPath().path()).appendFileExtension("xml");
 		URI partial = infoFileLocation.resolve(root);
 		return partial;
 	}

@@ -101,6 +101,7 @@
             <b>
                 <xsl:value-of select="@key"/>
             </b>
+            <span class="tooltiptext">
             <xsl:choose>
                 <xsl:when test="@key = $SPointingRelation">
                     Number of relations in the current document or corpus for loose connections like anaphoric relations.
@@ -149,6 +150,7 @@
                 </xsl:otherwise>
                 <!-- tooltips for tableheader -->
                 </xsl:choose>
+            </span>
         </span>
     </xsl:template>
 

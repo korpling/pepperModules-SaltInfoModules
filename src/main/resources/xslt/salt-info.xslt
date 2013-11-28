@@ -14,7 +14,7 @@
     <xsl:variable name="accumulation">t</xsl:variable>
     <!-- i-img -->
     <xsl:variable name="InfoImg">
-        <img align="{$InfoImgAlign}" alt="" src="{$InfoImgSrc}"/>
+        <img class="infoimg" align="{$InfoImgAlign}" alt="" src="{$InfoImgSrc}"/>
     </xsl:variable>
     <!-- creates the html-structure -->
     <xsl:template match="/" name="HtmlStructure">
@@ -194,8 +194,8 @@
                             <b>
                                 <xsl:value-of select="$sAnnotationInfoMap"/>
                             </b>
-                            <xsl:copy-of select="$InfoImg"/>
-                            <xsl:call-template name="AnnoTooltip"/>
+                            <!-- <xsl:copy-of select="$InfoImg"/> -->
+                            <!-- <xsl:call-template name="AnnoTooltip"/> -->
                         </a>
                     </th>
                     <th class="values">
@@ -225,7 +225,7 @@
                         <a class="tooltip">
                             <xsl:value-of select="$structuralInfoMap"/>
                             <xsl:copy-of select="$InfoImg"/>
-                            <xsl:call-template name="structTooltip"/>
+                            <!-- <xsl:call-template name="structTooltip"/> -->
                         </a>
                     </th>
                     <th class="values">
@@ -292,7 +292,7 @@
                             <a class="tooltip">
                                 <xsl:value-of select="$structuralInfoMap"/>
                                 <xsl:copy-of select="$InfoImg"/>
-                                <xsl:call-template name="structTooltip"/>
+                                <!-- <xsl:call-template name="structTooltip"/> -->
                             </a>
                         </th>
                         <th class="values">
@@ -309,7 +309,7 @@
                                     <xsl:value-of select="$SDocument"/>
                                 </b>
                                 <xsl:copy-of select="$InfoImg"/>
-                                <xsl:call-template name="sDocumentTooltip"/>
+                                <!-- <xsl:call-template name="sDocumentTooltip"/> -->
                             </a>
                         </td>
                         <td>
@@ -365,7 +365,7 @@
                         <a class="tooltip">
                             <xsl:value-of select="$metaDataInfoMap"/>
                             <xsl:copy-of select="$InfoImg"/>
-                            <xsl:call-template name="metaTooltip"/>
+                            <!-- <xsl:call-template name="metaTooltip"/> -->
                         </a>
                     </th>
                     <th class="values">
@@ -469,7 +469,7 @@
                         <xsl:value-of select="$SName"/>
                     </b>
                     <xsl:copy-of select="$InfoImg"/>
-                    <xsl:call-template name="sNameTooltip"/>
+                    <!-- <xsl:call-template name="sNameTooltip"/> -->
                 </a>
             </td>
             <td>
@@ -487,7 +487,7 @@
                         <xsl:value-of select="$SName"/>
                     </b>
                     <xsl:copy-of select="$InfoImg"/>
-                    <xsl:call-template name="sNameTooltip"/>
+                    <!-- <xsl:call-template name="sNameTooltip"/> -->
                 </a>
             </td>
             <td>
@@ -506,7 +506,7 @@
                         <xsl:value-of select="@key"/>
                     </b>
                     <xsl:copy-of select="$InfoImg"/>
-                    <xsl:call-template name="Tooltip"/>
+                    <!-- <xsl:call-template name="Tooltip"/> -->
                 </a>
             </td>
             <td>
@@ -524,7 +524,7 @@
                         <xsl:value-of select="@key"/>
                     </b>
                     <xsl:copy-of select="$InfoImg"/>
-                    <xsl:call-template name="Tooltip"/>
+                    <!-- <xsl:call-template name="Tooltip"/> -->
                 </a>
             </td>
             <td>
@@ -546,7 +546,7 @@
                             <xsl:value-of select="@key"/>
                         </b>
                         <xsl:copy-of select="$InfoImg"/>
-                        <xsl:call-template name="Tooltip"/>
+                        <!-- <xsl:call-template name="Tooltip"/> -->
                     </a>
                 </td>
                 <td>
@@ -568,7 +568,7 @@
                         <a class="tooltip">
                             <xsl:value-of select="$totalSAnnotationInfoMap"/>
                             <xsl:copy-of select="$InfoImg"/>
-                            <xsl:call-template name="totalAnnoTooltip"/>
+                            <!-- <xsl:call-template name="totalAnnoTooltip"/> -->
                         </a>
                     </th>
                     <th class="values">
@@ -650,7 +650,6 @@
     <!-- output of name and occurances, separated by ',' -->
     <xsl:template name="NameAndOccurances">
         <td>
-
             <span class="sannotationinfo">
                 <span class="sannotationinfo-sname">
                     <xsl:value-of select="@sName"/>
@@ -659,11 +658,14 @@
                     <xsl:value-of select="sum(sValue/@occurances)"/>
                 </span>
             </span>
-           <input class="btn-toogle-sannotation-dropdown" type="button">
-            <xsl:attribute name="value">
-                <text>Show more</text>
-            </xsl:attribute>
-           </input>
+            <xsl:element name="input">
+                <xsl:attribute name="class">btn-toogle-sannotation-dropdown</xsl:attribute>
+                <xsl:attribute name="type">button</xsl:attribute>
+                <xsl:attribute name="value">Show more</xsl:attribute>
+            </xsl:element>
+          <!-- <input class="btn-toogle-sannotation-dropdown" type="button" id="YADEADA">
+
+           </input>-->
         </td>
         <!--  </xsl:when><xsl:otherwise><b><xsl:value-of select="@sName"
                     /></b><xsl:text>(</xsl:text><xsl:value-of select="sum(sValue/@occurances)"
@@ -682,7 +684,7 @@
                                 <a class="tooltip">
                                     <xsl:value-of select="$NO_LAYERMap"/>
                                     <xsl:copy-of select="$InfoImg"/>
-                                    <xsl:call-template name="layerTooltip"/>
+                                    <!-- <xsl:call-template name="layerTooltip"/> -->
                                 </a>
                             </xsl:when>
                             <xsl:otherwise>
@@ -690,7 +692,8 @@
                                     <xsl:text>objects contained in layer </xsl:text>
                                     <xsl:value-of select="@sName"/>
                                     <xsl:copy-of select="$InfoImg"/>
-                                    <xsl:call-template name="layerTooltip"/></a>
+                                    <!-- <xsl:call-template name="layerTooltip"/> -->
+                                </a>
                             </xsl:otherwise>
                         </xsl:choose>
                     </td>
@@ -709,7 +712,7 @@
                             <xsl:value-of select="@key"/>
                         </b>
                         <xsl:copy-of select="$InfoImg"/>
-                        <xsl:call-template name="Tooltip"/>
+                        <!-- <xsl:call-template name="Tooltip"/> -->
                     </a>
                 </td>
                 <td>

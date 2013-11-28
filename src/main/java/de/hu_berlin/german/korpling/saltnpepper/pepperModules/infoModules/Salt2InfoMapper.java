@@ -38,7 +38,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		this.exporter = infoModuleExporter;
 	}
 	/**
-	 * Returns a Transformer definded by the salt-info.xslt
+	 * Returns a Transformer defined by the salt-info.xslt
 	 * 
 	 * @return XML Transformer that transform SaltInfo XML to HTML
 	 */
@@ -77,15 +77,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	 */
 	@Override
 	public MAPPING_RESULT mapSDocument() {
-//		System.out.println("Salt2InfoMapper SDocument " + getSDocument());
 		SDocument sdoc = getSDocument();
-//		System.out.println(":: Location: " + getResourceURI());
-//		System.out.println(":: SDocGraph: Annotations"
-//				+ sdoc.getSDocumentGraph().getSAnnotations().size());
-//		System.out.println("Paths:");
-//		System.out.println(getResourceURI());
-//		System.out.println(getSDocument().getSElementId().getSElementPath());
-
 		try {
 			sdoc.printInfo(getResourceURI());
 		} catch (Exception e) {
@@ -105,7 +97,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		SCorpus scorpus = getSCorpus();
 		System.out.println("Map SCorpus at " + scorpus);
 		try {
-			scorpus.printInfo(getResourceURI(),outputPath);
+//			scorpus.printInfo(getResourceURI(),outputPath);
 		} catch (Exception e) {
 			throw new PepperModuleException("Cannot export document '"
 					+ getSDocument().getSId() + "', nested exception is: ", e);
