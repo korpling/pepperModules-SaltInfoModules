@@ -6,9 +6,9 @@
     <xsl:variable name="htmlCellpadding">5px</xsl:variable>
     <xsl:variable name="htmlBorder">0</xsl:variable>
     <xsl:variable name="htmlStyle">height:100%;</xsl:variable>
-    
+
     <!-- text style -->
-    <xsl:variable name="fontFamily">Arial</xsl:variable>
+    <xsl:variable name="fontFamily">Comic Sans</xsl:variable>
 
     <!-- style for html-header -->
     <xsl:variable name="headerColspan">2</xsl:variable>
@@ -21,7 +21,7 @@
     <!-- style for second header-td -->
     <xsl:variable name="header2height">1%</xsl:variable>
     <xsl:variable name="header2style">background: -webkit-gradient(linear, left top, right top, from(#2F2727), to(#95c5fc)); background: -moz-linear-gradient(left, #2F2727, #95c5fc); color:lightgray;font-size:16pt;</xsl:variable>
-    
+
 
     <!-- style for tree table (border) -->
     <xsl:variable name="treetableborder">1</xsl:variable>
@@ -65,7 +65,7 @@
     <xsl:variable name="RowtoggleStyle">background:#ECF0F6;border-left:none;</xsl:variable>
     <xsl:variable name="tdStyleLeftBorder">border-left:none;</xsl:variable>
     <xsl:variable name="tdStyleRightBorder">border-right:none;</xsl:variable>
-    
+
     <!-- style for td without toggle-button -->
     <xsl:variable name="tdColspanUnderMax">2</xsl:variable>
 
@@ -74,12 +74,12 @@
         >img/information.png</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
     <xsl:variable name="InfoImgAlign">top</xsl:variable>
     <xsl:variable name="InfoImgStyle">padding:5px;</xsl:variable>
-    
+
     <!-- stylesheet-link -->
     <xsl:variable name="jQuerySrc">js/jquery.js</xsl:variable>
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
     <xsl:variable name="saltinfojs">js/saltinfo.js</xsl:variable>
-    
+
     <xsl:variable name="treecss">css/tree.css</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
     <!-- javascript-source -->
     <xsl:variable name="treejs">js/tree.js</xsl:variable><!-- http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/ -->
