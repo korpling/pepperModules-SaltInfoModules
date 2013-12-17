@@ -37,10 +37,10 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExpor
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperExporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SIdentifiableElement;
 
 /**
  * This is a sample {@link PepperExporter}, which can be used for creating
@@ -178,7 +178,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 //			URI out = getCorpusDefinition().getCorpusPath().appendSegments(
 //					infoFileLocation.split("/"));
 			log.debug(String.format("path: %s, root: %s", sdoc.getSElementPath().path(), outputPath));
-			URI out = getDocumentLocationURI(sdoc, outputPath);
+			URI out = InfoModule.getDocumentLocationURI(sdoc, outputPath);
 			getSElementId2ResourceTable().put(sElementId, out);
 			System.out.println("ElementPath: " + sdoc.getSElementPath());
 			System.out.println("RessourceTable: Entries= "
@@ -191,7 +191,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			// html export is 1 step
 			++documentCount;
 			final SCorpus scorpus = (SCorpus) elem;
-			URI out = getDocumentLocationURI(scorpus, outputPath);
+			URI out = InfoModule.getDocumentLocationURI(scorpus, outputPath);
 			getSElementId2ResourceTable().put(sElementId, out);
 			mapper.setResourceURI(out);
 			System.out.println("> Mapping SCorpus " + elem + " to " + out);
@@ -200,19 +200,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 
 	}
 	
-	/**
-	 * FIXME: This function appears in 
-	 * de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.helper.modules.InfoModule also
-	 * @param sdoc
-	 * @param root
-	 * @return
-	 */
-	public static URI getDocumentLocationURI(final SIdentifiableElement sdoc,
-			final URI root) {
-		URI infoFileLocation =  URI.createFileURI("." + sdoc.getSElementId().getSElementPath().path()).appendFileExtension("xml");
-		URI partial = infoFileLocation.resolve(root);
-		return partial;
-	}
 
 	public double getDocumentCount() {
 		// TODO Auto-generated method stub

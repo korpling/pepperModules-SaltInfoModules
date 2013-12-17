@@ -97,6 +97,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		SCorpus scorpus = getSCorpus();
 		System.out.println("Map SCorpus at " + scorpus);
 		try {
+			InfoModule im;
 //			scorpus.printInfo(getResourceURI(),outputPath);
 		} catch (Exception e) {
 			throw new PepperModuleException("Cannot export document '"
