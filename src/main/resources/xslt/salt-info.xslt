@@ -178,6 +178,7 @@
                             </xsl:attribute>
                             <xsl:value-of select="@sName"/>
                         </a>
+                        
                     </xsl:for-each>
                 </div>
                 <xsl:call-template name="sDocumentInfoTable"/>
