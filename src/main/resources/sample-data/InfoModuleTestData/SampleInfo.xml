@@ -1,1 +1,93 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/salt-info.xslt"?><saltProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/saltProjectInfo.xsd" generatedOn="2013-12-17 15:26:06" sName="Test-SaltProject"><sCorpusInfo sName="rootCorpus" href="salt%3A/rootCorpus.xml"><sCorpusInfo sName="subCorpus1" href="salt%3A/rootCorpus/subCorpus1.xml"><sDocumentInfo sName="doc1" href="salt%3A/rootCorpus/subCorpus1/doc1.xml"></sDocumentInfo><sDocumentInfo sName="doc2" href="salt%3A/rootCorpus/subCorpus1/doc2.xml"></sDocumentInfo><sDocumentInfo sName="doc3" href="salt%3A/rootCorpus/subCorpus1/doc3.xml"></sDocumentInfo><sDocumentInfo sName="doc4" href="salt%3A/rootCorpus/subCorpus1/doc4.xml"></sDocumentInfo></sCorpusInfo><sCorpusInfo sName="subCorpus2" href="salt%3A/rootCorpus/subCorpus2.xml"></sCorpusInfo></sCorpusInfo><metaDataInfo></metaDataInfo><structuralInfo><entry key="STextualDS">4</entry><entry key="SSpanningRelation">48</entry><entry key="SToken">40</entry><entry key="STextualRelation">40</entry><entry key="SPointingRelation">4</entry><entry key="SSpan">12</entry><entry key="SNode.subclass">56</entry><entry key="SRelation.subclass">92</entry></structuralInfo><sAnnotationInfo type="SToken" occurances="40"><sValue occurances="4">ABR</sValue><sValue occurances="4">VB</sValue><sValue occurances="4">IN</sValue><sValue occurances="4">JJ</sValue><sValue occurances="4">DT</sValue><sValue occurances="4">TO</sValue><sValue occurances="4">PRP</sValue><sValue occurances="8">VBZ</sValue><sValue occurances="4">NN</sValue></sAnnotationInfo><sAnnotationInfo type="SToken" occurances="40"><sValue occurances="4">to</sValue><sValue occurances="4">more</sValue><sValue occurances="4">it</sValue><sValue occurances="4">than</sValue><sValue occurances="4">example</sValue><sValue occurances="4">complicated</sValue><sValue occurances="4">this</sValue><sValue occurances="4">appears</sValue><sValue occurances="8">be</sValue></sAnnotationInfo><sAnnotationInfo type="SPointingRelation" occurances="4"><sValue occurances="4">antecedent</sValue></sAnnotationInfo><sAnnotationInfo type="SSpan" occurances="12"><sValue occurances="4">topic</sValue><sValue occurances="4">contrast-focus</sValue></sAnnotationInfo><sLayerInfo sName="sLayer2 mit STokens"><structuralInfo><entry key="SToken">10</entry><entry key="SNode.subclass">10</entry></structuralInfo><sAnnotationInfo type="SToken" occurances="10"><sValue occurances="1">ABR</sValue><sValue occurances="1">VB</sValue><sValue occurances="1">IN</sValue><sValue occurances="1">JJ</sValue><sValue occurances="1">DT</sValue><sValue occurances="1">TO</sValue><sValue occurances="1">PRP</sValue><sValue occurances="2">VBZ</sValue><sValue occurances="1">NN</sValue></sAnnotationInfo><sAnnotationInfo type="SToken" occurances="10"><sValue occurances="1">to</sValue><sValue occurances="1">more</sValue><sValue occurances="1">it</sValue><sValue occurances="1">than</sValue><sValue occurances="1">example</sValue><sValue occurances="1">complicated</sValue><sValue occurances="1">this</sValue><sValue occurances="1">appears</sValue><sValue occurances="2">be</sValue></sAnnotationInfo></sLayerInfo><sLayerInfo sName="sLayer1 mit SRelations"><structuralInfo><entry key="SSpanningRelation">12</entry><entry key="STextualRelation">10</entry><entry key="SPointingRelation">1</entry><entry key="SRelation.subclass">23</entry></structuralInfo><sAnnotationInfo type="SPointingRelation" occurances="1"><sValue occurances="1">antecedent</sValue></sAnnotationInfo></sLayerInfo></saltProjectInfo>
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/salt-info.xslt"?>
+<saltProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/saltProjectInfo.xsd"
+    generatedOn="2013-12-17 15:26:06" sName="Test-SaltProject">
+    <sCorpusInfo sName="rootCorpus" href="salt%3A/rootCorpus.xml">
+        <sCorpusInfo sName="subCorpus1" href="salt%3A/rootCorpus/subCorpus1.xml">
+            <sDocumentInfo sName="doc1" href="salt%3A/rootCorpus/subCorpus1/doc1.xml"/>
+            <sDocumentInfo sName="doc2" href="salt%3A/rootCorpus/subCorpus1/doc2.xml"/>
+            <sDocumentInfo sName="doc3" href="salt%3A/rootCorpus/subCorpus1/doc3.xml"/>
+            <sDocumentInfo sName="doc4" href="salt%3A/rootCorpus/subCorpus1/doc4.xml"/>
+        </sCorpusInfo>
+        <sCorpusInfo sName="subCorpus2" href="salt%3A/rootCorpus/subCorpus2.xml"/>
+    </sCorpusInfo>
+    <metaDataInfo/>
+    <structuralInfo>
+        <entry key="STextualDS">4</entry>
+        <entry key="SSpanningRelation">48</entry>
+        <entry key="SToken">40</entry>
+        <entry key="STextualRelation">40</entry>
+        <entry key="SPointingRelation">4</entry>
+        <entry key="SSpan">12</entry>
+        <entry key="SNode.subclass">56</entry>
+        <entry key="SRelation.subclass">92</entry>
+    </structuralInfo>
+    <sAnnotationInfo type="SToken" occurances="40">
+        <sValue occurances="4">ABR</sValue>
+        <sValue occurances="4">VB</sValue>
+        <sValue occurances="4">IN</sValue>
+        <sValue occurances="4">JJ</sValue>
+        <sValue occurances="4">DT</sValue>
+        <sValue occurances="4">TO</sValue>
+        <sValue occurances="4">PRP</sValue>
+        <sValue occurances="8">VBZ</sValue>
+        <sValue occurances="4">NN</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo type="SToken" occurances="40">
+        <sValue occurances="4">to</sValue>
+        <sValue occurances="4">more</sValue>
+        <sValue occurances="4">it</sValue>
+        <sValue occurances="4">than</sValue>
+        <sValue occurances="4">example</sValue>
+        <sValue occurances="4">complicated</sValue>
+        <sValue occurances="4">this</sValue>
+        <sValue occurances="4">appears</sValue>
+        <sValue occurances="8">be</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo type="SPointingRelation" occurances="4">
+        <sValue occurances="4">antecedent</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo type="SSpan" occurances="12">
+        <sValue occurances="4">topic</sValue>
+        <sValue occurances="4">contrast-focus</sValue>
+    </sAnnotationInfo>
+    <sLayerInfo sName="sLayer2 mit STokens">
+        <structuralInfo>
+            <entry key="SToken">10</entry>
+            <entry key="SNode.subclass">10</entry>
+        </structuralInfo>
+        <sAnnotationInfo type="SToken" occurances="10">
+            <sValue occurances="1">ABR</sValue>
+            <sValue occurances="1">VB</sValue>
+            <sValue occurances="1">IN</sValue>
+            <sValue occurances="1">JJ</sValue>
+            <sValue occurances="1">DT</sValue>
+            <sValue occurances="1">TO</sValue>
+            <sValue occurances="1">PRP</sValue>
+            <sValue occurances="2">VBZ</sValue>
+            <sValue occurances="1">NN</sValue>
+        </sAnnotationInfo>
+        <sAnnotationInfo type="SToken" occurances="10">
+            <sValue occurances="1">to</sValue>
+            <sValue occurances="1">more</sValue>
+            <sValue occurances="1">it</sValue>
+            <sValue occurances="1">than</sValue>
+            <sValue occurances="1">example</sValue>
+            <sValue occurances="1">complicated</sValue>
+            <sValue occurances="1">this</sValue>
+            <sValue occurances="1">appears</sValue>
+            <sValue occurances="2">be</sValue>
+        </sAnnotationInfo>
+    </sLayerInfo>
+    <sLayerInfo sName="sLayer1 mit SRelations">
+        <structuralInfo>
+            <entry key="SSpanningRelation">12</entry>
+            <entry key="STextualRelation">10</entry>
+            <entry key="SPointingRelation">1</entry>
+            <entry key="SRelation.subclass">23</entry>
+        </structuralInfo>
+        <sAnnotationInfo type="SPointingRelation" occurances="1">
+            <sValue occurances="1">antecedent</sValue>
+        </sAnnotationInfo>
+    </sLayerInfo>
+</saltProjectInfo>
