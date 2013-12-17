@@ -96,7 +96,6 @@
         <div id="header">
             <img alt="{$logoAlternative}" href="http://korpling.german.hu-berlin.de/saltnpepper" src="{$logoSrc}"/>
             <h1>
-                <xsl:apply-templates select="saltProjectInfo"/>
                 <xsl:value-of select="@sName"/>
                 <xsl:text>- Overview</xsl:text>
             </h1>
