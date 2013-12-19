@@ -5,9 +5,9 @@
     <xsl:output encoding="UTF-8" indent="yes" method="html"/>
     
     <!-- stylesheet-links -->
-    <xsl:variable name="jQuerySrc">https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/SaltInfoModules/trunk/src/main/resources/js/jquery.js</xsl:variable>
-    <xsl:variable name="saltinfojs">https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/SaltInfoModules/trunk/src/main/resources/js/saltinfo.js</xsl:variable>
-    <xsl:variable name="saltinfocss">https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/SaltInfoModules/trunk/src/main/resources/css/saltinfo.css</xsl:variable>
+    <xsl:variable name="jQuerySrc">js/jquery.js</xsl:variable>
+    <xsl:variable name="saltinfojs">js/saltinfo.js</xsl:variable>
+    <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
     
     <!-- logo and alternative logo for internet-explorer -->
     <xsl:variable name="logoSrc">https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/SaltNPepper_logo2010.svg</xsl:variable>
