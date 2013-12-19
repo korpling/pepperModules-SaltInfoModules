@@ -30,11 +30,7 @@
         </html>
     </xsl:template>
     
-    <!--<!-\- get title of page -\->
-    <xsl:template name="Title">
-        <title><xsl:value-of select="node()/@sName"/>-Overview</title>
-    </xsl:template>
-    -->
+    
     <!-- get html-stylesheet -->
     <xsl:template name="MetaInfo">
         <!-- <link href="{$treecss}" rel="StyleSheet" type="text/css"/> -->
@@ -62,7 +58,7 @@
         </div>
     </xsl:template>
     
-    <!-- create head of tree -->
+    <!-- set name of the project as table header -->
     <xsl:template name="project">
         <xsl:element name="ul">
             <xsl:attribute name="name">
@@ -73,13 +69,12 @@
         </xsl:element>
     </xsl:template>
     
-    <!-- find all maincorpora -->
     <xsl:template match="//saltProjectInfo/sCorpusInfo" mode="maincorpora">
         <xsl:element name="li">
             <xsl:attribute name="class">scorpus-item</xsl:attribute>
             <xsl:element name="a">
                 <xsl:attribute name="href">
-                    <xsl:value-of select="@href"/>
+                    <xsl:value-of select="@id"/>
                 </xsl:attribute>
                 <xsl:value-of select="@sName"/>
             </xsl:element>
@@ -89,15 +84,15 @@
         </xsl:element>
     </xsl:template>
     
-    <!-- find all subcorpora -->
     <xsl:template match="//sCorpusInfo/sCorpusInfo" mode="subcorpora">
         <xsl:element name="li">
             <xsl:attribute name="class">scorpus-item</xsl:attribute>
             <xsl:element name="a">
                 <xsl:attribute name="href">
-                    <xsl:value-of select="@href"/>
+                    <xsl:value-of select="@id"/>
                 </xsl:attribute>
                 <xsl:value-of select="@sName"/>
+                <!--            <xsl:apply-templates/>-->
             </xsl:element>
         </xsl:element>
         <xsl:element name="ul">
@@ -105,13 +100,12 @@
         </xsl:element>
     </xsl:template>
     
-    <!-- find all documents -->
     <xsl:template match="sDocumentInfo" mode="documents">
         <xsl:element name="li">
             <xsl:attribute name="class">sdocument-item</xsl:attribute>
             <xsl:element name="a">
                 <xsl:attribute name="href">
-                    <xsl:value-of select="@href"/>
+                    <xsl:value-of select="@id"/>
                 </xsl:attribute>
                 <xsl:value-of select="@sName"/>
             </xsl:element>
@@ -134,8 +128,11 @@
     <!-- create the clickable tree-table -->
     <xsl:template name="content">
         <div id="content">
-            <!--<xsl:call-template name="sCorpusInfoTables"/>
-            <xsl:call-template name="sDocumentInfoTables"/>-->
+            <iframe>
+                <xsl:attribute name="src">
+                    
+                </xsl:attribute>
+            </iframe>
         </div>
     </xsl:template>
     
@@ -155,5 +152,4 @@
             </div>
         </div>
     </xsl:template>
-    
 </xsl:stylesheet>

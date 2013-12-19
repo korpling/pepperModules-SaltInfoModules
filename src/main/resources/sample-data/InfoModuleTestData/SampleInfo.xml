@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/salt-info.xslt"?>
+<?xml version="1.0" ?><?xml-stylesheet type="text/xsl" href="https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/SaltInfoModules/trunk/src/main/resources/xslt/index.xsl"?>
 <saltProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/saltProjectInfo.xsd"
     generatedOn="2013-12-17 15:26:06" sName="Test-SaltProject">
-    <sCorpusInfo sName="rootCorpus" href="salt%3A/rootCorpus.xml">
-        <sCorpusInfo sName="subCorpus1" href="salt%3A/rootCorpus/subCorpus1.xml">
-            <sDocumentInfo sName="doc1" href="salt%3A/rootCorpus/subCorpus1/doc1.xml"/>
-            <sDocumentInfo sName="doc2" href="salt%3A/rootCorpus/subCorpus1/doc2.xml"/>
-            <sDocumentInfo sName="doc3" href="salt%3A/rootCorpus/subCorpus1/doc3.xml"/>
-            <sDocumentInfo sName="doc4" href="salt%3A/rootCorpus/subCorpus1/doc4.xml"/>
+    <sCorpusInfo sName="rootCorpus" id="salt%3A/rootCorpus">
+        <sCorpusInfo sName="subCorpus1" id="salt%3A/rootCorpus/subCorpus1">
+            <sDocumentInfo sName="doc1" id="salt%3A/rootCorpus/subCorpus1/doc1"/>
+            <sDocumentInfo sName="doc2" id="salt%3A/rootCorpus/subCorpus1/doc2"/>
+            <sDocumentInfo sName="doc3" id="salt%3A/rootCorpus/subCorpus1/doc3"/>
+            <sDocumentInfo sName="doc4" id="salt%3A/rootCorpus/subCorpus1/doc4"/>
         </sCorpusInfo>
-        <sCorpusInfo sName="subCorpus2" href="salt%3A/rootCorpus/subCorpus2.xml"/>
+        <sCorpusInfo sName="subCorpus2" id="salt%3A/rootCorpus/subCorpus2"/>
     </sCorpusInfo>
     <metaDataInfo/>
     <structuralInfo>
