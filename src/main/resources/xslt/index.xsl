@@ -69,6 +69,7 @@
         </xsl:element>
     </xsl:template>
     
+    <!-- get all maincorpora -->
     <xsl:template match="//saltProjectInfo/sCorpusInfo" mode="maincorpora">
         <xsl:element name="li">
             <xsl:attribute name="class">scorpus-item</xsl:attribute>
@@ -81,9 +82,15 @@
         </xsl:element>
         <xsl:element name="ul">
             <xsl:apply-templates mode="subcorpora" select="//sCorpusInfo/sCorpusInfo"/>
+            <xsl:choose>
+                <xsl:when test="child::node() = sDocumentInfo">
+            <xsl:apply-templates mode="documents"></xsl:apply-templates>
+                </xsl:when>
+            </xsl:choose>
         </xsl:element>
     </xsl:template>
     
+    <!-- get all subcorpora -->
     <xsl:template match="//sCorpusInfo/sCorpusInfo" mode="subcorpora">
         <xsl:element name="li">
             <xsl:attribute name="class">scorpus-item</xsl:attribute>
@@ -100,6 +107,7 @@
         </xsl:element>
     </xsl:template>
     
+    <!-- get all documents -->
     <xsl:template match="sDocumentInfo" mode="documents">
         <xsl:element name="li">
             <xsl:attribute name="class">sdocument-item</xsl:attribute>
