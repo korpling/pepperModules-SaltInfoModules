@@ -16,6 +16,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperMo
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
@@ -79,10 +80,13 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	public MAPPING_RESULT mapSDocument() {
 		SDocument sdoc = getSDocument();
 		try {
-			sdoc.printInfo(getResourceURI());
+//			sdoc.printInfo(getResourceURI());
+			File out = new File(getResourceURI().toFileString());
+			System.out.println(String.format("write to %s", out));
+			exporter.getIm().writeInfoFile(sdoc, out, null);
 		} catch (Exception e) {
 			throw new PepperModuleException("Cannot export document '"
-					+ getSDocument().getSId() + "', nested exception is: ", e);
+					+ sdoc.getSId() + "', nested exception is: ", e);
 		}
 
 		addProgress(1.0 / exporter.getDocumentCount());
@@ -97,11 +101,11 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		SCorpus scorpus = getSCorpus();
 		System.out.println("Map SCorpus at " + scorpus);
 		try {
-			InfoModule im;
-//			scorpus.printInfo(getResourceURI(),outputPath);
+			File out =  new File(getResourceURI().toFileString());
+			exporter.getIm().writeInfoFile(getSCorpus(), out, outputPath);
 		} catch (Exception e) {
 			throw new PepperModuleException("Cannot export document '"
-					+ getSDocument().getSId() + "', nested exception is: ", e);
+					+ getSCorpus().getSId() + "', nested exception is: ", e);
 		}
 		addProgress(1.0 / exporter.getDocumentCount());
 		

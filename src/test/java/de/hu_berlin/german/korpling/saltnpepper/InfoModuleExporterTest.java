@@ -1,16 +1,5 @@
 package de.hu_berlin.german.korpling.saltnpepper;
 
-import java.io.File;
-
-import org.eclipse.emf.common.util.URI;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.CorpusDefinition;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.FormatDefinition;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperModulesFactory;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.testSuite.moduleTests.PepperExporterTest;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.InfoModuleExporter;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltCommonFactory;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
 
 public class InfoModuleExporterTest{ //extends PepperExporterTest {
 //	public static final String FILE_TMP_DIR = "_TMP/";

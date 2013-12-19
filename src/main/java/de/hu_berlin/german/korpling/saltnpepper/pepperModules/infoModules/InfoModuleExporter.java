@@ -26,8 +26,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.log.LogService;
@@ -67,11 +65,20 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 public class InfoModuleExporter extends PepperExporterImpl implements
 		PepperExporter {
 	
+	private static final String XML_FILE_EXTENSION = "xml";
+
 	URI outputPath;
 
 	private int documentCount = 0;
 	
-	Logger log = LogManager.getLogger(InfoModuleExporter.class);
+	private final InfoModule im = new InfoModule();
+
+	
+	public InfoModule getIm() {
+		return im;
+	}
+	
+//	Logger log = LogManager.getLogger(InfoModuleExporter.class);
 	
 	public InfoModuleExporter() {
 			super();
@@ -81,8 +88,11 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			this.name = "InfoModuleExporter";
 			this.addSupportedFormat("xml", "1.0",
 					URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
-			this.setProperties(new InfoModuleProperties());
-
+//			this.setProperties(new InfoModuleProperties());
+			System.out.println("Created InfoModuleExporter: ");
+			
+			//TODO: remove:
+			im.setCaching(true);
 		 }
 	}
 	
@@ -154,6 +164,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	@Override
 	public PepperMapper createPepperMapper(SElementId sElementId) {
 		outputPath = getCorpusDefinition().getCorpusPath();
+		System.out.println(String.format("Mapper for sElement %s output path: %s",sElementId,outputPath ) );
 		++documentCount;
 		if(!outputPath.hasTrailingPathSeparator()){
 			outputPath = outputPath.appendSegment(URI.encodeSegment("", false));
@@ -177,8 +188,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 //					+ ".xml";
 //			URI out = getCorpusDefinition().getCorpusPath().appendSegments(
 //					infoFileLocation.split("/"));
-			log.debug(String.format("path: %s, root: %s", sdoc.getSElementPath().path(), outputPath));
-			URI out = InfoModule.getDocumentLocationURI(sdoc, outputPath);
+//			log.debug(String.format("path: %s, root: %s", sdoc.getSElementPath().path(), outputPath));
+			URI out = InfoModule.getDocumentLocationURI(sdoc, outputPath).appendFileExtension(XML_FILE_EXTENSION);
 			getSElementId2ResourceTable().put(sElementId, out);
 			System.out.println("ElementPath: " + sdoc.getSElementPath());
 			System.out.println("RessourceTable: Entries= "
@@ -191,7 +202,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			// html export is 1 step
 			++documentCount;
 			final SCorpus scorpus = (SCorpus) elem;
-			URI out = InfoModule.getDocumentLocationURI(scorpus, outputPath);
+			URI out = InfoModule.getDocumentLocationURI(scorpus, outputPath).appendFileExtension(XML_FILE_EXTENSION);
 			getSElementId2ResourceTable().put(sElementId, out);
 			mapper.setResourceURI(out);
 			System.out.println("> Mapping SCorpus " + elem + " to " + out);
@@ -215,6 +226,11 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	public void setTemproraries(URI newTemproraries) {
 		// TODO Auto-generated method stub
 		super.setTemproraries(newTemproraries);
+	}
+
+	public URI getOutputPath() {
+		// TODO Auto-generated method stub
+		return outputPath;
 	}
 
 }
