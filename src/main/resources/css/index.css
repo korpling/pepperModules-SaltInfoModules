@@ -1,0 +1,104 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+body {
+    line-height: 1.6em;
+    font-family: Arial;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+    min-height: 500px;
+}
+
+#header{
+    background: -webkit-linear-gradient(top, #95c5fc, #FFFFFF);
+    background: -moz-linear-gradient(top, #95c5fc, #FFFFFF);
+    text-shadow:gray 2px 1px 3px;
+    color:#2E3436;
+    font-size:1.6em;
+    width: 100%;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+#header img{
+    vertical-align: top
+}
+
+#header h1{
+    display: inline;
+    line-height:    89px;
+}
+
+#header p{
+    font-size: 0.8em;
+    text-shadow:none;
+    color: #7D7F7B;
+    line-height:    1em;
+    display: inline;
+}
+
+#navigation{
+    width: 20%;
+    float: left;
+    overflow: auto;
+    /*height: 100%;*/
+    /* Rectangle 1: */
+
+    /*border: 1px solid #979797;*/
+    /* Border makes the navigation thicker*/
+    /*margin-left: -2px;*/
+}
+#navigation a{
+    text-decoration: none;
+}
+#navigation ul{
+    list-style: none;
+    margin-left: 1em;
+    padding-left: 0em;
+    /*padding-left: 0.8em;*/
+    /*padding-right: 0.8em;*/
+    /*margin-left: 1em;*/
+    /*margin-right: 0.5em;*/
+}
+
+#navigation li{
+    /*padding-left: 0.5em;*/
+    /*background-color: red;*/
+    margin-left: 0em;
+}
+
+#navigation .scorpus-item{
+    background-image: -o-linear-gradient(180deg, #D8D8D8 0%, #C8C8C8 100%);
+    background-image: -moz-linear-gradient(-90deg, #D8D8D8 0%, #C8C8C8 100%);
+    background-image: -webkit-linear-gradient(180deg, #D8D8D8 0%, #C8C8C8 100%);
+    background-image: -ms-linear-gradient(180deg, #D8D8D8 0%, #C8C8C8 100%);
+    background-image: linear-gradient(180deg, #D8D8D8 0%, #C8C8C8 100%);
+    padding-left: 0.5em;
+}
+#navigation .scorpus-item:before {
+    font-size: 0.8em;
+    content: "▼";
+    color: #888A85;
+    padding-right: 0.5em;
+}
+#navigation .scorpus-item.minimized:before {
+    font-size: 0.8em;
+    content: "►";
+    color: #888A85;
+    padding-right: 0.5em;
+}
+
+#footer {
+    clear:left;
+    margin-top:1em;
+    background:#efefef;
+    text-align:center;
+    padding:10px;
+}
+
+#content iframe{
+    width: 79%;
+}

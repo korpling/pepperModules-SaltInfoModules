@@ -24,8 +24,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Collections;
 import java.util.Properties;
 
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.eclipse.emf.common.util.ECollections;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.log.LogService;
@@ -35,6 +46,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExpor
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperExporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
+import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Node;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
@@ -73,6 +85,23 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	
 	private final InfoModule im = new InfoModule();
 
+	private EList<Node> roots = ECollections.emptyEList();
+	
+	private static final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
+	private static final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
+	static private Transformer info2html = null;
+	
+	public static Transformer getInfo2html() {
+		return info2html;
+	}
+
+	public static Transformer getInfo2index() {
+		return info2index;
+	}
+
+	static private Transformer info2index = null;
+	
+
 	
 	public InfoModule getIm() {
 		return im;
@@ -93,6 +122,9 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			
 			//TODO: remove:
 			im.setCaching(true);
+			
+			info2html = loadXSLTTransformer(XSLT_INFO2HTML_XSL);
+//			info2index = loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
 		 }
 	}
 	
@@ -129,6 +161,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		super.end();
 //		URL saltinfocss = this.getClass().getResource(("/xslt/salt-info.xslt"));
 		String[] resources = {"/css/saltinfo.css",
+			  				  "/css/index.css",
 							  "/js/saltinfo.js",
 							  "/js/jquery.js",
 							  "/img/information.png",
@@ -157,6 +190,20 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 				}
 			}
 		}
+		
+		for (Node n : roots) {
+			System.out.println("Roots");
+			System.out.println(n);
+			if(n instanceof SCorpus){
+				SCorpus root = (SCorpus) n;
+				URI rootxml = InfoModule.getDocumentLocationURI(root, outputPath);
+				URI index = outputPath.trimSegments(1).appendSegment("index").appendFileExtension("html");
+				info2index = loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
+				writeProduct(info2index, rootxml, index);
+				
+			}
+		}
+		
 	}
 	/**
 	 * Creates a mapper of type {@link Salt2InfoMapper}.
@@ -169,9 +216,10 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		if(!outputPath.hasTrailingPathSeparator()){
 			outputPath = outputPath.appendSegment(URI.encodeSegment("", false));
 		}
-		PepperMapper mapper = new Salt2InfoMapper(this);
+		PepperMapper mapper = new Salt2InfoMapper(this, Charset.forName("UTF-8"));
 		((Salt2InfoMapper)mapper).setOutputPath(outputPath);
 		mapper.setProperties(this.getProperties());
+		
 		
 		// Location für Ressourcen Folder
 		getResources();
@@ -194,9 +242,9 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			System.out.println("ElementPath: " + sdoc.getSElementPath());
 			System.out.println("RessourceTable: Entries= "
 					+ getSElementId2ResourceTable().size());
-			for (URI resource : getSElementId2ResourceTable().values()) {
-				System.out.println("\tR= " + resource);
-			}
+//			for (URI resource : getSElementId2ResourceTable().values()) {
+//				System.out.println("\tR= " + resource);
+//			}
 			mapper.setResourceURI(out);
 		} else if (elem instanceof SCorpus) {
 			// html export is 1 step
@@ -206,11 +254,50 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			getSElementId2ResourceTable().put(sElementId, out);
 			mapper.setResourceURI(out);
 			System.out.println("> Mapping SCorpus " + elem + " to " + out);
+			
+			roots  = scorpus.getSCorpusGraph().getRoots();
+			
 		}
+		
 		return (mapper);
 
 	}
 	
+	public void writeProduct(Transformer transformer,URI xml,
+			URI out) {
+
+		System.out.println("Transform to : " + out);
+		StreamSource source = new StreamSource(new File(xml.toFileString()));
+		StreamResult result = new StreamResult(new File(
+				out.toFileString()));
+		try {
+			transformer.transform(source, result);
+		} catch (TransformerException e) {
+			throw new PepperModuleException("Can't generate HTML output", e);
+		}
+
+	}
+	
+	/**
+	 * Returns a Transformer defined by the salt-info.xslt
+	 * 
+	 * @return XML Transformer that transform SaltInfo XML to HTML
+	 */
+	private Transformer loadXSLTTransformer(String path) {
+		Transformer t = null;
+		try {
+			// if(cachedXSLT == null){
+			URL res = this.getClass().getResource(path);
+			Source xsltSource = new StreamSource(res.openStream(),
+					res.toString());
+			TransformerFactory transFac = TransformerFactory.newInstance();
+			t = transFac.newTransformer(xsltSource);
+			// }
+		} catch (Exception e) {
+			throw new PepperModuleException("Can't create xslt cache", e);
+		}
+		return t;
+	}
 
 	public double getDocumentCount() {
 		// TODO Auto-generated method stub

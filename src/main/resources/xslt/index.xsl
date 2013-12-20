@@ -8,6 +8,7 @@
     <xsl:variable name="jQuerySrc">js/jquery.js</xsl:variable>
     <xsl:variable name="saltinfojs">js/saltinfo.js</xsl:variable>
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
+    <xsl:variable name="indexcss">css/index.css</xsl:variable>
     
     <!-- logo and alternative logo for internet-explorer -->
     <xsl:variable name="logoSrc">https://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/SaltNPepper_logo2010.svg</xsl:variable>
@@ -35,6 +36,7 @@
     <xsl:template name="MetaInfo">
         <!-- <link href="{$treecss}" rel="StyleSheet" type="text/css"/> -->
         <link href="{$saltinfocss}" rel="StyleSheet" type="text/css"/>
+        <link href="{$indexcss}" rel="StyleSheet" type="text/css"/>
     </xsl:template>
     
     <!-- contains javascript-information and computes array-elements -->

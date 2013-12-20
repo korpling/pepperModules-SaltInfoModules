@@ -147,6 +147,10 @@ hideTip = function (){
       this.onmouseout  = hideTip;
    });
 
+   $('.nav-link').click(function(){
+      $('#content').load(this.href);
+   });
+
 });
 // var images = document.getElementsByTagName('img')
 // var arrowsrc2 = "http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/img/down_arrow_circle2.png"
