@@ -7,11 +7,18 @@ html, body {
 body {
     line-height: 1.6em;
     font-family: Arial;
-    border-collapse: collapse;
+    border-radius-topleft: collapse;
+    -moz-border-radius-topleft: 15px;
     background-color: #FFFFFF;
     min-height: 500px;
+    width: 100%;
 }
-
+#container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+    height: 200px;
+}
 #header{
     background: -webkit-linear-gradient(top, #95c5fc, #FFFFFF);
     background: -moz-linear-gradient(top, #95c5fc, #FFFFFF);
@@ -29,7 +36,7 @@ body {
 
 #header h1{
     display: inline;
-    line-height:    89px;
+    line-height:    1.6em;
 }
 
 #header p{
@@ -40,10 +47,21 @@ body {
     display: inline;
 }
 
+#content{
+    float: right;
+    width: 710px;
+}
+
 #navigation{
-    width: 20%;
+    background: #FFFFFF;
+    width: 250px;
     float: left;
+    position: absolute;
     overflow: auto;
+    box-shadow: 2px 0 2px rgba(0,0,0,0.3);
+    -moz-border-radius-topleft: 15px;
+    border-radius-topleft: 15px;
+    list-style: none;
     /*height: 100%;*/
     /* Rectangle 1: */
 
@@ -55,13 +73,14 @@ body {
     text-decoration: none;
 }
 #navigation ul{
+    margin-top: auto;
     list-style: none;
     margin-left: 1em;
     padding-left: 0em;
-    /*padding-left: 0.8em;*/
-    /*padding-right: 0.8em;*/
-    /*margin-left: 1em;*/
-    /*margin-right: 0.5em;*/
+    padding-left: 0.8em;
+    /* padding-right: 0.8em; */
+    /* margin-left: 1em; */
+    /* margin-right: 0.5em; */
 }
 
 #navigation li{
@@ -91,14 +110,38 @@ body {
     padding-right: 0.5em;
 }
 
+#nav-toggle{
+    background: green;
+    padding: 5px;
+    text-align:center;
+    height: auto;
+    width: 20px;
+    float: right;
+}
+
 #footer {
-    clear:left;
+    clear:both;
     margin-top:1em;
     background:#efefef;
     text-align:center;
     padding:10px;
 }
+.data-entryName:hover{
+    background: #2D60A6;
+    color: white;
 
-#content iframe{
-    width: 79%;
 }
+
+.tooltip-text {
+    position: absolute;
+    background: white;
+    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    width: 180px;
+    padding: 1em;
+    margin-top: 5px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    font-size: 0.8em;
+}
+
+

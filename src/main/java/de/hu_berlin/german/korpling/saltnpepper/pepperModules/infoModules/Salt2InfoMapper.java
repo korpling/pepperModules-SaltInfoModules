@@ -9,6 +9,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperMo
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
@@ -64,7 +65,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			System.out.println(String.format("write to %s", out));
 			exporter.getIm().writeInfoFile(sdoc, out, null);
 			if (htmlOutput) {
-				exporter.writeProduct(InfoModuleExporter.getInfo2html(),getResourceURI(),
+				exporter.writeProduct(exporter.getInfo2html(),getResourceURI(),
 						getResourceURI().trimFileExtension()
 								.appendFileExtension("html"));
 			}
@@ -94,10 +95,10 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 					+ getSCorpus().getSId() + "', nested exception is: ", e);
 		}
 		addProgress(1.0 / exporter.getDocumentCount());
-
+		
 		URI htmlOutput = getResourceURI().trimFileExtension()
 				.appendFileExtension("html");
-		exporter.writeProduct(InfoModuleExporter.getInfo2html(), getResourceURI(), htmlOutput);
+		exporter.writeProduct(exporter.getInfo2html(), getResourceURI(), htmlOutput);
 		
 		addProgress(1.0 / exporter.getDocumentCount());
 		return MAPPING_RESULT.FINISHED;

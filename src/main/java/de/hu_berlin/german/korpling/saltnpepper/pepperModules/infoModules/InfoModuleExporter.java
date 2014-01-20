@@ -28,6 +28,7 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Properties;
 
+import javax.xml.bind.annotation.XmlList;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -51,6 +52,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SIdentifiableElement;
 
 /**
  * This is a sample {@link PepperExporter}, which can be used for creating
@@ -86,20 +88,24 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	private final InfoModule im = new InfoModule();
 
 	private EList<Node> roots = ECollections.emptyEList();
+
+	// default charset
+	private final Charset charset = Charset.forName("UTF-8");
 	
-	private static final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
-	private static final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
-	static private Transformer info2html = null;
+	private final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
+	private final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
+//	private final Transformer info2html;
+//	private final Transformer info2index;
+	private final TransformerFactory transFac = TransformerFactory.newInstance();
 	
-	public static Transformer getInfo2html() {
-		return info2html;
+	public Transformer getInfo2html() {
+		return loadXSLTTransformer(XSLT_INFO2HTML_XSL);
 	}
 
-	public static Transformer getInfo2index() {
-		return info2index;
+	public Transformer getInfo2index() {
+		return loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
 	}
 
-	static private Transformer info2index = null;
 	
 
 	
@@ -123,7 +129,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			//TODO: remove:
 			im.setCaching(true);
 			
-			info2html = loadXSLTTransformer(XSLT_INFO2HTML_XSL);
+//			info2html = loadXSLTTransformer(XSLT_INFO2HTML_XSL);
 //			info2index = loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
 		 }
 	}
@@ -155,7 +161,11 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	}
 	
 	
-	
+//	@Override
+//	public void start() throws PepperModuleException {
+//		// TODO Auto-generated method stub
+//		super.start();
+//	}
 	@Override
 	public void end() throws PepperModuleException {
 		super.end();
@@ -175,7 +185,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			if(true){
 				fout.getParentFile().mkdirs();
 				try {
-					FileOutputStream fos = new FileOutputStream(fout);
+					FileOutputStream fos = new FileOutputStream(fout );
 					InputStream is = res.openStream();
 					byte[] buffer = new byte[1024];
 					int len = 0;
@@ -196,15 +206,19 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			System.out.println(n);
 			if(n instanceof SCorpus){
 				SCorpus root = (SCorpus) n;
-				URI rootxml = InfoModule.getDocumentLocationURI(root, outputPath);
+				URI rootxml = getInfoXMLPath(root);
 				URI index = outputPath.trimSegments(1).appendSegment("index").appendFileExtension("html");
-				info2index = loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
-				writeProduct(info2index, rootxml, index);
+				writeProduct(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), rootxml, index);
 				
 			}
 		}
 		
 	}
+	private URI getInfoXMLPath(final SIdentifiableElement elem) {
+		// TODO Auto-generated method stub
+		return InfoModule.getDocumentLocationURI(elem, outputPath).appendFileExtension(XML_FILE_EXTENSION);
+	}
+
 	/**
 	 * Creates a mapper of type {@link Salt2InfoMapper}.
 	 */
@@ -237,7 +251,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 //			URI out = getCorpusDefinition().getCorpusPath().appendSegments(
 //					infoFileLocation.split("/"));
 //			log.debug(String.format("path: %s, root: %s", sdoc.getSElementPath().path(), outputPath));
-			URI out = InfoModule.getDocumentLocationURI(sdoc, outputPath).appendFileExtension(XML_FILE_EXTENSION);
+			URI out = getInfoXMLPath(sdoc);
 			getSElementId2ResourceTable().put(sElementId, out);
 			System.out.println("ElementPath: " + sdoc.getSElementPath());
 			System.out.println("RessourceTable: Entries= "
@@ -250,7 +264,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			// html export is 1 step
 			++documentCount;
 			final SCorpus scorpus = (SCorpus) elem;
-			URI out = InfoModule.getDocumentLocationURI(scorpus, outputPath).appendFileExtension(XML_FILE_EXTENSION);
+			URI out = getInfoXMLPath(scorpus);
 			getSElementId2ResourceTable().put(sElementId, out);
 			mapper.setResourceURI(out);
 			System.out.println("> Mapping SCorpus " + elem + " to " + out);
@@ -263,19 +277,19 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 
 	}
 	
-	public void writeProduct(Transformer transformer,URI xml,
-			URI out) {
-
-		System.out.println("Transform to : " + out);
+	public void writeProduct(Transformer transformer, URI xml, URI out) {
+	
 		StreamSource source = new StreamSource(new File(xml.toFileString()));
 		StreamResult result = new StreamResult(new File(
 				out.toFileString()));
 		try {
 			transformer.transform(source, result);
 		} catch (TransformerException e) {
+			System.out.println("Failed to transform to :\t\t" + out.toFileString());
+			System.out.println("from:\t\t" + xml.toFileString());
+			System.out.println("with:\t\t" + transformer.toString());
 			throw new PepperModuleException("Can't generate HTML output", e);
 		}
-
 	}
 	
 	/**
@@ -290,7 +304,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			URL res = this.getClass().getResource(path);
 			Source xsltSource = new StreamSource(res.openStream(),
 					res.toString());
-			TransformerFactory transFac = TransformerFactory.newInstance();
 			t = transFac.newTransformer(xsltSource);
 			// }
 		} catch (Exception e) {
@@ -320,4 +333,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		return outputPath;
 	}
 
+	
+	public void testReadProperties(){
+		
+	}
 }
