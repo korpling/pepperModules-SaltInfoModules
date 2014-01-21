@@ -57,8 +57,8 @@ h3{
 }
 
 .svalue{
-	width: 33%;
-	float: left;
+	width: 25%;
+	padding-left: 1em;
 }
 
 .value.preview{
@@ -141,13 +141,17 @@ th{
 }
 
 td{
-	padding: 10px 16px;
+	padding: 5px;
 	margin-left: 1px;
 	margin-right: -1px;
 	/*border-color: #729FCF;*/
 	border-bottom: 1px #2D60A6 solid;
 	vertical-align: top;
 	/*border-top: 1px solid transparent;*/
+}
+
+.svalue-occurances{
+    float: right;
 }
 
 .values{

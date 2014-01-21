@@ -15,6 +15,7 @@
                     <!--<xsl:apply-templates select="//sCorpusInfo/structuralInfo"/>-->
                     <xsl:call-template name="data" />
                     <xsl:for-each select="sLayerInfo">
+                        <xsl:sort select="@sName"/>
                         <xsl:call-template name="data"/>
                     </xsl:for-each>
                 </div>
@@ -26,8 +27,12 @@
     <xsl:template match="saltProjectInfo|sCorpusInfo|sDocumentInfo" name="data">
         <div class="sdocument-slayer">
             
-            <xsl:apply-templates select="./structuralInfo"/>
-            <xsl:apply-templates select="metaDataInfo"/>
+            <xsl:apply-templates select="./structuralInfo">
+                <xsl:sort select="node()/@sName"/>
+            </xsl:apply-templates>
+            <xsl:apply-templates select="metaDataInfo">
+                <xsl:sort select="@sName"/>
+            </xsl:apply-templates>
             <br/>
             <h2><span class="data-entryName">annotations</span>:</h2>
             <table class="data-table">
@@ -36,7 +41,9 @@
                     <th>Counts<div class="btn-minimize">...</div></th>
                 </thead>
                 <tbody>
-                    <xsl:apply-templates select="./sAnnotationInfo"/>
+                    <xsl:apply-templates select="./sAnnotationInfo">
+                        <xsl:sort select="@sName"/>
+                    </xsl:apply-templates>
                 </tbody>
             </table>
             <!--<xsl:apply-templates select="sLayerInfo"/>-->
@@ -52,7 +59,9 @@
                 <th>Value<div class="btn-minimize">...</div></th>
             </thead>
             <tbody>
-                <xsl:apply-templates select="entry"/>
+                <xsl:apply-templates select="entry">
+                    <xsl:sort select="@sName"/>
+                </xsl:apply-templates>
             </tbody>
         </table>
         
@@ -68,7 +77,9 @@
                 <th>Count<div class="btn-minimize">...</div></th>
             </thead>
             <tbody>
-                <xsl:apply-templates select="entry"/>
+                <xsl:apply-templates select="entry">
+                    <xsl:sort select="@key"/>
+                </xsl:apply-templates>
             </tbody>
         </table>
     </xsl:template>
@@ -90,7 +101,11 @@
                     <xsl:attribute name="value">Show more</xsl:attribute>
                 </xsl:element>
             </td>
-            <td><xsl:apply-templates/></td>
+            <td>
+            <!-- sValues           -->
+            <xsl:apply-templates>
+                <xsl:sort select="text()"/>
+            </xsl:apply-templates></td>
         </tr>
     </xsl:template>
 
