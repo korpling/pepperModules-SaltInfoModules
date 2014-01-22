@@ -58,6 +58,7 @@ h3{
 
 .svalue{
 	width: 25%;
+	float: left;
 	padding-left: 1em;
 }
 
