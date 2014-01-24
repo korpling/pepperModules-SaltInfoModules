@@ -1,35 +1,75 @@
 
 $(document).ready(function(){
+  CSV_SEPARATOR = ',';
+  CSV_DOUBLEQUOTE = '"';
+  CSV_LINEBREAK = '\n';
+  CSV_MIME_TYPE = 'text/csv';
   VISIBLE_ITEMS = 5;
 
-  downloadText = function downloadText(text) {
-  	 window.location.href = 'data:text/csv;charset=UTF-8,' + encodeURIComponent(text);
-  }
 
-  svalues2text = function svalues2text(svalues) {
-  	text = '';
-	$(svalues).each(function () {
-		text += $(this).children('.svalue-text').text();
-		text += '\t';
-		text += $(this).children('.svalue-occurances').text();
-		text += '\n';
+  /**
+    loads text as data uri
+  */
+  downloadText = function (text, mime) {
+      window.location.href = 'data:' + mime + ';charset=UTF-8,' + encodeURIComponent(text);
+  };
 
-  	});
-	return text;
-  }
-  // load from document based on id
+  /**
+    escapes double-quotes
+    https://tools.ietf.org/html/rfc4180#section-2  Section 7
+  */
+  escapeDQuote = function(string){
+    return string.replace(/"/g,'""');
+  };
+
+  /**
+    Converts the given array of svalue-data items into an
+    csv text
+    values are quoted because there could be line breaks
+    see https://tools.ietf.org/html/rfc4180
+  */
+  svalues2text = function (svalues) {
+    text = '';
+    $(svalues).each(function () {
+      valuename = escapeDQuote($(this).children('.svalue-text').text());
+      valuecount = $(this).children('.svalue-occurances').text();
+      text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
+      text += CSV_SEPARATOR;
+      text += CSV_DOUBLEQUOTE + valuecount + CSV_DOUBLEQUOTE;
+      text += CSV_LINEBREAK;
+    });
+    text += CSV_LINEBREAK;
+    return text;
+  };
+
+  /**
+    Starts the csv Download for the given row
+  */
+  $("#content").on("click", ".btn-download-csv", function(event){
+      data = $(this).parent().next().children('.svalue');
+      downloadText(svalues2text(data), CSV_MIME_TYPE);
+  });
+
+  /**
+    load from document based on id
+   */
   if (window.location.hash){
     $('#content').load(window.location.hash.substring(1) + ".html #data");
   }
 
 
-  // Subcorpus navigation: hides subtree
+  /**
+    Subcorpus navigation: hides subtree
+   */
   $('.scorpus-item').click(function(e){
       e.stopPropagation();
       $(this).children('ul').toggle();
       $(this).toggleClass('minimized');
   });
 
+  /**
+    toggles .svalue items in a list with an index greater than VISIBLE_ITEMS
+    */
   var toggledropdown = function(event){
     var buttons = $(this).parent().next().children('.svalue').slice(VISIBLE_ITEMS);
     if (buttons.length > 0) {
@@ -39,13 +79,18 @@ $(document).ready(function(){
     }
 
   };
-	
+  // run the toggle during startup
   $( ".btn-toogle-sannotation-dropdown").each(toggledropdown);
-  // register click listener on placeholder
+
+  /**
+    register click listener on placeholder
+  */
   $("#content").on("click", ".btn-toogle-sannotation-dropdown", toggledropdown);
 
 
-  // loads the new content
+  /**
+    loads the new content
+  */
   $('.nav-link').click(function(){
     $('#content').load(this.href + " #data", function(){
       $(".btn-toogle-sannotation-dropdown").each(toggledropdown);
@@ -54,7 +99,9 @@ $(document).ready(function(){
     return false;
   });
 
-  // places and toggles the tooltips
+  /**
+    places and toggles the tooltips
+  */
   $( "#content").on( {
   click: function() {
     // alert($('#'+$(this).text()).text());
@@ -72,7 +119,9 @@ $(document).ready(function(){
   }
   },  ".data-entryName" );
 
-  // expands the navigation if document titles are to long
+  /**
+   expands the navigation if document titles are to long
+   */
   $( "#navigation").on( {
    mouseenter: function() {
     if(this.offsetWidth < this.scrollWidth){

@@ -90,12 +90,10 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	private EList<Node> roots = ECollections.emptyEList();
 
 	// default charset
-	private final Charset charset = Charset.forName("UTF-8");
+	private final Charset charset ;
 	
 	private final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
 	private final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
-//	private final Transformer info2html;
-//	private final Transformer info2index;
 	private final TransformerFactory transFac = TransformerFactory.newInstance();
 	
 	public Transformer getInfo2html() {
@@ -105,9 +103,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	public Transformer getInfo2index() {
 		return loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
 	}
-
-	
-
 	
 	public InfoModule getIm() {
 		return im;
@@ -118,6 +113,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	public InfoModuleExporter() {
 			super();
 		{
+			this.charset = Charset.forName("UTF-8");
 			// TODO /2/: change the name of the module, for example use the format
 			// name and the ending Exporter (FORMATExporter)
 			this.name = "InfoModuleExporter";
@@ -128,9 +124,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			
 			//TODO: remove:
 			im.setCaching(true);
-			
-//			info2html = loadXSLTTransformer(XSLT_INFO2HTML_XSL);
-//			info2index = loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
 		 }
 	}
 	

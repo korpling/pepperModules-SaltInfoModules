@@ -21,67 +21,69 @@
                 </div>
             </body>
         </html>
-
     </xsl:template>
 
     <xsl:template match="saltProjectInfo|sCorpusInfo|sDocumentInfo" name="data">
         <div class="sdocument-slayer">
-            
             <xsl:apply-templates select="./structuralInfo">
                 <xsl:sort select="node()/@sName"/>
             </xsl:apply-templates>
             <xsl:apply-templates select="metaDataInfo">
                 <xsl:sort select="@sName"/>
             </xsl:apply-templates>
-            <br/>
-            <h2><span class="data-entryName">annotations</span>:</h2>
-            <table class="data-table">
+            <!--<br/>-->
+            <div class="annotation">
+                <h2><span class="data-entryName">annotations</span>:</h2>
+                <table class="data-table">
+                    <thead>
+                        <th>Name</th>
+                        <th>Counts<div class="btn-minimize">...</div></th>
+                    </thead>
+                    <tbody>
+                        <xsl:apply-templates select="./sAnnotationInfo">
+                            <xsl:sort select="@sName"/>
+                        </xsl:apply-templates>
+                    </tbody>
+                </table>
+            </div>
+            <!--<xsl:apply-templates select="sLayerInfo"/>-->
+        </div>
+    </xsl:template>
+
+    <xsl:template match="metaDataInfo" name="metadata">
+        <div class="metadata">
+            <h2><span class="data-entryName">meta data</span>:</h2>
+            <table class="data-metadata">
                 <thead>
                     <th>Name</th>
-                    <th>Counts<div class="btn-minimize">...</div></th>
+                    <th>Value<div class="btn-minimize">...</div></th>
                 </thead>
                 <tbody>
-                    <xsl:apply-templates select="./sAnnotationInfo">
+                    <xsl:apply-templates select="entry">
                         <xsl:sort select="@sName"/>
                     </xsl:apply-templates>
                 </tbody>
             </table>
-            <!--<xsl:apply-templates select="sLayerInfo"/>-->
         </div>
-
-    </xsl:template>
-
-    <xsl:template match="metaDataInfo" name="metadata">
-        <h2><span class="data-entryName">meta data</span>:</h2>
-        <table class="data-metadata">
-            <thead>
-                <th>Name</th>
-                <th>Value<div class="btn-minimize">...</div></th>
-            </thead>
-            <tbody>
-                <xsl:apply-templates select="entry">
-                    <xsl:sort select="@sName"/>
-                </xsl:apply-templates>
-            </tbody>
-        </table>
-        
     </xsl:template>
     
 
     <!-- Structural Info table    -->
     <xsl:template match="structuralInfo">
-        <h2><span class="data-entryName">structural info</span>:</h2>
-        <table class="data-structuralInfo">
-            <thead>
-                <th>Name</th>
-                <th>Count<div class="btn-minimize">...</div></th>
-            </thead>
-            <tbody>
-                <xsl:apply-templates select="entry">
-                    <xsl:sort select="@key"/>
-                </xsl:apply-templates>
-            </tbody>
-        </table>
+        <div class="structuralInfo">
+            <h2><span class="data-entryName">structural info</span>:</h2>
+            <table class="data-structuralInfo">
+                <thead>
+                    <th>Name</th>
+                    <th>Count<div class="btn-minimize">...</div></th>
+                </thead>
+                <tbody>
+                    <xsl:apply-templates select="entry">
+                        <xsl:sort select="@key"/>
+                    </xsl:apply-templates>
+                </tbody>
+            </table>
+        </div>
     </xsl:template>
 
     <xsl:template match="sAnnotationInfo">
@@ -95,11 +97,7 @@
                         <xsl:value-of select="sum(sValue/@occurances)"/>
                     </span>
                 </span>
-                <xsl:element name="input">
-                    <xsl:attribute name="class">btn-toogle-sannotation-dropdown</xsl:attribute>
-                    <xsl:attribute name="type">button</xsl:attribute>
-                    <xsl:attribute name="value">Show more</xsl:attribute>
-                </xsl:element>
+                <xsl:call-template name="action-buttons"/>
             </td>
             <td>
             <!-- sValues           -->
@@ -107,6 +105,19 @@
                 <xsl:sort select="text()"/>
             </xsl:apply-templates></td>
         </tr>
+    </xsl:template>
+    
+    <xsl:template name="action-buttons">
+        <xsl:element name="button">
+            <xsl:attribute name="class">btn-toogle-sannotation-dropdown</xsl:attribute>
+            <!--                    <xsl:attribute name="type">button</xsl:attribute>-->
+            <xsl:text>Show more</xsl:text>
+        </xsl:element>
+        <xsl:element name="button">
+            <xsl:attribute name="class">btn-download-csv</xsl:attribute>
+            <!--                    <xsl:attribute name="type">button</xsl:attribute>-->
+            <xsl:text>CSV</xsl:text>
+        </xsl:element>
     </xsl:template>
 
     <xsl:template match="sValue">
@@ -124,7 +135,4 @@
             <td><xsl:value-of select="text()"/></td>
         </tr>
     </xsl:template>
-
-
-
 </xsl:stylesheet>
