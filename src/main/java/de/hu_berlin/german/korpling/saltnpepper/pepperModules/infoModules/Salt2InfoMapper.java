@@ -3,12 +3,14 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 import java.io.File;
 import java.nio.charset.Charset;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
+import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
@@ -75,6 +77,12 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		}
 
 		addProgress(1.0 / exporter.getDocumentCount());
+		EList<Edge> in = sdoc.getSCorpusGraph().getInEdges(sdoc.getSId());
+		for( Edge e : in){
+			SCorpus parent = (SCorpus) e.getSource();
+			exporter.releaseSubDocuments(parent);
+		}
+
 		return MAPPING_RESULT.FINISHED;
 	}
 
@@ -88,6 +96,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		SCorpus scorpus = getSCorpus();
 		System.out.println("Map SCorpus at " + scorpus);
 		try {
+			exporter.waitForSubDocuments(scorpus);
 			File out = new File(getResourceURI().toFileString());
 			exporter.getIm().writeInfoFile(getSCorpus(), out, outputPath);
 		} catch (Exception e) {
@@ -101,6 +110,15 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		exporter.writeProduct(exporter.getInfo2html(), getResourceURI(), htmlOutput);
 		
 		addProgress(1.0 / exporter.getDocumentCount());
+		EList<Edge> in = scorpus.getSCorpusGraph().getInEdges(scorpus.getSId());
+		for( Edge e : in){
+			SCorpus parent = (SCorpus) e.getSource();
+			exporter.releaseSubDocuments(parent);
+		}
+		if (in.size() == 0 ){
+			// must be a root node
+			exporter.releaseSubDocuments(scorpus);
+		}
 		return MAPPING_RESULT.FINISHED;
 	}
 }

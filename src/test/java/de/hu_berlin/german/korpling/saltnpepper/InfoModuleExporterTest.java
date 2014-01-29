@@ -1,19 +1,33 @@
 package de.hu_berlin.german.korpling.saltnpepper;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
 
+import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperFW.PepperFWFactory;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.CorpusDefinition;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.FormatDefinition;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperModulesFactory;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testSuite.moduleTests.PepperExporterTest;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.InfoModuleExporter;
+import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
 public class InfoModuleExporterTest extends PepperExporterTest {
 	public static final String FILE_TMP_DIR = "_TMP/";
@@ -107,6 +121,18 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		System.out.println(input.canRead());
 		t.transform(source, result);
 	}
+	
+	@SuppressWarnings("restriction")
+	public void testSampleExport() throws Exception {
+		PepperExporter exporter = getFixture();
+		exporter.setSaltProject(SampleGenerator.createCompleteSaltproject());
+		CorpusDefinition corpusDefinition = PepperFWFactory.eINSTANCE
+			    .createCorpusDefinition();
+		corpusDefinition.setCorpusPath(TMP_DIR_URI);
+		exporter.setCorpusDefinition(corpusDefinition);
+		this.start();
+	}
+	
 
 	@Override
 	public void testSetGetResources() {
