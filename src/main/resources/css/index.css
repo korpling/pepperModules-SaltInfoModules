@@ -50,7 +50,7 @@ body {
 #content{
     float: right;
     width: 80%;
-    margin: 1em 0 1em 1em;
+    margin: 0em 1em 1em 1em;
 }
 
 #navigation{
@@ -80,6 +80,7 @@ body {
     margin-left: 1em;
     padding-left: 0em;
     padding-left: 0.8em;
+    margin-bottom: 0em;
     /* padding-right: 0.8em; */
     /* margin-left: 1em; */
     /* margin-right: 0.5em; */
@@ -145,5 +146,6 @@ body {
     -moz-border-radius: 15px;
     font-size: 0.8em;
 }
+
 
 

@@ -143,6 +143,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			
 			//TODO: remove:
 			im.setCaching(true);
+			// for safety reasons
+			this.setIsMultithreaded(false);
 		 }
 	}
 	
@@ -216,13 +218,14 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 				SCorpus root = (SCorpus) n;
 				try {
 					waitForSubDocuments(root);
+					URI rootxml = getInfoXMLPath(root);
+					URI index = outputPath.trimSegments(1).appendSegment("index").appendFileExtension("html");
+					writeProduct(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), rootxml, index);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					throw new PepperModuleException("Root is not ready",e);
 				}
-				URI rootxml = getInfoXMLPath(root);
-				URI index = outputPath.trimSegments(1).appendSegment("index").appendFileExtension("html");
-				writeProduct(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), rootxml, index);
+				
 				
 			}
 		}

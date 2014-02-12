@@ -30,7 +30,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.InfoMo
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
 public class InfoModuleExporterTest extends PepperExporterTest {
-	public static final String FILE_TMP_DIR = "_TMP/";
+	public static final String FILE_TMP_DIR = System.getProperty("java.io.tmpdir");
 	public static final File TMP_DIR = new File(FILE_TMP_DIR);
 	public static final URI TMP_DIR_URI = URI.createFileURI(TMP_DIR.toURI()
 			.getRawPath() + File.separator);

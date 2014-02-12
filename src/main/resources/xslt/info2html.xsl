@@ -11,10 +11,13 @@
             </head>
             <body>
                 <div class="data-view" id="data">
+                    <button class="btn-toggle-box">toggle Box</button>
                     <h1><xsl:value-of select="@sName"/></h1>
+                    <xsl:call-template name="slayer-list"/>
                     <!--<xsl:apply-templates select="//sCorpusInfo/structuralInfo"/>-->
                     <xsl:call-template name="data" />
                     <xsl:for-each select="sLayerInfo">
+                        
                         <xsl:sort select="@sName"/>
                         <xsl:call-template name="data"/>
                     </xsl:for-each>
@@ -22,9 +25,28 @@
             </body>
         </html>
     </xsl:template>
+    
+    <xsl:template name="slayer-list">
+        <ul>
+            <xsl:for-each select="sLayerInfo">
+                <li><xsl:value-of select="@sName"/></li>
+            </xsl:for-each>
+        </ul>
+    </xsl:template>
+    
+    <xsl:template match="sLayerInfo">
+        <xsl:element name="div">
+            <xsl:attribute name="class">slayer</xsl:attribute>
+            <xsl:attribute name="id">
+                <xsl:value-of select="@sName"/>
+                <xsl:apply-templates/>
+            </xsl:attribute>
+        </xsl:element>
+    </xsl:template>
 
     <xsl:template match="saltProjectInfo|sCorpusInfo|sDocumentInfo" name="data">
         <div class="sdocument-slayer">
+            <h2>Layer: <xsl:value-of select="@sName"/></h2>
             <xsl:apply-templates select="./structuralInfo">
                 <xsl:sort select="node()/@sName"/>
             </xsl:apply-templates>
@@ -33,7 +55,7 @@
             </xsl:apply-templates>
             <!--<br/>-->
             <div class="annotation">
-                <h2><span class="data-entryName">annotations</span>:</h2>
+                <h3><span class="data-entryName">annotations</span>:</h3>
                 <table class="data-table">
                     <thead>
                         <th>Name</th>
@@ -52,7 +74,7 @@
 
     <xsl:template match="metaDataInfo" name="metadata">
         <div class="metadata">
-            <h2><span class="data-entryName">meta data</span>:</h2>
+            <h3><span class="data-entryName">meta data</span>:</h3>
             <table class="data-metadata">
                 <thead>
                     <th>Name</th>
@@ -71,7 +93,7 @@
     <!-- Structural Info table    -->
     <xsl:template match="structuralInfo">
         <div class="structuralInfo">
-            <h2><span class="data-entryName">structural info</span>:</h2>
+            <h3><span class="data-entryName">structural info</span>:</h3>
             <table class="data-structuralInfo">
                 <thead>
                     <th>Name</th>
@@ -94,7 +116,7 @@
                         <xsl:value-of select="@sName"/>
                     </span>
                     <span class="sannotationinfo-count">
-                        <xsl:value-of select="sum(sValue/@occurances)"/>
+                        <xsl:value-of select="sum(sValue/@occurrances)"/>
                     </span>
                 </span>
                 <xsl:call-template name="action-buttons"/>
@@ -118,12 +140,13 @@
             <!--                    <xsl:attribute name="type">button</xsl:attribute>-->
             <xsl:text>CSV</xsl:text>
         </xsl:element>
+       
     </xsl:template>
 
     <xsl:template match="sValue">
         <span class="svalue">
             <span class="svalue-text"><xsl:value-of select="text()"/></span>
-            <span class="svalue-occurances"><xsl:value-of select="@occurances"/></span>
+            <span class="svalue-occurrences"><xsl:value-of select="@occurrences"/></span>
         </span>
     </xsl:template>
 

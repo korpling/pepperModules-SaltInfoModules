@@ -20,7 +20,7 @@
 }
 
 .btn-toogle-sannotation-dropdown{
-	float: right;
+	/*float: right;*/
 }
 
 /*.slayer-link {
@@ -60,6 +60,10 @@ h3{
 	width: 25%;
 	float: left;
 	padding-left: 1em;
+}
+
+.slayer-list{
+    margin-left: 1em;
 }
 
 .value.preview{
@@ -149,6 +153,19 @@ td{
 	border-bottom: 1px #2D60A6 solid;
 	vertical-align: top;
 	/*border-top: 1px solid transparent;*/
+    white-space: PRE;
+}
+
+.boxed{
+    border: 1px solid black;
+}
+
+button{
+    float: right;
+}
+
+td:first-child{
+    width: 250px;
 }
 
 .svalue-occurances{
@@ -173,6 +190,11 @@ td{
 
 .sub-corpus{
 	/*display: none;*/
+}
+
+
+.sannotationinfo-sname:after{
+    content:url('../img/information.png')
 }
 
 

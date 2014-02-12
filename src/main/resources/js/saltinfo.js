@@ -54,7 +54,10 @@ $(document).ready(function(){
     load from document based on id
    */
   if (window.location.hash){
-    $('#content').load(window.location.hash.substring(1) + ".html #data");
+
+    $('#content').load(window.location.hash.substring(1) + ".html #data", function(){
+      $(".btn-toogle-sannotation-dropdown").each(toggledropdown);
+    });
   }
 
 
@@ -67,6 +70,10 @@ $(document).ready(function(){
       $(this).toggleClass('minimized');
   });
 
+  var toggleBox = function(event){
+    var values = $('.svalue-text');
+    $(values).toggleClass('boxed');
+  };
   /**
     toggles .svalue items in a list with an index greater than VISIBLE_ITEMS
     */
@@ -86,6 +93,7 @@ $(document).ready(function(){
     register click listener on placeholder
   */
   $("#content").on("click", ".btn-toogle-sannotation-dropdown", toggledropdown);
+  $("#content").on("click", ".btn-toggle-box", toggleBox);
 
 
   /**
