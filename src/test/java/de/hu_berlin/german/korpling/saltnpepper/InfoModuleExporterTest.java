@@ -1,31 +1,20 @@
 package de.hu_berlin.german.korpling.saltnpepper;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.Before;
+import org.junit.Test;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperFW.PepperFWFactory;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.CorpusDefinition;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.FormatDefinition;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExporter;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperModulesFactory;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.testSuite.moduleTests.PepperExporterTest;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.common.CorpusDesc;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.common.FormatDesc;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperExporterTest;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.InfoModuleExporter;
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
@@ -35,32 +24,16 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	public static final URI TMP_DIR_URI = URI.createFileURI(TMP_DIR.toURI()
 			.getRawPath() + File.separator);
 	//
-	private FormatDefinition formatDef;
-	
-	@Override
-	protected void setFixture(PepperExporter fixture) {
-		// TODO Auto-generated method stub
-		super.setFixture(fixture);
-		formatDef = PepperModulesFactory.eINSTANCE.createFormatDefinition();
-		formatDef.setFormatName("xml");
-		formatDef.setFormatVersion("1.0");
-		this.supportedFormatsCheck.add(formatDef);
-	}
+	private FormatDesc formatDesc;
 
-	@Override
-	protected void setUp() throws Exception {
-		// // TODO Auto-generated method stub
-		super.setUp();
-		
+	@Before
+	public void setUp() throws Exception {
 		this.setFixture(new InfoModuleExporter());
-		this.getFixture().setTemproraries(TMP_DIR_URI);
-//		this.supportedFormatsCheck.add(formatDef);
-
-//		this.setFixture(new InfoModuleExporter());
-		// URI tDir =
-		// URI.createFileURI("pepperModuleTestInfoModule/").resolve(TMP_DIR_URI);
-		// (new File(tDir.toFileString())).mkdirs();
-		// this.getFixture().setTemproraries(tDir);
+		formatDesc = new FormatDesc();
+		formatDesc.setFormatName("xml");
+		formatDesc.setFormatVersion("1.0");
+		this.supportedFormatsCheck.add(formatDesc);
+		super.setResourcesURI(URI.createFileURI("./src/main/resources/"));
 	}
 
 	//
@@ -78,6 +51,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	//
 	// }
 
+	@Test
 	public void testXSLTransformation_info2index() throws Exception {
 		String sample = "/sample-data/InfoModuleTestData/SampleInfo.xml";
 		URI sampleHTMLoutput = URI.createFileURI("sampleIndexHTMLoutput.html")
@@ -90,6 +64,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		applyTransformation(sampleHTMLoutput, sampleResource, t);
 	}
 	
+	@Test
 	public void testXSLTransformation_info2html() throws Exception {
 		String sample = "/sample-data/InfoModuleTestData/SampleInfo.xml";
 		URI sampleHTMLoutput = URI.createFileURI("sampleTableHTMLoutput.html")
@@ -122,28 +97,13 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		t.transform(source, result);
 	}
 	
-	@SuppressWarnings("restriction")
+	@Test
 	public void testSampleExport() throws Exception {
 		PepperExporter exporter = getFixture();
 		exporter.setSaltProject(SampleGenerator.createCompleteSaltproject());
-		CorpusDefinition corpusDefinition = PepperFWFactory.eINSTANCE
-			    .createCorpusDefinition();
-		corpusDefinition.setCorpusPath(TMP_DIR_URI);
-		exporter.setCorpusDefinition(corpusDefinition);
+		CorpusDesc corpusDesc = new CorpusDesc();
+		corpusDesc.setCorpusPath(TMP_DIR_URI);
+		exporter.setCorpusDesc(corpusDesc);
 		this.start();
 	}
-	
-
-	@Override
-	public void testSetGetResources() {
-		// TODO Auto-generated method stub
-//		super.testSetGetResources();
-	}
-	
-	@Override
-	public void testSetGetTemproraries() {
-		// TODO Auto-generated method stub
-//		super.testSetGetTemproraries();
-	}
-
 }

@@ -6,12 +6,11 @@ import java.nio.charset.Charset;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
@@ -59,7 +58,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	 * Creates the SaltInfo-XML for the mapped SDocument
 	 */
 	@Override
-	public MAPPING_RESULT mapSDocument() {
+	public DOCUMENT_STATUS mapSDocument() {
 		SDocument sdoc = getSDocument();
 		try {
 			// sdoc.printInfo(getResourceURI());
@@ -83,7 +82,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			exporter.releaseSubDocuments(parent);
 		}
 
-		return MAPPING_RESULT.FINISHED;
+		return DOCUMENT_STATUS.COMPLETED;
 	}
 
 
@@ -92,7 +91,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	 * Creates the SaltInfo-XML for the mapped corpus
 	 */
 	@Override
-	public MAPPING_RESULT mapSCorpus() {
+	public DOCUMENT_STATUS mapSCorpus() {
 		SCorpus scorpus = getSCorpus();
 		System.out.println("Map SCorpus at " + scorpus);
 		try {
@@ -119,6 +118,6 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			// must be a root node
 			exporter.releaseSubDocuments(scorpus);
 		}
-		return MAPPING_RESULT.FINISHED;
+		return DOCUMENT_STATUS.COMPLETED;
 	}
 }

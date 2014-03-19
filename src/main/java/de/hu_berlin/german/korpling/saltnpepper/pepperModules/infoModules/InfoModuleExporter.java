@@ -18,8 +18,6 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,11 +25,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.Semaphore;
 
 import javax.xml.transform.Source;
@@ -44,14 +40,12 @@ import javax.xml.transform.stream.StreamSource;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.osgi.service.blueprint.reflect.MapEntry;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.log.LogService;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperExporter;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperExporterImpl;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperExporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Node;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
@@ -130,48 +124,17 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		{
 			this.charset = Charset.forName("UTF-8");
 			this.resources.addAll(Arrays.asList(defaultResources));
-			this.name = "InfoModuleExporter";
+			this.setName("InfoModuleExporter");
 			this.addSupportedFormat("xml", "1.0",
 					URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
-//			this.setProperties(new InfoModuleProperties());
+			this.setProperties(new InfoModuleProperties());
 			System.out.println("Created InfoModuleExporter: ");
-			
-			URI specialParams = getSpecialParams();
-			if(specialParams != null){
-				loadOptions(specialParams);
-			}
-			
+						
 			//TODO: remove:
 			im.setCaching(true);
 			// for safety reasons
 			this.setIsMultithreaded(false);
 		 }
-	}
-	
-	/**
-	 * 
-	 * TODO: load Options
-	 */
-	private Properties loadOptions(final URI specialParams){
-		Properties options = new Properties();
-		if (this.getSpecialParams()!= null)
-		{//init options
-			File optionsFile= new File(specialParams.toFileString());
-			if (!optionsFile.exists())
-				this.getLogService().log(LogService.LOG_WARNING, "Cannot load special param file at location '"+optionsFile.getAbsolutePath()+"', because it does not exist.");
-			else
-			{
-//				this.options= new Properties();
-				try {
-					options.load(new FileInputStream(optionsFile));
-				} catch (FileNotFoundException e) {
-					throw new PepperModuleException("File not found: " + specialParams ,e);
-				} catch (IOException e) {
-					throw new PepperModuleException("Could not read file: " + specialParams, e);
-				}
-			}
-		}//init options
-		return options;
 	}
 	
 	
@@ -241,7 +204,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	 */
 	@Override
 	public PepperMapper createPepperMapper(SElementId sElementId) {
-		outputPath = getCorpusDefinition().getCorpusPath();
+		outputPath = getCorpusDesc().getCorpusPath();
 		System.out.println(String.format("Mapper for sElement:\n \t%s\n \toutput path: %s",sElementId,outputPath ) );
 		++documentCount;
 		if(!outputPath.hasTrailingPathSeparator()){
@@ -383,17 +346,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	public double getDocumentCount() {
 		// TODO Auto-generated method stub
 		return documentCount;
-	}
-	
-	/*
-	 * TODO: Change path for temporaries
-	 * (non-Javadoc)
-	 * @see de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperModuleImpl#setTemproraries(org.eclipse.emf.common.util.URI)
-	 */
-	@Override
-	public void setTemproraries(URI newTemproraries) {
-		// TODO Auto-generated method stub
-		super.setTemproraries(newTemproraries);
 	}
 
 	public URI getOutputPath() {
