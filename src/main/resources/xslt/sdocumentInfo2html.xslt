@@ -135,7 +135,7 @@
         </table>
     </xsl:template>
     
-    <!-- output of name and occurances, separated by ',' -->
+    <!-- output of name and occurrences, separated by ',' -->
     <xsl:template name="NameAndOccurances">
         <td>
             <span class="sannotationinfo">
@@ -143,7 +143,7 @@
                     <xsl:value-of select="@sName"/>
                 </span>
                 <span class="sannotationinfo-count">
-                    <xsl:value-of select="sum(sValue/@occurances)"/>
+                    <xsl:value-of select="sum(sValue/@occurrences)"/>
                 </span>
             </span>
             <xsl:element name="input">
@@ -156,7 +156,7 @@
            </input>-->
         </td>
         <!--  </xsl:when><xsl:otherwise><b><xsl:value-of select="@sName"
-                    /></b><xsl:text>(</xsl:text><xsl:value-of select="sum(sValue/@occurances)"
+                    /></b><xsl:text>(</xsl:text><xsl:value-of select="sum(sValue/@occurrences)"
                 />)</xsl:otherwise></xsl:choose>-->
     </xsl:template>
     
@@ -170,9 +170,9 @@
                         <span class="svalue-text">
                             <xsl:value-of select="text()"/>
                         </span>
-                        <span class="svalue-occurances">
+                        <span class="svalue-occurrences">
                             <xsl:text/>
-                            <xsl:value-of select="@occurances"/>
+                            <xsl:value-of select="@occurrences"/>
                             <xsl:text/>
                         </span>
                     </span>

@@ -32,7 +32,7 @@ $(document).ready(function(){
     text = '';
     $(svalues).each(function () {
       valuename = escapeDQuote($(this).children('.svalue-text').text());
-      valuecount = $(this).children('.svalue-occurances').text();
+      valuecount = $(this).children('.svalue-occurrences').text();
       text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
       text += CSV_SEPARATOR;
       text += CSV_DOUBLEQUOTE + valuecount + CSV_DOUBLEQUOTE;

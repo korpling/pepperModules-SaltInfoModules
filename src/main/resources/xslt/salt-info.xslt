@@ -598,11 +598,11 @@
             <xsl:text> (</xsl:text>
             <xsl:choose>
                 <xsl:when test="position()!=last()">
-                    <xsl:value-of select="@occurances"/>
+                    <xsl:value-of select="@occurrences"/>
                     <xsl:text>), </xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="@occurances"/>
+                    <xsl:value-of select="@occurrences"/>
                     <xsl:text>)</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
@@ -618,11 +618,11 @@
             <xsl:text> (</xsl:text>
             <xsl:choose>
                 <xsl:when test="position()=last()">
-                    <xsl:value-of select="@occurances"/>
+                    <xsl:value-of select="@occurrences"/>
                     <xsl:text>)</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="@occurances"/>
+                    <xsl:value-of select="@occurrences"/>
                     <xsl:text>), </xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
@@ -638,9 +638,9 @@
                         <span class="svalue-text">
                             <xsl:value-of select="text()"/>
                         </span>
-                        <span class="svalue-occurances">
+                        <span class="svalue-occurrences">
                             <xsl:text/>
-                            <xsl:value-of select="@occurances"/>
+                            <xsl:value-of select="@occurrences"/>
                             <xsl:text/>
                         </span>
                     </span>
@@ -648,7 +648,7 @@
             </span>
         </td>
     </xsl:template>
-    <!-- output of name and occurances, separated by ',' -->
+    <!-- output of name and occurrences, separated by ',' -->
     <xsl:template name="NameAndOccurances">
         <td>
             <span class="sannotationinfo">
@@ -656,7 +656,7 @@
                     <xsl:value-of select="@sName"/>
                 </span>
                 <span class="sannotationinfo-count">
-                    <xsl:value-of select="sum(sValue/@occurances)"/>
+                    <xsl:value-of select="sum(sValue/@occurrences)"/>
                 </span>
             </span>
             <xsl:element name="input">
@@ -669,7 +669,7 @@
            </input>-->
         </td>
         <!--  </xsl:when><xsl:otherwise><b><xsl:value-of select="@sName"
-                    /></b><xsl:text>(</xsl:text><xsl:value-of select="sum(sValue/@occurances)"
+                    /></b><xsl:text>(</xsl:text><xsl:value-of select="sum(sValue/@occurrences)"
                 />)</xsl:otherwise></xsl:choose>-->
     </xsl:template>
 
@@ -727,19 +727,19 @@
     <!-- accumulation of totalSAnnotationInfo for subcorpora -->
     <!--<xsl:template name="totalAnnoCorpus"><xsl:variable name="totalsNames"
             select="//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[count(.|key('totalAnnoName',@sName)[1])=1]"/><xsl:variable name="totalValues" select="sValue[count(.|key('totalValue',.)[1])=1]"/><table><tr><td><a class="tooltip"><!-\- <xsl:value-of select="$MappingList2/elem[@maptype='totalSAnnotationInfo']"/>-\-><xsl:copy-of select="$InfoImg"/><xsl:call-template name="totalAnnoTooltip"/></a></td></tr><xsl:for-each select="$totalsNames"><xsl:sort select="@sName"/><tr><td width="{$tdwidth}" valign="{$tdValignWhenToggled}"><b><xsl:value-of select="@sName"/></b>(<xsl:value-of
-                            select="sum(//sDocumentInfo/totalSAnnotationInfo/sAnnotationInfo[@sName = current()/@sName]/@occurances)"
+                            select="sum(//sDocumentInfo/totalSAnnotationInfo/sAnnotationInfo[@sName = current()/@sName]/@occurrences)"
                         />) </td><xsl:choose><xsl:when test="count(sValue) &gt; $maxSize"><td><xsl:for-each
                                     select="//sDocumentInfo/totalSAnnotationInfo/sAnnotationInfo[@sName = current()/@sName]//sValue[position() &lt; $maxSize+1]"><xsl:sort select="text()"/><b><xsl:value-of select="."/></b><xsl:text>&#160;(</xsl:text><xsl:choose><xsl:when test="position()!=last()"><xsl:value-of
-                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurances)"/><xsl:text>), </xsl:text></xsl:when><xsl:otherwise><xsl:value-of
-                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurances)"/><xsl:text>)</xsl:text></xsl:otherwise></xsl:choose></xsl:for-each><!-\- div for collapsable input -\-><div class="dropdown"><xsl:attribute name="id"><xsl:value-of
+                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurrences)"/><xsl:text>), </xsl:text></xsl:when><xsl:otherwise><xsl:value-of
+                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurrences)"/><xsl:text>)</xsl:text></xsl:otherwise></xsl:choose></xsl:for-each><!-\- div for collapsable input -\-><div class="dropdown"><xsl:attribute name="id"><xsl:value-of
                                             select="translate(../@id,'/,-,.','_')"/><xsl:value-of
                                             select="translate(@sName,'/,-,.','_')"
                                             />_<xsl:value-of select="position()"
                                         />_total2</xsl:attribute><xsl:for-each
                                         select="//sDocumentInfo/totalSAnnotationInfo/sAnnotationInfo[@sName = current()/@sName]//sValue[position() &gt; $maxSize]"><xsl:sort select="text()"/><b><xsl:value-of select="text()"/></b><xsl:text>&#160;(</xsl:text><xsl:choose><xsl:when test="position()=last()"><xsl:value-of
-                                                  select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurances)"/><xsl:text>)</xsl:text></xsl:when><xsl:otherwise><xsl:value-of
-                                                  select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurances)"/><xsl:text>), </xsl:text></xsl:otherwise></xsl:choose></xsl:for-each></div></td><xsl:call-template name="ToggleTdTotal2"/></xsl:when><xsl:otherwise><td valign="{$tdValignWhenToggled}" colspan="{$tdColspanUnderMax}"><xsl:for-each
+                                                  select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurrences)"/><xsl:text>)</xsl:text></xsl:when><xsl:otherwise><xsl:value-of
+                                                  select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurrences)"/><xsl:text>), </xsl:text></xsl:otherwise></xsl:choose></xsl:for-each></div></td><xsl:call-template name="ToggleTdTotal2"/></xsl:when><xsl:otherwise><td valign="{$tdValignWhenToggled}" colspan="{$tdColspanUnderMax}"><xsl:for-each
                                     select="//sDocumentInfo/totalSAnnotationInfo/sAnnotationInfo[@sName = current()/@sName]//sValue"><xsl:sort select="text()"/><b><xsl:value-of select="text()"/></b><xsl:text>&#160;(</xsl:text><xsl:choose><xsl:when test="position()!=last()"><xsl:value-of
-                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurances)"/><xsl:text>), </xsl:text></xsl:when><xsl:otherwise><xsl:value-of
-                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurances)"/><xsl:text>)</xsl:text></xsl:otherwise></xsl:choose></xsl:for-each></td></xsl:otherwise></xsl:choose></tr></xsl:for-each></table></xsl:template>-->
+                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurrences)"/><xsl:text>), </xsl:text></xsl:when><xsl:otherwise><xsl:value-of
+                                                select="sum(//sDocumentInfo/totalSAnnotationInfo//sAnnotationInfo[@sName=current()/parent::node()/@sName]//sValue[text()=current()/text()]/@occurrences)"/><xsl:text>)</xsl:text></xsl:otherwise></xsl:choose></xsl:for-each></td></xsl:otherwise></xsl:choose></tr></xsl:for-each></table></xsl:template>-->
 </xsl:stylesheet>

@@ -82,10 +82,10 @@ h3{
 .sannotationinfo-sname{
 	font-weight: bold;
 }
-.svalue-occurances:before{
+.svalue-occurrences:before{
 	content: " (";
 }
-.svalue-occurances:after{
+.svalue-occurrences:after{
 	content: ")";
 }
 
@@ -168,7 +168,7 @@ td:first-child{
     width: 250px;
 }
 
-.svalue-occurances{
+.svalue-occurrences{
     float: right;
 }
 
