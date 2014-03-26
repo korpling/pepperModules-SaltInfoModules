@@ -17,7 +17,7 @@
                     <!--<xsl:apply-templates select="//sCorpusInfo/structuralInfo"/>-->
                     <xsl:call-template name="data" />
                     <xsl:for-each select="sLayerInfo">
-                        
+
                         <xsl:sort select="@sName"/>
                         <xsl:call-template name="data"/>
                     </xsl:for-each>
@@ -25,7 +25,7 @@
             </body>
         </html>
     </xsl:template>
-    
+
     <xsl:template name="slayer-list">
         <ul>
             <xsl:for-each select="sLayerInfo">
@@ -33,7 +33,7 @@
             </xsl:for-each>
         </ul>
     </xsl:template>
-    
+
     <xsl:template match="sLayerInfo">
         <xsl:element name="div">
             <xsl:attribute name="class">slayer</xsl:attribute>
@@ -88,7 +88,7 @@
             </table>
         </div>
     </xsl:template>
-    
+
 
     <!-- Structural Info table    -->
     <xsl:template match="structuralInfo">
@@ -116,7 +116,7 @@
                         <xsl:value-of select="@sName"/>
                     </span>
                     <span class="sannotationinfo-count">
-                        <xsl:value-of select="sum(sValue/@occurrances)"/>
+                        <xsl:value-of select="@occurrences"/>
                     </span>
                 </span>
                 <xsl:call-template name="action-buttons"/>
@@ -128,7 +128,7 @@
             </xsl:apply-templates></td>
         </tr>
     </xsl:template>
-    
+
     <xsl:template name="action-buttons">
         <xsl:element name="button">
             <xsl:attribute name="class">btn-toogle-sannotation-dropdown</xsl:attribute>
@@ -140,7 +140,7 @@
             <!--                    <xsl:attribute name="type">button</xsl:attribute>-->
             <xsl:text>CSV</xsl:text>
         </xsl:element>
-       
+
     </xsl:template>
 
     <xsl:template match="sValue">

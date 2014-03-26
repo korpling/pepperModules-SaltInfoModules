@@ -169,7 +169,7 @@ td:first-child{
 }
 
 .svalue-occurrences{
-    float: right;
+    /*float: right;*/
 }
 
 .values{

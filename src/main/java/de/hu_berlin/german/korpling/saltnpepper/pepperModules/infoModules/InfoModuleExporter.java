@@ -188,7 +188,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		for (String resName : resources) {
 			URL res = this.getClass().getResource(resName);
 			URI out = URI.createFileURI("."+resName).resolve(outputPath);
-			System.out.println("\tCreating resource file: " + res + " saving to: " + out);
 			File fout = new File(out.toFileString());
 			//TODO: Switch overwriting
 			if(true){
@@ -203,6 +202,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 					}
 					is.close();
 					fos.close();
+					System.out.println("\tcreated resource file: " + res + " saving to: " + out);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -335,10 +335,10 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		
 		if(s != null){
 			int r = (int) (Math.random()*10000);
-			System.out.println(String.format("Acquiring %s / %s -- %s" ,scorpus.getSId(), s.availablePermits() , r ));
-			System.out.println(r);
+			System.out.println(String.format("Acquiring %s / %s < %s" ,scorpus.getSId(), s.availablePermits() , r ));
+			System.out.println("\t<" + r);
 			s.acquire();
-			System.out.println("---" + r);
+			System.out.println("\t>" + r);
 		}else{
 			createSyncEntry(scorpus);
 		}
@@ -350,8 +350,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		StreamResult result = new StreamResult(new File(
 				out.toFileString()));
 		try {
-			System.out.println(String.format("XSL-Transformation to %s", out.path()));
 			transformer.transform(source, result);
+			System.out.println(String.format("XSL-Transformation completed %s", out.path()));
 		} catch (TransformerException e) {
 			System.out.println("Failed to transform to :\t\t" + out.toFileString());
 			System.out.println("from:\t\t" + xml.toFileString());
