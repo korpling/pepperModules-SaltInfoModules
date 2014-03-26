@@ -22,61 +22,61 @@
         <entry key="SNode.subclass">56</entry>
         <entry key="SRelation.subclass">92</entry>
     </structuralInfo>
-    <sAnnotationInfo type="SToken" ="40">
-        <sValue ="4">ABR</sValue>
-        <sValue ="4">VB</sValue>
-        <sValue ="4">IN</sValue>
-        <sValue ="4">JJ</sValue>
-        <sValue ="4">DT</sValue>
-        <sValue ="4">TO</sValue>
-        <sValue ="4">PRP</sValue>
-        <sValue ="8">VBZ</sValue>
-        <sValue ="4">NN</sValue>
+    <sAnnotationInfo type="SToken" occurrences="40">
+        <sValue occurrences="4">ABR</sValue>
+        <sValue occurrences="4">VB</sValue>
+        <sValue occurrences="4">IN</sValue>
+        <sValue occurrences="4">JJ</sValue>
+        <sValue occurrences="4">DT</sValue>
+        <sValue occurrences="4">TO</sValue>
+        <sValue occurrences="4">PRP</sValue>
+        <sValue occurrences="8">VBZ</sValue>
+        <sValue occurrences="4">NN</sValue>
     </sAnnotationInfo>
-    <sAnnotationInfo type="SToken" ="40">
-        <sValue ="4">to</sValue>
-        <sValue ="4">more</sValue>
-        <sValue ="4">it</sValue>
-        <sValue ="4">than</sValue>
-        <sValue ="4">example</sValue>
-        <sValue ="4">complicated</sValue>
-        <sValue ="4">this</sValue>
-        <sValue ="4">appears</sValue>
-        <sValue ="8">be</sValue>
+    <sAnnotationInfo type="SToken" occurrences="40">
+        <sValue occurrences="4">to</sValue>
+        <sValue occurrences="4">more</sValue>
+        <sValue occurrences="4">it</sValue>
+        <sValue occurrences="4">than</sValue>
+        <sValue occurrences="4">example</sValue>
+        <sValue occurrences="4">complicated</sValue>
+        <sValue occurrences="4">this</sValue>
+        <sValue occurrences="4">appears</sValue>
+        <sValue occurrences="8">be</sValue>
     </sAnnotationInfo>
-    <sAnnotationInfo type="SPointingRelation" ="4">
-        <sValue ="4">antecedent</sValue>
+    <sAnnotationInfo type="SPointingRelation" occurrences="4">
+        <sValue occurrences="4">antecedent</sValue>
     </sAnnotationInfo>
-    <sAnnotationInfo type="SSpan" ="12">
-        <sValue ="4">topic</sValue>
-        <sValue ="4">contrast-focus</sValue>
+    <sAnnotationInfo type="SSpan" occurrences="12">
+        <sValue occurrences="4">topic</sValue>
+        <sValue occurrences="4">contrast-focus</sValue>
     </sAnnotationInfo>
     <sLayerInfo sName="sLayer2 mit STokens">
         <structuralInfo>
             <entry key="SToken">10</entry>
             <entry key="SNode.subclass">10</entry>
         </structuralInfo>
-        <sAnnotationInfo type="SToken" ="10">
-            <sValue ="1">ABR</sValue>
-            <sValue ="1">VB</sValue>
-            <sValue ="1">IN</sValue>
-            <sValue ="1">JJ</sValue>
-            <sValue ="1">DT</sValue>
-            <sValue ="1">TO</sValue>
-            <sValue ="1">PRP</sValue>
-            <sValue ="2">VBZ</sValue>
-            <sValue ="1">NN</sValue>
+        <sAnnotationInfo type="SToken" occurrences="10">
+            <sValue occurrences="1">ABR</sValue>
+            <sValue occurrences="1">VB</sValue>
+            <sValue occurrences="1">IN</sValue>
+            <sValue occurrences="1">JJ</sValue>
+            <sValue occurrences="1">DT</sValue>
+            <sValue occurrences="1">TO</sValue>
+            <sValue occurrences="1">PRP</sValue>
+            <sValue occurrences="2">VBZ</sValue>
+            <sValue occurrences="1">NN</sValue>
         </sAnnotationInfo>
-        <sAnnotationInfo type="SToken" ="10">
-            <sValue ="1">to</sValue>
-            <sValue ="1">more</sValue>
-            <sValue ="1">it</sValue>
-            <sValue ="1">than</sValue>
-            <sValue ="1">example</sValue>
-            <sValue ="1">complicated</sValue>
-            <sValue ="1">this</sValue>
-            <sValue ="1">appears</sValue>
-            <sValue ="2">be</sValue>
+        <sAnnotationInfo type="SToken" occurrences="10">
+            <sValue occurrences="1">to</sValue>
+            <sValue occurrences="1">more</sValue>
+            <sValue occurrences="1">it</sValue>
+            <sValue occurrences="1">than</sValue>
+            <sValue occurrences="1">example</sValue>
+            <sValue occurrences="1">complicated</sValue>
+            <sValue occurrences="1">this</sValue>
+            <sValue occurrences="1">appears</sValue>
+            <sValue occurrences="2">be</sValue>
         </sAnnotationInfo>
     </sLayerInfo>
     <sLayerInfo sName="sLayer1 mit SRelations">
@@ -86,8 +86,8 @@
             <entry key="SPointingRelation">1</entry>
             <entry key="SRelation.subclass">23</entry>
         </structuralInfo>
-        <sAnnotationInfo type="SPointingRelation" ="1">
-            <sValue ="1">antecedent</sValue>
+        <sAnnotationInfo type="SPointingRelation" occurrences="1">
+            <sValue occurrences="1">antecedent</sValue>
         </sAnnotationInfo>
     </sLayerInfo>
 </saltProjectInfo>
