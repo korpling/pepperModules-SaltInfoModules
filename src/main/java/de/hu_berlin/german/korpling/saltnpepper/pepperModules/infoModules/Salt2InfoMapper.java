@@ -6,12 +6,11 @@ import java.nio.charset.Charset;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 
@@ -59,8 +58,9 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	 * Creates the SaltInfo-XML for the mapped SDocument
 	 */
 	@Override
-	public MAPPING_RESULT mapSDocument() {
+	public DOCUMENT_STATUS mapSDocument() {
 		SDocument sdoc = getSDocument();
+		System.out.println("==SDoc::Start: " + sdoc.getSId());
 		try {
 			// sdoc.printInfo(getResourceURI());
 			File out = new File(getResourceURI().toFileString());
@@ -82,8 +82,8 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			SCorpus parent = (SCorpus) e.getSource();
 			exporter.releaseSubDocuments(parent);
 		}
-
-		return MAPPING_RESULT.FINISHED;
+		System.out.println("==SDoc::end: " + sdoc.getSId());
+		return DOCUMENT_STATUS.COMPLETED;
 	}
 
 
@@ -92,11 +92,12 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	 * Creates the SaltInfo-XML for the mapped corpus
 	 */
 	@Override
-	public MAPPING_RESULT mapSCorpus() {
+	public DOCUMENT_STATUS mapSCorpus() {
 		SCorpus scorpus = getSCorpus();
+		System.out.println("==scorp::Start: " + scorpus.getSId());
 		System.out.println("Map SCorpus at " + scorpus);
 		try {
-			exporter.waitForSubDocuments(scorpus);
+//			exporter.waitForSubDocuments(scorpus);
 			File out = new File(getResourceURI().toFileString());
 			exporter.getIm().writeInfoFile(getSCorpus(), out, outputPath);
 		} catch (Exception e) {
@@ -119,6 +120,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			// must be a root node
 			exporter.releaseSubDocuments(scorpus);
 		}
-		return MAPPING_RESULT.FINISHED;
+		System.out.println("==scorp::end:  " + scorpus.getSId());
+		return DOCUMENT_STATUS.COMPLETED;
 	}
 }
