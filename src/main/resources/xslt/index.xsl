@@ -86,7 +86,9 @@
             <xsl:apply-templates mode="subcorpora" select="//sCorpusInfo/sCorpusInfo"/>
             <xsl:choose>
                 <xsl:when test="child::node() = sDocumentInfo">
-            <xsl:apply-templates mode="documents"></xsl:apply-templates>
+            <xsl:apply-templates mode="documents">
+                <xsl:sort select="current()/@sName"/>
+            </xsl:apply-templates>
                 </xsl:when>
             </xsl:choose>
         </xsl:element>
@@ -105,7 +107,9 @@
             </xsl:element>
         </xsl:element>
         <xsl:element name="ul">
-            <xsl:apply-templates mode="documents"/>
+            <xsl:apply-templates mode="documents">
+                <xsl:sort select="current()/@sName"/>
+            </xsl:apply-templates>
         </xsl:element>
     </xsl:template>
     

@@ -48,7 +48,9 @@
         <li class="scorpus-item">
             <xsl:call-template name="scorpus-link"/>
             <ul>
-                <xsl:apply-templates mode="navi" select="sDocumentInfo|sCorpusInfo|saltProjectInfo"/>
+                <xsl:apply-templates mode="navi" select="sDocumentInfo|sCorpusInfo|saltProjectInfo">
+                    <xsl:sort select="current()/@sName"/>
+                </xsl:apply-templates>
             </ul>
         </li>
        
