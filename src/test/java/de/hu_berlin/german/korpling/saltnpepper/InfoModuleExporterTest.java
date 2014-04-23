@@ -1,5 +1,6 @@
 package de.hu_berlin.german.korpling.saltnpepper;
 
+import java.awt.image.SampleModel;
 import java.io.File;
 
 import javax.xml.transform.Transformer;
@@ -19,6 +20,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.InfoMo
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
@@ -104,7 +106,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	@Test
 	public void testSampleExport() throws Exception {
 		PepperExporter exporter = getFixture();
-		exporter.setSaltProject(SampleGenerator.createCompleteSaltproject());
+		exporter.setSaltProject(SampleGenerator.createCompleteSaltproject2());
 		CorpusDesc corpusDesc = new CorpusDesc();
 		corpusDesc.setCorpusPath(TMP_DIR_URI);
 		exporter.setCorpusDesc(corpusDesc);
@@ -115,10 +117,10 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	public void testConcurency() throws Exception {
 		PepperExporter exporter = getFixture();
 		
-		SaltProject p = SampleGenerator.createCompleteSaltproject();
+		SaltProject p = createCompleteSaltprojectWithMetadata();
 		SCorpus target = p.getSCorpusGraphs().get(0).getSCorpora().get(2);
 		p.setSName("test-project");
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 8; i++) {
 			SDocument d = SaltFactory.eINSTANCE.createSDocument();
 			d.setId("id_doc" + i);
 			d.setSName("empty_doc" + i);
@@ -129,5 +131,16 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		corpusDesc.setCorpusPath(TMP_DIR_URI);
 		exporter.setCorpusDesc(corpusDesc);
 		this.start();
+	}
+
+	private SaltProject createCompleteSaltprojectWithMetadata() {
+		SaltProject project = SampleGenerator.createCompleteSaltproject();
+		for (SCorpusGraph scorpGraph : project.getSCorpusGraphs()) {
+			for (SDocument sdoc : scorpGraph.getSDocuments()) {
+				SampleGenerator.addMetaAnnotation(sdoc, "sdoc_id", sdoc.getSId());
+				SampleGenerator.addMetaAnnotation(sdoc, "same", "same");
+			}
+		}
+		return project;
 	}
 }

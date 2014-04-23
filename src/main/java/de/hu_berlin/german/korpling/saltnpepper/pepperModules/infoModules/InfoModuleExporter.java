@@ -17,10 +17,12 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -50,6 +54,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.GRAPH_TRAVERSE_TYPE;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Node;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
@@ -144,12 +149,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		 }
 	}
 	
-	
-//	@Override
-//	public void start() throws PepperModuleException {
-//		// TODO Auto-generated method stub
-//		super.start();
-//	}
+
 	class SCorpusTraverser implements SGraphTraverseHandler {
 
 		private PepperExporter exporter;
@@ -194,6 +194,14 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	public void end() throws PepperModuleException {
 //		super.end();
 		startCorpusExport();
+		SaltProject saltProject = this.getSaltProject();
+		String sname = saltProject.getSName();
+		if(sname == null){
+			sname = "salt-project";
+		}
+		URI projectXML = URI.createURI(sname)
+				.appendFileExtension(XML_FILE_EXTENSION).resolve(outputPath);
+		im.writeProjectInfoXML(saltProject, projectXML);
 		
 //		URL saltinfocss = this.getClass().getResource(("/xslt/salt-info.xslt"));
 		System.out.println("End infomodule export " + this.getName());
@@ -226,28 +234,37 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		}
 		
 		// create index.html
-		for (Node n : roots) {
-			System.out.println("Roots:");
-			System.out.println("\t" + n);
-			if(n instanceof SCorpus){
-				SCorpus root = (SCorpus) n;
+//		for (Node n : roots) {
+//			System.out.println("Roots:");
+//			System.out.println("\t" + n);
+//			if(n instanceof SCorpus){
+//				SCorpus root = (SCorpus) n;
 //				try {
-					//waitForSubDocuments(root);
-					URI rootxml = getInfoXMLPath(root);
-					URI index = outputPath.trimSegments(1).appendSegment("index").appendFileExtension("html");
-					writeProduct(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), rootxml, index);
+//					waitForSubDocuments(root);
+//					URI rootxml = getInfoXMLPath(root);
+//					URI index = URI.createURI("index.html").resolve(outputPath);
+//					writeProduct(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), rootxml, index);
 //				}
 //				catch (InterruptedException e) {
 //					// TODO Auto-generated catch block
 //					throw new PepperModuleException("Root is not ready",e);
 //				}
-				
-				
-			}
-		}
+//				
+//				
+//			}
+//		}
+//		waitForSubDocuments(root);
+//		URI rootxml = getInfoXMLPath(root);
+		URI index = URI.createURI("index.html").resolve(outputPath);
+		writeProduct(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), projectXML, index);
 		
 	}
 
+
+
+	/**
+	 * Start the corpora traversal by starting every 
+	 */
 	private void startCorpusExport() {
 		SCorpusTraverser t = new SCorpusTraverser(this);
 		System.out.println("CorpusGraphs " + this.getSaltProject().getSCorpusGraphs().size());
@@ -355,50 +372,50 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			System.out.println(String.format("%s: %s", permit.getKey(), permit.getValue().availablePermits()));
 		}
 		Semaphore s;
-//		synchronized (syncMap) {
-//			s = syncMap.get(scorpus.getSId());
-//			if (s == null){
-//				s = createSyncEntry(scorpus);
-//				s.release();
-//			}else{
-//				s.release();
-//				System.out.println(String.format("release %s  / %s permits", scorpus, s.availablePermits()));
-//			}
-//			
-//		}
+		synchronized (syncMap) {
+			s = syncMap.get(scorpus.getSId());
+			if (s == null){
+				s = createSyncEntry(scorpus);
+				s.release();
+			}else{
+				s.release();
+				System.out.println(String.format("release %s  / %s permits", scorpus, s.availablePermits()));
+			}
+			
+		}
 		
 
 	}
 
-//	private Semaphore createSyncEntry(SCorpus scorpus) {
-//		Semaphore s;
-//		s = new Semaphore(1 - scorpus.getSCorpusGraph().getOutEdges(scorpus.getSId()).size());
-//		System.out.println(String.format("New semaphore for document %s / %s", scorpus.getSId(),s.availablePermits()));
-//		synchronized (syncMap) {
-//			syncMap.put(scorpus.getSId(), s);	
-//		}
-//		return s;
-//	}
+	private Semaphore createSyncEntry(SCorpus scorpus) {
+		Semaphore s;
+		s = new Semaphore(1 - scorpus.getSCorpusGraph().getOutEdges(scorpus.getSId()).size());
+		System.out.println(String.format("New semaphore for document %s / %s", scorpus.getSId(),s.availablePermits()));
+		synchronized (syncMap) {
+			syncMap.put(scorpus.getSId(), s);	
+		}
+		return s;
+	}
 	
-//	public void waitForSubDocuments(SCorpus scorpus) throws InterruptedException, PepperModuleException {
-//		Semaphore s;
-//		System.out.println(syncMap);
-//		synchronized(syncMap){
-//			 s = syncMap.get(scorpus.getSId());
-//		}
-//		
-//		if(s != null){
-//			int r = (int) (Math.random()*10000);
-//			System.out.println(String.format("Acquiring %s / %s < %s" ,scorpus.getSId(), s.availablePermits() , r ));
-//			System.out.println("\t<" + r);
-//			s.acquire();
-//			System.out.println("\t>" + r);
-//		}else{
-//			createSyncEntry(scorpus);
-//		}
-//	}
+	public void waitForSubDocuments(SCorpus scorpus) throws InterruptedException, PepperModuleException {
+		Semaphore s;
+		System.out.println(syncMap);
+		synchronized(syncMap){
+			 s = syncMap.get(scorpus.getSId());
+		}
+		
+		if(s != null){
+			int r = (int) (Math.random()*10000);
+			System.out.println(String.format("Acquiring %s / %s < %s" ,scorpus.getSId(), s.availablePermits() , r ));
+			System.out.println("\t<" + r);
+			s.acquire();
+			System.out.println("\t>" + r);
+		}else{
+			createSyncEntry(scorpus);
+		}
+	}
 	
-	synchronized public void writeProduct(Transformer transformer, URI xml, URI out) {
+	 public void writeProduct(Transformer transformer, URI xml, URI out) {
 	
 		StreamSource source = new StreamSource(new File(xml.toFileString()));
 		StreamResult result = new StreamResult(new File(
