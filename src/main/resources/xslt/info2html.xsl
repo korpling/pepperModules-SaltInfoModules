@@ -55,7 +55,7 @@
             </xsl:apply-templates>
             <!--<br/>-->
             <div class="annotation">
-                <h3><span class="data-entryName">annotations</span>:</h3>
+                <h3><span>annotations</span>:</h3>
                 <table class="data-table">
                     <thead>
                         <th>Name</th>
@@ -74,7 +74,7 @@
 
     <xsl:template match="metaDataInfo" name="metadata">
         <div class="metadata">
-            <h3><span class="data-entryName">meta data</span>:</h3>
+            <h3><span>meta data</span>:</h3>
             <table class="data-metadata">
                 <thead>
                     <th>Name</th>
@@ -93,7 +93,7 @@
     <!-- Structural Info table    -->
     <xsl:template match="structuralInfo">
         <div class="structuralInfo">
-            <h3><span class="data-entryName">structural info</span>:</h3>
+            <h3><span>structural info</span>:</h3>
             <table class="data-structuralInfo">
                 <thead>
                     <th>Name</th>
@@ -111,7 +111,7 @@
     <xsl:template match="sAnnotationInfo">
         <tr>
             <td>
-                <span class="sannotationinfo">
+                <span class="sannotationinfo" >
                     <span class="sannotationinfo-sname">
                         <xsl:value-of select="@sName"/>
                     </span>
@@ -143,8 +143,8 @@
 
     </xsl:template>
 
-    <xsl:template match="sValue">
-        <span class="svalue">
+    <xsl:template match="sValue" >
+        <span class="svalue" style="display:none">
             <span class="svalue-text"><xsl:value-of select="text()"/></span>
             <span class="svalue-occurrences"><xsl:value-of select="@occurrences"/></span>
         </span>

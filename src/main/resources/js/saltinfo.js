@@ -1,26 +1,29 @@
+/*global $:false */
+'use strict';
+function start(){
+  var CSV_SEPARATOR = ',';
+  var CSV_DOUBLEQUOTE = '"';
+  var CSV_LINEBREAK = '\r\n';
+  var CSV_MIME_TYPE = 'text/csv';
+  var VISIBLE_ITEMS = 5;
 
-$(document).ready(function(){
-  CSV_SEPARATOR = ',';
-  CSV_DOUBLEQUOTE = '"';
-  CSV_LINEBREAK = '\n';
-  CSV_MIME_TYPE = 'text/csv';
-  VISIBLE_ITEMS = 5;
-
+  var NAV_BORDER = 15;
+  var NAV_WIDTH = 150;
 
   /**
     loads text as data uri
   */
-  downloadText = function (text, mime) {
+  function downloadText(text, mime) {
       window.location.href = 'data:' + mime + ';charset=UTF-8,' + encodeURIComponent(text);
-  };
+  }
 
   /**
     escapes double-quotes
     https://tools.ietf.org/html/rfc4180#section-2  Section 7
   */
-  escapeDQuote = function(string){
+  function escapeDQuote(string){
     return string.replace(/"/g,'""');
-  };
+  }
 
   /**
     Converts the given array of svalue-data items into an
@@ -28,11 +31,11 @@ $(document).ready(function(){
     values are quoted because there could be line breaks
     see https://tools.ietf.org/html/rfc4180
   */
-  svalues2text = function (svalues) {
-    text = '';
+  var svalues2text = function (svalues) {
+    var text = '';
     $(svalues).each(function () {
-      valuename = escapeDQuote($(this).children('.svalue-text').text());
-      valuecount = $(this).children('.svalue-occurrences').text();
+      var valuename = escapeDQuote($(this).children('.svalue-text').text());
+      var valuecount = $(this).children('.svalue-occurrences').text();
       text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
       text += CSV_SEPARATOR;
       text += CSV_DOUBLEQUOTE + valuecount + CSV_DOUBLEQUOTE;
@@ -46,7 +49,7 @@ $(document).ready(function(){
     Starts the csv Download for the given row
   */
   $("#content").on("click", ".btn-download-csv", function(event){
-      data = $(this).parent().next().children('.svalue');
+      var data = $(this).parent().next().children('.svalue');
       downloadText(svalues2text(data), CSV_MIME_TYPE);
   });
 
@@ -54,7 +57,6 @@ $(document).ready(function(){
     load from document based on id
    */
   if (window.location.hash){
-
     $('#content').load(window.location.hash.substring(1) + ".html #data", function(){
       $(".btn-toogle-sannotation-dropdown").each(toggledropdown);
     });
@@ -74,38 +76,34 @@ $(document).ready(function(){
     var values = $('.svalue-text');
     $(values).toggleClass('boxed');
   };
+
   /**
     toggles .svalue items in a list with an index greater than VISIBLE_ITEMS
     */
-  var toggledropdown = function(event){
-    var buttons = $(this).parent().next().children('.svalue').slice(VISIBLE_ITEMS);
-    if (buttons.length > 0) {
-      buttons.toggle();
-    }else{
-      $(this).hide();
-    }
-
-  };
+  function toggledropdown(event){
+    var svalues = $(this).parent().next().children('.svalue').slice(VISIBLE_ITEMS);
+    svalues.toggle();
+  }
   // run the toggle during startup
-  $( ".btn-toogle-sannotation-dropdown").each(toggledropdown);
+  // $( ".btn-toogle-sannotation-dropdown").each(toggledropdown);
+  $(".btn-toogle-sannotation-dropdown").each(function(){
+    $(this).parent().next().children('.svalue').slice(0,VISIBLE_ITEMS).toggle();
+  });
 
-  /**
-    register click listener on placeholder
-  */
-  $("#content").on("click", ".btn-toogle-sannotation-dropdown", toggledropdown);
-  $("#content").on("click", ".btn-toggle-box", toggleBox);
 
 
   /**
     loads the new content
   */
-  $('.nav-link').click(function(){
+  var loadContent = function(){
     $('#content').load(this.href + " #data", function(){
       $(".btn-toogle-sannotation-dropdown").each(toggledropdown);
     });
     window.location.hash = this.getAttribute('data-id');
     return false;
-  });
+  };
+
+
 
   /**
     places and toggles the tooltips
@@ -123,29 +121,37 @@ $(document).ready(function(){
   }, mouseleave: function() {
     // $( this ).text( "inside" );
      $('#'+$(this).text()).fadeOut();
-
   }
   },  ".data-entryName" );
+
+
 
   /**
    expands the navigation if document titles are to long
    */
-  $( "#navigation").on( {
-   mouseenter: function() {
+  var expand = function() {
     if(this.offsetWidth < this.scrollWidth){
       $(this).animate({
-        width: this.scrollWidth + 15
-      },150);
+        width: this.scrollWidth + NAV_BORDER
+      },NAV_WIDTH);
     }
-  }, mouseleave: function() {
+  };
+
+  /**
+   collapse navigation
+   */
+   var collapse = function() {
     $(this).animate({
         width: 250
-      },150);
-  }
-  } );
+      },NAV_WIDTH);
+  };
 
 
-});
+  $( "#navigation").on( "mouseenter", expand);
+  $( "#navigation").on( "mouseleave", collapse);
+  $("#content").on("click", ".btn-toogle-sannotation-dropdown", toggledropdown);
+  $("#content").on("click", ".btn-toggle-box", toggleBox);
 
-
-
+  $(".nav-link").on("click", loadContent);
+};
+$(document).ready(start);
