@@ -5,6 +5,10 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
 
 public class InfoModuleProperties extends PepperModuleProperties {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8478680295397920096L;
 	public final static String HTML_OUTPUT = "htmlOutput";
 	public final static String INCLUDE_XML_HEADER = "includeXMLHeader";
 

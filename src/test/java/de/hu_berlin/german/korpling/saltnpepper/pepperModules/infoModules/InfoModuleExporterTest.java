@@ -1,4 +1,6 @@
-package de.hu_berlin.german.korpling.saltnpepper;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
+
+import static org.junit.Assert.*;
 
 import java.awt.image.SampleModel;
 import java.io.File;
@@ -25,10 +27,9 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
 public class InfoModuleExporterTest extends PepperExporterTest {
-	public static final String FILE_TMP_DIR = System.getProperty("java.io.tmpdir");
-	public static final File TMP_DIR = new File(FILE_TMP_DIR);
-	public static final URI TMP_DIR_URI = URI.createFileURI(TMP_DIR.toURI()
-			.getRawPath() + File.separator);
+	public static final URI FILE_TMP_DIR = URI.createFileURI(System.getProperty("java.io.tmpdir"));
+	public static final File TMP_DIR = new File(FILE_TMP_DIR.toFileString());
+	public static final URI TMP_DIR_URI = (FILE_TMP_DIR.hasTrailingPathSeparator())?FILE_TMP_DIR:FILE_TMP_DIR.appendSegment("sds");
 	//
 	private FormatDesc formatDesc;
 
@@ -142,5 +143,18 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 			}
 		}
 		return project;
+	}
+	
+	@Test
+	public void testResourceExport() throws Exception {
+		System.out.println(TMP_DIR_URI);
+		URI resDir = URI.createURI("res.test/").resolve(TMP_DIR_URI);
+		System.out.println(resDir);
+		InfoModuleExporter exporter = new InfoModuleExporter();
+		exporter.copyRessourcesTo(resDir);
+		for (String res : exporter.defaultResources) {
+			File resFile = new File(resDir.toFileString(),res);
+			assertTrue(resFile.canRead());
+		}
 	}
 }

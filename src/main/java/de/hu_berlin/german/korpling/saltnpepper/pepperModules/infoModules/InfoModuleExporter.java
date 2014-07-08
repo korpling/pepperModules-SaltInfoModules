@@ -45,7 +45,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import de.hu_berlin.german.korpling.saltnpepper.pepper.core.DocumentBus;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
@@ -90,10 +93,11 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
 @Component(name = "InfoModuleExporterComponent", factory = "PepperExporterComponentFactory")
 public class InfoModuleExporter extends PepperExporterImpl implements
 		PepperExporter {
+	private static final Logger logger = LoggerFactory.getLogger(InfoModuleExporter.class);
 	
 	private static final String XML_FILE_EXTENSION = "xml";
 	final List<String> resources = new ArrayList<String>();
-	final String[] defaultResources = {"/css/saltinfo.css",
+	public final String[] defaultResources = {"/css/saltinfo.css",
 		  "/css/index.css",
 		  "/js/saltinfo.js",
 		  "/js/jquery.js",
@@ -140,7 +144,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			this.addSupportedFormat("xml", "1.0",
 					URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
 			this.setProperties(new InfoModuleProperties());
-			System.out.println("Created InfoModuleExporter: ");
+			logger.debug("Created InfoModuleExporter: ");
 						
 			//TODO: remove:
 			im.setCaching(true);
@@ -165,7 +169,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			// TODO Auto-generated method stub
 			if (currNode instanceof SCorpus) {
 				SCorpus sCorpus = (SCorpus) currNode;
-				System.out.println("Started " + sCorpus.getSElementId());
+				logger.debug("Started " + sCorpus.getSElementId());
 				exporter.start(sCorpus.getSElementId());
 			}
 		}
@@ -204,39 +208,16 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		im.writeProjectInfoXML(saltProject, projectXML);
 		
 //		URL saltinfocss = this.getClass().getResource(("/xslt/salt-info.xslt"));
-		System.out.println("End infomodule export " + this.getName());
-		for (String resName : resources) {
-			URL res = this.getClass().getResource(resName);
-			URI out = URI.createFileURI("."+resName).resolve(outputPath);
-			File fout = new File(out.toFileString());
-			//TODO: Switch overwriting
-			if(true){
-				fout.getParentFile().mkdirs();
-				try {
-					FileOutputStream fos = new FileOutputStream(fout );
-					InputStream is = res.openStream();
-					byte[] buffer = new byte[1024];
-					int len = 0;
-					while((len = is.read(buffer)) != -1){
-						fos.write(buffer, 0, len);
-					}
-					is.close();
-					fos.close();
-					System.out.println("\tcreated resource file: " + res + " saving to: " + out);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+		logger.debug("End infomodule export " + this.getName());
+		copyRessourcesTo(outputPath);
 		for (SCorpusGraph corpGraph : this.getSaltProject().getSCorpusGraphs()) {
 			roots = corpGraph.getSRoots();
 		}
 		
 		// create index.html
 //		for (Node n : roots) {
-//			System.out.println("Roots:");
-//			System.out.println("\t" + n);
+//			logger.debug("Roots:");
+//			logger.debug("\t" + n);
 //			if(n instanceof SCorpus){
 //				SCorpus root = (SCorpus) n;
 //				try {
@@ -260,24 +241,51 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		
 	}
 
+	public void copyRessourcesTo(URI outputPath) {
+		for (String resName : resources) {
+			URL res = this.getClass().getResource(resName);
+			URI out = URI.createFileURI("."+resName).resolve(outputPath);
+			File fout = new File(out.toFileString());
+			//TODO: Switch overwriting
+			if(true){
+				fout.getParentFile().mkdirs();
+				try {
+					FileOutputStream fos = new FileOutputStream(fout );
+					InputStream is = res.openStream();
+					byte[] buffer = new byte[1024];
+					int len = 0;
+					while((len = is.read(buffer)) != -1){
+						fos.write(buffer, 0, len);
+					}
+					is.close();
+					fos.close();
+					logger.debug("\tcreated resource file: " + res + " saving to: " + out);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 
 
 	/**
-	 * Start the corpora traversal by starting every 
+	 * Start the corpora traversal
 	 */
-	private void startCorpusExport() {
+	private void startCorpusExport() throws PepperModuleException{
 		SCorpusTraverser t = new SCorpusTraverser(this);
-		System.out.println("CorpusGraphs " + this.getSaltProject().getSCorpusGraphs().size());
+//		logger.debug("CorpusGraphs " + this.getSaltProject().getSCorpusGraphs().size());
 		for (SCorpusGraph corpGraph : this.getSaltProject().getSCorpusGraphs()) {
 			EList<SNode> startNodes = new BasicEList<SNode>();
-			System.out.println("Corpora " + corpGraph.getSCorpora().size());
+//			logger.debug("Corpora " + corpGraph.getSCorpora().size());
 			for (SCorpus corpus : corpGraph.getSCorpora()) {
 				if (isCorpusEndNode(corpGraph,corpus)) {
 					startNodes.add(corpus);
 				}
 			}
 			if (startNodes.isEmpty()){
-				System.out.println("No corpora to start export in " + corpGraph);
+				throw new PepperModuleException("No corpora to start export in " + corpGraph);
 			}else{
 				corpGraph.traverse(startNodes, GRAPH_TRAVERSE_TYPE.BOTTOM_UP_BREADTH_FIRST, "start_corpus_export", t,false);				
 			}
@@ -310,7 +318,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	@Override
 	public PepperMapper createPepperMapper(SElementId sElementId) {
 		outputPath = getCorpusDesc().getCorpusPath();
-		System.out.println(String.format("Mapper for sElement:\n \t%s\n \toutput path: %s",sElementId,outputPath ) );
+		logger.debug(String.format("creating mapper for sElement:\n \t%s\n \toutput path: %s",sElementId,outputPath ) );
 		++documentCount;
 		if(!outputPath.hasTrailingPathSeparator()){
 			outputPath = outputPath.appendSegment(URI.encodeSegment("", false));
@@ -322,23 +330,23 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		
 		// Location für Ressourcen Folder
 		getResources();
-		System.out.println("\tCreating PepperMapper for:\n\t\t"
+		logger.debug("\tCreating PepperMapper for:\n\t\t"
 				+ sElementId.getIdentifiableElement());
 		IdentifiableElement elem = sElementId.getIdentifiableElement();
 		if (elem instanceof SDocument) {
 			final SDocument sdoc = (SDocument) elem;
-			System.out.println("\t\tMapping SDocument:\n\t\t" + sElementId);
+			logger.debug("\t\tMapping SDocument:\n\t\t" + sElementId);
 			
 			//Move to export Graph
 			URI out = getInfoXMLPath(sdoc);
 			getSElementId2ResourceTable().put(sElementId, out);
-			System.out.println("\t\tElementPath: \t" + sdoc.getSElementPath());
-			System.out.println("\t\tRessourceTable entries= "
+			logger.debug("\t\tElementPath: \t" + sdoc.getSElementPath());
+			logger.debug("\t\tRessourceTable entries= "
 					+ getSElementId2ResourceTable().size());
 
 			mapper.setResourceURI(out);
 //			Semaphore s = new Semaphore(0);
-//			System.out.println(String.format("Syncing document %s / %s", sdoc.getSId(),s.availablePermits()));
+//			logger.debug(String.format("Syncing document %s / %s", sdoc.getSId(),s.availablePermits()));
 //			syncMap.put(sdoc.getSId(), s);
 		} else if (elem instanceof SCorpus) {
 			// html export is 1 step
@@ -347,11 +355,11 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			URI out = getInfoXMLPath(scorpus);
 			getSElementId2ResourceTable().put(sElementId, out);
 			mapper.setResourceURI(out);
-			System.out.println("> Mapping SCorpus " + elem + " to " + out);
+			logger.debug("> Mapping SCorpus " + elem + " to " + out);
 			
 			Semaphore s = new Semaphore(1 - scorpus.getSCorpusGraph().getOutEdges(sElementId.getId()).size());
 //			syncMap.put(scorpus.getSId(), s);
-			System.out.println(String.format("Syncing document %s / %s", scorpus.getSId(),s.availablePermits()));
+			logger.debug(String.format("Syncing document %s / %s", scorpus.getSId(),s.availablePermits()));
 		}
 		
 		return (mapper);
@@ -360,8 +368,8 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	
 	@Override
 	public void start() throws PepperModuleException {
-		System.out.println("Starting InfoModuleExport:");
-		System.out.println(syncMap.toString());
+		logger.debug("Starting InfoModuleExport:");
+		logger.debug(syncMap.toString());
 		
 		super.start();
 		
@@ -369,7 +377,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	
 	public void releaseSubDocuments(SCorpus scorpus){
 		for (Map.Entry<String, Semaphore> permit : syncMap.entrySet()) {
-			System.out.println(String.format("%s: %s", permit.getKey(), permit.getValue().availablePermits()));
+			logger.debug(String.format("%s: %s", permit.getKey(), permit.getValue().availablePermits()));
 		}
 		Semaphore s;
 		synchronized (syncMap) {
@@ -379,7 +387,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 				s.release();
 			}else{
 				s.release();
-				System.out.println(String.format("release %s  / %s permits", scorpus, s.availablePermits()));
+				logger.debug(String.format("release %s  / %s permits", scorpus, s.availablePermits()));
 			}
 			
 		}
@@ -390,7 +398,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	private Semaphore createSyncEntry(SCorpus scorpus) {
 		Semaphore s;
 		s = new Semaphore(1 - scorpus.getSCorpusGraph().getOutEdges(scorpus.getSId()).size());
-		System.out.println(String.format("New semaphore for document %s / %s", scorpus.getSId(),s.availablePermits()));
+		logger.debug(String.format("New semaphore for document %s / %s", scorpus.getSId(),s.availablePermits()));
 		synchronized (syncMap) {
 			syncMap.put(scorpus.getSId(), s);	
 		}
@@ -399,17 +407,17 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	
 	public void waitForSubDocuments(SCorpus scorpus) throws InterruptedException, PepperModuleException {
 		Semaphore s;
-		System.out.println(syncMap);
+		logger.debug(syncMap.toString());
 		synchronized(syncMap){
 			 s = syncMap.get(scorpus.getSId());
 		}
 		
 		if(s != null){
 			int r = (int) (Math.random()*10000);
-			System.out.println(String.format("Acquiring %s / %s < %s" ,scorpus.getSId(), s.availablePermits() , r ));
-			System.out.println("\t<" + r);
+			logger.debug(String.format("Acquiring %s / %s < %s" ,scorpus.getSId(), s.availablePermits() , r ));
+			logger.debug("\t<" + r);
 			s.acquire();
-			System.out.println("\t>" + r);
+			logger.debug("\t>" + r);
 		}else{
 			createSyncEntry(scorpus);
 		}
@@ -422,11 +430,11 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 				out.toFileString()));
 		try {
 			transformer.transform(source, result);
-			System.out.println(String.format("XSL-Transformation completed %s", out.path()));
+			logger.debug(String.format("XSL-Transformation completed %s", out.path()));
 		} catch (TransformerException e) {
-			System.out.println("Failed to transform to :\t\t" + out.toFileString());
-			System.out.println("from:\t\t" + xml.toFileString());
-			System.out.println("with:\t\t" + transformer.toString());
+			logger.debug("Failed to transform to :\t\t" + out.toFileString());
+			logger.debug("from:\t\t" + xml.toFileString());
+			logger.debug("with:\t\t" + transformer.toString());
 			throw new PepperModuleException("Can't generate HTML output", e);
 		}
 	}
