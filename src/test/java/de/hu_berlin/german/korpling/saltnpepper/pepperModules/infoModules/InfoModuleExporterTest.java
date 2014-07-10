@@ -1,6 +1,6 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -17,12 +17,14 @@ import org.junit.Test;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.CorpusDesc;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.FormatDesc;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperExporterTest;
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SMetaAnnotation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
 public class InfoModuleExporterTest extends PepperExporterTest {
@@ -111,13 +113,38 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	@Test
 	public void testSampleExport() throws Exception {
 		PepperExporter exporter = getFixture();
-		exporter.setSaltProject(SampleGenerator.createCompleteSaltproject2());
 		CorpusDesc corpusDesc = new CorpusDesc();
+		SaltProject sProject = SampleGenerator.createCompleteSaltproject2();
+		
+		addMetaDataToEverySDocument(sProject);
+		exporter.setSaltProject(sProject);
 		corpusDesc.setCorpusPath(URI.createFileURI("testSampleExport/").resolve(TMP_DIR_URI));
 		exporter.setCorpusDesc(corpusDesc);
-		this.start();
+		
+		try {
+			this.start();			
+		} catch (PepperModuleException e) {
+			fail();
+		}
 	}
 	
+	private void addMetaDataToEverySDocument(SaltProject sProject) {
+		for (SCorpusGraph sCorpusGraph : sProject.getSCorpusGraphs()) {
+			for (SCorpus sCorpus : sCorpusGraph.getSCorpora()) {
+				SMetaAnnotation metaAnnotation = SaltFactory.eINSTANCE.createSMetaAnnotation();
+				metaAnnotation.setSName("scorpmeta");
+				metaAnnotation.setSValue(sCorpus.getSId());
+				sCorpus.addSMetaAnnotation(metaAnnotation);				
+			}
+			for (SDocument sDocument : sCorpusGraph.getSDocuments()) {
+				SMetaAnnotation metaAnnotation = SaltFactory.eINSTANCE.createSMetaAnnotation();
+				metaAnnotation.setSName("sdocmeta");
+				metaAnnotation.setSValue(sDocument.getSId());
+				sDocument.addSMetaAnnotation(metaAnnotation);
+			}
+		}
+	}
+
 	@Test
 	public void testConcurency() throws Exception {
 		PepperExporter exporter = getFixture();
@@ -135,7 +162,11 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		CorpusDesc corpusDesc = new CorpusDesc();
 		corpusDesc.setCorpusPath(URI.createFileURI("testConcurency/").resolve(TMP_DIR_URI));
 		exporter.setCorpusDesc(corpusDesc);
-		this.start();
+		try {
+			this.start();			
+		} catch (PepperModuleException e) {
+			fail();
+		}
 	}
 
 	private SaltProject createCompleteSaltprojectWithMetadata() {
