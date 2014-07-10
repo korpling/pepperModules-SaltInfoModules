@@ -3,6 +3,7 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 import java.io.File;
 import java.nio.charset.Charset;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 
@@ -24,7 +25,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure
  * 
  */
 public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
-
+	static private Logger logger = Logger.getLogger(Salt2InfoMapper.class);
 
 	private final Charset charset;
 	private URI outputPath;
@@ -60,11 +61,11 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	@Override
 	public DOCUMENT_STATUS mapSDocument() {
 		SDocument sdoc = getSDocument();
-		System.out.println("==SDoc::Start: " + sdoc.getSId());
+		logger.debug("==SDoc::Start: " + sdoc.getSId());
 		try {
 			// sdoc.printInfo(getResourceURI());
 			File out = new File(getResourceURI().toFileString());
-			System.out.println(String.format("write to %s", out));
+			logger.debug(String.format("write to %s", out));
 			exporter.getIm().writeInfoFile(sdoc, out, null);
 			if (htmlOutput) {
 				exporter.writeProduct(exporter.getInfo2html(),getResourceURI(),
@@ -82,7 +83,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			SCorpus parent = (SCorpus) e.getSource();
 			exporter.releaseSubDocuments(parent);
 		}
-		System.out.println("==SDoc::end: " + sdoc.getSId());
+		logger.debug("==SDoc::end: " + sdoc.getSId());
 		return DOCUMENT_STATUS.COMPLETED;
 	}
 
@@ -94,8 +95,8 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	@Override
 	public DOCUMENT_STATUS mapSCorpus() {
 		SCorpus scorpus = getSCorpus();
-		System.out.println("==scorp::Start: " + scorpus.getSId());
-		System.out.println("Map SCorpus at " + scorpus);
+		logger.debug("==scorp::Start: " + scorpus.getSId());
+		logger.debug("Map SCorpus at " + scorpus);
 		try {
 			exporter.waitForSubDocuments(scorpus);
 			File out = new File(getResourceURI().toFileString());
@@ -120,7 +121,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			// must be a root node
 			exporter.releaseSubDocuments(scorpus);
 		}
-		System.out.println("==scorp::end:  " + scorpus.getSId());
+		logger.debug("==scorp::end:  " + scorpus.getSId());
 		return DOCUMENT_STATUS.COMPLETED;
 	}
 }

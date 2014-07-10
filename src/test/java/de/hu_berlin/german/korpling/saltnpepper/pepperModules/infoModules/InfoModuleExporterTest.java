@@ -1,8 +1,7 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import java.awt.image.SampleModel;
 import java.io.File;
 
 import javax.xml.transform.Transformer;
@@ -10,6 +9,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,6 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.common.CorpusDesc;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.FormatDesc;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperExporterTest;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.InfoModuleExporter;
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
@@ -27,6 +26,8 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
 public class InfoModuleExporterTest extends PepperExporterTest {
+	private Logger logger = Logger.getLogger(InfoModuleExporterTest.class);
+	
 	public static final URI FILE_TMP_DIR = URI.createFileURI(System.getProperty("java.io.tmpdir"));
 	public static final File TMP_DIR = new File(FILE_TMP_DIR.toFileString());
 	public static final URI TMP_DIR_URI = (FILE_TMP_DIR.hasTrailingPathSeparator())?FILE_TMP_DIR:FILE_TMP_DIR.appendSegment("sds");
@@ -96,14 +97,14 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		StreamSource source = new StreamSource(input);
 		StreamResult result = new StreamResult(output);
 		if (!tmpDir.exists()) {
-			System.out.println("creating tmpDir");
+			logger.debug("creating tmpDir");
 			tmpDir.mkdir();
 		}
-		System.out.println("Transform to: " + sampleHTMLoutput);
-		System.out.println(output.getParentFile().canWrite());
+		logger.debug("Transform to: " + sampleHTMLoutput);
+		logger.debug(output.getParentFile().canWrite());
 
-		System.out.println("from:         " + input);
-		System.out.println(input.canRead());
+		logger.debug("from:         " + input);
+		logger.debug(input.canRead());
 		t.transform(source, result);
 	}
 	
@@ -150,9 +151,9 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	
 	@Test
 	public void testResourceExport() throws Exception {
-		System.out.println(TMP_DIR_URI);
+		logger.debug(TMP_DIR_URI);
 		URI resDir = URI.createURI("testResourceExport/").resolve(TMP_DIR_URI);
-		System.out.println(resDir);
+		logger.debug(resDir);
 		InfoModuleExporter exporter = new InfoModuleExporter();
 		exporter.copyRessourcesTo(resDir);
 		for (String res : exporter.defaultResources) {

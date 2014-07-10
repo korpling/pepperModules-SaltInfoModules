@@ -17,12 +17,10 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -32,8 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -45,10 +41,8 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.core.DocumentBus;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
@@ -56,7 +50,6 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperExport
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.GRAPH_TRAVERSE_TYPE;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
-import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Node;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
@@ -93,7 +86,6 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
 @Component(name = "InfoModuleExporterComponent", factory = "PepperExporterComponentFactory")
 public class InfoModuleExporter extends PepperExporterImpl implements
 		PepperExporter {
-	private static final Logger logger = LoggerFactory.getLogger(InfoModuleExporter.class);
 	
 	private static final String XML_FILE_EXTENSION = "xml";
 	final List<String> resources = new ArrayList<String>();
@@ -133,7 +125,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	
 	private final Map<String, Semaphore> syncMap = new HashMap<String, Semaphore>();
 	
-//	Logger log = LogManager.getLogger(InfoModuleExporter.class);
+	private Logger logger = Logger.getLogger(InfoModuleExporter.class);
 	
 	public InfoModuleExporter() {
 			super();
@@ -196,7 +188,6 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	}
 	@Override
 	public void end() throws PepperModuleException {
-//		super.end();
 		startCorpusExport();
 		SaltProject saltProject = this.getSaltProject();
 		String sname = saltProject.getSName();
@@ -261,8 +252,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 					fos.close();
 					logger.debug("\tcreated resource file: " + res + " saving to: " + out);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new PepperModuleException("Error while copying resource: " + outputPath);
 				}
 			}
 		}
@@ -328,7 +318,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 		mapper.setProperties(this.getProperties());
 		
 		
-		// Location für Ressourcen Folder
+		// Location for resource folder
 		getResources();
 		logger.debug("\tCreating PepperMapper for:\n\t\t"
 				+ sElementId.getIdentifiableElement());
@@ -435,7 +425,7 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 			logger.debug("Failed to transform to :\t\t" + out.toFileString());
 			logger.debug("from:\t\t" + xml.toFileString());
 			logger.debug("with:\t\t" + transformer.toString());
-			throw new PepperModuleException("Can't generate HTML output", e);
+			throw new PepperModuleException(String.format("Can't generate HTML output %s", xml), e);
 		}
 	}
 	
@@ -447,25 +437,21 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 	private Transformer loadXSLTTransformer(String path) {
 		Transformer t = null;
 		try {
-			// if(cachedXSLT == null){
 			URL res = this.getClass().getResource(path);
 			Source xsltSource = new StreamSource(res.openStream(),
 					res.toString());
 			t = transFac.newTransformer(xsltSource);
-			// }
 		} catch (Exception e) {
-			throw new PepperModuleException("Can't create xslt cache", e);
+			throw new PepperModuleException("Can't create xslt cache for " + path, e);
 		}
 		return t;
 	}
 
 	public double getDocumentCount() {
-		// TODO Auto-generated method stub
 		return documentCount;
 	}
 
 	public URI getOutputPath() {
-		// TODO Auto-generated method stub
 		return outputPath;
 	}
 
