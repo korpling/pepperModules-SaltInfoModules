@@ -68,7 +68,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			logger.debug(String.format("write to %s", out));
 			exporter.getIm().writeInfoFile(sdoc, out, null);
 			if (htmlOutput) {
-				exporter.writeProduct(exporter.getInfo2html(),getResourceURI(),
+				exporter.applyXSLT(exporter.getInfo2html(),getResourceURI(),
 						getResourceURI().trimFileExtension()
 								.appendFileExtension("html"));
 			}
@@ -81,7 +81,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		EList<Edge> in = sdoc.getSCorpusGraph().getInEdges(sdoc.getSId());
 		for( Edge e : in){
 			SCorpus parent = (SCorpus) e.getSource();
-			exporter.releaseSubDocuments(parent);
+			exporter.release(parent);
 		}
 		logger.debug("==SDoc::end: " + sdoc.getSId());
 		return DOCUMENT_STATUS.COMPLETED;
@@ -98,28 +98,29 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		logger.debug("==scorp::Start: " + scorpus.getSId());
 		logger.debug("Map SCorpus at " + scorpus);
 		try {
-			exporter.waitForSubDocuments(scorpus);
+			exporter.acquire(scorpus);
+			
 			File out = new File(getResourceURI().toFileString());
+			URI htmlOutput = getResourceURI().trimFileExtension()
+					.appendFileExtension("html");
+			EList<Edge> in = scorpus.getSCorpusGraph().getInEdges(scorpus.getSId());
+			
 			exporter.getIm().writeInfoFile(getSCorpus(), out, outputPath);
+			addProgress(1.0 / exporter.getDocumentCount());
+			exporter.applyXSLT(exporter.getInfo2html(), getResourceURI(), htmlOutput);
+			addProgress(1.0 / exporter.getDocumentCount());
+			
+			for( Edge e : in){
+				SCorpus parent = (SCorpus) e.getSource();
+				exporter.release(parent);
+			}
+//			if (in.size() == 0 ){
+//				// must be a root node
+//				exporter.release(scorpus);
+//			}
 		} catch (Exception e) {
 			throw new PepperModuleException("Cannot export document '"
 					+ getSCorpus().getSId() + "', nested exception is: ", e);
-		}
-		addProgress(1.0 / exporter.getDocumentCount());
-		
-		URI htmlOutput = getResourceURI().trimFileExtension()
-				.appendFileExtension("html");
-		exporter.writeProduct(exporter.getInfo2html(), getResourceURI(), htmlOutput);
-		
-		addProgress(1.0 / exporter.getDocumentCount());
-		EList<Edge> in = scorpus.getSCorpusGraph().getInEdges(scorpus.getSId());
-		for( Edge e : in){
-			SCorpus parent = (SCorpus) e.getSource();
-			exporter.releaseSubDocuments(parent);
-		}
-		if (in.size() == 0 ){
-			// must be a root node
-			exporter.releaseSubDocuments(scorpus);
 		}
 		logger.debug("==scorp::end:  " + scorpus.getSId());
 		return DOCUMENT_STATUS.COMPLETED;

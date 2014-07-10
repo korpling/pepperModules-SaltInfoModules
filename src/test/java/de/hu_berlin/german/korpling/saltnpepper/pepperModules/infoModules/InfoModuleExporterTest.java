@@ -149,7 +149,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	public void testConcurency() throws Exception {
 		PepperExporter exporter = getFixture();
 		
-		SaltProject p = createCompleteSaltprojectWithMetadata();
+		SaltProject p = SampleGenerator.createCompleteSaltproject2();
 		SCorpus target = p.getSCorpusGraphs().get(0).getSCorpora().get(2);
 		p.setSName("test-project");
 		for (int i = 0; i < 8; i++) {
@@ -158,6 +158,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 			d.setSName("empty_doc" + i);
 			p.getSCorpusGraphs().get(0).addSDocument(target, d);
 		}
+		addMetaDataToEverySDocument(p);
 		exporter.setSaltProject(p);
 		CorpusDesc corpusDesc = new CorpusDesc();
 		corpusDesc.setCorpusPath(URI.createFileURI("testConcurency/").resolve(TMP_DIR_URI));
@@ -169,16 +170,16 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		}
 	}
 
-	private SaltProject createCompleteSaltprojectWithMetadata() {
-		SaltProject project = SampleGenerator.createCompleteSaltproject();
-		for (SCorpusGraph scorpGraph : project.getSCorpusGraphs()) {
-			for (SDocument sdoc : scorpGraph.getSDocuments()) {
-				SampleGenerator.addMetaAnnotation(sdoc, "sdoc_id", sdoc.getSId());
-				SampleGenerator.addMetaAnnotation(sdoc, "same", "same");
-			}
-		}
-		return project;
-	}
+//	private SaltProject createCompleteSaltprojectWithMetadata() {
+//		SaltProject project = SampleGenerator.createCompleteSaltproject();
+//		for (SCorpusGraph scorpGraph : project.getSCorpusGraphs()) {
+//			for (SDocument sdoc : scorpGraph.getSDocuments()) {
+//				SampleGenerator.addMetaAnnotation(sdoc, "sdoc_id", sdoc.getSId());
+//				SampleGenerator.addMetaAnnotation(sdoc, "same", "same");
+//			}
+//		}
+//		return project;
+//	}
 	
 	@Test
 	public void testResourceExport() throws Exception {
