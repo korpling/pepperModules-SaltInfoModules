@@ -61,10 +61,12 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	@Test
 	public void testXSLTransformation_info2index() throws Exception {
 		String sample = "/sample-data/InfoModuleTestData/SampleInfo.xml";
+		URI testdir = URI.createFileURI("testXSLTransformation_info2index/").resolve(TMP_DIR_URI);
 		URI sampleHTMLoutput = URI.createFileURI("sampleIndexHTMLoutput.html")
-				.resolve(TMP_DIR_URI);
+				.resolve(testdir);
 		URI sampleResource = URI.createFileURI(this.getClass()
 				.getResource(sample).getFile());
+
 		InfoModuleExporter exporter = new InfoModuleExporter();
 		Transformer t = exporter.getInfo2index();
 
@@ -74,8 +76,9 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	@Test
 	public void testXSLTransformation_info2html() throws Exception {
 		String sample = "/sample-data/InfoModuleTestData/SampleInfo.xml";
+		URI testdir = URI.createFileURI("testXSLTransformation_info2html/").resolve(TMP_DIR_URI);
 		URI sampleHTMLoutput = URI.createFileURI("sampleTableHTMLoutput.html")
-				.resolve(TMP_DIR_URI);
+				.resolve(testdir);
 		URI sampleResource = URI.createFileURI(this.getClass()
 				.getResource(sample).getFile());
 		InfoModuleExporter exporter = new InfoModuleExporter();
@@ -88,7 +91,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 			Transformer t) throws TransformerException {
 		File input = new File(sampleResource.toFileString());
 		File output = new File(sampleHTMLoutput.toFileString());
-		File tmpDir = new File(TMP_DIR_URI.toFileString());
+		File tmpDir = output.getParentFile();
 
 		StreamSource source = new StreamSource(input);
 		StreamResult result = new StreamResult(output);
@@ -109,7 +112,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		PepperExporter exporter = getFixture();
 		exporter.setSaltProject(SampleGenerator.createCompleteSaltproject2());
 		CorpusDesc corpusDesc = new CorpusDesc();
-		corpusDesc.setCorpusPath(TMP_DIR_URI);
+		corpusDesc.setCorpusPath(URI.createFileURI("testSampleExport/").resolve(TMP_DIR_URI));
 		exporter.setCorpusDesc(corpusDesc);
 		this.start();
 	}
@@ -129,7 +132,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		}
 		exporter.setSaltProject(p);
 		CorpusDesc corpusDesc = new CorpusDesc();
-		corpusDesc.setCorpusPath(TMP_DIR_URI);
+		corpusDesc.setCorpusPath(URI.createFileURI("testConcurency/").resolve(TMP_DIR_URI));
 		exporter.setCorpusDesc(corpusDesc);
 		this.start();
 	}
@@ -148,7 +151,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 	@Test
 	public void testResourceExport() throws Exception {
 		System.out.println(TMP_DIR_URI);
-		URI resDir = URI.createURI("res.test/").resolve(TMP_DIR_URI);
+		URI resDir = URI.createURI("testResourceExport/").resolve(TMP_DIR_URI);
 		System.out.println(resDir);
 		InfoModuleExporter exporter = new InfoModuleExporter();
 		exporter.copyRessourcesTo(resDir);
