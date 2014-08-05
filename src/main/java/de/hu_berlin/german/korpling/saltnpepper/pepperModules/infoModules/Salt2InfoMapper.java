@@ -47,14 +47,11 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	private final Charset charset;
 	private URI outputPath;
 	final private InfoModuleExporter exporter;
-	private boolean htmlOutput = true;
-	
+
 	public Salt2InfoMapper(InfoModuleExporter infoModuleExporter, Charset c) {
 		this.exporter = infoModuleExporter;
 		this.charset = c;
 	}
-
-	
 
 	public void setOutputPath(final URI outputPath) {
 		this.outputPath = outputPath;
@@ -66,11 +63,6 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 	}
 
 	protected static final Object EVIRTUAL_NO_VALUE = new Object();
-
-	// /**
-	// * The resource set for all resources.
-	// */
-	// private ResourceSet resourceSet = null;
 
 	/**
 	 * Creates the SaltInfo-XML for the mapped SDocument
@@ -84,27 +76,22 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			File out = new File(getResourceURI().toFileString());
 			logger.debug(String.format("write to %s", out));
 			exporter.getIm().writeInfoFile(sdoc, out, null);
-			if (htmlOutput) {
-				exporter.applyXSLT(exporter.getInfo2html(),getResourceURI(),
-						getResourceURI().trimFileExtension()
-								.appendFileExtension("html"));
+			if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
+				exporter.applyXSLT(exporter.getInfo2html(), getResourceURI(), getResourceURI().trimFileExtension().appendFileExtension("html"));
 			}
 		} catch (Exception e) {
-			throw new PepperModuleException("Cannot export document '"
-					+ sdoc.getSId() + "', nested exception is: ", e);
+			throw new PepperModuleException("Cannot export document '" + sdoc.getSId() + "', nested exception is: ", e);
 		}
 
 		addProgress(1.0 / exporter.getDocumentCount());
 		EList<Edge> in = sdoc.getSCorpusGraph().getInEdges(sdoc.getSId());
-		for( Edge e : in){
+		for (Edge e : in) {
 			SCorpus parent = (SCorpus) e.getSource();
 			exporter.release(parent);
 		}
 		logger.debug("==SDoc::end: " + sdoc.getSId());
 		return DOCUMENT_STATUS.COMPLETED;
 	}
-
-
 
 	/**
 	 * Creates the SaltInfo-XML for the mapped corpus
@@ -116,28 +103,28 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 		logger.debug("Map SCorpus at " + scorpus);
 		try {
 			exporter.acquire(scorpus);
-			
+
 			File out = new File(getResourceURI().toFileString());
-			URI htmlOutput = getResourceURI().trimFileExtension()
-					.appendFileExtension("html");
+			URI htmlOutput = getResourceURI().trimFileExtension().appendFileExtension("html");
 			EList<Edge> in = scorpus.getSCorpusGraph().getInEdges(scorpus.getSId());
-			
+
 			exporter.getIm().writeInfoFile(getSCorpus(), out, outputPath);
 			addProgress(1.0 / exporter.getDocumentCount());
-			exporter.applyXSLT(exporter.getInfo2html(), getResourceURI(), htmlOutput);
+			if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
+				exporter.applyXSLT(exporter.getInfo2html(), getResourceURI(), htmlOutput);
+			}
 			addProgress(1.0 / exporter.getDocumentCount());
-			
-			for( Edge e : in){
+
+			for (Edge e : in) {
 				SCorpus parent = (SCorpus) e.getSource();
 				exporter.release(parent);
 			}
-//			if (in.size() == 0 ){
-//				// must be a root node
-//				exporter.release(scorpus);
-//			}
+			// if (in.size() == 0 ){
+			// // must be a root node
+			// exporter.release(scorpus);
+			// }
 		} catch (Exception e) {
-			throw new PepperModuleException("Cannot export document '"
-					+ getSCorpus().getSId() + "', nested exception is: ", e);
+			throw new PepperModuleException("Cannot export document '" + getSCorpus().getSId() + "', nested exception is: ", e);
 		}
 		logger.debug("==scorp::end:  " + scorpus.getSId());
 		return DOCUMENT_STATUS.COMPLETED;

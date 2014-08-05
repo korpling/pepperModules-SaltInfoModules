@@ -39,11 +39,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
-import org.apache.log4j.Logger;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
@@ -74,7 +74,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
  * {@link #getSaltProject()}</li>
  * <li>special parameters given by Pepper workflow can be accessed via
  * {@link #getSpecialParams()}</li>
- * <li>a place to store temprorary datas for processing can be accessed via
+ * <li>a place to store temporary datas for processing can be accessed via
  * {@link #getTemproraries()}</li>
  * <li>a place where resources of this bundle are, can be accessed via
  * {@link #getResources()}</li>
@@ -231,8 +231,10 @@ public class InfoModuleExporter extends PepperExporterImpl implements
 //		}
 //		waitForSubDocuments(root);
 //		URI rootxml = getInfoXMLPath(root);
-		URI index = URI.createURI("index.html").resolve(outputPath);
-		applyXSLT(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), projectXML, index);
+		if (((InfoModuleProperties)getProperties()).isHtmlOutput()){
+			URI index = URI.createURI("index.html").resolve(outputPath);
+			applyXSLT(loadXSLTTransformer(XSLT_INFO2INDEX_XSL), projectXML, index);
+		}
 		
 	}
 

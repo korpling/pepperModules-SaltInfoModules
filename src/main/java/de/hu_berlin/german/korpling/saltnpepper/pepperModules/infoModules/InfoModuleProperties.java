@@ -40,7 +40,7 @@ public class InfoModuleProperties extends PepperModuleProperties {
 		return (Boolean) this.getProperty(INCLUDE_XML_HEADER).getValue();
 	}
 	
-	public Boolean hasHtmlOutput() {
+	public Boolean isHtmlOutput() {
 		return (Boolean) this.getProperty(HTML_OUTPUT).getValue();
 	}
 
