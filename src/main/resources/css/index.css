@@ -132,12 +132,8 @@ body {
 .data-entryName:hover{
     background: #2D60A6;
     color: white;
-}
 
-.data-entryName:after{
-    content:url('../img/information.png')
 }
-
 
 .tooltip-text {
     position: absolute;

@@ -20,9 +20,10 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 import java.io.File;
 import java.nio.charset.Charset;
 
-import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
@@ -42,7 +43,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure
  * 
  */
 public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
-	static private Logger logger = Logger.getLogger(Salt2InfoMapper.class);
+	static private Logger logger = LoggerFactory.getLogger(Salt2InfoMapper.class);
 
 	private final Charset charset;
 	private URI outputPath;
@@ -75,7 +76,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			// sdoc.printInfo(getResourceURI());
 			File out = new File(getResourceURI().toFileString());
 			logger.debug(String.format("write to %s", out));
-			exporter.getIm().writeInfoFile(sdoc, out, null);
+			exporter.getInfoModule().writeInfoFile(sdoc, out, null);
 			if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
 				exporter.applyXSLT(exporter.getInfo2html(), getResourceURI(), getResourceURI().trimFileExtension().appendFileExtension("html"));
 			}
@@ -108,7 +109,7 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 			URI htmlOutput = getResourceURI().trimFileExtension().appendFileExtension("html");
 			EList<Edge> in = scorpus.getSCorpusGraph().getInEdges(scorpus.getSId());
 
-			exporter.getIm().writeInfoFile(getSCorpus(), out, outputPath);
+			exporter.getInfoModule().writeInfoFile(getSCorpus(), out, outputPath);
 			addProgress(1.0 / exporter.getDocumentCount());
 			if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
 				exporter.applyXSLT(exporter.getInfo2html(), getResourceURI(), htmlOutput);

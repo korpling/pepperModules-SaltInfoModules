@@ -43,10 +43,4 @@ public class InfoModuleProperties extends PepperModuleProperties {
 	public Boolean isHtmlOutput() {
 		return (Boolean) this.getProperty(HTML_OUTPUT).getValue();
 	}
-
-	@Override
-	public boolean checkProperty(PepperModuleProperty<?> prop) {
-		// TODO Auto-generated method stub
-		return super.checkProperty(prop);
-	}
 }

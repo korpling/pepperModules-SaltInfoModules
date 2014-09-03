@@ -57,7 +57,7 @@ h3{
 }
 
 .svalue{
-	width: 25%;
+	width: 30%;
 	float: left;
 	padding-left: 1em;
 }
@@ -77,6 +77,7 @@ h3{
 }
 .svalue-text{
 	font-weight: bold;
+	padding: 5px;
 }
 
 .sannotationinfo-sname{
@@ -153,7 +154,10 @@ td{
 	border-bottom: 1px #2D60A6 solid;
 	vertical-align: top;
 	/*border-top: 1px solid transparent;*/
-    white-space: PRE;
+    	/*white-space: PRE;*/
+}
+.data-entryName:after{
+    content:url('../img/information.png')
 }
 
 .boxed{
@@ -165,11 +169,11 @@ button{
 }
 
 td:first-child{
-    width: 250px;
+    width: 270px;
 }
 
 .svalue-occurrences{
-    /*float: right;*/
+    float: right;
 }
 
 .values{
