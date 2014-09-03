@@ -7,7 +7,11 @@
         <html>
 <!--            <xsl:element name="head"></xsl:element>-->
             <head>
-                <link href="{$saltinfocss}" rel="StyleSheet" type="text/css"/>
+            	<xsl:element name="link">
+            		<xsl:attribute name="href"><xsl:value-of select="{$saltinfocss}"/></xsl:attribute>
+            		<xsl:attribute name="rel"><xsl:value-of select="StyleSheet"/></xsl:attribute>
+            		<xsl:attribute name="type"><xsl:value-of select="text/css"/></xsl:attribute>
+            	</xsl:element>
             </head>
             <body>
                 <div class="data-view" id="data">

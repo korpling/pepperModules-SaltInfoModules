@@ -55,7 +55,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		this.setFixture(new InfoModuleExporter());
+		this.setFixture(new SaltInfoExporter());
 		formatDesc = new FormatDesc();
 		formatDesc.setFormatName("xml");
 		formatDesc.setFormatVersion("1.0");
@@ -87,7 +87,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		URI sampleResource = URI.createFileURI(this.getClass()
 				.getResource(sample).getFile());
 
-		InfoModuleExporter exporter = new InfoModuleExporter();
+		SaltInfoExporter exporter = new SaltInfoExporter();
 		Transformer t = exporter.getInfo2index();
 
 		applyTransformation(sampleHTMLoutput, sampleResource, t);
@@ -101,7 +101,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 				.resolve(testdir);
 		URI sampleResource = URI.createFileURI(this.getClass()
 				.getResource(sample).getFile());
-		InfoModuleExporter exporter = new InfoModuleExporter();
+		SaltInfoExporter exporter = new SaltInfoExporter();
 		Transformer t = exporter.getInfo2html();
 
 		applyTransformation(sampleHTMLoutput, sampleResource, t);
@@ -203,7 +203,7 @@ public class InfoModuleExporterTest extends PepperExporterTest {
 		logger.debug(TMP_DIR_URI);
 		URI resDir = URI.createURI("testResourceExport/").resolve(TMP_DIR_URI);
 		logger.debug(resDir);
-		InfoModuleExporter exporter = new InfoModuleExporter();
+		SaltInfoExporter exporter = new SaltInfoExporter();
 		exporter.copyRessourcesTo(resDir);
 		for (String res : exporter.defaultResources) {
 			File resFile = new File(resDir.toFileString(),res);

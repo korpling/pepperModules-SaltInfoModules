@@ -47,9 +47,9 @@ public class Salt2InfoMapper extends PepperMapperImpl implements PepperMapper {
 
 	private final Charset charset;
 	private URI outputPath;
-	final private InfoModuleExporter exporter;
+	final private SaltInfoExporter exporter;
 
-	public Salt2InfoMapper(InfoModuleExporter infoModuleExporter, Charset c) {
+	public Salt2InfoMapper(SaltInfoExporter infoModuleExporter, Charset c) {
 		this.exporter = infoModuleExporter;
 		this.charset = c;
 	}

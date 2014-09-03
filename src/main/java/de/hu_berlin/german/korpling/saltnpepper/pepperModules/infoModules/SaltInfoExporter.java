@@ -85,28 +85,35 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
  * @version 0.1
  * 
  */
-@Component(name = "InfoModuleExporterComponent", factory = "PepperExporterComponentFactory")
-public class InfoModuleExporter extends PepperExporterImpl implements PepperExporter {
+@Component(name = "SaltInfoExporterComponent", factory = "PepperExporterComponentFactory")
+public class SaltInfoExporter extends PepperExporterImpl implements PepperExporter {
 
 	private static final String XML_FILE_EXTENSION = "xml";
 	final List<String> resources = new ArrayList<String>();
-	public final String[] defaultResources = { "/css/saltinfo.css", "/css/index.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
+	public static final String[] defaultResources = { "/css/saltinfo.css", "/css/index.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
 
 	URI outputPath;
 
 	private int documentCount = 0;
 
-	
-
 	private EList<SNode> roots = new BasicEList<SNode>();
 
-	// default charset
-	private final Charset charset;
+	/** charset is set to utf-8 as default **/
+	private final Charset charset= Charset.forName("UTF-8");;
 
-	private final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
-	private final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
-	private final TransformerFactory transFac = TransformerFactory.newInstance();
+	private static final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
+	private static final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
+	private static final TransformerFactory transFac = TransformerFactory.newInstance();
 
+	public SaltInfoExporter() {
+		super();
+		this.resources.addAll(Arrays.asList(defaultResources));
+		this.setName("SaltInfoExporter");
+		this.addSupportedFormat("xml", "1.0", URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
+		this.setProperties(new InfoModuleProperties());
+	}
+	
+	
 	public Transformer getInfo2html() {
 		return loadXSLTTransformer(XSLT_INFO2HTML_XSL);
 	}
@@ -124,16 +131,9 @@ public class InfoModuleExporter extends PepperExporterImpl implements PepperExpo
 
 	private final Map<String, Semaphore> syncMap = new HashMap<String, Semaphore>();
 
-	private Logger logger = LoggerFactory.getLogger(InfoModuleExporter.class);
+	private Logger logger = LoggerFactory.getLogger(SaltInfoExporter.class);
 
-	public InfoModuleExporter() {
-		super();
-		this.charset = Charset.forName("UTF-8");
-		this.resources.addAll(Arrays.asList(defaultResources));
-		this.setName("SaltInfoExporter");
-		this.addSupportedFormat("xml", "1.0", URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
-		this.setProperties(new InfoModuleProperties());
-	}
+	
 
 	class SCorpusTraverser implements SGraphTraverseHandler {
 
