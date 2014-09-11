@@ -8,6 +8,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SMetaAnnotation;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
 /**
  * Contains all information concerning a {@link SDocumentGraph} to be exported as salt info.
@@ -108,7 +109,10 @@ public class CorpusInfo extends ContainerInfo implements SaltInfoDictionary{
 								anno_self.put(sAnnoName, anno.get(sAnnoName));
 							}else{
 								for (String SAnnoValue: anno.get(sAnnoName).keySet()){
-									anno_self.get(sAnnoName).add(SAnnoValue);
+									//add as much values have been in given anno table
+									for (int i=0; i< (Integer)anno.get(sAnnoName).get(SAnnoValue); i++){
+										anno_self.get(sAnnoName).add(SAnnoValue);
+									}
 								}
 							}
 						}
@@ -123,12 +127,14 @@ public class CorpusInfo extends ContainerInfo implements SaltInfoDictionary{
 	 * @param sDocGraph
 	 * @param xml
 	 */
-	public void write(SCorpus sCorpus){
-		retrieveData(sCorpus);
-		for (ContainerInfo contInfo: getContainerInfos()){
-			retrieveData(contInfo);
+	public void write(SNode sCorpus){
+		if (sCorpus instanceof SCorpus){
+			retrieveData((SCorpus)sCorpus);
+			for (ContainerInfo contInfo: getContainerInfos()){
+				retrieveData(contInfo);
+			}
+			super.write(sCorpus);
 		}
-		super.write(sCorpus);
 	}
 
 	

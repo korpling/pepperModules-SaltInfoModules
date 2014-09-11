@@ -102,6 +102,12 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	 * @param xml
 	 */
 	public void write(SNode sNode){
+		if (getExportFile()== null){
+			throw new PepperModuleException("Cannot create SaltInfo for '"+sNode.getSId()+"', because no file to export is given. ");
+		}
+		if (!getExportFile().getParentFile().exists()){
+			getExportFile().getParentFile().mkdirs();
+		}
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
         XMLStreamWriter xml;
 			try {
@@ -175,17 +181,19 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	 * @throws XMLStreamException 
 	 */
 	private void writeAnnotations(Map<String, AnnotationInfo> annotations, XMLStreamWriter xml) throws XMLStreamException{
-		for (String annoName: annotations.keySet()){
-			xml.writeStartElement(TAG_SANNOTATION_INFO);
-				xml.writeAttribute(ATT_SNAME, annoName);
-				xml.writeAttribute(ATT_OCCURANCES, annotations.get(annoName).occurances.toString());
-				for (String annoValue: annotations.get(annoName).keySet()){
-					xml.writeStartElement(TAG_SVALUE);
-						xml.writeAttribute(ATT_OCCURANCES, annotations.get(annoName).get(annoValue).toString());
-						xml.writeCharacters(annoValue);
-					xml.writeEndElement();
-				}
-			xml.writeEndElement();
+		if (annotations!= null){
+			for (String annoName: annotations.keySet()){
+				xml.writeStartElement(TAG_SANNOTATION_INFO);
+					xml.writeAttribute(ATT_SNAME, annoName);
+					xml.writeAttribute(ATT_OCCURANCES, annotations.get(annoName).occurances.toString());
+					for (String annoValue: annotations.get(annoName).keySet()){
+						xml.writeStartElement(TAG_SVALUE);
+							xml.writeAttribute(ATT_OCCURANCES, annotations.get(annoName).get(annoValue).toString());
+							xml.writeCharacters(annoValue);
+						xml.writeEndElement();
+					}
+				xml.writeEndElement();
+			}
 		}
 	}
 }
