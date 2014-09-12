@@ -5,7 +5,7 @@ function start(){
   var CSV_DOUBLEQUOTE = '"';
   var CSV_LINEBREAK = '\r\n';
   var CSV_MIME_TYPE = 'text/csv';
-  var VISIBLE_ITEMS = 5;
+  var VISIBLE_ITEMS = 0;
 
   var NAV_BORDER = 15;
   var NAV_WIDTH = 150;
