@@ -20,7 +20,6 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -82,8 +81,8 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	public static final String[] defaultResources = { "/css/saltinfo.css", "/css/index.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
 	/** name of the file containing the corpus-structure for SaltInfo**/
 	public static final String PROJECT_INFO_FILE="salt-project";
-	private static final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
-	private static final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
+	public static final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
+	public static final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
 	private static final TransformerFactory transFac = TransformerFactory.newInstance();
 
 	public SaltInfoExporter() {
@@ -146,6 +145,8 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			resource= resource.appendFileExtension(PepperModule.ENDING_XML);
 			mapper.setResourceURI(resource);
 			mapper.getContainerInfo().setExportFile(new File(resource.toFileString()));
+			Transformer transformer= loadXSLTTransformer(getResources().appendSegment("xslt").appendSegment("info2html").appendFileExtension("xsl").toFileString());
+			mapper.setXsltTransformer(transformer);
 		}
 		return(mapper);
 	}
@@ -169,7 +170,12 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		} catch (XMLStreamException e) {
 			throw new PepperModuleException(this, "Cannot write salt info project file '"+projectInfoFile+"'. ", e);
 		}
-		
+		if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
+			URI htmlOutput= getCorpusDesc().getCorpusPath().appendSegment(PROJECT_INFO_FILE).appendFileExtension("html");
+			URI xmlInput= URI.createFileURI(projectInfoFile.getAbsolutePath());
+			Transformer transformer= loadXSLTTransformer(getResources().appendSegment("xslt").appendSegment("info2index").appendFileExtension("xsl").toFileString());
+			applyXSLT(transformer, xmlInput, htmlOutput);
+		}
 	}
 	/**
 	 * Writes the project info file retrieved out of the {@link SaltProject} into the passed xml stream.
@@ -195,10 +201,12 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		xml.writeEndDocument();
 		xml.flush();
 	}
-	
+	/** 
+	 * Writes single entries for corpora and documents into passed xml stream. This method is recursive
+	 * to write the entire corpus structure.
+	**/
 	private void writeContainerInfoRec(ContainerInfo cont, XMLStreamWriter xml) throws XMLStreamException{
 		if (cont != null){
-			System.out.println("ADD containferInfo: "+ cont.getsName());
 			String containerTag= null;
 			if (cont instanceof CorpusInfo){
 				containerTag= TAG_SCORPUS_INFO;
@@ -226,17 +234,8 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			xml.writeEndElement();
 		}
 	}
-	
-	public Transformer getInfo2html() {
-		return loadXSLTTransformer(XSLT_INFO2HTML_XSL);
-	}
 
-	public Transformer getInfo2index() {
-		return loadXSLTTransformer(XSLT_INFO2INDEX_XSL);
-	}
-
-
-	public void applyXSLT(Transformer transformer, URI xml, URI out) {
+	public static void applyXSLT(Transformer transformer, URI xml, URI out) {
 		StreamSource source = new StreamSource(new File(xml.toFileString()));
 		StreamResult result = new StreamResult(new File(out.toFileString()));
 		try {
@@ -255,14 +254,17 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	 * 
 	 * @return XML Transformer that transform SaltInfo XML to HTML
 	 */
-	private Transformer loadXSLTTransformer(String path) {
+	private static Transformer loadXSLTTransformer(String path) {
+		File xslt= new File(path);
+		if (!xslt.exists()){
+			throw new PepperModuleException("Cannot find xslt transformation to create html output at location "+ xslt.getAbsolutePath());
+		}
 		Transformer t = null;
 		try {
-			URL res = this.getClass().getResource(path);
-			Source xsltSource = new StreamSource(res.openStream(), res.toString());
+			Source xsltSource = new StreamSource(xslt);
 			t = transFac.newTransformer(xsltSource);
 		} catch (Exception e) {
-			throw new PepperModuleException("Can't create xslt cache for " + path, e);
+			throw new PepperModuleException("Can't create xslt transformer for " + path, e);
 		}
 		return t;
 	}
