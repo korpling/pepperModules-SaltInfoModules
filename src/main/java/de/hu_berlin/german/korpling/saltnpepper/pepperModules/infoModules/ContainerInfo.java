@@ -29,7 +29,17 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
  *
  */
 public abstract class ContainerInfo implements SaltInfoDictionary{
-	
+	enum STATUS{NOT_STARTED, STARTED, FINISHED, ERROR}
+	/** status of this {@link ContainerInfo}**/
+	private volatile STATUS status= STATUS.NOT_STARTED;
+	/** return status of this {@link ContainerInfo}**/
+	public STATUS getStatus() {
+		return status;
+	}
+	/**@param status status of this {@link ContainerInfo} **/
+	public void setStatus(STATUS status) {
+		this.status = status;
+	}
 	public static final String NO_LAYER="_NO_LAYER_";
 	private StructuralInfo structuralInfo= new StructuralInfo();
 	/**
@@ -39,6 +49,26 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	 */
 	public StructuralInfo getStructuralInfo() {
 		return structuralInfo;
+	}
+	/** The name of the document or corpus **/
+	private String sName="null";
+	/**@return The name of the document or corpus **/
+	public String getsName() {
+		return sName;
+	}
+	/** @param sName The name of the document or corpus**/
+	public void setsName(String sName) {
+		this.sName = sName;
+	}
+	/** The id of the document or corpus **/
+	private String sId="null";
+	/**@return The id of the document or corpus **/
+	public String getSId() {
+		return sId;
+	}
+	/** @param sId The id of the document or corpus**/
+	public void setSIdf(String sId) {
+		this.sId = sId;
 	}
 	/** file to export salt info**/
 	private File exportFile= null; 
@@ -110,11 +140,11 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 		}
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
         XMLStreamWriter xml;
-			try {
-				xml = xof.createXMLStreamWriter(new FileWriter(getExportFile()));
-			} catch (XMLStreamException | IOException e) {
-				throw new PepperModuleException("Cannot write salt info to file '"+getExportFile()+"'. ", e);
-			}
+		try {
+			xml = xof.createXMLStreamWriter(new FileWriter(getExportFile()));
+		} catch (XMLStreamException | IOException e) {
+			throw new PepperModuleException("Cannot write salt info to file '"+getExportFile()+"'. ", e);
+		}
 		
         write(sNode, xml);
 	}
@@ -125,6 +155,7 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	 * @param xml
 	 */
 	public void write(SNode sNode, XMLStreamWriter xml){
+		setStatus(STATUS.STARTED);
 		try {
 			xml.writeStartDocument();
 				if (sNode instanceof SDocument){
@@ -157,8 +188,10 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 			xml.writeEndDocument();
 			xml.flush();
 		} catch (XMLStreamException e) {
+			setStatus(STATUS.ERROR);
 			throw new PepperModuleException("Cannot write salt info of sDocument or SCorpus '"+sNode.getSId()+"' to stream. ", e);
 		}	
+		setStatus(STATUS.FINISHED);
 	}
 	/**
 	 * Writes the meta data contained in this object to passed stream.

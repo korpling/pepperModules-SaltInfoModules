@@ -18,21 +18,18 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Semaphore;
 
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -40,12 +37,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
@@ -53,20 +46,13 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperExporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
-import de.hu_berlin.german.korpling.saltnpepper.salt.graph.GRAPH_TRAVERSE_TYPE;
-import de.hu_berlin.german.korpling.saltnpepper.salt.graph.IdentifiableElement;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.info.InfoModule;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusDocumentRelation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusRelation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SGraphTraverseHandler;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SIdentifiableElement;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
 
 /**
  * This is a sample {@link PepperExporter}, which can be used for creating
@@ -90,11 +76,12 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
  * 
  */
 @Component(name = "SaltInfoExporterComponent", factory = "PepperExporterComponentFactory")
-public class SaltInfoExporter extends PepperExporterImpl implements PepperExporter {
+public class SaltInfoExporter extends PepperExporterImpl implements PepperExporter, SaltInfoDictionary{
 
 	final List<String> resources = new ArrayList<String>();
 	public static final String[] defaultResources = { "/css/saltinfo.css", "/css/index.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
-
+	/** name of the file containing the corpus-structure for SaltInfo**/
+	public static final String PROJECT_INFO_FILE="salt-project";
 	private static final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
 	private static final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
 	private static final TransformerFactory transFac = TransformerFactory.newInstance();
@@ -115,12 +102,19 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	@Override
 	public void start() throws PepperModuleException {
 		sElementId2Container= new Hashtable<>();
+		ContainerInfo cont= null;
 		for (SCorpusGraph sCorpusGraph: getSaltProject().getSCorpusGraphs()){
 			for (SCorpus sCorpus: sCorpusGraph.getSCorpora()){
-				sElementId2Container.put(sCorpus.getSElementId(), new CorpusInfo());
+				cont= new CorpusInfo();
+				cont.setsName(sCorpus.getSName());
+				cont.setSIdf(sCorpus.getSId());
+				sElementId2Container.put(sCorpus.getSElementId(), cont);
 			}
 			for (SDocument sDocument: sCorpusGraph.getSDocuments()){
-				sElementId2Container.put(sDocument.getSElementId(), new DocumentInfo());
+				cont= new DocumentInfo();
+				cont.setsName(sDocument.getSName());
+				cont.setSIdf(sDocument.getSId());
+				sElementId2Container.put(sDocument.getSElementId(), cont);
 			}
 		}
 		super.start();
@@ -151,9 +145,86 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			}
 			resource= resource.appendFileExtension(PepperModule.ENDING_XML);
 			mapper.setResourceURI(resource);
-			System.out.println("RESOURCE: "+ resource);
+			mapper.getContainerInfo().setExportFile(new File(resource.toFileString()));
 		}
 		return(mapper);
+	}
+	/**
+	 * Writes the info xml file for salt-project containing the corpus-structure of the SaltInfo
+	 */
+	@Override
+	public void end() throws PepperModuleException {
+		super.end();
+		
+		XMLOutputFactory xof = XMLOutputFactory.newInstance();
+        XMLStreamWriter xml;
+        File projectInfoFile= new File(getCorpusDesc().getCorpusPath().appendSegment("salt-project").appendFileExtension(PepperModule.ENDING_XML).toFileString());
+		try {
+			xml = xof.createXMLStreamWriter(new FileWriter(projectInfoFile));
+		} catch (XMLStreamException | IOException e) {
+			throw new PepperModuleException("Cannot write salt info to file '"+projectInfoFile+"'. ", e);
+		}
+		try {
+			writeProjectInfo(getSaltProject(), xml);
+		} catch (XMLStreamException e) {
+			throw new PepperModuleException(this, "Cannot write salt info project file '"+projectInfoFile+"'. ", e);
+		}
+		
+	}
+	/**
+	 * Writes the project info file retrieved out of the {@link SaltProject} into the passed xml stream.
+	 * @param saltProject
+	 * @param xml
+	 * @throws XMLStreamException
+	 */
+	private void writeProjectInfo(SaltProject saltProject, XMLStreamWriter xml) throws XMLStreamException{
+		xml.writeStartDocument();
+		xml.writeStartElement(TAG_SPROJECT);
+			xml.writeAttribute(ATT_SNAME, PROJECT_INFO_FILE);
+			for (SCorpusGraph sCorpusGraph: saltProject.getSCorpusGraphs()){
+				List<SCorpus> roots= sCorpusGraph.getSRootCorpus();
+				if (	(roots!= null)&&
+						(!roots.isEmpty())){
+					for (SCorpus sRoot: roots){
+						ContainerInfo cont= sElementId2Container.get(sRoot.getSElementId());
+						writeContainerInfoRec(cont, xml);
+					}
+				}
+			}
+		xml.writeEndElement();
+		xml.writeEndDocument();
+		xml.flush();
+	}
+	
+	private void writeContainerInfoRec(ContainerInfo cont, XMLStreamWriter xml) throws XMLStreamException{
+		if (cont != null){
+			System.out.println("ADD containferInfo: "+ cont.getsName());
+			String containerTag= null;
+			if (cont instanceof CorpusInfo){
+				containerTag= TAG_SCORPUS_INFO;
+			}else if (cont instanceof DocumentInfo){
+				containerTag= TAG_SDOCUMENT_INFO;
+			}
+			xml.writeStartElement(containerTag);
+				xml.writeAttribute(ATT_SNAME, cont.getsName());
+				xml.writeAttribute(ATT_SID, cont.getSId());
+				String location= "";
+				if (cont.getExportFile()== null){
+					throw new PepperModuleException("Cannot store project info file, because no file is given for ContainerInfo '"+cont.getSId()+"'. ");
+				}
+				try {
+					location = cont.getExportFile().getCanonicalPath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
+				} catch (IOException e) {
+					location = cont.getExportFile().getAbsolutePath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
+				}
+				xml.writeAttribute(ATT_LOCATION, location);
+				if (cont instanceof CorpusInfo){
+					for (ContainerInfo sub: ((CorpusInfo) cont).getContainerInfos()){
+						writeContainerInfoRec(sub, xml);
+					}
+				}
+			xml.writeEndElement();
+		}
 	}
 	
 	public Transformer getInfo2html() {

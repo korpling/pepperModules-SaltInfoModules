@@ -38,4 +38,6 @@ public interface SaltInfoDictionary {
 	public static final String ATT_SNAME = "sName";
 	public static final String ATT_SID = "id";
 	public static final String ATT_GENERATED_ON = "generatedOn";
+	/** relative location for document info and corpus info files, used in project info file**/
+	public static final String ATT_LOCATION = "rel-location";
 }
