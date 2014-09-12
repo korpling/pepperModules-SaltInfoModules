@@ -66,7 +66,7 @@
     <xsl:template name="scorpus-link">
         <a>
             <xsl:attribute name="class">nav-link</xsl:attribute>
-            <xsl:attribute name="href" ><xsl:value-of select="@rel-location"/>.html</xsl:attribute>
+            <xsl:attribute name="href" ><xsl:value-of select="substring-before(@rel-location,'.xml')"/>.html</xsl:attribute>
             <xsl:attribute name="data-id"><xsl:value-of select="@rel-location"/></xsl:attribute>
             <xsl:attribute name="target">content</xsl:attribute>
             <xsl:value-of select="@sName"/>
