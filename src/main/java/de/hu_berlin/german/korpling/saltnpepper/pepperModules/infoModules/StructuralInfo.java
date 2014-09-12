@@ -18,7 +18,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
 /**
  * Contains all occurances of elements to be stored in {@link SaltInfoDictionary#TAG_STRUCTURAL_INFO}.
- * @author florian
+ * @author Florian Zipser
  *
  */
 public class StructuralInfo {

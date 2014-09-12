@@ -70,6 +70,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
  * <li>a logService can be accessed via {@link #getLogService()}</li>
  * </ul>
  * 
+ * @author Florian Zipser
  * @author Jakob Schmolling
  * @version 0.1
  * 

@@ -19,7 +19,12 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
-
+/**
+ * 
+ * @author Florian Zipser
+ * @author Jakob Schmolling
+ *
+ */
 public class InfoModuleProperties extends PepperModuleProperties {
 
 	/**

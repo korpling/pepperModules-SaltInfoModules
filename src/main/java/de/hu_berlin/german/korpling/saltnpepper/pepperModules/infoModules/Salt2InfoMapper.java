@@ -9,7 +9,11 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.ContainerInfo.STATUS;
-
+/**
+ * 
+ * @author Florian Zipser
+ *
+ */
 public class Salt2InfoMapper extends PepperMapperImpl{
 	/** The containerInfo to be filled in this mapping. **/
 	private ContainerInfo containerInfo= null;
