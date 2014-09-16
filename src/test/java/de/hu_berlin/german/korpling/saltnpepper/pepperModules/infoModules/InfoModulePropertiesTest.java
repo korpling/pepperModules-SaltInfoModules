@@ -42,7 +42,7 @@ public class InfoModulePropertiesTest {
 
 	@Test
 	public void testLoadSampleProperties() {
-		InfoModuleProperties properties = new InfoModuleProperties();
+		SaltInfoProperties properties = new SaltInfoProperties();
 		properties.addProperties(PROP_URI);
 	}
 

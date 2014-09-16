@@ -25,13 +25,13 @@ public class Salt2InfoMapper extends PepperMapperImpl{
 	public void setContainerInfo(ContainerInfo containerInfo) {
 		this.containerInfo = containerInfo;
 	}
-	/** {@link Transformer} to create an html output if {@link InfoModuleProperties#HTML_OUTPUT} is set to true**/
+	/** {@link Transformer} to create an html output if {@link SaltInfoProperties#HTML_OUTPUT} is set to true**/
 	private Transformer xsltTransformer= null;
-	/** @return {@link Transformer} to create an html output if {@link InfoModuleProperties#HTML_OUTPUT} is set to true **/
+	/** @return {@link Transformer} to create an html output if {@link SaltInfoProperties#HTML_OUTPUT} is set to true **/
 	public Transformer getXsltTransformer() {
 		return xsltTransformer;
 	}
-	/** @param xsltTransformer {@link Transformer} to create an html output if {@link InfoModuleProperties#HTML_OUTPUT} is set to true**/
+	/** @param xsltTransformer {@link Transformer} to create an html output if {@link SaltInfoProperties#HTML_OUTPUT} is set to true**/
 	public void setXsltTransformer(Transformer xsltTransformer) {
 		this.xsltTransformer = xsltTransformer;
 	}
@@ -49,7 +49,7 @@ public class Salt2InfoMapper extends PepperMapperImpl{
 				}
 			}
 			getContainerInfo().write(getSCorpus());
-			if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
+			if (((SaltInfoProperties) getProperties()).isHtmlOutput()) {
 				URI htmlOutput= URI.createFileURI(getResourceURI().toFileString().replace("."+PepperModule.ENDING_XML, ".html"));
 				SaltInfoExporter.applyXSLT(getXsltTransformer(), getResourceURI(), htmlOutput);
 			}
@@ -63,7 +63,7 @@ public class Salt2InfoMapper extends PepperMapperImpl{
 				(getSDocument().getSDocumentGraph()!= null)){
 			((DocumentInfo)getContainerInfo()).retrieveData(getSDocument());
 			getContainerInfo().write(getSDocument());
-			if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
+			if (((SaltInfoProperties) getProperties()).isHtmlOutput()) {
 				URI htmlOutput= URI.createFileURI(getResourceURI().toFileString().replace("."+PepperModule.ENDING_XML, ".html"));
 				SaltInfoExporter.applyXSLT(getXsltTransformer(), getResourceURI(), htmlOutput);
 			}

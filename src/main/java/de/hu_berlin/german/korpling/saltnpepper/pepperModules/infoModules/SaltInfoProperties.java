@@ -25,7 +25,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
  * @author Jakob Schmolling
  *
  */
-public class InfoModuleProperties extends PepperModuleProperties {
+public class SaltInfoProperties extends PepperModuleProperties {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class InfoModuleProperties extends PepperModuleProperties {
 	public final static String HTML_OUTPUT = "htmlOutput";
 	public final static String INCLUDE_XML_HEADER = "includeXMLHeader";
 
-	public InfoModuleProperties() {
+	public SaltInfoProperties() {
 		this.addProperty(new PepperModuleProperty<Boolean>(INCLUDE_XML_HEADER,
 				Boolean.class, "", false));
 		this.addProperty(new PepperModuleProperty<Boolean>(HTML_OUTPUT,

@@ -92,7 +92,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		this.resources.addAll(Arrays.asList(defaultResources));
 		this.setName("SaltInfoExporter");
 		this.addSupportedFormat(PepperModule.ENDING_XML, "1.0", URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
-		this.setProperties(new InfoModuleProperties());
+		this.setProperties(new SaltInfoProperties());
 	}
 	/** Stores {@link SElementId}s to all {@link SDocument} and {@link SCorpus} objects and the corresponding {@link ContainerInfo} objects.**/
 	private Map<SElementId, ContainerInfo> sElementId2Container= null; 
@@ -172,7 +172,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		} catch (XMLStreamException e) {
 			throw new PepperModuleException(this, "Cannot write salt info project file '"+projectInfoFile+"'. ", e);
 		}
-		if (((InfoModuleProperties) getProperties()).isHtmlOutput()) {
+		if (((SaltInfoProperties) getProperties()).isHtmlOutput()) {
 			URI htmlOutput= getCorpusDesc().getCorpusPath().appendSegment(PROJECT_INFO_FILE).appendFileExtension("html");
 			URI xmlInput= URI.createFileURI(projectInfoFile.getAbsolutePath());
 			Transformer transformer= loadXSLTTransformer(getResources().appendSegment("xslt").appendSegment("info2index").appendFileExtension("xsl").toFileString());
@@ -277,7 +277,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	 * Copies all javascript, css and image resources to the target folder for displaying html output in case of it is set.
 	 */
 	private void copyResources(){
-		if (((InfoModuleProperties)getProperties()).isHtmlOutput()){
+		if (((SaltInfoProperties)getProperties()).isHtmlOutput()){
 			URI jsResource= getResources().appendSegment("js");
 			URI cssResource= getResources().appendSegment("css");
 			URI imgResource= getResources().appendSegment("img");
