@@ -36,6 +36,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 
@@ -177,6 +178,8 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			Transformer transformer= loadXSLTTransformer(getResources().appendSegment("xslt").appendSegment("info2index").appendFileExtension("xsl").toFileString());
 			applyXSLT(transformer, xmlInput, htmlOutput);
 		}
+		//copy resources: css, js, and images
+		copyResources();
 	}
 	/**
 	 * Writes the project info file retrieved out of the {@link SaltProject} into the passed xml stream.
@@ -268,5 +271,32 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			throw new PepperModuleException("Can't create xslt transformer for " + path, e);
 		}
 		return t;
+	}
+	
+	/**
+	 * Copies all javascript, css and image resources to the target folder for displaying html output in case of it is set.
+	 */
+	private void copyResources(){
+		if (((InfoModuleProperties)getProperties()).isHtmlOutput()){
+			URI jsResource= getResources().appendSegment("js");
+			URI cssResource= getResources().appendSegment("css");
+			URI imgResource= getResources().appendSegment("img");
+			
+			File output= null;
+			File input= null;
+			try {
+				input= new File(jsResource.toFileString());
+				output= new File(getCorpusDesc().getCorpusPath().appendSegment("js").toFileString());
+				FileUtils.copyDirectory(input, output);
+				input= new File(cssResource.toFileString());
+				output= new File(getCorpusDesc().getCorpusPath().appendSegment("css").toFileString());
+				FileUtils.copyDirectory(input, output);
+				input= new File(imgResource.toFileString());
+				output= new File(getCorpusDesc().getCorpusPath().appendSegment("img").toFileString());
+				FileUtils.copyDirectory(input, output);
+			} catch (IOException e) {
+				throw new PepperModuleException(this, "Cannot copy resource '"+input.getAbsolutePath()+"' to target path '"+output.getAbsolutePath()+"'.", e);
+			}
+		}
 	}
 }

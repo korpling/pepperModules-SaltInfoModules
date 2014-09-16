@@ -14,6 +14,9 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
@@ -81,11 +84,12 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 		this.exportFile = exportFile;
 	}
 	/** A map containing all meta data, SName as key and SValue as value **/
-	private Map<String, String> metaDataInfo= null;
+	private Multimap<String, String> metaDataInfo= null;
 	
-	public Map<String, String> getMetaDataInfo() {
+	public Multimap<String, String> getMetaDataInfo() {
 		if (metaDataInfo== null){
-			metaDataInfo= new Hashtable<>();
+			metaDataInfo= HashMultimap.create();
+//			metaDataInfo= new Hashtable<>();
 		}
 		return metaDataInfo;
 	}
@@ -202,7 +206,17 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 			for (String key: getMetaDataInfo().keySet()){
 				xml.writeStartElement(TAG_ENTRY);
 					xml.writeAttribute(ATT_KEY, key);
-					xml.writeCharacters(getMetaDataInfo().get(key));
+					String sMetaValue= null;
+					int i= 0;
+					for (String sMetaDate: getMetaDataInfo().get(key)){
+						if (i== 0){
+							sMetaValue= sMetaDate;
+						}else{
+							sMetaValue= sMetaValue+", "+ sMetaDate;
+						}
+						i++;
+					}
+					xml.writeCharacters(sMetaValue);
 				xml.writeEndElement();
 			}
 		xml.writeEndElement();

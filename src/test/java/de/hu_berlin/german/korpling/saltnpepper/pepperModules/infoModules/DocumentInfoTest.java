@@ -1,7 +1,6 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -71,9 +70,9 @@ public class DocumentInfoTest {
 		assertNotNull(getFixture().getMetaDataInfo());
 		assertEquals(2, getFixture().getMetaDataInfo().size());
 		assertNotNull(getFixture().getMetaDataInfo().get("att1"));
-		assertEquals("value1", getFixture().getMetaDataInfo().get("att1"));
+		assertTrue(getFixture().getMetaDataInfo().get("att1").contains("value1"));
 		assertNotNull(getFixture().getMetaDataInfo().get("att2"));
-		assertEquals("value2", getFixture().getMetaDataInfo().get("att2"));
+		assertTrue(getFixture().getMetaDataInfo().get("att2").contains("value2"));
 		
 		assertNotNull(getFixture().getStructuralInfo());
 		

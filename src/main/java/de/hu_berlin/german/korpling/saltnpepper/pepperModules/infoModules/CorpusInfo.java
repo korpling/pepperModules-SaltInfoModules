@@ -1,6 +1,7 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,10 @@ public class CorpusInfo extends ContainerInfo implements SaltInfoDictionary{
 			// integrate meta data
 			if (cont.getMetaDataInfo()!= null){
 				for (String sMetaName: cont.getMetaDataInfo().keySet()){
-					getMetaDataInfo().put(sMetaName, cont.getMetaDataInfo().get(sMetaName));
+					Collection<String> sMetaValues= cont.getMetaDataInfo().get(sMetaName);
+					if (sMetaValues!= null){
+						getMetaDataInfo().putAll(sMetaName, sMetaValues);
+					}
 				}
 			}
 		
