@@ -65,7 +65,8 @@ public class DocumentInfo extends ContainerInfo implements SaltInfoDictionary{
 		}
 		//retrieve annotations for nodes
 		for (SNode sNode: sDocument.getSDocumentGraph().getSNodes()){
-			if (sNode.getSLayers()!= null){
+			if (	(sNode.getSLayers()!= null)&&
+					(sNode.getSLayers().size()>0)){
 				for (SLayer sLayer: sNode.getSLayers()){
 					Map<String, AnnotationInfo> annos= getAnnotations().get(sLayer.getSName());
 					
@@ -87,7 +88,8 @@ public class DocumentInfo extends ContainerInfo implements SaltInfoDictionary{
 		
 		//retrieve annotations for relations
 		for (SRelation sRel: sDocument.getSDocumentGraph().getSRelations()){
-			if (sRel.getSLayers()== null){
+			if (	(sRel.getSLayers()== null)&&
+					(sRel.getSLayers().size()>0)){
 				for (SLayer sLayer: sRel.getSLayers()){
 					Map<String, AnnotationInfo> annos= getAnnotations().get(sLayer.getSName());
 					if (annos== null){

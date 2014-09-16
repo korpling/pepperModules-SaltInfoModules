@@ -67,7 +67,7 @@ public class CorpusInfo extends ContainerInfo implements SaltInfoDictionary{
 					getStructuralInfo().occurance_STimeline+= cont.getStructuralInfo().occurance_STimeline;
 				}
 				if (cont.getStructuralInfo().occurance_STextualDS!= 0){
-					getStructuralInfo().occurance_STextualDS= cont.getStructuralInfo().occurance_STextualDS;
+					getStructuralInfo().occurance_STextualDS+= cont.getStructuralInfo().occurance_STextualDS;
 				}
 				if (cont.getStructuralInfo().occurance_SToken!= 0){
 					getStructuralInfo().occurance_SToken+= cont.getStructuralInfo().occurance_SToken;

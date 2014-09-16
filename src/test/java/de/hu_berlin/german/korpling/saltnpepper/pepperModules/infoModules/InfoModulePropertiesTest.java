@@ -20,12 +20,6 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URL;
-
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
