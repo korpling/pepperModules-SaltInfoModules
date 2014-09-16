@@ -20,8 +20,11 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -83,8 +86,6 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	public static final String[] defaultResources = { "/css/saltinfo.css", "/css/index.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
 	/** name of the file containing the corpus-structure for SaltInfo**/
 	public static final String PROJECT_INFO_FILE="salt-project";
-	public static final String XSLT_INFO2HTML_XSL = "/xslt/info2html.xsl";
-	public static final String XSLT_INFO2INDEX_XSL = "/xslt/info2index.xsl";
 	private static final TransformerFactory transFac = TransformerFactory.newInstance();
 
 	public SaltInfoExporter() {
@@ -190,7 +191,18 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	private void writeProjectInfo(SaltProject saltProject, XMLStreamWriter xml) throws XMLStreamException{
 		xml.writeStartDocument();
 		xml.writeStartElement(TAG_SPROJECT);
-			xml.writeAttribute(ATT_SNAME, PROJECT_INFO_FILE);
+			String name= PROJECT_INFO_FILE;
+			if (saltProject.getSCorpusGraphs().size()==1){
+				List<SCorpus> roots= saltProject.getSCorpusGraphs().get(0).getSRootCorpus();
+				if (roots.size()== 1){
+					name= roots.get(0).getSName();
+				}
+			}
+			xml.writeAttribute(ATT_SNAME, name);
+			
+			Date date = new Date();
+			DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			xml.writeAttribute(ATT_GENERATED_ON, dformat.format(date));
 			for (SCorpusGraph sCorpusGraph: saltProject.getSCorpusGraphs()){
 				List<SCorpus> roots= sCorpusGraph.getSRootCorpus();
 				if (	(roots!= null)&&
