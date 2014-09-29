@@ -25,7 +25,6 @@
                 <div id="container">
                    
                     <div id="navigation">
-                        <!--<div id="nav-toggle">x</div>-->
                         <xsl:apply-templates mode="navi"/>
                     </div>
                     
@@ -91,7 +90,6 @@
                 <xsl:value-of select="node()/@sName"/>
                 <xsl:text>- Overview</xsl:text>
             </h1>
-            <p>generated with SaltNPepper</p>
         </div>
     </xsl:template>
 

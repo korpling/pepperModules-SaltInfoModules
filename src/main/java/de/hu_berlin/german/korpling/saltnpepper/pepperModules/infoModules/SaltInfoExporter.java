@@ -241,6 +241,10 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 				} catch (IOException e) {
 					location = cont.getExportFile().getAbsolutePath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
 				}
+				//remove prefixing /
+				if (location.startsWith("/")){
+					location.replaceFirst("/", "");
+				}
 				xml.writeAttribute(ATT_LOCATION, location);
 				if (cont instanceof CorpusInfo){
 					for (ContainerInfo sub: ((CorpusInfo) cont).getContainerInfos()){

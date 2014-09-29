@@ -15,7 +15,6 @@
             </head>
             <body>
                 <div class="data-view" id="data">
-                    <button class="btn-toggle-box">toggle Box</button>
                     <h1><xsl:value-of select="@sName"/></h1>
                     <xsl:call-template name="slayer-list"/>
                     <!--<xsl:apply-templates select="//sCorpusInfo/structuralInfo"/>-->
@@ -60,6 +59,7 @@
             <!--<br/>-->
             <div class="annotation">
                 <h3><span>annotations</span>:</h3>
+                <button align="right" class="btn-toggle-box">draw boxes</button>
                 <table class="data-table">
                     <thead>
                         <th>Name</th>
