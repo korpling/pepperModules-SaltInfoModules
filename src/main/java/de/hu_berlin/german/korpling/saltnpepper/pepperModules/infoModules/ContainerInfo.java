@@ -89,7 +89,6 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	public Multimap<String, String> getMetaDataInfo() {
 		if (metaDataInfo== null){
 			metaDataInfo= HashMultimap.create();
-//			metaDataInfo= new Hashtable<>();
 		}
 		return metaDataInfo;
 	}
@@ -103,7 +102,7 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 		return annotations;
 	}
 	
-	class AnnotationInfo{
+	public class AnnotationInfo{
 		public Map<String, Integer> annotations= new Hashtable<>();
 		public Integer occurances= 0;
 		

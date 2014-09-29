@@ -1,4 +1,4 @@
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +27,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperModuleTest;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.SaltInfoDictionary;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.StructuralInfo;
 
 public class StructuralInfoTest {
 

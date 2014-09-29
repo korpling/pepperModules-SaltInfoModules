@@ -18,11 +18,13 @@
 /**
  * 
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.tests;
 
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.SaltInfoProperties;
 
 /**
  * @author jschmolling

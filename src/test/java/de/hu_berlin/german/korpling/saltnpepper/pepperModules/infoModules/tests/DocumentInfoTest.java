@@ -1,4 +1,4 @@
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.tests;
 
 import static org.junit.Assert.*;
 
@@ -20,6 +20,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperModuleTest;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.DocumentInfo;
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
