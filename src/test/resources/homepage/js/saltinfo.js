@@ -59,9 +59,15 @@ function start() {
 	};
 
 	/***************************************************************************
-	 * Boxes vor annotation values
+	 * Boxes for annotation values
 	 **************************************************************************/
-
+	$("#content").on("click", ".btn-toggle-box", toggleBox);
+	function toggleBox(event) {
+		var values = $('.svalue-text');
+		$(values).toggleClass('boxed');
+	};
+	
+	
 	/***************************************************************************
 	 * Collapse/Expand annotation values
 	 **************************************************************************/
@@ -82,11 +88,6 @@ function start() {
 					$(".btn-toogle-sannotation-dropdown").each(toggledropdown);
 				});
 	}
-
-	var toggleBox = function(event) {
-		var values = $('.svalue-text');
-		$(values).toggleClass('boxed');
-	};
 
 	/**
 	 * Subcorpus navigation: hides subtree
@@ -161,7 +162,6 @@ function start() {
 
 	$("#navigation").on("mouseenter", expand);
 	$("#navigation").on("mouseleave", collapse);
-	$("#content").on("click", ".btn-toggle-box", toggleBox);
 
 	$(".nav-link").on("click", loadContent);
 
