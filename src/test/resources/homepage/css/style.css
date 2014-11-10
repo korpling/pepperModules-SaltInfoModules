@@ -15,7 +15,7 @@ header {
 body {
 	box-sizing: border-box;
 	color: #373737;
-	background: #212121;
+	background: #eeeeee;
 	font-size: 16px;
 	font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
@@ -55,7 +55,7 @@ footer {
 	background: #212121;
 	color: white;
 	clear: both;
-	S text-align: center;
+	text-align: center;
 	padding: 5px;
 }
 
@@ -75,6 +75,17 @@ table {
 	text-align: left;
 	border-collapse: collapse;
 	border-spacing: 0;
+	width: 100%;
+}
+
+tr.odd {
+	background-color: white;
+}
+
+span.icon {
+	float: right;
+	margin: 0.5em;
+	cursor: pointer;
 }
 
 th {
@@ -85,9 +96,17 @@ th {
 	color: #fff;
 }
 
+a.btn-download-csv {
+	text-align: right;
+}
+
 td {
 	padding: 10px;
 	border: 1px solid #373737;
+}
+
+td.anno-Name {
+	width: 30%;
 }
 
 #navigation {
