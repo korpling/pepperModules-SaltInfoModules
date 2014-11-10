@@ -1,0 +1,1 @@
+data = '{"corpusName" : "MyCorpus", "shortDescription" : "short description of myCorpus",  "description" : "Here you can enter a description of your corpus. ", "name" : "Harry", "age" : "32"}';

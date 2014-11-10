@@ -164,5 +164,44 @@ function start() {
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
 
 	$(".nav-link").on("click", loadContent);
+
+	// Load params file (params.json) into variables
+	loadParams(FILE_PARAMS);
+	// Load content for main page
+	loadMainPage();
 };
+
+
+/***************************************************************************
+ * Load params file (params.json) into variables
+ **************************************************************************/
+/** param file to be loaded */
+var FILE_PARAMS = "params.json";
+/** load data into JSON object  */
+var params = JSON.parse(data);
+/** Contains the name of the root corpus  */
+var corpusName = "";
+/** Contains a short description of the corpus if given */
+var shortDescription = "";
+/** Contains a long description of the corpus if given */
+var description = "";
+
+/** loads params from passed file and fills variables */
+function loadParams(file) {
+	corpusName = params.corpusName;
+	shortDescription = params.shortDescription;
+	description = params.description;
+}
+
+/***************************************************************************
+ * Load content for main page
+ **************************************************************************/
+function loadMainPage() {
+	document.getElementById("project_title").innerHTML = corpusName;
+	document.getElementById("project_tagline").innerHTML = shortDescription;
+	document.getElementById("content").innerHTML = "<h2>" + corpusName
+			+ "</h2>" + "<br/><hr/><br/>" + description;
+}
+
+/** call function start, when document was loaded entirely */
 $(document).ready(start);
