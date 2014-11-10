@@ -31,6 +31,34 @@ nav {
 	padding: 5px;
 }
 
+span.svalue-text{
+	font-weight: bold;
+}
+
+span.svalue-occurrences:before {
+	content: '(';
+}
+
+span.svalue-occurrences:after {
+	content: '),';
+}
+
+span.svalue {
+	display: none;
+}
+
+span.sannotationinfo-count:before {
+	content: '(';
+}
+
+span.sannotationinfo-count:after {
+	content: ')';
+}
+
+span.sannotationinfo-sname {
+	font-weight: bold;
+}
+
 section {
 	position: relative;
 	max-width: 1000px;
@@ -84,7 +112,12 @@ tr.odd {
 
 span.icon {
 	float: right;
-	margin: 0.5em;
+	margin-right: 0.5em;
+	cursor: pointer;
+}
+
+span.btn-toggle-box {
+	align: right;
 	cursor: pointer;
 }
 
@@ -107,6 +140,7 @@ td {
 
 td.anno-Name {
 	width: 30%;
+	font-weight: bold;
 }
 
 #navigation {

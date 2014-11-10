@@ -16,7 +16,7 @@ function start() {
 
 	/** Adds CSV download functionality to button or icon */
 	$("#content").on("click", ".btn-download-csv", function(event) {
-		var data = $(this).parent().next().children('.svalue');
+		var data = $(this).parent().parent().next().children('.svalue');
 		downloadText(svalues2text(data), CSV_MIME_TYPE);
 	});
 
@@ -59,9 +59,15 @@ function start() {
 	};
 
 	/***************************************************************************
-	 * Boxes vor annotation values
+	 * Boxes for annotation values
 	 **************************************************************************/
-
+	$("#content").on("click", ".btn-toggle-box", toggleBox);
+	function toggleBox(event) {
+		var values = $('.svalue-text');
+		$(values).toggleClass('boxed');
+	};
+	
+	
 	/***************************************************************************
 	 * Collapse/Expand annotation values
 	 **************************************************************************/
@@ -69,7 +75,7 @@ function start() {
 			expandAnnoValues);
 	/** toggles .svalue items in a list with an index greater than VISIBLE_ITEMS */
 	function expandAnnoValues(event) {
-		var svalues = $(this).parent().next().children('.svalue').slice(
+		var svalues = $(this).parent().parent().next().children('.svalue').slice(
 				VISIBLE_ITEMS);
 		svalues.toggle();
 	}
@@ -82,11 +88,6 @@ function start() {
 					$(".btn-toogle-sannotation-dropdown").each(toggledropdown);
 				});
 	}
-
-	var toggleBox = function(event) {
-		var values = $('.svalue-text');
-		$(values).toggleClass('boxed');
-	};
 
 	/**
 	 * Subcorpus navigation: hides subtree
@@ -161,7 +162,6 @@ function start() {
 
 	$("#navigation").on("mouseenter", expand);
 	$("#navigation").on("mouseleave", collapse);
-	$("#content").on("click", ".btn-toggle-box", toggleBox);
 
 	$(".nav-link").on("click", loadContent);
 };
