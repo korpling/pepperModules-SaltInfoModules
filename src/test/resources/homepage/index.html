@@ -1,70 +1,177 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>MyCorpus</title>
-    <!-- 4 include the jQuery library -->
-  <script src="dist/libs/jquery.js"></script>
-  <!-- 5 include the minified jstree source -->
-  <script src="dist/jstree.min.js"></script>
-  
-  <script src="js/saltinfo.js" type="text/javascript"></script>
-  <!-- 2 load the theme CSS file -->
-  <link rel="stylesheet" href="dist/themes/default/style.min.css" />
-          <link rel="stylesheet" type="text/css" href="css/style.css">
-          						<script>
-						$(function () {
-							$('#jstree2').jstree({ 'core' : {
-								'data' : [
-									{
-										"text" : "corpus1", "metadata":{"href":"./exmaralda.html"}, "state" : { "opened" : true },
-										"children" : [
-											{ "text" : "de", "metadata":{"href":"./exmaralda/de.html"}, "children" : [
-												{"text" : "CvO_7_ALP_de_we_katk", "metadata": {"href":"./exmaralda/de/CvO_7_ALP_de_we_katk.html"}},
-												{"text" : "CvO_7_ALP_de_wn_katk", "metadata": {"href":"./exmaralda/de/CvO_7_ALP_de_wn_katk.html"}},
-												{"text" : "CvO_12_SUA_de_we_katk", "metadata": {"href":"./exmaralda/de/CvO_12_SUA_de_we_katk.html"}}
-												]},
-											{ "text" : "en", "metadata":{"href":"./exmaralda/en.html"}},
-											{ "text" : "tr", "metadata":{"href":"./exmaralda/tr.html"}}
-										]
-									}
-								]
-							}}).bind("select_node.jstree", function(e, data)
-                    {
-						var href= data.instance.get_node(data.selected[0]).original.metadata.href
-						$('#content').load(href);
-						console.log(href);
-                    })
+<meta charset="utf-8">
+<title>MyCorpus</title>
+<!-- 4 include the jQuery library -->
+<script src="dist/libs/jquery.js" type="text/javascript"></script>
+<!-- 5 include the minified jstree source -->
+<script src="dist/jstree.min.js" type="text/javascript"></script>
 
-						});
-						</script>
+<script src="js/saltinfo.js" type="text/javascript"></script>
+<!-- 2 load the theme CSS file -->
+<link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="dist/themes/default/style.min.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript">
+	$(function() {
+		$('#jstree2')
+				.jstree(
+						{
+							'core' : {
+								'data' : [ {
+									"text" : "corpus1",
+									"metadata" : {
+										"href" : "./exmaralda.html"
+									},
+									"state" : {
+										"opened" : true
+									},
+									icon : "fa fa-folder-o",
+									"children" : [
+											{
+												"text" : "de",
+												"metadata" : {
+													"href" : "./exmaralda/de.html"
+												},
+												icon : "fa fa-folder-o",
+												"children" : [
+														{
+															"text" : "CvO_7_ALP_de_we_katk",
+															icon : "fa fa-file-o",
+															"metadata" : {
+																"href" : "./exmaralda/de/CvO_7_ALP_de_we_katk.html"
+															}
+														},
+														{
+															"text" : "CvO_7_ALP_de_wn_katk",
+															icon : "fa fa-file-o",
+															"metadata" : {
+																"href" : "./exmaralda/de/CvO_7_ALP_de_wn_katk.html"
+															}
+														},
+														{
+															"text" : "CvO_12_SUA_de_we_katk",
+															icon : "fa fa-file-o",
+															"metadata" : {
+																"href" : "./exmaralda/de/CvO_12_SUA_de_we_katk.html"
+															}
+														} ]
+											},
+											{
+												"text" : "en",
+												icon : "fa fa-folder-o",
+												"metadata" : {
+													"href" : "./exmaralda/en.html"
+												}
+											},
+											{
+												"text" : "tr",
+												icon : "fa fa-folder-o",
+												"metadata" : {
+													"href" : "./exmaralda/tr.html"
+												}
+											} ]
+								} ]
+							}
+						})
+				.bind(
+						"select_node.jstree",
+						function(e, data) {
+							var href = data.instance.get_node(data.selected[0]).original.metadata.href
+							$('#content').load(href);
+							console.log(href);
+						})
+
+	});
+</script>
 </head>
 
-    <body>
-		<div id="header_wrap" class="outer">
+<body>
+	<div id="header_wrap" class="outer">
 		<header class="inner">
 			<h1 id="project_title">MyCorpus</h1>
-          <h2 id="project_tagline">short description</h2>
-          </header>
-        </div>
-  <!-- 3 setup a container element -->
-  <div id="navigation">
-	  <div id="jstree2" class="demo" style="margin-top:2em;"></div>
+			<h2 id="project_tagline">short description</h2>
+		</header>
+	</div>
+	<!-- 3 setup a container element -->
+	<div id="navigation">
+		<i class="fa fa-graduation-cap"></i>
+		<div id="jstree2" class="demo" style="margin-top: 2em;"></div>
 
-</div>
-        <div id="main_content_wrap" class="outer" >
-            <section id="content">
-            <div>
-            <h3>structural info</h3>
-            <hr/>
-            Here a description has to come.
-        </section>
-        
-        </div>
-        <footer>
-            this site was generated by <a href="https://github.com/korpling/pepperModules-SaltInfoModules">SaltInfoModules</a> a plugin for <a href="https://u.hu-berlin.de/saltnpepper">Pepper</a> and was generated on 2014-09-24 10:03:23<div class="impressum">
-<a href="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/impressum.html">Impressum</a>
-        </footer>
-        
-    </body>
+	</div>
+	<div id="main_content_wrap" class="outer">
+		<section id="content">
+			<div>
+				<h3>structural info</h3>
+				<hr />
+				Here a description has to come.<i class="fa fa-download"></i>
+			</div>
+		</section>
+
+	</div>
+	<footer>
+		this site was generated by <a
+			href="https://github.com/korpling/pepperModules-SaltInfoModules">SaltInfoModules</a>
+		a plugin for <a href="https://u.hu-berlin.de/saltnpepper">Pepper</a>
+		and was generated on 2014-09-24 10:03:23
+		<div class="impressum">
+			<a
+				href="http://korpling.german.hu-berlin.de/saltnpepper/salt/info/info-10/impressum.html">Impressum</a>
+		</div>
+	</footer>
+	<div class="data-tooltips">
+		<p style="display: none" id="SPointingRelation" class="tooltip-text">Number
+			of relations in the current document or corpus for loose connections
+			like anaphoric relations.</p>
+		<p style="display: none" id="SSpanningRelation" class="tooltip-text">Number
+			of relations in the current document or corpus to connect ps (SSpan)
+			with tokens (SToken).</p>
+		<p style="display: none" id="STextualDS" class="tooltip-text">Number
+			of textual primary data in the current document or corpus.</p>
+		<p style="display: none" id="SSpan" class="tooltip-text">Number of
+			ps in the current document or corpus. A p is an aggregation of a
+			bunch of tokens containing 0..n token.</p>
+		<p style="display: none" id="STextualRelation" class="tooltip-text">Number
+			of relations in the current document or corpus to connect a token
+			(SToken) with a textual data source (STextualDS).</p>
+		<p style="display: none" id="SToken" class="tooltip-text">Number
+			of token (smallest annotatable unit) in the current document or
+			corpus.</p>
+		<p style="display: none" id="SRelation" class="tooltip-text">Total
+			number of all relations in the current document or corpus. An
+			SRelation is an abstract relation which could be instantiated as e.g.
+			STextualRelation, SSPanningRelation and SDominanceRelation.</p>
+		<p style="display: none" id="SStructure" class="tooltip-text">Number
+			of hierarchical structures in the current document or corpus.
+			SStructure objects in Salt are used to represent hierarchies e.g. for
+			constituents.</p>
+		<p style="display: none" id="SNode" class="tooltip-text">Total
+			number of all nodes in the current document or corpus. An SNode is an
+			abstract node which could be instantiated as e.g. STextualDS, SToken,
+			SSpan.</p>
+		<p style="display: none" id="SSpanningRelation" class="tooltip-text">Number
+			of relations in the current document or corpus to connect ps (SSpan)
+			with tokens (SToken).</p>
+		<p style="display: none" id="SDominanceRelation" class="tooltip-text">Number
+			of relations in the current document or corpus to connect
+			hierarchical nodes like SStructure with other SNode objects. This
+			relation class is used to represent for e.g. constituents relations.</p>
+		<p style="display: none" id="SOrderRelation" class="tooltip-text">Number
+			of relations in the current document or corpus to order SNode
+			objects. This class is used to manage conflicting token levels as
+			they can occur for instance in dialogues.</p>
+		<p style="display: none" id="STimeline" class="tooltip-text">In
+			Salt a common timeline exists, which can be used to identify the
+			chronological occurance of a token. For instance to identify if one
+			token corresponding to one text occurs before or after another token
+			corresponding to another text. This would be important in dialogue
+			corpora.</p>
+		<p style="display: none" id="STimelineRelation" class="tooltip-text">Number
+			of relations in the current document or corpus to connect a token
+			(SToken) with the common timeline (STimeline).</p>
+		<p style="display: none" id="Default" class="tooltip-text">No
+			description available.</p>
+	</div>
+</body>
 </html>

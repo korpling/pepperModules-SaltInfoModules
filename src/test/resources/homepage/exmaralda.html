@@ -6,9 +6,13 @@
 </head>
 <body>
 			<h2>exmaralda</h2>
-            <h3>structural info</h3>
+            <h3>Structural Info</h3>
             <hr/>
-            Here a description has to come
+            Structural data are those, which were necessary to create the Salt model. 
+            Since Salt is a graph-based model, all model elements are either nodes or relations between them. 
+            Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc.
+            This section gives an overview of the amount of these elements used in this corpus/document.
+            <br/><br/>
             <table class="data-structuralInfo" width="100%">
                 <thead>
                     <th>Name</th>
@@ -18,13 +22,13 @@
                 <tbody>
                     <tr style="background:white;">
                         <td>
-                            <span class="data-entryName">SNode</span>
+                            <span class="sName_entry">SNode <i class="fa fa-info-circle"></i></span>
                         </td>
                         <td>107</td>
                     </tr>
                     <tr>
                         <td>
-                            <span class="data-entryName">SRelation</span>
+                            <span class="sName_entry">SRelation <i class="fa fa-info-circle"></i></span>
                         </td>
                         <td>246</td>
                     </tr>
@@ -127,10 +131,10 @@
         </div>
         
         <div>
-            <h4>annotations</h4>
+            <h4>Annotations</h4>
             <hr/>
             Further description has to come.
-            <br/>
+            <br/><br/>
             <button align="right" class="btn-toggle-box">draw boxes</button>
             <table class="data-table" width="100%">
                 <thead>
@@ -147,7 +151,7 @@
                             </span>
                             <button class="btn-toogle-sannotation-dropdown">Show
                                 more</button>
-                            <button class="btn-download-csv">CSV</button>
+                            <a class="btn-download-csv" style="text-align:right"><i class="fa fa-download"></i></a>
                         </td>
                         <td>
                             <span class="svalue" style="display:none">

@@ -1,118 +1,125 @@
 html, body {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	vertical-align: baseline;
 }
 
-
 header {
-    color:white;
-    text-align:center;
-    padding:5px;
+	color: white;
+	text-align: center;
+	padding: 5px;
 }
 
 body {
-  box-sizing: border-box;
-  color:#373737;
-  background: #212121;
-  font-size: 16px;
-  font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+	box-sizing: border-box;
+	color: #373737;
+	background: #212121;
+	font-size: 16px;
+	font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
 }
 
 nav {
-    line-height:30px;
-    background-color:#eeeeee;
-    height:300px;
-    width:100px;
-    float:left;
-    padding:5px;	      
-}
-section {
-  position: relative;
-  max-width: 1000px;
-  padding: 20px 10px;
-  margin: 0 auto;
-  box-shadow: 0 0 10px rgba(0,0,0,.5);
-}
-.outer {
-  width: 100%;
-  background-color:#eeeeee;
-}
-.inner {
-  position: relative;
-  max-width: 1000px;
-  padding: 20px 10px;
-  margin: 0 auto;
-}
-footer {
-    background: #212121;
-    color:white;
-    clear:both;S
-    text-align:center;
-    padding:5px;	 	 
+	line-height: 30px;
+	background-color: #eeeeee;
+	height: 300px;
+	width: 100px;
+	float: left;
+	padding: 5px;
 }
 
-a:hover, a:focus {text-decoration: underline;}
-footer a {
-  color: #007edf;
-  text-decoration: none;
+section {
+	position: relative;
+	max-width: 1000px;
+	padding: 20px 10px;
+	margin: 0 auto;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .5);
 }
+
+.outer {
+	width: 100%;
+	background-color: #eeeeee;
+}
+
+.inner {
+	position: relative;
+	max-width: 1000px;
+	padding: 20px 10px;
+	margin: 0 auto;
+}
+
+footer {
+	background: #212121;
+	color: white;
+	clear: both;
+	S text-align: center;
+	padding: 5px;
+}
+
+a:hover, a:focus {
+	text-decoration: underline;
+}
+
+footer a {
+	color: #007edf;
+	text-decoration: none;
+}
+
 table {
-  border: 1px solid #373737;
-  margin-bottom: 20px;
+	border: 1px solid #373737;
+	margin-bottom: 20px;
 	/**box-shadow: 0 0 10px rgba(0,0,0,.5);**/
-  text-align: left;
-  border-collapse: collapse;
-  border-spacing: 0;
- }
+	text-align: left;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
 
 th {
-  font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 10px;
-  background: #373737;
-  color: #fff;
- }
+	font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial,
+		sans-serif;
+	padding: 10px;
+	background: #373737;
+	color: #fff;
+}
 
 td {
-  padding: 10px;
-  border: 1px solid #373737;
- }
- 
- #navigation{
-
-    float: left;
-    position: absolute;
-    overflow: auto;
-    
+	padding: 10px;
+	border: 1px solid #373737;
 }
+
+#navigation {
+	float: left;
+	position: absolute;
+	overflow: auto;
+}
+
 /**************************************
  * HEADER
  * ************************************/
 #header_wrap {
-  background: -moz-linear-gradient(top, #373737, #212121);
-  background: -webkit-linear-gradient(top, #373737, #212121);
-  background: -ms-linear-gradient(top, #373737, #212121);
-  background: -o-linear-gradient(top, #373737, #212121);
-  background: linear-gradient(top, #373737, #212121);
+	background: -moz-linear-gradient(top, #373737, #212121);
+	background: -webkit-linear-gradient(top, #373737, #212121);
+	background: -ms-linear-gradient(top, #373737, #212121);
+	background: -o-linear-gradient(top, #373737, #212121);
+	background: linear-gradient(top, #373737, #212121);
 }
 
 #project_title {
-  margin: 0;
-  color: #fff;
-  font-size: 42px;
-  font-weight: 700;
-  text-shadow: #111 0px 0px 10px;
-  text-align: left;
+	margin: 0;
+	color: #fff;
+	font-size: 42px;
+	font-weight: 700;
+	text-shadow: #111 0px 0px 10px;
+	text-align: left;
 }
 
 #project_tagline {
-  color: #fff;
-  font-size: 24px;
-  font-weight: 300;
-  text-shadow: #111 0px 0px 10px;
-  text-align: left;
+	color: #fff;
+	font-size: 24px;
+	font-weight: 300;
+	text-shadow: #111 0px 0px 10px;
+	text-align: left;
 }
