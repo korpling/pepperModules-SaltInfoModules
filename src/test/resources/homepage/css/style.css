@@ -88,6 +88,10 @@ span.icon {
 	cursor: pointer;
 }
 
+.btn-home {
+	cursor: pointer;
+}
+
 th {
 	font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial,
 		sans-serif;

@@ -16,7 +16,7 @@ function start() {
 
 	/** Adds CSV download functionality to button or icon */
 	$("#content").on("click", ".btn-download-csv", function(event) {
-		var data = $(this).parent().next().children('.svalue');
+		var data = $(this).parent().parent().next().children('.svalue');
 		downloadText(svalues2text(data), CSV_MIME_TYPE);
 	});
 
@@ -69,7 +69,7 @@ function start() {
 			expandAnnoValues);
 	/** toggles .svalue items in a list with an index greater than VISIBLE_ITEMS */
 	function expandAnnoValues(event) {
-		var svalues = $(this).parent().next().children('.svalue').slice(
+		var svalues = $(this).parent().parent().next().children('.svalue').slice(
 				VISIBLE_ITEMS);
 		svalues.toggle();
 	}
