@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<script>
+			var data = 	'{' +
+						'"pos": ['+
+						'{"value":"VVFIN", "occurance":"1"},'+
+						'{"value":"ADJD", "occurance":"1"},'+
+						'{"value":"ADJA", "occurance":"1"},'+
+						'{"value":"NN", "occurance":"1"},'+
+						'{"value":"ADV", "occurance":"1"},'+
+						'{"value":"MORE1", "occurance":"10"},'+
+						'{"value":"MORE2", "occurance":"10"},'+
+						'{"value":"MORE3", "occurance":"10"},'+
+						'{"value":"MORE4", "occurance":"10"},'+
+						'{"value":"MORE5", "occurance":"10"},'+
+						'{"value":"MORE6", "occurance":"10"},'+
+						'{"value":"MORE7", "occurance":"10"},'+
+						'{"value":"MORE8", "occurance":"10"},'+
+						'{"value":"MORE9", "occurance":"10"},'+
+						'{"value":"MORE10", "occurance":"10"},'+
+						'{"value":"MORE11", "occurance":"10"},'+
+						'{"value":"MORE12", "occurance":"10"},'+
+						'{"value":"MORE13", "occurance":"10"},'+
+						'{"value":"MORE14", "occurance":"10"},'+
+						'{"value":"MORE15", "occurance":"10"},'+
+						'{"value":"MORE16", "occurance":"11"}'+
+						']'+
+						'}';
+		
+		var obj = JSON.parse(data);
+		function loadValues(annoName){
+			var td= document.getElementById(annoName+"_values");
+			var span= td.children[0];
+			var slot= obj[annoName];
+			for (var i= 5; i< slot.length;i++){
+				console.log("Name: "+ slot[i].value+" Occurance: "+slot[i].occurance);
+				var newSpan= span.cloneNode(true);
+				newSpan.children[0].innerHTML= slot[i].value;
+				newSpan.children[1].innerHTML= slot[i].occurance;
+				td.appendChild(newSpan);
+			}
+		}
+		</script>
+	</head>
+	<body>
+		<h1 id="h1">MyCorpus</h1>
+		<table width="100%" border="1">
+			 <thead>
+                    <th>Name</th>
+                    <th>Counts
+                    </th>
+                </thead>
+			 <tbody>
+				    <tr class="odd">
+                        <td class="anno_Name">
+                            <span class="sannotationinfo">
+                                <span class="sannotationinfo-sname">POS</span>
+                                <span class="sannotationinfo-count">23</span>
+                            </span>
+                            <button onClick="loadValues('pos')">E</button>
+                        </td>
+                        <td id="pos_values">
+                            <span class="svalue">
+                                <span class="svalue-text">VVFIN</span>
+                                <span class="svalue-occurrences">10</span>
+                            </span>
+                            <span class="svalue">
+                                <span class="svalue-text">ADJD</span>
+                                <span class="svalue-occurrences">11</span>
+                            </span>
+                            <span class="svalue">
+                                <span class="svalue-text">NN</span>
+                                <span class="svalue-occurrences">14</span>
+                            </span>
+                            <span class="svalue">
+                                <span class="svalue-text">DET</span>
+                                <span class="svalue-occurrences">24</span>
+                            </span>
+                            <span class="svalue">
+                                <span class="svalue-text">ADV</span>
+                                <span class="svalue-occurrences">8</span>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+		</table>
+	</body>
+</html>
