@@ -63,7 +63,7 @@ function start() {
 	 **************************************************************************/
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
 	function toggleBox(event) {
-		var values = $('.svalue-text');
+		var values = $(this).parent().parent().next().children().children('.svalue-text');
 		$(values).toggleClass('boxed');
 	}
 	;
