@@ -1,0 +1,8 @@
+{
+	"shortDescription" : "short description of myCorpus",
+	"description" : "Here you can enter a description of your corpus.",
+	"annotators" : [ {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}],
+	"tooltips_metadata" : {
+		"Textualität" : "Irgendwelche Metadaten"
+	}
+}

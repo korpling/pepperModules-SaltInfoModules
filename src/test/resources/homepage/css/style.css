@@ -121,7 +121,7 @@ span.btn-toggle-box {
 	cursor: pointer;
 }
 
-.btn-home {
+.btn-main {
 	cursor: pointer;
 }
 
@@ -153,6 +153,18 @@ td.anno-Name {
 	overflow: auto;
 }
 
+.tooltip-text {
+    position: absolute;
+    background: white;
+    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    width: 180px;
+    padding: 1em;
+    margin-top: 5px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    font-size: 0.8em;
+}
+
 /**************************************
  * HEADER
  * ************************************/
@@ -180,3 +192,5 @@ td.anno-Name {
 	text-shadow: #111 0px 0px 10px;
 	text-align: left;
 }
+
+

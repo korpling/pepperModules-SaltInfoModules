@@ -1,1 +1,3 @@
-data = '{"tooltips_metadata" : {"Textualität" : "Irgendwelche Metadaten"}, "corpusName" : "MyCorpus", "shortDescription" : "short description of myCorpus",  "description" : "Here you can enter a description of your corpus. "}';
+{
+	"corpusName" : "MyCorpus"
+}

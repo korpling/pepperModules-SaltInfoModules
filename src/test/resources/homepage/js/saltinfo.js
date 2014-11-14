@@ -65,9 +65,9 @@ function start() {
 	function toggleBox(event) {
 		var values = $('.svalue-text');
 		$(values).toggleClass('boxed');
-	};
-	
-	
+	}
+	;
+
 	/***************************************************************************
 	 * Collapse/Expand annotation values
 	 **************************************************************************/
@@ -75,8 +75,8 @@ function start() {
 			expandAnnoValues);
 	/** toggles .svalue items in a list with an index greater than VISIBLE_ITEMS */
 	function expandAnnoValues(event) {
-		var svalues = $(this).parent().parent().next().children('.svalue').slice(
-				VISIBLE_ITEMS);
+		var svalues = $(this).parent().parent().next().children('.svalue')
+				.slice(VISIBLE_ITEMS);
 		svalues.toggle();
 	}
 	/**
@@ -120,21 +120,33 @@ function start() {
 	/***************************************************************************
 	 * Tooltips
 	 **************************************************************************/
-	$("#content").on(
-			{
-				mouseenter : function() {
-					console.log($('#' + $(this).text()).text());
-					$('#' + $(this).text()).fadeIn();
-					var p = $(this).position();
-					$('#' + $(this).text()).css('top',
-							p.top + this.offsetHeight);
-					$('#' + $(this).text()).css('left',
-							p.left - 90 + this.offsetWidth / 2);
-				},
-				mouseleave : function() {
-					$('#' + $(this).text()).fadeOut();
-				}
-			}, ".sName_entry");
+	$("#content").on({
+		mouseenter : function() {
+			var contextNode = $('#' + $(this).text());
+			console.log(contextNode.text());
+			// console.log($('#' + $(this).text()).text());
+
+			contextNode.fadeIn();
+			var p = $(this).position();
+			// $('#' + $(this).text()).css('top', p.top + this.offsetHeight);
+			// $('#' + $(this).text()).css('left', p.left - 90 +
+			// this.offsetWidth / 2);
+
+			console.log("left: " + p.left);
+			console.log("top: " + p.top);
+			console.log(this);
+
+			var offset = $(this).offset();
+			console.log("offset.left: " + offset.left);
+			console.log("offset.top: " + offset.top);
+
+			contextNode.css('top', p.top);
+			contextNode.css('left', p.left + offset.left);
+		},
+		mouseleave : function() {
+			$('#' + $(this).text()).fadeOut();
+		}
+	}, ".sName_entry");
 
 	/***************************************************************************
 	 * Tree naviagtion expandation
@@ -165,42 +177,77 @@ function start() {
 
 	$(".nav-link").on("click", loadContent);
 
-	// Load params file (params.json) into variables
-	loadParams(FILE_PARAMS);
+	// Load params file (params.json) into global variables
+	loadParams();
+	// loads customization file into global variables
+	loadCustomization();
 	// Load content for main page
 	loadMainPage();
 };
 
-
-/***************************************************************************
+/*******************************************************************************
  * Load params file (params.json) into variables
- **************************************************************************/
-/** param file to be loaded */
+ ******************************************************************************/
+/** param file contains data of the corpus */
 var FILE_PARAMS = "params.json";
-/** load data into JSON object  */
-var params = JSON.parse(data);
-/** Contains the name of the root corpus  */
+/** customization file containing user defined vaules to adapt web site */
+var FILE_CUSTOMIZATION = "customization.json";
+/** Contains the name of the root corpus */
 var corpusName = "";
 /** Contains a short description of the corpus if given */
 var shortDescription = "";
 /** Contains a long description of the corpus if given */
 var description = "";
+/** Contains an array of author names*/
+var annotators = [];
 
-/** loads params from passed file and fills variables */
-function loadParams(file) {
-	corpusName = params.corpusName;
-	shortDescription = params.shortDescription;
-	description = params.description;
+/** Defines an object of type Author having a name and aemail address**/
+function Author(name, eMail){
+	this.name= name;
+	this.eMail=eMail;
 }
 
-/***************************************************************************
+/** loads customization file and files variables **/
+function loadCustomization(){
+	/** load customization file */
+	$.getJSON("customization.json", function(json) {
+	    shortDescription = json.shortDescription;
+		description = json.description;
+		for (var i=0;i< json.annotators.length;i++){
+			annotators[annotators.length]= new Author(json.annotators[i].name, json.annotators[i].eMail);
+		}
+	});
+}
+
+/** loads params file and fills variables */
+function loadParams() {
+	/** load customization file */
+	$.getJSON("params.json", function(json) {
+		corpusName = json.corpusName;
+	});
+}
+
+/*******************************************************************************
  * Load content for main page
- **************************************************************************/
+ ******************************************************************************/
 function loadMainPage() {
-	document.getElementById("project_title").innerHTML = corpusName;
-	document.getElementById("project_tagline").innerHTML = shortDescription;
-	document.getElementById("content").innerHTML = "<h2>" + corpusName
-			+ "</h2>" + "<br/><hr/><br/>" + description;
+	$('#content')
+			.load(
+					'main.html',
+					function() {
+						document.getElementById("corpusTitle").innerHTML = corpusName;
+						if (description != null) {
+							document.getElementById("corpusDescription").innerHTML = description;
+						}
+						if (annotators!= null){
+							var authorElement= document.getElementById("annotators");
+							for (var i=0;i< annotators.length;i++){
+								var span= document.createElement('div');
+								span.innerHTML=annotators[i].name+": <a href='mailto:"+annotators[i].eMail+"'>"+annotators[i].eMail+"<a/>";
+								authorElement.appendChild(span);
+							}
+						}
+					});
 }
 
 /** call function start, when document was loaded entirely */

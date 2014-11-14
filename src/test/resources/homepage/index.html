@@ -10,9 +10,9 @@
 <script type="text/javascript" src="params.json"></script>
 <script src="js/saltinfo.js" type="text/javascript"></script>
 <!-- 2 load the theme CSS file -->
-<link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css" />
 <link rel="stylesheet" href="dist/themes/default/style.min.css" />
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css" />
 <script type="text/javascript">
 	$(function() {
 		$('#jstree2')
@@ -80,7 +80,6 @@
 						function(e, data) {
 							var href = data.instance.get_node(data.selected[0]).original.metadata.href
 							$('#content').load(href);
-							console.log(href);
 						})
 
 	});
@@ -96,7 +95,12 @@
 	</div>
 	<!-- 3 setup a container element -->
 	<div id="navigation">
-		<span class="btn-home" onclick="loadMainPage();"><i class="fa fa-home"></i></span>
+		<!-- 
+		<span class="btn-home" onclick="loadMainPage();"><i
+			class="fa fa-home"></i></span>-->
+			
+			<span class="btn-main" onclick="loadMainPage();"><i
+			class="fa fa-home"></i></span>
 		<div id="jstree2" class="demo" style="margin-top: 2em;"></div>
 
 	</div>
