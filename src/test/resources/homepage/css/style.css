@@ -43,10 +43,6 @@ span.svalue-occurrences:after {
 	content: '),';
 }
 
-span.svalue {
-	display: none;
-}
-
 span.sannotationinfo-count:before {
 	content: '(';
 }
