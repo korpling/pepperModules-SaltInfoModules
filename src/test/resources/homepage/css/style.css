@@ -15,11 +15,13 @@ header {
 body {
 	box-sizing: border-box;
 	color: #373737;
-	background: #eeeeee;
+ 	background: #212121;  /*to hide the gap between footer and browser window, better solution??? */
 	font-size: 16px;
 	font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
+	margin:0;
+	padding:0;
 }
 
 nav {
@@ -73,9 +75,11 @@ section {
 	max-width: 1000px;
 	padding: 20px 10px;
 	margin: 0 auto;
+	
 }
 
 footer {
+	bottom: 0px;
 	background: #212121;
 	color: white;
 	clear: both;
@@ -110,6 +114,7 @@ span.icon {
 	float: right;
 	margin-right: 0.5em;
 	cursor: pointer;
+	text-align: top;
 }
 
 span.btn-toggle-box {
@@ -141,6 +146,7 @@ td {
 td.anno-Name {
 	width: 30%;
 	font-weight: bold;
+	vertical-align: top;
 }
 
 #navigation {
@@ -192,5 +198,3 @@ td.anno-Name {
 	text-shadow: #111 0px 0px 10px;
 	text-align: left;
 }
-
-
