@@ -49,7 +49,7 @@
   </ciManagement>
   <inceptionYear>2013</inceptionYear>
   <organization>
-  	<name>Humboldt Univerity of Berlin, INRIA</name>
+  	<name>Humboldt-Universität zu Berlin</name>
   </organization>
   <scm>
     <connection>scm:git:git://github.com/korpling/pepperModules-SaltInfoModules.git</connection>
@@ -70,10 +70,6 @@
         <artifactId>maven-release-plugin</artifactId>
         <version>${maven-release-plugin.version}</version>
         <configuration>
-          <!-- <tagBase>
-          TODO /11/ change the connection to the tags folder of your scm, what you can see here is the subversion connection for the pepperModules-SampleModules project
-           https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/SampleModules/tags/
-          </tagBase> -->
           <releaseProfiles>release</releaseProfiles>
           <goals>package assembly:single deploy</goals>
         </configuration>
