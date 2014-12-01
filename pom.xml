@@ -6,16 +6,6 @@
 	<name>${project.groupId}.${project.artifactId}</name>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<properties>
-		<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
-		<maven-release-plugin.version>2.1</maven-release-plugin.version>
-		<maven-site-plugin.version>3.1</maven-site-plugin.version>
-		<maven-project-info-reports-plugin.version>2.4</maven-project-info-reports-plugin.version>
-		<docbkx-maven-plugin.version>2.0.14</docbkx-maven-plugin.version>
-		<docbkx-fop-support.version>2.0.14</docbkx-fop-support.version>
-		<maven-resources-plugin.version>2.5</maven-resources-plugin.version>
-		<java.version>1.7</java.version>
-	</properties>
 	<distributionManagement>
 		<repository>
 			<id>korpling</id>
