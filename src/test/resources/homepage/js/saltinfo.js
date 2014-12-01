@@ -250,5 +250,14 @@ function loadMainPage() {
 					});
 }
 
+/*******************************************************************************
+ * Load content for impressum page
+ ******************************************************************************/
+function loadImpressumPage() {
+	$('#content')
+			.load('impressum.html');
+}
+
+
 /** call function start, when document was loaded entirely */
 $(document).ready(start);
