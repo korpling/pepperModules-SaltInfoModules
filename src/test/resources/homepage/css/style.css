@@ -141,6 +141,7 @@ td {
 td.anno-Name {
 	width: 30%;
 	font-weight: bold;
+	vertical-align: text-top;
 }
 
 #navigation {
