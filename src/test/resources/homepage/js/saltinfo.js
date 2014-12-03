@@ -124,35 +124,6 @@ function main() {
 		}
 	}, ".sName_entry");
 
-	/***************************************************************************
-	 * Tree naviagtion expandation
-	 **************************************************************************/
-
-	/**
-	 * expands the navigation if document titles are to long
-	 */
-	var expand = function() {
-		if (this.offsetWidth < this.scrollWidth) {
-			$(this).animate({
-				width : this.scrollWidth + NAV_BORDER
-			}, NAV_WIDTH);
-		}
-	};
-
-	/**
-	 * collapse navigation
-	 */
-	var collapse = function() {
-		$(this).animate({
-			width : 250
-		}, NAV_WIDTH);
-	};
-
-	$("#navigation").on("mouseenter", expand);
-	$("#navigation").on("mouseleave", collapse);
-
-	$(".nav-link").on("click", loadContent);
-	
 		console.log("WIDTH OF NAV: "+document.getElementById("navigation").offsetWidth);
 
     // Load params file (params.json) into global variables
