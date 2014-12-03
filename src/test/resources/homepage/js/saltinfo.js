@@ -42,33 +42,6 @@ function main() {
 	/** Boxes for annotation values*/
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
 
-	/**
-	 * load from document based on id
-	 */
-	if (window.location.hash) {
-		$('#content').load(window.location.hash.substring(1) + ".html #data",
-				function() {
-					$(".btn-toogle-sannotation-dropdown").each(toggledropdown);
-				});
-	}
-
-	/**
-	 * Subcorpus navigation: hides subtree
-	 */
-	$('.scorpus-item').click(function(e) {
-		e.stopPropagation();
-		$(this).children('ul').toggle();
-		$(this).toggleClass('minimized');
-	});
-
-	// run the toggle during startup
-	// $( ".btn-toogle-sannotation-dropdown").each(toggledropdown);
-	$(".btn-toogle-sannotation-dropdown").each(
-			function() {
-				$(this).parent().next().children('.svalue').slice(0,
-						VISIBLE_ITEMS).toggle();
-			});
-
 	/***************************************************************************
 	 * Tooltips
 	 **************************************************************************/
@@ -100,7 +73,7 @@ function main() {
 		}
 	}, ".sName_entry");
 
-		console.log("WIDTH OF NAV: "+document.getElementById("navigation").offsetWidth);
+	console.log("WIDTH OF NAV: "+document.getElementById("navigation").offsetWidth);
 
     // Load params file (params.json) into global variables
 	loadParams();
