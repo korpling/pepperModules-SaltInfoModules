@@ -37,19 +37,19 @@ span.svalue-text{
 	font-weight: bold;
 }
 
-span.svalue-occurrences:before {
+span.anno-value-count:before {
 	content: '(';
 }
 
-span.svalue-occurrences:after {
+span.anno-value-count:after {
 	content: '),';
 }
 
-span.sannotationinfo-count:before {
+span.anno-count:before {
 	content: '(';
 }
 
-span.sannotationinfo-count:after {
+span.anno-count:after {
 	content: ')';
 }
 
@@ -140,7 +140,7 @@ td {
 	border: 1px solid #373737;
 }
 
-td.anno-Name {
+td.entry-key {
 	width: 30%;
 	font-weight: bold;
 	vertical-align: text-top;

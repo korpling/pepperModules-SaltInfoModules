@@ -7,17 +7,13 @@ $(document).ready(main);
  * This method is called when complete document was loaded. This makes this function a main method.
  * */
 function main() {
-	/***************************************************************************
-	 * CSV Download
-	 **************************************************************************/
-
 	/** Adds CSV download functionality to button or icon */
 	$("#content").on("click", ".btn-download-csv", function(event) {
 		var data = $(this).parent().parent().next().children('.svalue');
 		downloadText(convertToCSV(data), CSV_MIME_TYPE);
 	});
 
-	/** Boxes for annotation values*/
+	/** CReation of boxes around annotation values*/
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
 
 	/***************************************************************************
@@ -51,8 +47,6 @@ function main() {
 		}
 	}, ".sName_entry");
 
-	console.log("WIDTH OF NAV: "+document.getElementById("navigation").offsetWidth);
-
     // Load params file (params.json) into global variables
 	loadParams();
 	// loads customization file into global variables
@@ -60,15 +54,6 @@ function main() {
 	
 	// Load content for main page
 	loadMainPage();
-	
-	// load annis link 
-	//TODO this can't work, since load of customization file is asynchronous
-	if (annisLink!=""){
-		console.log($("#search_me"));
-		$("#search_me").style.visibility= 'visible';
-	}else{
-		console.log("HALLO:"+ annisLink);
-	}
 };
 
 /*******************************************************************************
@@ -158,8 +143,12 @@ function loadCustomization(){
 		for (var i=0;i< json.annotators.length;i++){
 			annotators[annotators.length]= new Author(json.annotators[i].name, json.annotators[i].eMail);
 		}
+		
+		//load annis link
 		annisLink= json.annisLink;
-		console.log("annisLink: "+annisLink);
+		if (annisLink!=""){
+			$("#search_me").css("visibility", "visible");
+		}
 	});
 }
 
@@ -182,7 +171,6 @@ function goANNIS() {
 	console.log("link goes to: "+link);
 	window.open(link,'_blank');
 }
-
 
 /*******************************************************************************
  * Load content for main page
@@ -214,6 +202,3 @@ function loadImpressumPage() {
 	$('#content')
 			.load('impressum.html');
 }
-
-
-
