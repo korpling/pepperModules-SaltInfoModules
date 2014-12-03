@@ -14,30 +14,8 @@ function main() {
 	/** Adds CSV download functionality to button or icon */
 	$("#content").on("click", ".btn-download-csv", function(event) {
 		var data = $(this).parent().parent().next().children('.svalue');
-		downloadText(svalues2text(data), CSV_MIME_TYPE);
+		downloadText(convertToCSV(data), CSV_MIME_TYPE);
 	});
-	
-	/**
-	 * Converts the given array of svalue-data items into an csv text values are
-	 * quoted because there could be line breaks see
-	 * https://tools.ietf.org/html/rfc4180
-	 */
-	var svalues2text = function(svalues) {
-		var text = '';
-		$(svalues).each(
-				function() {
-					var valuename = escapeDQuote($(this).children(
-							'.svalue-text').text());
-					var valuecount = $(this).children('.svalue-occurrences')
-							.text();
-					text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
-					text += CSV_SEPARATOR;
-					text += CSV_DOUBLEQUOTE + valuecount + CSV_DOUBLEQUOTE;
-					text += CSV_LINEBREAK;
-				});
-		text += CSV_LINEBREAK;
-		return text;
-	};
 
 	/** Boxes for annotation values*/
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
@@ -120,7 +98,29 @@ function downloadText(text, mime) {
 function escapeDQuote(string) {
 	return string.replace(/"/g, '""');
 }
-	
+
+/**
+ * Converts the given array of svalue-data items into an csv text. Values are
+ * quoted because there could be line breaks see
+ * https://tools.ietf.org/html/rfc4180
+ */
+function convertToCSV(svalues) {
+	var text = '';
+	$(svalues).each(
+			function() {
+				var valuename = escapeDQuote($(this).children(
+						'.svalue-text').text());
+				var valuecount = $(this).children('.svalue-occurrences')
+						.text();
+				text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
+				text += CSV_SEPARATOR;
+				text += CSV_DOUBLEQUOTE + valuecount + CSV_DOUBLEQUOTE;
+				text += CSV_LINEBREAK;
+			});
+	text += CSV_LINEBREAK;
+	return text;
+}
+
 /***************************************************************************
  * Boxes for annotation values
  **************************************************************************/
