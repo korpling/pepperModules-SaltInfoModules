@@ -126,7 +126,7 @@ var description = "";
 /** Contains an array of author names*/
 var annotators = [];
 /** Link to ANNIS instance **/
-var annisLink="";
+var annisLink=null;
 
 /** Defines an object of type Author having a name and aemail address**/
 function Author(name, eMail){
@@ -144,9 +144,9 @@ function loadCustomization(){
 			annotators[annotators.length]= new Author(json.annotators[i].name, json.annotators[i].eMail);
 		}
 		
-		//load annis link
+		//load annis links
 		annisLink= json.annisLink;
-		if (annisLink!=""){
+		if (annisLink!=null){
 			$("#search_me").css("visibility", "visible");
 		}
 	});
@@ -166,10 +166,30 @@ function loadParams() {
 
 /** Open ANNIS in extra tab or window */
 function goANNIS() {
-	var link= annisLink;
-	link= link + "#c="+corpusName;
-	console.log("link goes to: "+link);
-	window.open(link,'_blank');
+	if (	(annisLink!= null) &&
+			(corpusName!= null)){
+		var link= annisLink;
+		link= link + "#c="+corpusName;
+		window.open(link,'_blank');
+	}
+}
+
+/** Open ANNIS in extra tab or window */
+function goANNIS(annoName) {
+	if (	(annisLink!= null) &&
+			(corpusName!= null)){
+		var link= annisLink;
+		link= link + "#c="+corpusName;
+		link= link +"&"+"q="+annoName;
+		window.open(link,'_blank');
+	}
+}
+/** Makes a button clickable, means to add class clickify-anno to it **/
+function clickifyMe(element){
+	if (	(annisLink!= null) &&
+			(corpusName!= null)){
+		element.addClass('clickify-anno');
+	}
 }
 
 /*******************************************************************************

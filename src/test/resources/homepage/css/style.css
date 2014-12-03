@@ -119,8 +119,17 @@ span.btn-toggle-box {
 	cursor: pointer;
 }
 
-.btn-main {
+.clickify {
 	cursor: pointer;
+}
+
+.clickify-anno {
+	cursor: pointer;
+	text-decoration: underline;
+	
+}
+.declickify-anno {
+	text-decoration: none;
 }
 
 th {
