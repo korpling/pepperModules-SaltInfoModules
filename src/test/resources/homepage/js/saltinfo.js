@@ -16,9 +16,7 @@ function main() {
 		var data = $(this).parent().parent().next().children('.svalue');
 		downloadText(svalues2text(data), CSV_MIME_TYPE);
 	});
-
 	
-
 	/**
 	 * Converts the given array of svalue-data items into an csv text values are
 	 * quoted because there could be line breaks see
@@ -44,17 +42,6 @@ function main() {
 	/** Boxes for annotation values*/
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
 
-	/***************************************************************************
-	 * Collapse/Expand annotation values
-	 **************************************************************************/
-	$("#content").on("click", ".btn-toogle-sannotation-dropdown",
-			expandAnnoValues);
-	/** toggles .svalue items in a list with an index greater than VISIBLE_ITEMS */
-	function expandAnnoValues(event) {
-		var svalues = $(this).parent().parent().next().children('.svalue')
-				.slice(VISIBLE_ITEMS);
-		svalues.toggle();
-	}
 	/**
 	 * load from document based on id
 	 */
@@ -81,17 +68,6 @@ function main() {
 				$(this).parent().next().children('.svalue').slice(0,
 						VISIBLE_ITEMS).toggle();
 			});
-
-	/**
-	 * loads the new content
-	 */
-	var loadContent = function() {
-		$('#content').load(this.href + " #data", function() {
-			$(".btn-toogle-sannotation-dropdown").each(toggledropdown);
-		});
-		window.location.hash = this.getAttribute('data-id');
-		return false;
-	};
 
 	/***************************************************************************
 	 * Tooltips
@@ -144,11 +120,9 @@ function main() {
 	}
 };
 
-var VISIBLE_ITEMS = 0;
 
 var NAV_BORDER = 15;
 var NAV_WIDTH = 150;
-
 
 /*******************************************************************************
  * CSV download vor annotation values
