@@ -4,5 +4,6 @@
 	"annotators" : [ {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}],
 	"tooltips_metadata" : {
 		"Textualität" : "Irgendwelche Metadaten"
-	}
+	},
+	"annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
 }

@@ -1,15 +1,12 @@
 /*global $:false */
 'use strict';
-function start() {
-	var CSV_SEPARATOR = ',';
-	var CSV_DOUBLEQUOTE = '"';
-	var CSV_LINEBREAK = '\r\n';
-	var CSV_MIME_TYPE = 'text/csv';
-	var VISIBLE_ITEMS = 0;
+/** call function main, when document was loaded entirely */
+$(document).ready(main);
 
-	var NAV_BORDER = 15;
-	var NAV_WIDTH = 150;
-
+/**
+ * This method is called when complete document was loaded. This makes this function a main method.
+ * */
+function main() {
 	/***************************************************************************
 	 * CSV Download
 	 **************************************************************************/
@@ -20,21 +17,7 @@ function start() {
 		downloadText(svalues2text(data), CSV_MIME_TYPE);
 	});
 
-	/**
-	 * loads text as data uri
-	 */
-	function downloadText(text, mime) {
-		window.location.href = 'data:' + mime + ';charset=UTF-8,'
-				+ encodeURIComponent(text);
-	}
-
-	/**
-	 * escapes double-quotes https://tools.ietf.org/html/rfc4180#section-2
-	 * Section 7
-	 */
-	function escapeDQuote(string) {
-		return string.replace(/"/g, '""');
-	}
+	
 
 	/**
 	 * Converts the given array of svalue-data items into an csv text values are
@@ -58,15 +41,8 @@ function start() {
 		return text;
 	};
 
-	/***************************************************************************
-	 * Boxes for annotation values
-	 **************************************************************************/
+	/** Boxes for annotation values*/
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
-	function toggleBox(event) {
-		var values = $(this).parent().parent().next().children().children('.svalue-text');
-		$(values).toggleClass('boxed');
-	}
-	;
 
 	/***************************************************************************
 	 * Collapse/Expand annotation values
@@ -176,17 +152,67 @@ function start() {
 	$("#navigation").on("mouseleave", collapse);
 
 	$(".nav-link").on("click", loadContent);
+	
+		console.log("WIDTH OF NAV: "+document.getElementById("navigation").offsetWidth);
 
-	// Load params file (params.json) into global variables
+    // Load params file (params.json) into global variables
 	loadParams();
 	// loads customization file into global variables
 	loadCustomization();
+	
 	// Load content for main page
 	loadMainPage();
+	
+	// load annis link 
+	//TODO this can't work, since load of customization file is asynchronous
+	if (annisLink!=""){
+		console.log($("#search_me"));
+		$("#search_me").style.visibility= 'visible';
+	}else{
+		console.log("HALLO:"+ annisLink);
+	}
 };
 
+var VISIBLE_ITEMS = 0;
+
+var NAV_BORDER = 15;
+var NAV_WIDTH = 150;
+
+
 /*******************************************************************************
- * Load params file (params.json) into variables
+ * CSV download vor annotation values
+ ******************************************************************************/
+var CSV_SEPARATOR = ',';
+var CSV_DOUBLEQUOTE = '"';
+var CSV_LINEBREAK = '\r\n';
+var CSV_MIME_TYPE = 'text/csv';
+
+/**
+ * loads text as data uri
+ */
+function downloadText(text, mime) {
+	window.location.href = 'data:' + mime + ';charset=UTF-8,'
+			+ encodeURIComponent(text);
+}
+
+/**
+ * escapes double-quotes https://tools.ietf.org/html/rfc4180#section-2
+ * Section 7
+ */
+function escapeDQuote(string) {
+	return string.replace(/"/g, '""');
+}
+	
+/***************************************************************************
+ * Boxes for annotation values
+ **************************************************************************/
+function toggleBox(event) {
+	var values = $(this).parent().parent().next().children().children('.svalue-text');
+	$(values).toggleClass('boxed');
+}	
+
+/*******************************************************************************
+ * Load params file (params.json and customization.json) into variables
  ******************************************************************************/
 /** param file contains data of the corpus */
 var FILE_PARAMS = "params.json";
@@ -200,6 +226,8 @@ var shortDescription = "";
 var description = "";
 /** Contains an array of author names*/
 var annotators = [];
+/** Link to ANNIS instance **/
+var annisLink="";
 
 /** Defines an object of type Author having a name and aemail address**/
 function Author(name, eMail){
@@ -216,6 +244,8 @@ function loadCustomization(){
 		for (var i=0;i< json.annotators.length;i++){
 			annotators[annotators.length]= new Author(json.annotators[i].name, json.annotators[i].eMail);
 		}
+		annisLink= json.annisLink;
+		console.log("annisLink: "+annisLink);
 	});
 }
 
@@ -226,6 +256,19 @@ function loadParams() {
 		corpusName = json.corpusName;
 	});
 }
+
+/*******************************************************************************
+ * ANNIS link management
+ ******************************************************************************/
+
+/** Open ANNIS in extra tab or window */
+function goANNIS() {
+	var link= annisLink;
+	link= link + "#c="+corpusName;
+	console.log("link goes to: "+link);
+	window.open(link,'_blank');
+}
+
 
 /*******************************************************************************
  * Load content for main page
@@ -259,5 +302,4 @@ function loadImpressumPage() {
 }
 
 
-/** call function start, when document was loaded entirely */
-$(document).ready(start);
+

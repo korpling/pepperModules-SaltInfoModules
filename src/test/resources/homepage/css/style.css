@@ -22,6 +22,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
+/*
 nav {
 	line-height: 30px;
 	background-color: #eeeeee;
@@ -30,6 +31,7 @@ nav {
 	float: left;
 	padding: 5px;
 }
+* */
 
 span.svalue-text{
 	font-weight: bold;
@@ -147,7 +149,23 @@ td.anno-Name {
 #navigation {
 	float: left;
 	position: absolute;
-	overflow: auto;
+}
+
+#search_me {
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  top:0;
+  right: 10px;
+  z-index: 10;
+  padding: 10px 50px 10px 10px;
+  color: #fff;
+  background: #0090ff no-repeat 95% 50%;
+  font-weight: 700;	
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,.5);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 
 .tooltip-text {
