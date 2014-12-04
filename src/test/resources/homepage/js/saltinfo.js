@@ -188,6 +188,7 @@ function goANNIS(annoName) {
 function clickifyMe(element){
 	if (	(annisLink!= null) &&
 			(corpusName!= null)){
+		element.removeClass( "declickify-anno" )
 		element.addClass('clickify-anno');
 	}
 }
