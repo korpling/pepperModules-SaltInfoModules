@@ -163,33 +163,45 @@ function loadParams() {
 /*******************************************************************************
  * ANNIS link management
  ******************************************************************************/
+var CLASS_CLICKIFY="clickify-anno";
+var CLASS_DECLICKIFY="declickify-anno";
+
 
 /** Open ANNIS in extra tab or window */
-function goANNIS() {
+function goANNIS(annoName, annoValue) {
 	if (	(annisLink!= null) &&
 			(corpusName!= null)){
 		var link= annisLink;
-		link= link + "#c="+corpusName;
+		// add fragment to url
+		link= link + "#";
+		
+		//create query query (query by the mean of annis, not URI query) part
+		if (annoName!= null){
+			link= link +"&"+"_q=";
+			
+			var annoPart=annoName;
+			if (annoValue!= null){
+				annoPart= annoPart + "=\""+annoValue+"\"";
+			}
+			link= link+ btoa(annoPart);
+		}
+		// create corpus part tu url
+		if (corpusName!= null){
+			link= link + "_c="+btoa(corpusName);
+			console.log("CORPUS: "+atob(btoa(corpusName)));
+			console.log("LINK: "+ link);
+		}
+		//open link in new window
 		window.open(link,'_blank');
 	}
 }
 
-/** Open ANNIS in extra tab or window */
-function goANNIS(annoName) {
-	if (	(annisLink!= null) &&
-			(corpusName!= null)){
-		var link= annisLink;
-		link= link + "#c="+corpusName;
-		link= link +"&"+"q="+annoName;
-		window.open(link,'_blank');
-	}
-}
 /** Makes a button clickable, means to add class clickify-anno to it **/
 function clickifyMe(element){
 	if (	(annisLink!= null) &&
 			(corpusName!= null)){
-		element.removeClass( "declickify-anno" )
-		element.addClass('clickify-anno');
+		element.removeClass(CLASS_DECLICKIFY);
+		element.addClass(CLASS_CLICKIFY);
 	}
 }
 
