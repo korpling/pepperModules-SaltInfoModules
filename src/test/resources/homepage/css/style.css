@@ -41,8 +41,16 @@ span.anno-value-count:before {
 	content: '(';
 }
 
+span.svalue-occurrences:before {
+	content: '(';
+}
+
 span.anno-value-count:after {
-	content: '),';
+	content: '), ';
+}
+
+span.svalue-occurrences:after {
+	content: '), ';
 }
 
 span.anno-count:before {
