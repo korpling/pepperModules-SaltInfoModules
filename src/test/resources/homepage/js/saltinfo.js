@@ -149,6 +149,13 @@ function loadCustomization(){
 		if (annisLink!=null){
 			$("#search_me").css("visibility", "visible");
 		}
+		
+		console.log("JSON_METADATA: "+ json.tooltips_metadata.length);
+		console.log(json.tooltips_metadata.keys);
+		/**
+		for (var i=0;i< json.tooltips_metadata.length;i++){
+			console.log(json.tooltips_metadata[i]);
+		}*/
 	});
 }
 
@@ -177,13 +184,13 @@ function goANNIS(annoName, annoValue) {
 		
 		//create query query (query by the mean of annis, not URI query) part
 		if (annoName!= null){
-			link= link +"&"+"_q=";
+			link= link +"_q=";
 			
 			var annoPart=annoName;
 			if (annoValue!= null){
 				annoPart= annoPart + "=\""+annoValue+"\"";
 			}
-			link= link+ btoa(annoPart);
+			link= link+ btoa(annoPart)+ "&";
 		}
 		// create corpus part tu url
 		if (corpusName!= null){
@@ -193,6 +200,7 @@ function goANNIS(annoName, annoValue) {
 		}
 		//open link in new window
 		window.open(link,'_blank');
+		console.log("link: "+ link);
 	}
 }
 
