@@ -287,7 +287,7 @@
     </xsl:template>
 
     <xsl:template match="sAnnotationInfo" mode="annoJson"> '"<xsl:value-of select="@sName"/>": ['+
-            <xsl:apply-templates select="sValue" mode="ValueJson"/>'+ '],'+ </xsl:template>
+            <xsl:apply-templates select="sValue" mode="ValueJson"/>'],'+ </xsl:template>
 
     <xsl:template match="sValue" mode="ValueJson">'{"value":"<xsl:value-of select="text()"/>", "occurances": "<xsl:value-of select="@occurrences"/>"},'+ 
     </xsl:template>
