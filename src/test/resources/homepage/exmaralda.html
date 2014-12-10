@@ -3,6 +3,30 @@
 <head>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="{$saltinfocss}" rel="StyleSheet" type="text/css">
+<link href="./css/jquery-ui.css" rel="stylesheet">
+      <script src="./js/jquery.js"></script>
+      <script src="./js/jquery-ui.js"></script>
+ <script>
+         $(function() {
+            $('.tooltip').tooltip({
+               show: "true", 
+               close: function(event, ui)
+               {
+                  ui.tooltip.hover(function()
+                  {
+                     $(this).stop(true).fadeTo(10, 1); 
+                  },
+                  function()
+                  {
+                     $(this).fadeOut('10', function()
+                     {
+                        $(this).remove();
+                     });
+                  });
+               }
+            });
+         });
+      </script>
 </head>
 <body>
 			<h2 id="title">exmaralda</h2>
@@ -22,43 +46,43 @@
                 <tbody>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="sName_entry">SNode<span class="icon"><i class="fa fa-info-circle"></i></span></span>
+                            <span class="sName_entry tooltip" title="Number of token (smallest annotatable unit) in the current document or corpus.">SNode<span class="icon"><i class="fa fa-info-circle"></i></span></span>
                         </td>
                         <td>107</td>
                     </tr>
                     <tr class="even">
                         <td class="entry-key">
-                            <span class="sName_entry">SRelation <span class="icon"><i class="fa fa-info-circle"></i></span></span>
+                            <span class="sName_entry tooltip" title="Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.">SRelation <span class="icon"><i class="fa fa-info-circle"></i></span></span>
                         </td>
                         <td>246</td>
                     </tr>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="data-entryName">SSpan<span class="icon"><i class="fa fa-info-circle"></i></span></span>
+                            <span class="sName_entry tooltip" title="Number of ps in the current document or corpus. A p is an aggregation of a bunch of tokens containing 0..n token.">SSpan<span class="icon"><i class="fa fa-info-circle"></i></span></span>
                         </td>
                         <td>72</td>
                     </tr>
                     <tr class="even">
                         <td class="entry-key">
-                            <span class="data-entryName">SSpanningRelation<span class="icon"><i class="fa fa-info-circle"></i></span></span>
+                            <span class="sName_entry tooltip" title="Number of relations in the current document or corpus to connect ps (SSpan) with tokens (SToken).">SSpanningRelation<span class="icon"><i class="fa fa-info-circle"></i></span></span>
                         </td>
                         <td>180</td>
                     </tr>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="data-entryName">STextualDS<span class="icon"><i class="fa fa-info-circle"></i></span></span>
+                            <span class="sName_entry tooltip" title="Number of relations in the current document or corpus to connect a token (SToken) with a textual data source (STextualDS).">STextualDS<span class="icon"><i class="fa fa-info-circle"></i></span></span>
                         </td>
                         <td>1</td>
                     </tr>
                     <tr class="even">
                         <td class="entry-key">
-                            <span class="data-entryName">STimeline<span class="icon"><i class="fa fa-info-circle"></i></span></span>
+                            <span class="sName_entry tooltip" title="In Salt a common timeline exists, which can be used to identify the chronological occurance of a token. For instance to identify if one token corresponding to one text occurs before or after another token corresponding to another text. This would be important in dialogue corpora.">STimeline<span class="icon"><i class="fa fa-info-circle"></i></span></span>
                         </td>
                         <td>1</td>
                     </tr>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="data-entryName">SToken<span class="icon"><i class="fa fa-info-circle"></i></span></span>
+                            <span class="sName_entry tooltip" title="Number of token (smallest annotatable unit) in the current document or corpus.">SToken<span class="icon"><i class="fa fa-info-circle"></i></span></span>
                         </td>
                         <td>33</td>
                     </tr>
@@ -147,9 +171,9 @@
                                 <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">POS</span>
                                 <span class="anno-count">23</span>
                             </span>
-                            <span class="icon"><a class="btn-download-csv"><i class="fa fa-download"></i></a></span>
-                            <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o"></i></a></span>
-                            <span class="icon"><a id="pos_btn" onClick="expandValues('pos')"><i class="fa fa-expand"></i></a></span>
+                            <span class="icon"><a class="btn-download-csv"><i class="fa fa-download tooltip" title="Downloads annotation values and concerning occurances as CSV file"></i></a></span>
+                            <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o tooltip" title="Draws boxes around annotation values to find whitespaces"></i></a></span>
+                            <span class="icon"><a id="pos_btn" onClick="expandValues('pos')"><i class="fa fa-expand tooltip" title="Expands/Collapses annotation values"></i></a></span>
                         </td>
                         <td id="pos_values">
                             <span class="svalue">
@@ -177,10 +201,10 @@
                     <tr class="even">
                         <td class="entry-key">
                             <span class="sannotationinfo">
-                                <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">Lemma</span>
+                                <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">HuselDuselKrankerFuselMitVielSchnusel</span>
                                 <span class="anno-count">25</span>
                             </span>
-                            <span class="icon"><a class="btn-download-csv"><i class="fa fa-download"></i></a></span>
+                            <span class="icon"><a class="btn-download-csv tooltip"><i class="fa fa-download"></i></a></span>
                             <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o"></i></a></span>
                             <span class="icon"><a id="lemma_btn" onClick="expandValues('lemma')"><i class="fa fa-expand"></i></a></span>
                         </td>

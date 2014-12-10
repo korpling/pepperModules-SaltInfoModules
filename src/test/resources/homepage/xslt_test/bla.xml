@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests>
+    <testrun run="test1">
+        <test name="foo" pass="true" />
+        <test name="bar" pass="true" />
+        <test name="baz" pass="true" />
+    </testrun>
+    <testrun run="test2">
+        <test name="foo" pass="true" />
+        <test name="bar" pass="false" />
+        <test name="baz" pass="false" />
+    </testrun>
+    <testrun run="test3">
+        <test name="foo" pass="false" />
+        <test name="bar" pass="true" />
+        <test name="baz" pass="false" />
+    </testrun>
+</tests>

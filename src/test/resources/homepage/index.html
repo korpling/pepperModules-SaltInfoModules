@@ -112,58 +112,5 @@
 	<a class="impressum" onclick="loadImpressumPage();">Impressum</a>
 		</div>
 	</footer>
-	<div class="data-tooltips">
-		<p style="display: none" id="SPointingRelation" class="tooltip-text">Number
-			of relations in the current document or corpus for loose connections
-			like anaphoric relations.</p>
-		<p style="display: none" id="SSpanningRelation" class="tooltip-text">Number
-			of relations in the current document or corpus to connect ps (SSpan)
-			with tokens (SToken).</p>
-		<p style="display: none" id="STextualDS" class="tooltip-text">Number
-			of textual primary data in the current document or corpus.</p>
-		<p style="display: none" id="SSpan" class="tooltip-text">Number of
-			ps in the current document or corpus. A p is an aggregation of a
-			bunch of tokens containing 0..n token.</p>
-		<p style="display: none" id="STextualRelation" class="tooltip-text">Number
-			of relations in the current document or corpus to connect a token
-			(SToken) with a textual data source (STextualDS).</p>
-		<p style="display: none" id="SToken" class="tooltip-text">Number
-			of token (smallest annotatable unit) in the current document or
-			corpus.</p>
-		<p style="display: none" id="SRelation" class="tooltip-text">Total
-			number of all relations in the current document or corpus. An
-			SRelation is an abstract relation which could be instantiated as e.g.
-			STextualRelation, SSPanningRelation and SDominanceRelation.</p>
-		<p style="display: none" id="SStructure" class="tooltip-text">Number
-			of hierarchical structures in the current document or corpus.
-			SStructure objects in Salt are used to represent hierarchies e.g. for
-			constituents.</p>
-		<p style="display: none" id="SNode" class="tooltip-text">Total
-			number of all nodes in the current document or corpus. An SNode is an
-			abstract node which could be instantiated as e.g. STextualDS, SToken,
-			SSpan.</p>
-		<p style="display: none" id="SSpanningRelation" class="tooltip-text">Number
-			of relations in the current document or corpus to connect ps (SSpan)
-			with tokens (SToken).</p>
-		<p style="display: none" id="SDominanceRelation" class="tooltip-text">Number
-			of relations in the current document or corpus to connect
-			hierarchical nodes like SStructure with other SNode objects. This
-			relation class is used to represent for e.g. constituents relations.</p>
-		<p style="display: none" id="SOrderRelation" class="tooltip-text">Number
-			of relations in the current document or corpus to order SNode
-			objects. This class is used to manage conflicting token levels as
-			they can occur for instance in dialogues.</p>
-		<p style="display: none" id="STimeline" class="tooltip-text">In
-			Salt a common timeline exists, which can be used to identify the
-			chronological occurance of a token. For instance to identify if one
-			token corresponding to one text occurs before or after another token
-			corresponding to another text. This would be important in dialogue
-			corpora.</p>
-		<p style="display: none" id="STimelineRelation" class="tooltip-text">Number
-			of relations in the current document or corpus to connect a token
-			(SToken) with the common timeline (STimeline).</p>
-		<p style="display: none" id="Default" class="tooltip-text">No
-			description available.</p>
-	</div>
 </body>
 </html>

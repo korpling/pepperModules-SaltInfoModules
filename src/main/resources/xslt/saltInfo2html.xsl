@@ -149,23 +149,23 @@
 
     <xsl:template name="annoTable">
         <div>
-        <h4>Annotations</h4>
-        <hr/>
-        <!-- insert something to enable descriptions (link to customization file?) -->
-        <br/>
-        <br/>
-        <table class="data-table">
-            <thead>
-                <th>Name</th>
-                <th>Count</th>
-            </thead>
-            <tbody>
-                <!-- set metadata entries -->
-                <xsl:apply-templates select="sAnnotationInfo" mode="annoTable">
-                    <xsl:sort select="@sName"/>
-                </xsl:apply-templates>
-            </tbody>
-        </table>
+            <h4>Annotations</h4>
+            <hr/>
+            <!-- insert something to enable descriptions (link to customization file?) -->
+            <br/>
+            <br/>
+            <table class="data-table">
+                <thead>
+                    <th>Name</th>
+                    <th>Count</th>
+                </thead>
+                <tbody>
+                    <!-- set metadata entries -->
+                    <xsl:apply-templates select="sAnnotationInfo" mode="annoTable">
+                        <xsl:sort select="@sName"/>
+                    </xsl:apply-templates>
+                </tbody>
+            </table>
         </div>
     </xsl:template>
 
@@ -289,8 +289,8 @@
     <xsl:template match="sAnnotationInfo" mode="annoJson"> '"<xsl:value-of select="@sName"/>": ['+
             <xsl:apply-templates select="sValue" mode="ValueJson"/>'+ '],'+ </xsl:template>
 
-    <xsl:template match="sValue" mode="ValueJson">'{"value":"<xsl:value-of select="text()"/>", "occurances": "<xsl:value-of select="@occurrences"/>"},'+ 
-    </xsl:template>
+    <xsl:template match="sValue" mode="ValueJson">'{"value":"<xsl:value-of select="text()"/>",
+        "occurances": "<xsl:value-of select="@occurrences"/>"},'+ </xsl:template>
 
     <xsl:template name="json">
         <script src="dist/libs/jquery.js" type="text/javascript">
