@@ -3,9 +3,9 @@
     <xsl:output encoding="UTF-8" indent="yes" method="html" doctype-system="about:legacy-compat"/>
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
 
+    <!-- buid html sceleton-->
     <xsl:template match="/*">
         <html>
-            <!--            <xsl:element name="head"></xsl:element>-->
             <head>
                 <xsl:element name="link">
                     <xsl:attribute name="href">{$saltinfocss}</xsl:attribute>
@@ -14,35 +14,42 @@
                 </xsl:element>
             </head>
             <body>
-                <!-- build html sceleton -->
+                <!-- get corpus name-->
                 <h2 id="title">
                     <xsl:value-of select="@sName"/>
                 </h2>
-
-                <xsl:apply-templates select="structuralInfo"/> 
+                <!-- get structural info table -->
+                <xsl:apply-templates select="structuralInfo"/>
 
                 <div>
                     <br/>
+                    <!-- get meta info table -->
                     <xsl:apply-templates select="metaDataInfo"/>
-                    
                 </div>
+                <!-- get annotation info table -->
+                <xsl:call-template name="annoTable"/>
+
+                <!-- set meta data info as json input -->
+                <xsl:call-template name="json"/>
             </body>
         </html>
     </xsl:template>
 
-<!-- get structural information -->
+    <!-- build structural info table -->
     <xsl:template name="structInfo" match="structuralInfo">
         <h3>Structural Info</h3>
         <hr/>
         <!-- insert something to enable descriptions (link to customization file?) -->
         <br/>
         <br/>
+        <!-- create table structure -->
         <table class="data-structInfo">
             <thead>
                 <th>Name</th>
                 <th>Count</th>
             </thead>
             <tbody>
+                <!-- set all structural entries -->
                 <xsl:apply-templates select="entry" mode="structEntry">
                     <xsl:sort select="@key"/>
                 </xsl:apply-templates>
@@ -50,8 +57,9 @@
         </table>
     </xsl:template>
 
-    <!-- get all structural information of the corpus -->
+    <!-- get all structural entries of the corpus -->
     <xsl:template match="entry" mode="structEntry">
+        <!-- get position of the entry and set class name for background colors -->
         <xsl:variable name="entry" select="position()"/>
         <xsl:choose>
             <xsl:when test="$entry mod 2=1">
@@ -86,7 +94,7 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    
+
     <xsl:template match="metaDataInfo">
         <h4>Meta Data</h4>
         <hr/>
@@ -99,6 +107,7 @@
                 <th>Count</th>
             </thead>
             <tbody>
+                <!-- set metadata entries -->
                 <xsl:apply-templates select="entry" mode="metaEntry">
                     <xsl:sort select="@key"/>
                 </xsl:apply-templates>
@@ -106,10 +115,12 @@
         </table>
     </xsl:template>
 
+    <!-- get first 5 metadata entries -->
     <xsl:template match="entry" mode="metaEntry">
+        <!-- get position of the entry and set class name for background colors -->
         <xsl:variable name="entry" select="position()"/>
         <xsl:choose>
-            <xsl:when test="$entry mod 2=1">
+            <xsl:when test="($entry mod 2=1)">
                 <tr class="even">
                     <td class="entry-key">
                         <span class="data-entryName">
@@ -121,7 +132,7 @@
                     </td>
                 </tr>
             </xsl:when>
-            <xsl:when test="$entry mod 2=0">
+            <xsl:when test="($entry mod 2=0)">
                 <tr class="odd">
                     <td class="entry-key">
                         <span class="data-entryName">
@@ -134,7 +145,207 @@
                 </tr>
             </xsl:when>
         </xsl:choose>
+    </xsl:template>
 
+    <xsl:template name="annoTable">
+        <div>
+        <h4>Annotations</h4>
+        <hr/>
+        <!-- insert something to enable descriptions (link to customization file?) -->
+        <br/>
+        <br/>
+        <table class="data-table">
+            <thead>
+                <th>Name</th>
+                <th>Count</th>
+            </thead>
+            <tbody>
+                <!-- set metadata entries -->
+                <xsl:apply-templates select="sAnnotationInfo" mode="annoTable">
+                    <xsl:sort select="@sName"/>
+                </xsl:apply-templates>
+            </tbody>
+        </table>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="sAnnotationInfo" mode="annoTable">
+        <xsl:variable name="sName" select="position()"/>
+        <xsl:choose>
+            <xsl:when test="($sName mod 2=1)">
+                <tr class="odd">
+                    <td class="entry-key">
+                        <span class="sannotationinfo">
+                            <span class="anno-sname" onmouseover="clickifyMe($(this));"
+                                onmouseout="$(this).addClass('declickify-anno');"
+                                onclick="goANNIS(this.innerHTML);">
+                                <xsl:value-of select="@sName"/>
+                            </span>
+                            <span class="anno-count">
+                                <xsl:value-of select="@occurrences"/>
+                            </span>
+                        </span>
+                        <span class="icon">
+                            <a class="btn-download-csv">
+                                <i class="fa fa-download"/>
+                            </a>
+                        </span>
+                        <span class="icon">
+                            <a class="btn-toggle-box">
+                                <i class="fa fa-square-o"/>
+                            </a>
+                        </span>
+                        <span class="icon">
+                            <a>
+                                <xsl:attribute name="id">
+                                    <xsl:value-of select="@sName"/>
+                                    <xsl:text>_btn</xsl:text>
+                                </xsl:attribute>
+                                <xsl:attribute name="onClick">
+                                    <xsl:text>expandValues('</xsl:text>
+                                    <xsl:value-of select="@sName"/>
+                                    <xsl:text>')</xsl:text>
+                                </xsl:attribute>
+                                <i class="fa fa-expand"/>
+                            </a>
+                        </span>
+                    </td>
+                    <td>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="@sName"/>
+                            <xsl:text>_values</xsl:text>
+                        </xsl:attribute>
+                        <xsl:apply-templates select="sValue">
+                            <xsl:sort select="text()"/>
+                        </xsl:apply-templates>
+                    </td>
+                </tr>
+            </xsl:when>
+            <xsl:when test="($sName mod 2=0)">
+                <tr class="even">
+                    <td class="entry-key">
+                        <span class="sannotationinfo">
+                            <span class="anno-sname" onmouseover="clickifyMe($(this));"
+                                onmouseout="$(this).addClass('declickify-anno');"
+                                onclick="goANNIS(this.innerHTML);">
+                                <xsl:value-of select="@sName"/>
+                            </span>
+                            <span class="anno-count">
+                                <xsl:value-of select="@occurrences"/>
+                            </span>
+                        </span>
+                        <span class="icon">
+                            <a class="btn-download-csv">
+                                <i class="fa fa-download"/>
+                            </a>
+                        </span>
+                        <span class="icon">
+                            <a class="btn-toggle-box">
+                                <i class="fa fa-square-o"/>
+                            </a>
+                        </span>
+                        <span class="icon">
+                            <a>
+                                <xsl:attribute name="id">
+                                    <xsl:value-of select="@sName"/>
+                                    <xsl:text>_btn</xsl:text>
+                                </xsl:attribute>
+                                <xsl:attribute name="onClick">
+                                    <xsl:text>expandValues('</xsl:text>
+                                    <xsl:value-of select="@sName"/>
+                                    <xsl:text>')</xsl:text>
+                                </xsl:attribute>
+                                <i class="fa fa-expand"/>
+                            </a>
+                        </span>
+                    </td>
+                    <td>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="@sName"/>
+                            <xsl:text>_values</xsl:text>
+                        </xsl:attribute>
+                        <xsl:apply-templates select="sValue">
+                            <xsl:sort select="text()"/>
+                        </xsl:apply-templates>
+                    </td>
+                </tr>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="sValue">
+        <xsl:choose>
+            <xsl:when test="position() &lt; 6">
+                <span class="svalue-text">
+                    <xsl:value-of select="text()"/>
+                </span>
+                <span class="svalue-occurrences">
+                    <xsl:value-of select="@occurrences"/>
+                </span>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="sAnnotationInfo" mode="annoJson"> '"<xsl:value-of select="@sName"/>": ['+
+            <xsl:apply-templates select="sValue" mode="ValueJson"/>'+ '],'+ </xsl:template>
+
+    <xsl:template match="sValue" mode="ValueJson">'{"value":"<xsl:value-of select="text()"/>", "occurances": "<xsl:value-of select="@occurrences"/>"},'+ 
+    </xsl:template>
+
+    <xsl:template name="json">
+        <script src="dist/libs/jquery.js" type="text/javascript">
+            var data = '{' +
+            <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
+                <xsl:sort select="@sName"/>
+            </xsl:apply-templates>
+            '}';
+        </script>
+        <script>
+            var NUM_OF_SET_VALUES= 5;
+		var SYMBOL_UP = "fa fa-compress";
+		var SYMBOL_DOWN = "fa fa-expand";
+		var obj = JSON.parse(data);
+		
+		function expandValues(annoName){
+			var td= document.getElementById(annoName+"_values");
+			var span= td.children[0];
+			var slot= obj[annoName];
+			for (var i= NUM_OF_SET_VALUES; i &lt; slot.length;i++){
+				var newSpan= span.cloneNode(true);
+				newSpan.children[0].innerHTML= slot[i].value;
+				newSpan.children[1].innerHTML= slot[i].occurance;
+				td.appendChild(newSpan);
+			}
+			
+			var $btn= $("#"+annoName+"_btn");
+			$btn.children(":first").removeClass(SYMBOL_DOWN);
+			$btn.children(":first").addClass(SYMBOL_UP);
+			$btn.unbind('click');
+			$btn.attr("onclick","collapseValues('"+annoName+"')");
+		}
+		
+		function collapseValues(annoName){
+			var td= document.getElementById(annoName+"_values");
+			if (td.children.length > NUM_OF_SET_VALUES){
+				//for better performance, first collect all items to be removed and make batch remove
+				var $removalList= $();
+				for (var i= NUM_OF_SET_VALUES; i &lt; td.children.length;i++){
+					try{
+						$removalList = $removalList.add(td.children[i]);
+					}catch(err) {
+						console.log(err.message);
+					}
+				}
+				$removalList.remove();
+			}
+			
+			var $btn= $("#"+annoName+"_btn");
+			$btn.children(":first").removeClass(SYMBOL_UP);
+			$btn.children(":first").addClass(SYMBOL_DOWN);
+			$btn.unbind('click');
+			$btn.attr("onclick","expandValues('"+annoName+"')");
+		}
+        </script>
     </xsl:template>
 
 </xsl:stylesheet>
