@@ -8,5 +8,9 @@
 		{"name": "transcriptionName", "tooltip": "Irgendwelche Metadaten"},
 		{"name": "ALP", "tooltip": "Irgendwelche Metadaten"}
 	],
+	"tooltips_annonames" : [
+		{"name": "POS", "tooltip": "Irgendwelche Metadaten"},
+		{"name": "HuselDuselKrankerFuselMitVielSchnusel", "tooltip": "Irgendwelche Metadaten"}
+	],
 	"annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
 }

@@ -74,7 +74,7 @@
             <h4>Meta Data</h4>
             <hr/>
             The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.<br/><br/>
-            <table class="data-metadata">
+            <table>
                 <thead>
                     <th>Name</th>
                     <th>Value
@@ -83,49 +83,49 @@
                 <tbody>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="data-entryName">Textualit&auml;t</span>
+                            <span class="metadata-name">Textualit&auml;t</span>
                         </td>
                         <td>MD</td>
                     </tr>
                     <tr class="even">
                         <td class="entry-key">
-                            <span class="data-entryName">Korrektur</span>
+                            <span class="metadata-name">Korrektur</span>
                         </td>
                         <td>CS</td>
                     </tr>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="data-entryName">transcriptionName</span>
+                            <span class="metadata-name">transcriptionName</span>
                         </td>
                         <td>CvO_7_ALP_de_we</td>
                     </tr>
                     <tr class="even">
                         <td class="entry-key">
-                            <span class="data-entryName">ALP::sex</span>
+                            <span class="metadata-name">ALP::sex</span>
                         </td>
                         <td>m</td>
                     </tr>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="data-entryName">Analyse</span>
+                            <span class="metadata-name">Analyse</span>
                         </td>
                         <td>CS</td>
                     </tr>
                     <tr class="even">
                         <td class="entry-key">
-                            <span class="data-entryName">Transkribend</span>
+                            <span class="metadata-name">Transkribend</span>
                         </td>
                         <td>VM</td>
                     </tr>
                     <tr class="odd">
                         <td class="entry-key">
-                            <span class="data-entryName">ALP::abbreviation</span>
+                            <span class="metadata-name">ALP::abbreviation</span>
                         </td>
                         <td>ALP</td>
                     </tr>
                     <tr class="even">
                         <td class="entry-key">
-                            <span class="data-entryName">Korrektur 2</span>
+                            <span class="metadata-name">Korrektur 2</span>
                         </td>
                         <td>VM</td>
                     </tr>
@@ -214,6 +214,8 @@
                 </tbody>
             </table>
  <script>
+	 addTooltips_MetaData();
+	 addTooltips_AnnotationNames();
 	 styleToolTips();
   </script>
 </body>
