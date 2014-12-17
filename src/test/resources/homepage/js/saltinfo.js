@@ -156,9 +156,14 @@ var NUM_OF_SET_VALUES= 5;
 		var SYMBOL_UP = "fa fa-compress";
 		var SYMBOL_DOWN = "fa fa-expand";
 		var annoTable = null;
-
-		function loadAnnoMap(file){
-			if (file!= null){
+		/**
+		 * Loads the anno map from passed file if necessary and expands 
+		 * the cell corresponding to passed annoName
+		 */ 
+		function loadAndExpandAnnoValues(file, annoName){
+			//if annoTable wasn't load, load it now
+			if (annoTable== null){
+				if (file!= null){
 				//set the MIME type to json, otherwise firefoy produces a warning
 				$.ajaxSetup({beforeSend: function(xhr){
 					if (xhr.overrideMimeType){
@@ -167,16 +172,21 @@ var NUM_OF_SET_VALUES= 5;
 				}});
 				$.getJSON(file, function(json) {
 						annoTable= json;
+						expandAnnoValues(annoName);
 				});
+				}else{
+					console.error("Cannot load annotation map file, since the passed file was empty.");
+				}
 			}else{
-				console.error("Cannot load annotation map file, since the passed file was empty.");
+				expandAnnoValues(annoName);
 			}
 		}
+		
 		/**
 		 * Expands the annotation values for the cell corresponding to 
 		 * passed annoName.
 		 **/
-		function expandValues(annoName){
+		function expandAnnoValues(annoName){
 			var td= document.getElementById(annoName+"_values");
 			var span= td.children[0];
 			var slot= annoTable[annoName];
@@ -216,7 +226,7 @@ var NUM_OF_SET_VALUES= 5;
 			$btn.children(":first").removeClass(SYMBOL_UP);
 			$btn.children(":first").addClass(SYMBOL_DOWN);
 			$btn.unbind('click');
-			$btn.attr("onclick","expandValues('"+annoName+"')");
+			$btn.attr("onclick","expandAnnoValues('"+annoName+"')");
 		}
 /*******************************************************************************
  * Add the jQuery Tooltip styling mechanism to tooltip elements and style them

@@ -8,7 +8,7 @@
       <script src="./js/jquery-ui.js"></script>
 
 </head>
-<body onload="console.log('DOCUMENT LOADED')">
+<body>
 			<h2 id="title">exmaralda</h2>
             <h3>Structural Info</h3>
             <hr/>
@@ -153,7 +153,7 @@
                             </span>
                             <span class="icon"><a class="btn-download-csv"><i class="fa fa-download tooltip" title="Downloads annotation values and concerning occurances as CSV file (you need to expand the view to download all values)"></i></a></span>
                             <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o tooltip" title="Draws boxes around annotation values to find whitespaces"></i></a></span>
-                            <span class="icon"><a id="pos_btn" onClick="expandValues('pos')"><i class="fa fa-expand tooltip" title="Expands/Collapses annotation values"></i></a></span>
+                            <span class="icon"><a id="pos_btn" onClick="loadAndExpandAnnoValues('./anno_exmaralda.json','pos')"><i class="fa fa-expand tooltip" title="Expands/Collapses annotation values"></i></a></span>
                         </td>
                         <td id="pos_values">
                             <span class="svalue">
@@ -186,7 +186,7 @@
                             </span>
                             <span class="icon"><a class="btn-download-csv tooltip"><i class="fa fa-download"></i></a></span>
                             <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o"></i></a></span>
-                            <span class="icon"><a id="lemma_btn" onClick="expandValues('lemma')"><i class="fa fa-expand"></i></a></span>
+                            <span class="icon"><a id="lemma_btn" onClick="loadAndExpandAnnoValues('./anno_exmaralda.json','lemma')"><i class="fa fa-expand"></i></a></span>
                         </td>
                         <td id="lemma_values">
                             <span class="svalue">
@@ -214,7 +214,6 @@
                 </tbody>
             </table>
  <script>
-	 loadAnnoMap("./anno_exmaralda.json");
 	 styleToolTips();
   </script>
 </body>
