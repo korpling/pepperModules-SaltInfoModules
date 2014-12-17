@@ -242,7 +242,7 @@ function collapseValues(annoName) {
                 try {
                     $removalList = $removalList.add(td.children[i]);
                 } catch (err) {
-                    console.log(err.message);
+                    console.error(err.message);
                 }
             }
             $removalList.remove();
@@ -278,6 +278,7 @@ function styleToolTips() {
  ******************************************************************************/
 var CLASS_METADATA="metadata-name";
 var CLASS_ANNO_NAMES="anno-sname";
+var CLASS_TOOLTIP="tooltip";
 /** 
  * Adds tootlips to all elements having the class CLASS_METADATA.
  **/
@@ -290,12 +291,13 @@ function addTooltips_MetaData() {
 			if (	(tooltip!= null)&&
 					(tooltip!= "")){
 				metaElements[i].title=tooltip;
-				$(metaElements[i]).addClass("tooltip");
+				$(metaElements[i]).addClass(CLASS_TOOLTIP);
 			}
 		}
 	}
 }
-
+var CLASS_ICON="icon";
+var CLASS_FA_INFO="fa fa-info-circle";
 /** 
  * Adds tootlips to all elements having the class CLASS_ANNOS_NAMES.
  **/
@@ -308,7 +310,12 @@ function addTooltips_MetaData() {
 			if (	(tooltip!= null)&&
 					(tooltip!= "")){
 				metaElements[i].title=tooltip;
-				$(metaElements[i]).addClass("tooltip");
+				$(metaElements[i]).addClass(CLASS_TOOLTIP);
+				//create icon element for info button
+				var icon = $( document.createElement('i'));
+				icon.addClass(CLASS_FA_INFO);
+				icon.addClass(CLASS_ICON);
+				$(metaElements[i]).append(icon);
 			}
 		}
 	}
@@ -322,13 +329,21 @@ function addTooltips_AnnotationNames() {
 		//find all elements of class CLASS_ANNO_NAMES
 		var annoElements = document.getElementsByClassName(CLASS_ANNO_NAMES);
 		for (var i= 0; i < annoElements.length; i++){
-			console.log(annoElements);
 			var tooltip= tooltips_annonames[annoElements[i].innerHTML];
 			if (	(tooltip!= null)&&
 					(tooltip!= "")){
-				console.log(annoElements[i]);
 				annoElements[i].title=tooltip;
-				$(annoElements[i]).addClass("tooltip");
+				$(annoElements[i]).addClass(CLASS_TOOLTIP);
+				
+				//create icon element for info button
+				var icon = $(document.createElement('i'));
+				icon.addClass(CLASS_FA_INFO);
+				icon.addClass(CLASS_ICON);
+				icon.addClass(CLASS_ICON);
+				icon.addClass(CLASS_TOOLTIP);
+				icon.attr('title', tooltip);
+				$(annoElements[i]).parent().parent().append(icon);
+				console.log($(annoElements[i]).parent().parent());
 			}
 		}
 	}
