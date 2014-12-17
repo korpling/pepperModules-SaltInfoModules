@@ -145,15 +145,15 @@
                     </th>
                 </thead>
                 <tbody>
-			          <tr class="odd">
+					  <tr class="odd">
                         <td class="entry-key">
                             <span class="sannotationinfo">
                                 <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">POS</span>
                                 <span class="anno-count">23</span>
                             </span>
-                            <span class="icon"><a class="btn-download-csv"><i class="fa fa-download tooltip" title="Downloads annotation values and concerning occurances as CSV file (you need to expand the view to download all values)"></i></a></span>
-                            <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o tooltip" title="Draws boxes around annotation values to find whitespaces"></i></a></span>
-                            <span class="icon"><a id="pos_btn" onClick="loadAndExpandAnnoValues('./anno_exmaralda.json','pos')"><i class="fa fa-expand tooltip" title="Expands/Collapses annotation values"></i></a></span>
+                            <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and concerning occurances as CSV file (you need to expand the view to download all values)"></i>
+                            <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                            <i id="pos_btn" onClick="loadAndExpandAnnoValues('./anno_exmaralda.json','pos')" class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values"></i>
                         </td>
                         <td id="pos_values">
                             <span class="svalue">
@@ -184,9 +184,9 @@
                                 <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">HuselDuselKrankerFuselMitVielSchnusel</span>
                                 <span class="anno-count">25</span>
                             </span>
-                            <span class="icon"><a class="btn-download-csv tooltip"><i class="fa fa-download"></i></a></span>
-                            <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o"></i></a></span>
-                            <span class="icon"><a id="lemma_btn" onClick="loadAndExpandAnnoValues('./anno_exmaralda.json','lemma')"><i class="fa fa-expand"></i></a></span>
+                            <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and concerning occurances as CSV file (you need to expand the view to download all values)"></i>
+                            <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                            <i id="lemma_btn" onClick="loadAndExpandAnnoValues('./anno_exmaralda.json','lemma')" class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values"></i>
                         </td>
                         <td id="lemma_values">
                             <span class="svalue">

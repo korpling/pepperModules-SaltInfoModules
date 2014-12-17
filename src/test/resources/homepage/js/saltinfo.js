@@ -9,7 +9,7 @@ $(document).ready(main);
 function main() {
     /** Adds CSV download functionality to button or icon */
     $("#content").on("click", ".btn-download-csv", function(event) {
-        var data = $(this).parent().parent().next().children('.svalue');
+        var data = $(this).parent().next().children('.svalue');
         downloadText(convertToCSV(data), CSV_MIME_TYPE);
     });
 
@@ -74,7 +74,7 @@ function convertToCSV(svalues) {
  * Boxes for annotation values
  **************************************************************************/
 function toggleBox(event) {
-    var values = $(this).parent().parent().next().children().children('.svalue-text');
+    var values = $(this).parent().next().children().children('.svalue-text');
     $(values).toggleClass('boxed');
 }
 
