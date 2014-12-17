@@ -13,39 +13,8 @@ function main() {
 		downloadText(convertToCSV(data), CSV_MIME_TYPE);
 	});
 
-	/** CReation of boxes around annotation values*/
+	/** Creation of boxes around annotation values*/
 	$("#content").on("click", ".btn-toggle-box", toggleBox);
-
-	/***************************************************************************
-	 * Tooltips
-	 **************************************************************************/
-	$("#content").on({
-		mouseenter : function() {
-			var contextNode = $('#' + $(this).text());
-			console.log(contextNode.text());
-			// console.log($('#' + $(this).text()).text());
-
-			contextNode.fadeIn();
-			var p = $(this).position();
-			// $('#' + $(this).text()).css('top', p.top + this.offsetHeight);
-			// $('#' + $(this).text()).css('left', p.left - 90 +
-			// this.offsetWidth / 2);
-
-			console.log("left: " + p.left);
-			console.log("top: " + p.top);
-			console.log(this);
-
-			var offset = $(this).offset();
-			console.log("offset.left: " + offset.left);
-			console.log("offset.top: " + offset.top);
-
-			contextNode.css('top', p.top);
-			contextNode.css('left', p.left + offset.left);
-		},
-		mouseleave : function() {
-			$('#' + $(this).text()).fadeOut();
-		}
-	}, ".sName_entry");
 
     // Load params file (params.json) into global variables
 	loadParams();
@@ -127,6 +96,8 @@ var description = "";
 var annotators = [];
 /** Link to ANNIS instance **/
 var annisLink=null;
+/** A table containing tooltips for metadata **/
+var tooltips_metadata= new Object();
 
 /** Defines an object of type Author having a name and aemail address**/
 function Author(name, eMail){
@@ -136,6 +107,12 @@ function Author(name, eMail){
 
 /** loads customization file and files variables **/
 function loadCustomization(){
+	//set the MIME type to json, otherwise firefoy produces a warning
+	$.ajaxSetup({beforeSend: function(xhr){
+		if (xhr.overrideMimeType){
+			xhr.overrideMimeType("application/json");
+		}
+	}});
 	/** load customization file */
 	$.getJSON("customization.json", function(json) {
 	    shortDescription = json.shortDescription;
@@ -150,21 +127,122 @@ function loadCustomization(){
 			$("#search_me").css("visibility", "visible");
 		}
 		
-		console.log("JSON_METADATA: "+ json.tooltips_metadata.length);
-		console.log(json.tooltips_metadata.keys);
-		/**
+		var tooltips_metadata= new Object();
 		for (var i=0;i< json.tooltips_metadata.length;i++){
-			console.log(json.tooltips_metadata[i]);
-		}*/
+			tooltips_metadata[json.tooltips_metadata[i].name]= json.tooltips_metadata[i].tooltip;
+		}
+		console.log(tooltips_metadata);
 	});
 }
 
 /** loads params file and fills variables */
 function loadParams() {
-	/** load customization file */
+	//set the MIME type to json, otherwise firefoy produces a warning
+	$.ajaxSetup({beforeSend: function(xhr){
+		if (xhr.overrideMimeType){
+			xhr.overrideMimeType("application/json");
+		}
+	}});
+	/** load params file */
 	$.getJSON("params.json", function(json) {
 		corpusName = json.corpusName;
 	});
+}
+/*******************************************************************************
+ * Collapse/expand the annotation values corresponding to an annotation name,
+ * when there are more annotations as predefined treshhold.
+ ******************************************************************************/
+var NUM_OF_SET_VALUES= 5;
+		var SYMBOL_UP = "fa fa-compress";
+		var SYMBOL_DOWN = "fa fa-expand";
+		var annoTable = null;
+
+		function loadAnnoMap(file){
+			if (file!= null){
+				//set the MIME type to json, otherwise firefoy produces a warning
+				$.ajaxSetup({beforeSend: function(xhr){
+					if (xhr.overrideMimeType){
+						xhr.overrideMimeType("application/json");
+					}
+				}});
+				$.getJSON(file, function(json) {
+						annoTable= json;
+				});
+			}else{
+				console.error("Cannot load annotation map file, since the passed file was empty.");
+			}
+		}
+		/**
+		 * Expands the annotation values for the cell corresponding to 
+		 * passed annoName.
+		 **/
+		function expandValues(annoName){
+			var td= document.getElementById(annoName+"_values");
+			var span= td.children[0];
+			var slot= annoTable[annoName];
+			for (var i= NUM_OF_SET_VALUES; i< slot.length;i++){
+				var newSpan= span.cloneNode(true);
+				newSpan.children[0].innerHTML= slot[i].value;
+				newSpan.children[1].innerHTML= slot[i].occurance;
+				td.appendChild(newSpan);
+			}
+			
+			var $btn= $("#"+annoName+"_btn");
+			$btn.children(":first").removeClass(SYMBOL_DOWN);
+			$btn.children(":first").addClass(SYMBOL_UP);
+			$btn.unbind('click');
+			$btn.attr("onclick","collapseValues('"+annoName+"')");
+		}
+		/**
+		 * Collapses the annotation values for the cell corresponding to 
+		 * passed annoName.
+		 **/
+		function collapseValues(annoName){
+			var td= document.getElementById(annoName+"_values");
+			if (td.children.length > NUM_OF_SET_VALUES){
+				//for better performance, first collect all items to be removed and make batch remove
+				var $removalList= $();
+				for (var i= NUM_OF_SET_VALUES; i< td.children.length;i++){
+					try{
+						$removalList = $removalList.add(td.children[i]);
+					}catch(err) {
+						console.log(err.message);
+					}
+				}
+				$removalList.remove();
+			}
+			
+			var $btn= $("#"+annoName+"_btn");
+			$btn.children(":first").removeClass(SYMBOL_UP);
+			$btn.children(":first").addClass(SYMBOL_DOWN);
+			$btn.unbind('click');
+			$btn.attr("onclick","expandValues('"+annoName+"')");
+		}
+/*******************************************************************************
+ * Add the jQuery Tooltip styling mechanism to tooltip elements and style them
+ * see: http://jqueryui.com/tooltip/
+ ******************************************************************************/
+function styleToolTips() {
+            $('.tooltip').tooltip({
+               show: "true", 
+               close: function(event, ui){
+                  ui.tooltip.hover(function(){
+                     $(this).stop(true).fadeTo(10, 1); 
+                  },
+                  function(){
+                     $(this).fadeOut('10', function(){
+                        $(this).remove();
+                     });
+                  });
+               }
+            });
+         };
+/*******************************************************************************
+ * Adding tooltips for metadata and annotation names
+ ******************************************************************************/
+function addTooltip(container){
+	console.log("HEY");
+	console.log(container);
 }
 
 /*******************************************************************************
@@ -195,12 +273,9 @@ function goANNIS(annoName, annoValue) {
 		// create corpus part tu url
 		if (corpusName!= null){
 			link= link + "_c="+btoa(corpusName);
-			console.log("CORPUS: "+atob(btoa(corpusName)));
-			console.log("LINK: "+ link);
 		}
 		//open link in new window
 		window.open(link,'_blank');
-		console.log("link: "+ link);
 	}
 }
 

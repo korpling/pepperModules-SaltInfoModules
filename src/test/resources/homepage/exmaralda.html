@@ -1,34 +1,14 @@
 <!DOCTYPE html SYSTEM "about:legacy-compat">
 <html>
 <head>
-<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="{$saltinfocss}" rel="StyleSheet" type="text/css">
-<link href="./css/jquery-ui.css" rel="stylesheet">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="{$saltinfocss}" rel="StyleSheet" type="text/css"/>
+<link href="./css/jquery-ui.css" rel="stylesheet"/>
       <script src="./js/jquery.js"></script>
       <script src="./js/jquery-ui.js"></script>
- <script>
-         $(function() {
-            $('.tooltip').tooltip({
-               show: "true", 
-               close: function(event, ui)
-               {
-                  ui.tooltip.hover(function()
-                  {
-                     $(this).stop(true).fadeTo(10, 1); 
-                  },
-                  function()
-                  {
-                     $(this).fadeOut('10', function()
-                     {
-                        $(this).remove();
-                     });
-                  });
-               }
-            });
-         });
-      </script>
+
 </head>
-<body>
+<body onload="console.log('DOCUMENT LOADED')">
 			<h2 id="title">exmaralda</h2>
             <h3>Structural Info</h3>
             <hr/>
@@ -171,7 +151,7 @@
                                 <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">POS</span>
                                 <span class="anno-count">23</span>
                             </span>
-                            <span class="icon"><a class="btn-download-csv"><i class="fa fa-download tooltip" title="Downloads annotation values and concerning occurances as CSV file"></i></a></span>
+                            <span class="icon"><a class="btn-download-csv"><i class="fa fa-download tooltip" title="Downloads annotation values and concerning occurances as CSV file (you need to expand the view to download all values)"></i></a></span>
                             <span class="icon"><a class="btn-toggle-box"><i class="fa fa-square-o tooltip" title="Draws boxes around annotation values to find whitespaces"></i></a></span>
                             <span class="icon"><a id="pos_btn" onClick="expandValues('pos')"><i class="fa fa-expand tooltip" title="Expands/Collapses annotation values"></i></a></span>
                         </td>
@@ -233,94 +213,9 @@
                     </tr>
                 </tbody>
             </table>
-
-<script>
-			var data = 	'{' +
-						'"pos": ['+
-						'{"value":"VVFIN", "occurance":"1"},'+
-						'{"value":"ADJD", "occurance":"1"},'+
-						'{"value":"ADJA", "occurance":"1"},'+
-						'{"value":"NN", "occurance":"1"},'+
-						'{"value":"ADV", "occurance":"1"},'+
-						'{"value":"MORE1", "occurance":"10"},'+
-						'{"value":"MORE2", "occurance":"10"},'+
-						'{"value":"MORE3", "occurance":"10"},'+
-						'{"value":"MORE4", "occurance":"10"},'+
-						'{"value":"MORE5", "occurance":"10"},'+
-						'{"value":"MORE6", "occurance":"10"},'+
-						'{"value":"MORE7", "occurance":"10"},'+
-						'{"value":"MORE8", "occurance":"10"},'+
-						'{"value":"MORE9", "occurance":"10"},'+
-						'{"value":"MORE10", "occurance":"10"},'+
-						'{"value":"MORE11", "occurance":"10"},'+
-						'{"value":"MORE12", "occurance":"10"},'+
-						'{"value":"MORE13", "occurance":"10"},'+
-						'{"value":"MORE14", "occurance":"10"},'+
-						'{"value":"MORE15", "occurance":"10"},'+
-						'{"value":"MORE16", "occurance":"11"}'+
-						'],'+
-						'"lemma": ['+
-						'{"value":"sein", "occurance":"1"},'+
-						'{"value":"haben", "occurance":"1"},'+
-						'{"value":"Haus", "occurance":"1"},'+
-						'{"value":"Maus", "occurance":"1"},'+
-						'{"value":"Stuhl", "occurance":"1"},'+
-						'{"value":"Tisch", "occurance":"10"},'+
-						'{"value":"Bein", "occurance":"10"},'+
-						'{"value":"Tasse", "occurance":"10"},'+
-						'{"value":"Monitor", "occurance":"10"},'+
-						'{"value":"gehen", "occurance":"10"},'+
-						'{"value":"clicken", "occurance":"10"},'+
-						'{"value":"spielen", "occurance":"11"}'+
-						']'+
-						'}';
-</script>
-<script>
-		var NUM_OF_SET_VALUES= 5;
-		var SYMBOL_UP = "fa fa-compress";
-		var SYMBOL_DOWN = "fa fa-expand";
-		var obj = JSON.parse(data);
-		
-		function expandValues(annoName){
-			var td= document.getElementById(annoName+"_values");
-			var span= td.children[0];
-			var slot= obj[annoName];
-			for (var i= NUM_OF_SET_VALUES; i< slot.length;i++){
-				var newSpan= span.cloneNode(true);
-				newSpan.children[0].innerHTML= slot[i].value;
-				newSpan.children[1].innerHTML= slot[i].occurance;
-				td.appendChild(newSpan);
-			}
-			
-			var $btn= $("#"+annoName+"_btn");
-			$btn.children(":first").removeClass(SYMBOL_DOWN);
-			$btn.children(":first").addClass(SYMBOL_UP);
-			$btn.unbind('click');
-			$btn.attr("onclick","collapseValues('"+annoName+"')");
-		}
-		
-		function collapseValues(annoName){
-			var td= document.getElementById(annoName+"_values");
-			if (td.children.length > NUM_OF_SET_VALUES){
-				//for better performance, first collect all items to be removed and make batch remove
-				var $removalList= $();
-				for (var i= NUM_OF_SET_VALUES; i< td.children.length;i++){
-					try{
-						$removalList = $removalList.add(td.children[i]);
-					}catch(err) {
-						console.log(err.message);
-					}
-				}
-				$removalList.remove();
-			}
-			
-			var $btn= $("#"+annoName+"_btn");
-			$btn.children(":first").removeClass(SYMBOL_UP);
-			$btn.children(":first").addClass(SYMBOL_DOWN);
-			$btn.unbind('click');
-			$btn.attr("onclick","expandValues('"+annoName+"')");
-		}
-</script>
-
+ <script>
+	 loadAnnoMap("./anno_exmaralda.json");
+	 styleToolTips();
+  </script>
 </body>
 </html>

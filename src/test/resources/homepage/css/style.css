@@ -123,7 +123,6 @@ span.icon {
 }
 
 span.btn-toggle-box {
-	align: right;
 	cursor: pointer;
 }
 
@@ -193,7 +192,6 @@ td.entry-key {
     padding: 1em;
     margin-top: 5px;
     border-radius: 15px;
-    -moz-border-radius: 15px;
     font-size: 0.8em;
 }
 
@@ -206,10 +204,12 @@ td.entry-key {
  * ************************************/
 #header_wrap {
 	background: -moz-linear-gradient(top, #373737, #212121);
+	/*
 	background: -webkit-linear-gradient(top, #373737, #212121);
 	background: -ms-linear-gradient(top, #373737, #212121);
 	background: -o-linear-gradient(top, #373737, #212121);
 	background: linear-gradient(top, #373737, #212121);
+	* */
 }
 
 #project_title {
