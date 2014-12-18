@@ -204,12 +204,10 @@ td.entry-key {
  * ************************************/
 #header_wrap {
 	background: -moz-linear-gradient(top, #373737, #212121);
-	/*
 	background: -webkit-linear-gradient(top, #373737, #212121);
 	background: -ms-linear-gradient(top, #373737, #212121);
 	background: -o-linear-gradient(top, #373737, #212121);
 	background: linear-gradient(top, #373737, #212121);
-	* */
 }
 
 #project_title {

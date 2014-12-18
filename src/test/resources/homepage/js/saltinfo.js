@@ -84,7 +84,7 @@ function toggleBox(event) {
 /** param file contains data of the corpus */
 var FILE_PARAMS = "params.json";
 /** customization file containing user defined vaules to adapt web site */
-var FILE_CUSTOMIZATION = "customization.json";
+var FILE_CUSTOMIZATION = "./customization.json";
 /** Contains the name of the root corpus */
 var corpusName = "";
 /** Contains a short description of the corpus if given */
@@ -168,7 +168,7 @@ function loadParams() {
             }
         });
         /** load params file */
-        $.getJSON("params.json", function(json) {
+        $.getJSON(FILE_PARAMS, function(json) {
             corpusName = json.corpusName;
         });
     }
@@ -213,14 +213,14 @@ function loadAndExpandAnnoValues(file, annoName) {
  * passed annoName.
  **/
 function expandAnnoValues(annoName) {
-        var td = document.getElementById(annoName + "_values");
-        var span = td.children[0];
+        var $td = $("#"+annoName + "_values");
+        var $span = $td.children().eq(0);
         var slot = annoTable[annoName];
         for (var i = NUM_OF_SET_VALUES; i < slot.length; i++) {
-            var newSpan = span.cloneNode(true);
-            newSpan.children[0].innerHTML = slot[i].value;
-            newSpan.children[1].innerHTML = slot[i].occurance;
-            td.appendChild(newSpan);
+            var $newSpan = $span.clone();
+            $newSpan.children().eq(0).innerText = slot[i].value;
+            $newSpan.children().eq(1).innerText = slot[i].occurance;
+            $td.append($newSpan);
         }
 
         var $btn = $("#" + annoName + "_btn");
@@ -234,13 +234,14 @@ function expandAnnoValues(annoName) {
  * passed annoName.
  **/
 function collapseValues(annoName) {
-        var td = document.getElementById(annoName + "_values");
-        if (td.children.length > NUM_OF_SET_VALUES) {
+        var $td = $("#"+annoName + "_values");
+        var numOfChilds= $td.children().length;
+        if (numOfChilds > NUM_OF_SET_VALUES) {
             //for better performance, first collect all items to be removed and make batch remove
             var $removalList = $();
-            for (var i = NUM_OF_SET_VALUES; i < td.children.length; i++) {
+            for (var i = NUM_OF_SET_VALUES; i < numOfChilds; i++) {
                 try {
-                    $removalList = $removalList.add(td.children[i]);
+                    $removalList = $removalList.add($td.children().eq(i));
                 } catch (err) {
                     console.error(err.message);
                 }
@@ -343,7 +344,6 @@ function addTooltips_AnnotationNames() {
 				icon.addClass(CLASS_TOOLTIP);
 				icon.attr('title', tooltip);
 				$(annoElements[i]).parent().parent().append(icon);
-				console.log($(annoElements[i]).parent().parent());
 			}
 		}
 	}
@@ -400,16 +400,16 @@ function loadMainPage() {
         .load(
             'main.html',
             function() {
-                document.getElementById("corpusTitle").innerHTML = corpusName;
+				$("#corpusTitle").innerText = corpusName;
                 if (description != null) {
-                    document.getElementById("corpusDescription").innerHTML = description;
+                    $("#corpusDescription").innerText = description;
                 }
                 if (annotators != null) {
-                    var authorElement = document.getElementById("annotators");
+				    var annotatorElement = $("#annotators");
                     for (var i = 0; i < annotators.length; i++) {
                         var span = document.createElement('div');
-                        span.innerHTML = annotators[i].name + ": <a href='mailto:" + annotators[i].eMail + "'>" + annotators[i].eMail + "<a/>";
-                        authorElement.appendChild(span);
+                        $(span).append(annotators[i].name + ": <a href='mailto:" + annotators[i].eMail + "'>" + annotators[i].eMail + "<a/>");
+                        $(annotatorElement).append(span);
                     }
                 }
             });
