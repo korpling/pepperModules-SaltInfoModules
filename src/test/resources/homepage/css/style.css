@@ -135,6 +135,10 @@ span.btn-toggle-box {
 	text-decoration: underline;
 	
 }
+.impressum{
+	cursor: pointer;
+}
+
 .declickify-anno {
 	text-decoration: none;
 }
