@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
-    <xsl:output encoding="UTF-8" indent="yes" method="html" doctype-system="about:legacy-compat"/>
-    <xsl:output method="html" indent="yes" name="html"/>
+    <xsl:output encoding="UTF-8" indent="yes" method="xhtml" doctype-system="about:legacy-compat"/>
+    <xsl:output method="text" indent="no" name="json"/>
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
     <xsl:variable name="minNumOfAnnos">5</xsl:variable>
 <!-- set createJsonForAllAnnos to "true", if all annotations shall be loaded into json, even those with less than 5 values -->
@@ -11,11 +11,15 @@
     <xsl:template match="/*">
         <html>
             <head>
+                <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
                 <xsl:element name="link">
                     <xsl:attribute name="href">{$saltinfocss}</xsl:attribute>
                     <xsl:attribute name="rel">StyleSheet</xsl:attribute>
                     <xsl:attribute name="type">text/css</xsl:attribute>
                 </xsl:element>
+                <link href="./css/jquery-ui.css" rel="stylesheet"/>
+                <script src="./js/jquery.js"></script>
+                <script src="./js/jquery-ui.js"></script>
             </head>
             <body>
                 <!-- get corpus name-->
@@ -35,7 +39,7 @@
                 <xsl:call-template name="annoTable"/>
 
                 <!-- set meta data info as json input -->
-                <xsl:result-document href="data.json" format="html">
+                <xsl:result-document href="data.json" format="json">
                     <xsl:call-template name="json"/>
                 </xsl:result-document>
             </body>
@@ -52,7 +56,7 @@
         <br/>
         <br/>
         <!-- create table structure -->
-        <table class="data-structInfo">
+        <table class="data-structuralInfo">
             <thead>
                 <th>Name</th>
                 <th>Count</th>
@@ -72,9 +76,9 @@
         <xsl:variable name="entry" select="position()"/>
         <xsl:choose>
             <xsl:when test="$entry mod 2=1">
-                <tr class="even">
+                <tr class="odd">
                     <td class="entry-key">
-                        <span class="sName_entry">
+                        <span class="tooltip">
                             <xsl:value-of select="@key"/>
                             <span class="icon">
                                 <i class="fa fa-info-circle"/>
@@ -87,9 +91,10 @@
                 </tr>
             </xsl:when>
             <xsl:when test="$entry mod 2=0">
-                <tr class="odd">
+                <tr class="even">
                     <td class="entry-key">
-                        <span class="sName_entry">
+                        <span class="tooltip">
+                            <xsl:attribute name="title"><xsl:value-of select="@key"/></xsl:attribute>
                             <xsl:value-of select="@key"/>
                             <span class="icon">
                                 <i class="fa fa-info-circle"/>
@@ -266,14 +271,24 @@
     <xsl:template match="sAnnotationInfo" mode="annoJson">         <xsl:choose>
         <xsl:when test="$createJsonForAllAnnos">"<xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson"/>
-            ], </xsl:when>
+            <xsl:choose>
+                <xsl:when test="position()!=last()">"],
+                </xsl:when>
+                <xsl:otherwise>"]
+                </xsl:otherwise>
+            </xsl:choose></xsl:when>
     <xsl:otherwise>
         <xsl:if test="count(.//sValue) > 5">"<xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson"/>
-            ], </xsl:if>
+            <xsl:choose>
+                <xsl:when test="position()!=last()">],
+                </xsl:when>
+                <xsl:otherwise>]
+                </xsl:otherwise>
+            </xsl:choose> </xsl:if>
     </xsl:otherwise></xsl:choose></xsl:template>
 
-    <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-space(translate(text(), '&quot;','&quot;'))"/>", "occurances": "<xsl:value-of select="@occurrences"/>
+    <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-unicode(replace(text(), '&quot;','\\&quot;'))"/>", "occurances": "<xsl:value-of select="@occurrences"/>
         <xsl:choose>
             <xsl:when test="position()!=last()">"},
         </xsl:when>
@@ -282,85 +297,12 @@
     </xsl:choose>
     </xsl:template>
     
-    <xsl:template name="replacements">
-        <xsl:variable name="escapedText">
-            <xsl:call-template name="replaceSigns">
-                <xsl:with-param name="value" select="text()"/>
-                <xsl:with-param name="replace" select="'&quot;'"/>
-                <xsl:with-param name="with" select="'\&quot;'"/>
-            </xsl:call-template>
-        </xsl:variable>
-        <xsl:value-of select="normalize-space($escapedText)"/>
-    </xsl:template>
-    
-    <xsl:template name="replaceSigns">
-        <xsl:param name="value"/>
-        <xsl:param name="replace"/>
-        <xsl:param name="with"/>
-        <xsl:choose>
-            <xsl:when test="contains($value, $replace)">
-                <xsl:value-of select="translate($value, $replace, $with)"/>
-                
-            </xsl:when>
-        </xsl:choose>
-    </xsl:template>
 
-    <xsl:template name="json">
-       <!-- <script src="dist/libs/jquery.js" type="text/javascript">
-            var data = '{' +-->
-                {
-                 <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
+    <xsl:template name="json">{
+        <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
                 <xsl:sort select="@sName"/>
-            </xsl:apply-templates>
+        </xsl:apply-templates>
         }
-          <!--  '}';
-        </script>
-        <script>
-            var NUM_OF_SET_VALUES= {$minNumOfAnnos}
-		var SYMBOL_UP = "fa fa-compress";
-		var SYMBOL_DOWN = "fa fa-expand";
-		var obj = JSON.parse(data);
-		
-		function expandValues(annoName){
-			var td= document.getElementById(annoName+"_values");
-			var span= td.children[0];
-			var slot= obj[annoName];
-			for (var i= NUM_OF_SET_VALUES; i &lt; slot.length;i++){
-				var newSpan= span.cloneNode(true);
-				newSpan.children[0].innerHTML= slot[i].value;
-				newSpan.children[1].innerHTML= slot[i].occurance;
-				td.appendChild(newSpan);
-			}
-			
-			var $btn= $("#"+annoName+"_btn");
-			$btn.children(":first").removeClass(SYMBOL_DOWN);
-			$btn.children(":first").addClass(SYMBOL_UP);
-			$btn.unbind('click');
-			$btn.attr("onclick","collapseValues('"+annoName+"')");
-		}
-		
-		function collapseValues(annoName){
-			var td= document.getElementById(annoName+"_values");
-			if (td.children.length > NUM_OF_SET_VALUES){
-				//for better performance, first collect all items to be removed and make batch remove
-				var $removalList= $();
-				for (var i= NUM_OF_SET_VALUES; i &lt; td.children.length;i++){
-					try{
-						$removalList = $removalList.add(td.children[i]);
-					}catch(err) {
-						console.log(err.message);
-					}
-				}
-				$removalList.remove();
-			}
-			
-			var $btn= $("#"+annoName+"_btn");
-			$btn.children(":first").removeClass(SYMBOL_UP);
-			$btn.children(":first").addClass(SYMBOL_DOWN);
-			$btn.unbind('click');
-			$btn.attr("onclick","expandValues('"+annoName+"')");
-		}
-        </script>-->
     </xsl:template>
 
 </xsl:stylesheet>
