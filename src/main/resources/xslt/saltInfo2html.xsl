@@ -4,14 +4,25 @@
     <xsl:output encoding="UTF-8" indent="yes" method="xhtml" doctype-system="about:legacy-compat"/>
     <!-- second output file for information saved in json format -->
     <xsl:output method="text" indent="no" name="json" encoding="UTF-8"/>
+    <xsl:output method="html" indent="yes" name="main" encoding="UTF-8"/>
     <!-- path to the used css file -->
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
     <!-- set the minimum of annotations shown at the tables if uncollapsed -->
     <xsl:variable name="minNumOfAnnos">5</xsl:variable>
 <!-- set createJsonForAllAnnos to "true", if all annotations shall be loaded into json, even those with less than 5 values -->
     <xsl:variable name="createJsonForAllAnnos" select="false()" />
+    <xsl:variable name="isMainCorpus" select="sCorpusInfo/@sName=$corpusname"></xsl:variable>
     <!-- get corpus name and save it as a variable for later use -->
-    <xsl:variable name="corpusname"><xsl:value-of select="root()/node()/@sName"></xsl:value-of></xsl:variable>
+    <xsl:variable name="corpusname">
+        <xsl:choose>
+            <xsl:when test="string-length(root()/node()/@id) - string-length(replace(root()/node()/@id, '/', '')) > 1">
+            <xsl:value-of select="substring-before(substring-after(root()/node()/@id, 'salt:/'),'/')"/>
+        </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="substring-after(root()/node()/@id, 'salt:/')"/>
+            </xsl:otherwise>
+    </xsl:choose>
+    </xsl:variable>
     <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="$corpusname"/>.json</xsl:param>
 
     <!-- buid html sceleton-->
@@ -46,9 +57,17 @@
                 <xsl:call-template name="annoTable"/>
 
                 <!-- set meta data info as json input -->
-                <xsl:result-document href="{$jsonOutputName}" format="json">
-                    <xsl:call-template name="json"/>
-                </xsl:result-document>
+                <xsl:if test="$isMainCorpus">
+                    <xsl:result-document href="{$jsonOutputName}" format="json">
+                            <xsl:call-template name="json"/>
+                    </xsl:result-document>
+                    
+                    
+                    <xsl:result-document href="main.html" format="main">
+                        <xsl:call-template name="main"/>
+                    </xsl:result-document>
+                </xsl:if>
+                
             </body>
         </html>
     </xsl:template>
@@ -303,6 +322,28 @@
                 <xsl:sort select="@sName"/>
         </xsl:apply-templates>
         }
+    </xsl:template>
+    
+    <xsl:template name="main">
+        <html>
+            <head>
+                <title>
+                    About
+                </title>
+            </head>
+            <body>
+                <h2 id="corpusTitle">
+                    <xsl:value-of select="$corpusname"/>
+                </h2>
+                <hr/>
+                <article id="corpusDescription">
+                    This web page was produced by SaltInfoModule a module for the Pepper converter framework.
+                </article>
+                <h3>Annotators</h3>
+                <hr/>
+                <article id="annotators"></article>
+            </body>
+        </html>
     </xsl:template>
 
 </xsl:stylesheet>
