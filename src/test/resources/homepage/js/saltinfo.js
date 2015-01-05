@@ -91,6 +91,14 @@ var corpusName = "";
 var shortDescription = "";
 /** Contains a long description of the corpus if given */
 var description = "";
+/** Contains a description of "structuralInfo" if given */
+var structInfoDescription = "";
+/** Contains a description of "metaDataInfo" if given */
+var metaDataDescription = "";
+/** Contains a description of "sAnnotationInfo" if given */
+var annoDescription = "";
+/** Contains a description of "sLayerInfo" if given */
+var sLayerDescription = "";
 /** Contains an array of author names*/
 var annotators = [];
 /** Link to ANNIS instance **/
@@ -154,6 +162,19 @@ function loadCustomization() {
         if (tooltips_annonames== null){
 			console.debug("No tooltips for annotation names found in file '"+FILE_CUSTOMIZATION+"'. ");
 		}
+        
+        if (json.tooltips_structuralInfo!= null){
+			for (var i = 0; i < json.tooltips_structuralInfo.length; i++) {
+				if (tooltips_structuralInfo== null){
+					tooltips_structuralInfo = new Object();
+				}
+				tooltips_structuralInfo[json.tooltips_structuralInfo[i].name] = json.tooltips_structuralInfo[i].tooltip;
+			}
+		}
+        if (tooltips_structuralInfo== null){
+			console.debug("No tooltips for structural info found in file '"+FILE_CUSTOMIZATION+"'. ");
+		}
+		
     });
 }
 
@@ -400,9 +421,11 @@ function loadMainPage() {
         .load(
             'main.html',
             function() {
-				$("#corpusTitle").innerText = corpusName;
+//            	if (corpusName != null) {
+//            		$("#corpusTitle").append(corpusName);
+//            	}
                 if (description != null) {
-                    $("#corpusDescription").innerText = description;
+                	$("#corpusDescription").append("<p>"+description+"</p>");
                 }
                 if (annotators != null) {
 				    var annotatorElement = $("#annotators");

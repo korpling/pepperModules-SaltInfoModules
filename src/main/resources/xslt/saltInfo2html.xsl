@@ -11,7 +11,8 @@
     <xsl:variable name="minNumOfAnnos">5</xsl:variable>
 <!-- set createJsonForAllAnnos to "true", if all annotations shall be loaded into json, even those with less than 5 values -->
     <xsl:variable name="createJsonForAllAnnos" select="false()" />
-    <xsl:variable name="isMainCorpus" select="sCorpusInfo/@sName=$corpusname"></xsl:variable>
+    <!-- check if file is main corpus -->
+    <xsl:variable name="isMainCorpus" select="sCorpusInfo/@sName=$corpusname"/>
     <!-- get corpus name and save it as a variable for later use -->
     <xsl:variable name="corpusname">
         <xsl:choose>
@@ -23,7 +24,17 @@
             </xsl:otherwise>
     </xsl:choose>
     </xsl:variable>
+    <!-- define output name for json file -->
     <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="$corpusname"/>.json</xsl:param>
+    <!-- tooltip descriptions for structural elements -->
+    <xsl:variable name="SNode">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
+   <xsl:variable name="SRelation">Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.eRelation.eRelation.eRelation.eRelation.</xsl:variable>
+    <xsl:variable name="SSpan">Number of ps in the current document or corpus. A p is an aggregation of a bunch of tokens containing 0..n token.</xsl:variable>
+    <xsl:variable name="SSpanningRelation">Number of relations in the current document or corpus to connect ps (SSpan) with tokens (SToken).</xsl:variable>
+    <xsl:variable name="STextualDS">Number of relations in the current document or corpus to connect a token (SToken) with a textual data source (STextualDS).</xsl:variable>
+    <xsl:variable name="STimeline">In Salt a common timeline exists, which can be used to identify the chronological occurance of a token. For instance to identify if one token corresponding to one text occurs before or after another token corresponding to another text. This would be important in dialogue corpora.</xsl:variable>
+    <xsl:variable name="SToken">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
+   
 
     <!-- buid html sceleton-->
     <xsl:template match="sCorpusInfo|sDocumentInfo">
@@ -54,7 +65,9 @@
                 </div>
                 
                 <!-- get annotation info table -->
+                <xsl:if test="sAnnotationInfo">
                 <xsl:call-template name="annoTable"/>
+                </xsl:if>
 
                 <!-- set meta data info as json input -->
                 <xsl:if test="$isMainCorpus">
@@ -68,7 +81,17 @@
                     </xsl:result-document>
                 </xsl:if>
                 
+                <xsl:apply-templates select="sLayerInfo">
+                    <xsl:sort select="@sName"/>
+                </xsl:apply-templates>
+                
+                <script>
+                  	 addTooltips_MetaData();
+                  	 addTooltips_AnnotationNames();
+                  	 styleToolTips();
+                </script>
             </body>
+            
         </html>
     </xsl:template>
     
@@ -76,10 +99,11 @@
 
     <!-- build structural info table -->
     <xsl:template name="structInfo" match="structuralInfo">
+        <xsl:if test="not(empty(child::node()))">
         <h3>Structural Info</h3>
         <hr/>
-        <!-- insert something to enable descriptions (link to customization file?) -->
-        <br/>
+        <!-- paragraph for description -->
+        <p id="structInfoDescription"></p>
         <br/>
         <!-- create table structure -->
         <table class="data-structuralInfo">
@@ -94,6 +118,7 @@
                 </xsl:apply-templates>
             </tbody>
         </table>
+        </xsl:if>
     </xsl:template>
 
     <!-- get all structural entries of the corpus -->
@@ -105,6 +130,7 @@
                 <tr class="odd">
                     <td class="entry-key">
                         <span class="tooltip">
+                            <xsl:attribute name="title"><xsl:call-template name="structTooltips"/></xsl:attribute>
                             <xsl:value-of select="@key"/>
                                 <i class="fa fa-info-circle icon"/>
                         </span>
@@ -118,7 +144,7 @@
                 <tr class="even">
                     <td class="entry-key">
                         <span class="tooltip">
-                            <xsl:attribute name="title"><xsl:value-of select="@key"/></xsl:attribute>
+                            <xsl:attribute name="title"><xsl:call-template name="structTooltips"/></xsl:attribute>
                             <xsl:value-of select="@key"/>
                                 <i class="fa fa-info-circle icon"/>
                         </span>
@@ -132,10 +158,11 @@
     </xsl:template>
 
     <xsl:template match="metaDataInfo">
+        <xsl:if test="not(empty(child::node()))">
         <h4>Meta Data</h4>
         <hr/>
-        <!-- insert something to enable descriptions (link to customization file?) -->
-        <br/>
+        <!-- paragraph for description -->
+        <p id="metaDataDescription"></p>
         <br/>
         <table>
             <thead>
@@ -149,6 +176,7 @@
                 </xsl:apply-templates>
             </tbody>
         </table>
+        </xsl:if>
     </xsl:template>
 
     <!-- get first 5 metadata entries -->
@@ -184,12 +212,13 @@
     </xsl:template>
 
     <xsl:template name="annoTable">
+        <xsl:if test="not(empty(sAnnotationInfo/child::node()))">
         <div>
         <h4>Annotations</h4>
         <hr/>
-        <!-- insert something to enable descriptions (link to customization file?) -->
-        <br/>
-        <br/>
+            <!-- paragraph for description -->
+            <p id="annoDescription"></p>
+            <br/>
         <table class="data-table">
             <thead>
                 <th>Name</th>
@@ -202,12 +231,8 @@
                 </xsl:apply-templates>
             </tbody>
         </table>
-        <script>
-          	 addTooltips_MetaData();
-          	 addTooltips_AnnotationNames();
-          	 styleToolTips();
-        </script>
         </div>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="sAnnotationInfo" mode="annoTable">
@@ -324,6 +349,31 @@
         }
     </xsl:template>
     
+    <xsl:template match="sLayerInfo">
+        <xsl:if test="not(empty(child::node()))">
+        <div>
+            <h4><xsl:value-of select="@sName"/></h4>
+            <hr/>
+            <!-- paragraph for description -->
+            <p id="sLayerDescription"></p>
+            <br/>
+            <table class="data-table">
+                <thead>
+                    <th>Name</th>
+                    <th>Values</th>
+                </thead>
+                <tbody>
+                    <!-- set metadata entries -->
+                    <xsl:apply-templates select="sAnnotationInfo" mode="annoTable">
+                        <xsl:sort select="@sName"/>
+                    </xsl:apply-templates>
+                </tbody>
+            </table>
+        </div>
+        </xsl:if>
+    </xsl:template>
+    
+    <!-- create main page with detailed corpus description if given (customization.json) -->
     <xsl:template name="main">
         <html>
             <head>
@@ -337,13 +387,37 @@
                 </h2>
                 <hr/>
                 <article id="corpusDescription">
-                    This web page was produced by SaltInfoModule a module for the Pepper converter framework.
                 </article>
                 <h3>Annotators</h3>
                 <hr/>
                 <article id="annotators"></article>
             </body>
         </html>
+    </xsl:template>
+    
+    <!-- choose matching tooltip -->
+    <xsl:template name="structTooltips">
+        <xsl:choose>
+            <xsl:when test="@key = 'SNode'"><xsl:value-of select="$SNode"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'SRelation'"><xsl:value-of select="$SRelation"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'SSpan'"><xsl:value-of select="$SSpan"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'SSpanningRelation'"><xsl:value-of select="$SSpanningRelation"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'STextualDS'"><xsl:value-of select="$STextualDS"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'STimeline'"><xsl:value-of select="$STimeline"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'SToken'"><xsl:value-of select="$SToken"/></xsl:when>
+        </xsl:choose>
     </xsl:template>
 
 </xsl:stylesheet>

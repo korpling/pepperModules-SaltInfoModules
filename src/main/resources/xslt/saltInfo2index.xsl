@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
     <xsl:output encoding="UTF-8" method="xhtml" indent="yes" doctype-public="html"/>
+    <!-- get saltProject file -->
     <xsl:template match="saltProjectInfo">
         <html>
             <head>
@@ -75,24 +76,6 @@
             ] 
         </xsl:if> }<xsl:if test="not(empty(following-sibling::node()))">,</xsl:if>
     </xsl:template>
-    
-    <!-- get all subcorpora of the corpus -->
-    <xsl:template match="sCorpusInfo" mode="subsub"> { 
-        "text" : "<xsl:value-of select="@sName"/>",
-        "metadata" : { "href" : "./<xsl:value-of select="replace(@rel-location, 'xml','html')"/>" },
-        icon : "fa fa-folder-o"<xsl:if test="not(empty(*))">, 
-            "children" : 
-            [ <xsl:apply-templates
-                select="sCorpusInfo" mode="subsub">
-                <xsl:sort select="@sName" />
-            </xsl:apply-templates>
-            <xsl:apply-templates select="sDocumentInfo">
-                <xsl:sort select="@sName"/>
-            </xsl:apply-templates> 
-            ] 
-        </xsl:if> }<xsl:if test="not(empty(following-sibling::node()))">,</xsl:if>
-    </xsl:template>
-    
 
     <!-- get all documents of the corpus/ subcorpus -->
     <xsl:template match="sDocumentInfo"> { 
@@ -116,7 +99,6 @@
             <span class="clickify" onclick="loadMainPage();">
                 <i class="fa fa-home"></i> About</span>
             <div id="jstree2" class="demo"></div>
-            
         </div>
         <div id="main_content_wrap" class="outer">
             <section id="content" />
