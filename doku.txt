@@ -74,24 +74,24 @@ where ANNO_NAME_X is the name of the annotation, META_NAME_X is the name of the 
 - impressum
 You should adopt the impressum for your specific dates, like who is in charge for that site etc. You can do that by adopting the following HTML snippet:
 
-<article id="impAnschrift">
-		Angaben gemäß § 5 TMG:<br /> <br />INSTITUTION<br />
-		ADDRESS<br />
-		<hr />
-		<br />
-		<h3 id="impContact">Contact</h3>
-		<table class="impContact">
-			<tr>
-				<td>phone:</td>
-				<td>PHONE_NUMBER</td>
-			</tr>
-			<tr>
-				<td>E-Mail:</td>
-				<td>EMAIL</td>
-			</tr>
-		</table>
-	</article>
-
+    <br />
+    INSTITUTION
+    <br />
+    ADDRESS
+    <br />
+    <h2>Represented by</h2>
+    PERSON
+    <br />
+    <h2>Contact</h2>
+    Telephone: PHONE
+    <br />
+    E-Mail:
+    <a href="EMAIL">EMAIL</a>
+    <br />
+    Internetadresse:
+    <a href="http://korpling.german.hu-berlin.de" target="_blank">WEB_ADDRESS</a>
+    <br />
+    
 browsers
 ========
 - optimized for mozilla firefox
