@@ -1,1 +1,155 @@
-<?xml version="1.0" ?><sDocumentInfo generatedOn="2014-09-16 20:54:19" sName="MULTILIT" id="salt:/exmaralda/tr/CvO_10_EDA_de_we_katk"><metaDataInfo><entry key="Textualität">MD</entry><entry key="Korrektur">CS</entry><entry key="transcriptionName">CvO_10_EDA_de_we</entry><entry key="Analyse">CS</entry><entry key="Transkribend">VM</entry><entry key="Korrektur 2">VM</entry><entry key="EDA::sex">f</entry><entry key="EDA::abbreviation">EDA</entry></metaDataInfo><structuralInfo><entry key="SNode">315</entry><entry key="STimeline">1</entry><entry key="STextualDS">1</entry><entry key="SToken">103</entry><entry key="SSpan">210</entry><entry key="SRelation">566</entry><entry key="SSpanningRelation">360</entry></structuralInfo><sAnnotationInfo sName="FUNC" occurrences="2"><sValue occurrences="1">ARGc </sValue><sValue occurrences="1">EVALo </sValue></sAnnotationInfo><sAnnotationInfo sName="ERRSYN" occurrences="1"><sValue occurrences="1">WODEVZH2 </sValue></sAnnotationInfo><sAnnotationInfo sName="POS" occurrences="79"><sValue occurrences="3">NN </sValue><sValue occurrences="4">PTKNEG </sValue><sValue occurrences="1">PRELS </sValue><sValue occurrences="7">VVFIN </sValue><sValue occurrences="4">VAFIN </sValue><sValue occurrences="1">CO </sValue><sValue occurrences="1">NKO </sValue><sValue occurrences="2">PPER3 </sValue><sValue occurrences="1">PDAT </sValue><sValue occurrences="2">APPR </sValue><sValue occurrences="2">VMFIN </sValue><sValue occurrences="2">ADJD </sValue><sValue occurrences="2">KOUS </sValue><sValue occurrences="3">VVINF </sValue><sValue occurrences="3">PPER1 </sValue><sValue occurrences="1">PPOSAT1 </sValue><sValue occurrences="5">VVPP </sValue><sValue occurrences="1">VAINF </sValue><sValue occurrences="2">PTKZU </sValue><sValue occurrences="1">KONP </sValue><sValue occurrences="3">KONS </sValue><sValue occurrences="3">NOM </sValue><sValue occurrences="5">PIS </sValue><sValue occurrences="13">ADV </sValue><sValue occurrences="4">ART </sValue><sValue occurrences="3">PRF3 </sValue></sAnnotationInfo><sAnnotationInfo sName="ZH2" occurrences="7"><sValue occurrences="1">sich </sValue><sValue occurrences="1">man </sValue><sValue occurrences="1">ja </sValue><sValue occurrences="1">betrügt </sValue><sValue occurrences="1">somit </sValue><sValue occurrences="1">Schließlich </sValue><sValue occurrences="1">selbst </sValue></sAnnotationInfo><sAnnotationInfo sName="ZH1" occurrences="92"><sValue occurrences="2">mehr </sValue><sValue occurrences="1">war </sValue><sValue occurrences="1">macht </sValue><sValue occurrences="1">denn </sValue><sValue occurrences="1">Man </sValue><sValue occurrences="1">gerettet </sValue><sValue occurrences="1">gespickt </sValue><sValue occurrences="1">Aber </sValue><sValue occurrences="1">versucht </sValue><sValue occurrences="1">Wissen </sValue><sValue occurrences="1">falsch </sValue><sValue occurrences="1">Ich </sValue><sValue occurrences="1">An </sValue><sValue occurrences="1">hat </sValue><sValue occurrences="1">dass </sValue><sValue occurrences="2">man </sValue><sValue occurrences="1">Physikarbeit </sValue><sValue occurrences="7">, </sValue><sValue occurrences="2">und </sValue><sValue occurrences="2">zu </sValue><sValue occurrences="2">ich </sValue><sValue occurrences="1">somit </sValue><sValue occurrences="1">spicken </sValue><sValue occurrences="1">aneignen </sValue><sValue occurrences="1">spickt </sValue><sValue occurrences="1">haben </sValue><sValue occurrences="1">dieses </sValue><sValue occurrences="2">es </sValue><sValue occurrences="1">lernen </sValue><sValue occurrences="4">nicht </sValue><sValue occurrences="1">Note </sValue><sValue occurrences="1">selbst </sValue><sValue occurrences="1">gesagt </sValue><sValue occurrences="1">ist </sValue><sValue occurrences="1">in </sValue><sValue occurrences="1">sonst </sValue><sValue occurrences="1">weiß </sValue><sValue occurrences="2">sollte </sValue><sValue occurrences="6">. </sValue><sValue occurrences="1">wieder </sValue><sValue occurrences="1">jemand </sValue><sValue occurrences="1">meine </sValue><sValue occurrences="1">Mensch </sValue><sValue occurrences="1">ja </sValue><sValue occurrences="1">auch </sValue><sValue occurrences="1">nichts </sValue><sValue occurrences="1">bereue </sValue><sValue occurrences="1">ehrlich </sValue><sValue occurrences="1">unverdient </sValue><sValue occurrences="3">der </sValue><sValue occurrences="1">gewöhnen </sValue><sValue occurrences="1">bin </sValue><sValue occurrences="2">selber </sValue><sValue occurrences="2">immer </sValue><sValue occurrences="3">Spicken </sValue><sValue occurrences="3">sich </sValue><sValue occurrences="1">betrügt </sValue><sValue occurrences="1">wenn </sValue><sValue occurrences="2">Schließlich </sValue><sValue occurrences="2">das </sValue><sValue occurrences="1">lernt </sValue></sAnnotationInfo><sAnnotationInfo sName="NP" occurrences="7"><sValue occurrences="6">NPO </sValue><sValue occurrences="1">NPC </sValue></sAnnotationInfo><sAnnotationInfo sName="SYN2" occurrences="7"><sValue occurrences="1">SCADV </sValue><sValue occurrences="1">SCREL </sValue><sValue occurrences="3">SCELL </sValue><sValue occurrences="1">SCINF </sValue><sValue occurrences="1">SCCOMP </sValue></sAnnotationInfo><sAnnotationInfo sName="SYN1" occurrences="8"><sValue occurrences="2">MCD </sValue><sValue occurrences="6">MCD+2 </sValue></sAnnotationInfo><sAnnotationInfo sName="%com" occurrences="2"><sValue occurrences="2">mit Tippex bearbeitet </sValue></sAnnotationInfo><sAnnotationInfo sName="ERRORTHO" occurrences="3"><sValue occurrences="3">WORD </sValue></sAnnotationInfo><sAnnotationInfo sName="STANCE" occurrences="2"><sValue occurrences="1">MORc </sValue><sValue occurrences="1">MORo </sValue></sAnnotationInfo></sDocumentInfo>
+<?xml version="1.0" ?>
+<sDocumentInfo generatedOn="2014-09-16 20:54:19" sName="MULTILIT"
+    id="salt:/exmaralda/tr/CvO_10_EDA_de_we_katk">
+    <metaDataInfo>
+        <entry key="Textualität">MD</entry>
+        <entry key="Korrektur">CS</entry>
+        <entry key="transcriptionName">CvO_10_EDA_de_we</entry>
+        <entry key="Analyse">CS</entry>
+        <entry key="Transkribend">VM</entry>
+        <entry key="Korrektur 2">VM</entry>
+        <entry key="EDA::sex">f</entry>
+        <entry key="EDA::abbreviation">EDA</entry>
+    </metaDataInfo>
+    <structuralInfo>
+        <entry key="SNode">315</entry>
+        <entry key="STimeline">1</entry>
+        <entry key="STextualDS">1</entry>
+        <entry key="SToken">103</entry>
+        <entry key="SSpan">210</entry>
+        <entry key="SRelation">566</entry>
+        <entry key="SSpanningRelation">360</entry>
+    </structuralInfo>
+    <sAnnotationInfo sName="FUNC" occurrences="2">
+        <sValue occurrences="1">ARGc </sValue>
+        <sValue occurrences="1">EVALo </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="ERRSYN" occurrences="1">
+        <sValue occurrences="1">WODEVZH2 </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="POS" occurrences="79">
+        <sValue occurrences="3">NN </sValue>
+        <sValue occurrences="4">PTKNEG </sValue>
+        <sValue occurrences="1">PRELS </sValue>
+        <sValue occurrences="7">VVFIN </sValue>
+        <sValue occurrences="4">VAFIN </sValue>
+        <sValue occurrences="1">CO </sValue>
+        <sValue occurrences="1">NKO </sValue>
+        <sValue occurrences="2">PPER3 </sValue>
+        <sValue occurrences="1">PDAT </sValue>
+        <sValue occurrences="2">APPR </sValue>
+        <sValue occurrences="2">VMFIN </sValue>
+        <sValue occurrences="2">ADJD </sValue>
+        <sValue occurrences="2">KOUS </sValue>
+        <sValue occurrences="3">VVINF </sValue>
+        <sValue occurrences="3">PPER1 </sValue>
+        <sValue occurrences="1">PPOSAT1 </sValue>
+        <sValue occurrences="5">VVPP </sValue>
+        <sValue occurrences="1">VAINF </sValue>
+        <sValue occurrences="2">PTKZU </sValue>
+        <sValue occurrences="1">KONP </sValue>
+        <sValue occurrences="3">KONS </sValue>
+        <sValue occurrences="3">NOM </sValue>
+        <sValue occurrences="5">PIS </sValue>
+        <sValue occurrences="13">ADV </sValue>
+        <sValue occurrences="4">ART </sValue>
+        <sValue occurrences="3">PRF3 </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="ZH2" occurrences="7">
+        <sValue occurrences="1">sich </sValue>
+        <sValue occurrences="1">man </sValue>
+        <sValue occurrences="1">ja </sValue>
+        <sValue occurrences="1">betrügt </sValue>
+        <sValue occurrences="1">somit </sValue>
+        <sValue occurrences="1">Schließlich </sValue>
+        <sValue occurrences="1">selbst </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="ZH1" occurrences="92">
+        <sValue occurrences="2">mehr </sValue>
+        <sValue occurrences="1">war </sValue>
+        <sValue occurrences="1">macht </sValue>
+        <sValue occurrences="1">denn </sValue>
+        <sValue occurrences="1">Man </sValue>
+        <sValue occurrences="1">gerettet </sValue>
+        <sValue occurrences="1">gespickt </sValue>
+        <sValue occurrences="1">Aber </sValue>
+        <sValue occurrences="1">versucht </sValue>
+        <sValue occurrences="1">Wissen </sValue>
+        <sValue occurrences="1">falsch </sValue>
+        <sValue occurrences="1">Ich </sValue>
+        <sValue occurrences="1">An </sValue>
+        <sValue occurrences="1">hat </sValue>
+        <sValue occurrences="1">dass </sValue>
+        <sValue occurrences="2">man </sValue>
+        <sValue occurrences="1">Physikarbeit </sValue>
+        <sValue occurrences="7">, </sValue>
+        <sValue occurrences="2">und </sValue>
+        <sValue occurrences="2">zu </sValue>
+        <sValue occurrences="2">ich </sValue>
+        <sValue occurrences="1">somit </sValue>
+        <sValue occurrences="1">spicken </sValue>
+        <sValue occurrences="1">aneignen </sValue>
+        <sValue occurrences="1">spickt </sValue>
+        <sValue occurrences="1">haben </sValue>
+        <sValue occurrences="1">dieses </sValue>
+        <sValue occurrences="2">es </sValue>
+        <sValue occurrences="1">lernen </sValue>
+        <sValue occurrences="4">nicht </sValue>
+        <sValue occurrences="1">Note </sValue>
+        <sValue occurrences="1">selbst </sValue>
+        <sValue occurrences="1">gesagt </sValue>
+        <sValue occurrences="1">ist </sValue>
+        <sValue occurrences="1">in </sValue>
+        <sValue occurrences="1">sonst </sValue>
+        <sValue occurrences="1">weiß </sValue>
+        <sValue occurrences="2">sollte </sValue>
+        <sValue occurrences="6">. </sValue>
+        <sValue occurrences="1">wieder </sValue>
+        <sValue occurrences="1">jemand </sValue>
+        <sValue occurrences="1">meine </sValue>
+        <sValue occurrences="1">Mensch </sValue>
+        <sValue occurrences="1">ja </sValue>
+        <sValue occurrences="1">auch </sValue>
+        <sValue occurrences="1">nichts </sValue>
+        <sValue occurrences="1">bereue </sValue>
+        <sValue occurrences="1">ehrlich </sValue>
+        <sValue occurrences="1">unverdient </sValue>
+        <sValue occurrences="3">der </sValue>
+        <sValue occurrences="1">gewöhnen </sValue>
+        <sValue occurrences="1">bin </sValue>
+        <sValue occurrences="2">selber </sValue>
+        <sValue occurrences="2">immer </sValue>
+        <sValue occurrences="3">Spicken </sValue>
+        <sValue occurrences="3">sich </sValue>
+        <sValue occurrences="1">betrügt </sValue>
+        <sValue occurrences="1">wenn </sValue>
+        <sValue occurrences="2">Schließlich </sValue>
+        <sValue occurrences="2">das </sValue>
+        <sValue occurrences="1">lernt </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="NP" occurrences="7">
+        <sValue occurrences="6">NPO </sValue>
+        <sValue occurrences="1">NPC </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="SYN2" occurrences="7">
+        <sValue occurrences="1">SCADV </sValue>
+        <sValue occurrences="1">SCREL </sValue>
+        <sValue occurrences="3">SCELL </sValue>
+        <sValue occurrences="1">SCINF </sValue>
+        <sValue occurrences="1">SCCOMP </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="SYN1" occurrences="8">
+        <sValue occurrences="2">MCD </sValue>
+        <sValue occurrences="6">MCD+2 </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="%com" occurrences="2">
+        <sValue occurrences="2">mit Tippex bearbeitet </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="ERRORTHO" occurrences="3">
+        <sValue occurrences="3">WORD </sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="STANCE" occurrences="2">
+        <sValue occurrences="1">MORc </sValue>
+        <sValue occurrences="1">MORo </sValue>
+    </sAnnotationInfo>
+</sDocumentInfo>

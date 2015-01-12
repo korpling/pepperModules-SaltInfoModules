@@ -24,8 +24,12 @@
             </xsl:otherwise>
     </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="currentFile">
+        <xsl:value-of select="replace(root()/node()/@id,'.*/','')"></xsl:value-of>
+    </xsl:variable>
     <!-- define output name for json file -->
-    <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="$corpusname"/>.json</xsl:param>
+    <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="$currentFile"/>.json</xsl:param>
+    <xsl:variable name="jsonOutputPath">./<xsl:value-of select="substring-after(replace(root()/node()/@id, $currentFile, concat('anno_', $currentFile, '.json')), 'salt:/')"/></xsl:variable>
     <!-- tooltip descriptions for structural elements -->
     <xsl:variable name="SNode">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
    <xsl:variable name="SRelation">Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.eRelation.eRelation.eRelation.eRelation.</xsl:variable>
@@ -70,12 +74,12 @@
                 </xsl:if>
 
                 <!-- set meta data info as json input -->
-                <xsl:if test="$isMainCorpus">
+                
                     <xsl:result-document href="{$jsonOutputName}" format="json">
                             <xsl:call-template name="json"/>
                     </xsl:result-document>
                     
-                    
+                <xsl:if test="$isMainCorpus"> 
                     <xsl:result-document href="main.html" format="main">
                         <xsl:call-template name="main"/>
                     </xsl:result-document>
@@ -291,8 +295,7 @@
                                 <xsl:value-of select="@sName"/><xsl:text>_btn</xsl:text>
                             </xsl:attribute>
                             <xsl:attribute name="onClick">
-                                <xsl:text>loadAndExpandAnnoValues('./anno_</xsl:text>
-                                <xsl:value-of select="$corpusname"/>.json<xsl:text>','</xsl:text>
+                                <xsl:text>loadAndExpandAnnoValues('</xsl:text><xsl:value-of select="$jsonOutputPath"/><xsl:text>','</xsl:text>
                                 <xsl:value-of select="@sName"/><xsl:text>')</xsl:text>
                             </xsl:attribute>
                     </i>
@@ -314,7 +317,9 @@
 
     <xsl:template match="sAnnotationInfo" mode="annoJson">         <xsl:choose>
         <xsl:when test="$createJsonForAllAnnos">"<xsl:value-of select="@sName"/>": [
-            <xsl:apply-templates select="sValue" mode="ValueJson"/>
+            <xsl:apply-templates select="sValue" mode="ValueJson">
+                <xsl:sort select="text()"></xsl:sort>
+            </xsl:apply-templates>
             <xsl:choose>
                 <xsl:when test="position()!=last()">"],
                 </xsl:when>
@@ -323,7 +328,9 @@
             </xsl:choose></xsl:when>
     <xsl:otherwise>
         <xsl:if test="count(.//sValue) > 5">"<xsl:value-of select="@sName"/>": [
-            <xsl:apply-templates select="sValue" mode="ValueJson"/>
+            <xsl:apply-templates select="sValue" mode="ValueJson">
+                <xsl:sort select="text()"></xsl:sort>
+            </xsl:apply-templates>
             <xsl:choose>
                 <xsl:when test="position()!=last()">],
                 </xsl:when>
@@ -383,7 +390,7 @@
             </head>
             <body>
                 <h2 id="corpusTitle">
-                    <xsl:value-of select="$corpusname"/>
+                    <xsl:value-of select="$currentFile"/>
                 </h2>
                 <hr/>
                 <article id="corpusDescription">
