@@ -198,8 +198,8 @@ function loadParams() {
  * when there are more annotations as predefined treshhold.
  ******************************************************************************/
 var NUM_OF_SET_VALUES = 5;
-var SYMBOL_UP = "fa fa-compress";
-var SYMBOL_DOWN = "fa fa-expand";
+var SYMBOL_COLLAPSE = "fa fa-compress";
+var SYMBOL_EXPAND = "fa fa-expand";
 var annoTable = null;
 /**
  * Loads the anno map from passed file if necessary and expands
@@ -245,8 +245,8 @@ function expandAnnoValues(annoName) {
         }
 
         var $btn = $("#" + annoName + "_btn");
-        $btn.children(":first").removeClass(SYMBOL_DOWN);
-        $btn.children(":first").addClass(SYMBOL_UP);
+        $btn.removeClass(SYMBOL_EXPAND);
+        $btn.addClass(SYMBOL_COLLAPSE);
         $btn.unbind('click');
         $btn.attr("onclick", "collapseValues('" + annoName + "')");
     }
@@ -271,8 +271,8 @@ function collapseValues(annoName) {
         }
 
         var $btn = $("#" + annoName + "_btn");
-        $btn.children(":first").removeClass(SYMBOL_UP);
-        $btn.children(":first").addClass(SYMBOL_DOWN);
+        $btn.removeClass(SYMBOL_COLLAPSE);
+        $btn.addClass(SYMBOL_EXPAND);
         $btn.unbind('click');
         $btn.attr("onclick", "expandAnnoValues('" + annoName + "')");
     }
