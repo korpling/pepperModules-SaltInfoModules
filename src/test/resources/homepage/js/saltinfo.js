@@ -239,8 +239,8 @@ function expandAnnoValues(annoName) {
         var slot = annoTable[annoName];
         for (var i = NUM_OF_SET_VALUES; i < slot.length; i++) {
             var $newSpan = $span.clone();
-            $newSpan.children().eq(0).innerText = slot[i].value;
-            $newSpan.children().eq(1).innerText = slot[i].occurance;
+            $newSpan.children().eq(0).text(slot[i].value);
+            $newSpan.children().eq(1).text(slot[i].occurance);
             $td.append($newSpan);
         }
 
