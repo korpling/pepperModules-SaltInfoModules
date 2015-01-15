@@ -129,6 +129,9 @@ function loadCustomization() {
     $.getJSON(FILE_CUSTOMIZATION, function(json) {
         shortDescription = json.shortDescription;
         description = json.description;
+        
+        $("#project_tagline").text(shortDescription);
+        
         for (var i = 0; i < json.annotators.length; i++) {
             annotators[annotators.length] = new Author(json.annotators[i].name, json.annotators[i].eMail);
         }
