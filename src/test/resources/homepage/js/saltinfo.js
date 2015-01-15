@@ -32,6 +32,7 @@ var CSV_SEPARATOR = ',';
 var CSV_DOUBLEQUOTE = '"';
 var CSV_LINEBREAK = '\r\n';
 var CSV_MIME_TYPE = 'text/csv';
+var CLASS_OCCURANCE= '.anno-value-count'
 
 /**
  * loads text as data uri
@@ -59,7 +60,7 @@ function convertToCSV(svalues) {
         function() {
             var valuename = escapeDQuote($(this).children(
                 '.svalue-text').text());
-            var valuecount = $(this).children('.svalue-occurrences')
+            var valuecount = $(this).children(CLASS_OCCURANCE)
                 .text();
             text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
             text += CSV_SEPARATOR;
