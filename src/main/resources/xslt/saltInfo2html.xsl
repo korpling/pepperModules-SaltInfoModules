@@ -24,18 +24,28 @@
             </xsl:otherwise>
     </xsl:choose>
     </xsl:variable>
+    <xsl:variable name="currentFile">
+        <xsl:value-of select="replace(root()/node()/@id,'.*/','')"></xsl:value-of>
+    </xsl:variable>
     <!-- define output name for json file -->
-    <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="$corpusname"/>.json</xsl:param>
+    <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="root()/node()/@sName"/>.json</xsl:param>
+    <xsl:param name="jsonOutputNameDeprecated">./anno_<xsl:value-of select="$currentFile"/>.json</xsl:param>
+    <xsl:variable name="jsonOutputPath">./<xsl:value-of select="substring-after(replace(root()/node()/@id, $currentFile, concat('anno_', $currentFile, '.json')), 'salt:/')"/></xsl:variable>
     <!-- tooltip descriptions for structural elements -->
     <xsl:variable name="SNode">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
-   <xsl:variable name="SRelation">Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominancTotal number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.eRelation.eRelation.eRelation.eRelation.</xsl:variable>
+    <xsl:variable name="SRelation">Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.</xsl:variable>
     <xsl:variable name="SSpan">Number of ps in the current document or corpus. A p is an aggregation of a bunch of tokens containing 0..n token.</xsl:variable>
     <xsl:variable name="SSpanningRelation">Number of relations in the current document or corpus to connect ps (SSpan) with tokens (SToken).</xsl:variable>
     <xsl:variable name="STextualDS">Number of relations in the current document or corpus to connect a token (SToken) with a textual data source (STextualDS).</xsl:variable>
     <xsl:variable name="STimeline">In Salt a common timeline exists, which can be used to identify the chronological occurance of a token. For instance to identify if one token corresponding to one text occurs before or after another token corresponding to another text. This would be important in dialogue corpora.</xsl:variable>
     <xsl:variable name="SToken">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
-   
-
+    <xsl:variable name="SPointingRelation">Number of relations in the current document or corpus for loose connections like anaphoric relations.</xsl:variable>
+    <xsl:variable name="STextualRelation">Number of relations in the current document or corpus to connect a token (SToken) with a textual data source (STextualDS).</xsl:variable>
+    <xsl:variable name="SStructure">Number of hierarchical structures in the current document or corpus. SStructure objects in Salt are used to represent hierarchies e.g. for constituents.</xsl:variable>
+    <xsl:variable name="SDominanceRelation">Number of relations in the current document or corpus to connect hierarchical nodes like SStructure with other SNode objects. This relation class is used to represent for e.g. constituents relations.</xsl:variable>
+    <xsl:variable name="SOrderRelation">Number of relations in the current document or corpus to order SNode objects. This class is used to manage conflicting token levels as they can occur for instance in dialogues.</xsl:variable>
+    <xsl:variable name="STimelineRelation">Number of relations in the current document or corpus to connect a token (SToken) with the common timeline (STimeline).</xsl:variable>
+    
     <!-- buid html sceleton-->
     <xsl:template match="sCorpusInfo|sDocumentInfo">
         <html>
@@ -70,12 +80,12 @@
                 </xsl:if>
 
                 <!-- set meta data info as json input -->
-                <xsl:if test="$isMainCorpus">
+                
                     <xsl:result-document href="{$jsonOutputName}" format="json">
                             <xsl:call-template name="json"/>
                     </xsl:result-document>
                     
-                    
+                <xsl:if test="$isMainCorpus"> 
                     <xsl:result-document href="main.html" format="main">
                         <xsl:call-template name="main"/>
                     </xsl:result-document>
@@ -291,8 +301,7 @@
                                 <xsl:value-of select="@sName"/><xsl:text>_btn</xsl:text>
                             </xsl:attribute>
                             <xsl:attribute name="onClick">
-                                <xsl:text>loadAndExpandAnnoValues('./anno_</xsl:text>
-                                <xsl:value-of select="$corpusname"/>.json<xsl:text>','</xsl:text>
+                                <xsl:text>loadAndExpandAnnoValues('</xsl:text><xsl:value-of select="$jsonOutputPath"/><xsl:text>','</xsl:text>
                                 <xsl:value-of select="@sName"/><xsl:text>')</xsl:text>
                             </xsl:attribute>
                     </i>
@@ -314,7 +323,9 @@
 
     <xsl:template match="sAnnotationInfo" mode="annoJson">         <xsl:choose>
         <xsl:when test="$createJsonForAllAnnos">"<xsl:value-of select="@sName"/>": [
-            <xsl:apply-templates select="sValue" mode="ValueJson"/>
+            <xsl:apply-templates select="sValue" mode="ValueJson">
+                <xsl:sort select="text()"></xsl:sort>
+            </xsl:apply-templates>
             <xsl:choose>
                 <xsl:when test="position()!=last()">"],
                 </xsl:when>
@@ -323,7 +334,9 @@
             </xsl:choose></xsl:when>
     <xsl:otherwise>
         <xsl:if test="count(.//sValue) > 5">"<xsl:value-of select="@sName"/>": [
-            <xsl:apply-templates select="sValue" mode="ValueJson"/>
+            <xsl:apply-templates select="sValue" mode="ValueJson">
+                <xsl:sort select="text()"></xsl:sort>
+            </xsl:apply-templates>
             <xsl:choose>
                 <xsl:when test="position()!=last()">],
                 </xsl:when>
@@ -383,7 +396,7 @@
             </head>
             <body>
                 <h2 id="corpusTitle">
-                    <xsl:value-of select="$corpusname"/>
+                    <xsl:value-of select="$currentFile"/>
                 </h2>
                 <hr/>
                 <article id="corpusDescription">
@@ -417,6 +430,21 @@
         </xsl:choose>
         <xsl:choose>
             <xsl:when test="@key = 'SToken'"><xsl:value-of select="$SToken"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'SPointingRelation'"><xsl:value-of select="$SPointingRelation"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'STextualRelation'"><xsl:value-of select="$STextualRelation"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'SStructure'"><xsl:value-of select="$SStructure"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'SDominanceRelation'"><xsl:value-of select="$SDominanceRelation"/></xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="@key = 'STimelineRelation'"><xsl:value-of select="$STimelineRelation"/></xsl:when>
         </xsl:choose>
     </xsl:template>
 

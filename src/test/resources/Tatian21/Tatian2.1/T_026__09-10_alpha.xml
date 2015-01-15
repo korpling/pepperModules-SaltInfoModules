@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="/home/viv/git/SaltInfoModules/src/main/resources/xslt/saltInfo2html.xsl" ?>
+<sDocumentInfo generatedOn="2014-11-26 15:12:58" sName="T_026__09-10_alpha"
+    id="salt:/Tatian2.1/T_026__09-10_alpha">
+    <metaDataInfo>
+        <entry key="line">09-10</entry>
+        <entry key="corpus-code">T</entry>
+        <entry key="X::abbreviation">X</entry>
+        <entry key="X::sex">m</entry>
+        <entry key="page">026</entry>
+        <entry key="writer">alpha</entry>
+    </metaDataInfo>
+    <structuralInfo>
+        <entry key="SNode">38</entry>
+        <entry key="STimeline">1</entry>
+        <entry key="STextualDS">1</entry>
+        <entry key="SToken">7</entry>
+        <entry key="SSpan">29</entry>
+        <entry key="SRelation">66</entry>
+        <entry key="SSpanningRelation">52</entry>
+    </structuralInfo>
+    <sAnnotationInfo sName="syl_no" occurrences="4">
+        <sValue occurrences="2">5</sValue>
+        <sValue occurrences="1">2</sValue>
+        <sValue occurrences="1">1</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="LAT" occurrences="4">
+        <sValue occurrences="1">cum</sValue>
+        <sValue occurrences="1">funger&amp;ur</sValue>
+        <sValue occurrences="1">/</sValue>
+        <sValue occurrences="1">sacerdotio</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="givenness" occurrences="1">
+        <sValue occurrences="1">GIV</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="bibl" occurrences="1">
+        <sValue occurrences="1">T 26, 9-10 Alpha Lc 1</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="position" occurrences="0"/>
+    <sAnnotationInfo sName="comment" occurrences="1">
+        <sValue occurrences="1">eingefügtes Subjektspronomen O I 4 11 Zít ward tho giréisot</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="clause-status" occurrences="1">
+        <sValue occurrences="1">SUBTEMP</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="aboutness" occurrences="0"/>
+    <sAnnotationInfo sName="pos" occurrences="6">
+        <sValue occurrences="1">V</sValue>
+        <sValue occurrences="1">VAUX</sValue>
+        <sValue occurrences="1">PRONPRS</sValue>
+        <sValue occurrences="1">CONJ</sValue>
+        <sValue occurrences="1">P</sValue>
+        <sValue occurrences="1">N</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="gf" occurrences="4">
+        <sValue occurrences="1">VFIN</sValue>
+        <sValue occurrences="1">ADVLOC</sValue>
+        <sValue occurrences="1">PARTPF</sValue>
+        <sValue occurrences="1">SUBJ</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="cat" occurrences="3">
+        <sValue occurrences="1">PP</sValue>
+        <sValue occurrences="1">VP</sValue>
+        <sValue occurrences="1">NP</sValue>
+    </sAnnotationInfo>
+    <sAnnotationInfo sName="definiteness" occurrences="1">
+        <sValue occurrences="1">DEF</sValue>
+    </sAnnotationInfo>
+</sDocumentInfo>
