@@ -32,6 +32,7 @@ var CSV_SEPARATOR = ',';
 var CSV_DOUBLEQUOTE = '"';
 var CSV_LINEBREAK = '\r\n';
 var CSV_MIME_TYPE = 'text/csv';
+var CLASS_OCCURANCE= '.anno-value-count'
 
 /**
  * loads text as data uri
@@ -59,7 +60,7 @@ function convertToCSV(svalues) {
         function() {
             var valuename = escapeDQuote($(this).children(
                 '.svalue-text').text());
-            var valuecount = $(this).children('.svalue-occurrences')
+            var valuecount = $(this).children(CLASS_OCCURANCE)
                 .text();
             text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
             text += CSV_SEPARATOR;
@@ -128,6 +129,9 @@ function loadCustomization() {
     $.getJSON(FILE_CUSTOMIZATION, function(json) {
         shortDescription = json.shortDescription;
         description = json.description;
+        
+        $("#project_tagline").text(shortDescription);
+        
         for (var i = 0; i < json.annotators.length; i++) {
             annotators[annotators.length] = new Author(json.annotators[i].name, json.annotators[i].eMail);
         }
@@ -198,33 +202,41 @@ function loadParams() {
  * when there are more annotations as predefined treshhold.
  ******************************************************************************/
 var NUM_OF_SET_VALUES = 5;
-var SYMBOL_UP = "fa fa-compress";
-var SYMBOL_DOWN = "fa fa-expand";
+var SYMBOL_COLLAPSE = "fa fa-compress";
+var SYMBOL_EXPAND = "fa fa-expand";
 var annoTable = null;
 /**
  * Loads the anno map from passed file if necessary and expands
  * the cell corresponding to passed annoName
  */
 function loadAndExpandAnnoValues(file, annoName) {
+    console.log("--------_> HERE 1");
     //if annoTable wasn't load, load it now
     if (annoTable == null) {
+		console.log("--------_> HERE 2");
         if (file != null) {
+			console.log("--------_> HERE 3");
             //set the MIME type to json, otherwise firefoy produces a warning
             $.ajaxSetup({
                 beforeSend: function(xhr) {
+					console.log("--------_> HERE 4");
                     if (xhr.overrideMimeType) {
                         xhr.overrideMimeType("application/json");
                     }
                 }
             });
+            console.log("--------_> HERE 5: "+file);
             $.getJSON(file, function(json) {
+				console.log("--------_> HERE 6");
                 annoTable = json;
                 expandAnnoValues(annoName);
             });
+            console.log("--------_> HERE 7");
         } else {
             console.error("Cannot load annotation map file, since the passed file was empty.");
         }
     } else {
+		console.log("--------_> HERE 8");
         expandAnnoValues(annoName);
     }
 }
@@ -234,19 +246,21 @@ function loadAndExpandAnnoValues(file, annoName) {
  * passed annoName.
  **/
 function expandAnnoValues(annoName) {
+		consolelog("---------------> HELLO");
         var $td = $("#"+annoName + "_values");
         var $span = $td.children().eq(0);
         var slot = annoTable[annoName];
         for (var i = NUM_OF_SET_VALUES; i < slot.length; i++) {
             var $newSpan = $span.clone();
-            $newSpan.children().eq(0).innerText = slot[i].value;
-            $newSpan.children().eq(1).innerText = slot[i].occurance;
+            $newSpan.children().eq(0).text(slot[i].value);
+            $newSpan.children().eq(1).text(slot[i].occurance);
+            console.log(slot[i].value+" = "+slot[i].occurance);
             $td.append($newSpan);
         }
 
         var $btn = $("#" + annoName + "_btn");
-        $btn.children(":first").removeClass(SYMBOL_DOWN);
-        $btn.children(":first").addClass(SYMBOL_UP);
+        $btn.removeClass(SYMBOL_EXPAND);
+        $btn.addClass(SYMBOL_COLLAPSE);
         $btn.unbind('click');
         $btn.attr("onclick", "collapseValues('" + annoName + "')");
     }
@@ -271,8 +285,8 @@ function collapseValues(annoName) {
         }
 
         var $btn = $("#" + annoName + "_btn");
-        $btn.children(":first").removeClass(SYMBOL_UP);
-        $btn.children(":first").addClass(SYMBOL_DOWN);
+        $btn.removeClass(SYMBOL_COLLAPSE);
+        $btn.addClass(SYMBOL_EXPAND);
         $btn.unbind('click');
         $btn.attr("onclick", "expandAnnoValues('" + annoName + "')");
     }
