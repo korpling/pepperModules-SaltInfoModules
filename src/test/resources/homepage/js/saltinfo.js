@@ -7,7 +7,7 @@ $(document).ready(main);
  * This method is called when complete document was loaded. This makes this function a main method.
  * */
 function main() {
-    /** Adds CSV download functionality to button or icon */
+	/** Adds CSV download functionality to button or icon */
     $("#content").on("click", ".btn-download-csv", function(event) {
         var data = $(this).parent().next().children('.svalue');
         downloadText(convertToCSV(data), CSV_MIME_TYPE);
@@ -205,13 +205,16 @@ var NUM_OF_SET_VALUES = 5;
 var SYMBOL_COLLAPSE = "fa fa-compress";
 var SYMBOL_EXPAND = "fa fa-expand";
 var annoTable = null;
+// object to store what is the current loaded file
+var currentFile= null;
 /**
  * Loads the anno map from passed file if necessary and expands
  * the cell corresponding to passed annoName
  */
 function loadAndExpandAnnoValues(file, annoName) {
-    //if annoTable wasn't load, load it now
-    if (annoTable == null) {
+    //if annoTable wasn't load with passed file, load it now
+    if (currentFile!= file){
+		currentFile= file;
         if (file != null) {
             //set the MIME type to json, otherwise firefoy produces a warning
             $.ajaxSetup({
@@ -223,6 +226,8 @@ function loadAndExpandAnnoValues(file, annoName) {
             });
             $.getJSON(file, function(json) {
                 annoTable = json;
+                console.log("-----------------------> loaded: "+file);
+                console.log("-----------------------> loaded: "+JSON.stringify(json));
                 expandAnnoValues(annoName);
             });
         } else {
@@ -241,8 +246,14 @@ function expandAnnoValues(annoName) {
         var $td = $("#"+annoName + "_values");
         var $span = $td.children().eq(0);
         var slot = annoTable[annoName];
+        
+        console.log("------------> annoTable: "+ JSON.stringify(annoTable));
+        
         for (var i = NUM_OF_SET_VALUES; i < slot.length; i++) {
             var $newSpan = $span.clone();
+            
+            console.log("expand add: "+slot[i].value+"("+slot[i].occurance+")");
+            
             $newSpan.children().eq(0).text(slot[i].value);
             $newSpan.children().eq(1).text(slot[i].occurance);
             $td.append($newSpan);
@@ -261,11 +272,13 @@ function expandAnnoValues(annoName) {
 function collapseValues(annoName) {
         var $td = $("#"+annoName + "_values");
         var numOfChilds= $td.children().length;
+        console.log("collapse numOfChilds: "+ numOfChilds);
         if (numOfChilds > NUM_OF_SET_VALUES) {
             //for better performance, first collect all items to be removed and make batch remove
             var $removalList = $();
             for (var i = NUM_OF_SET_VALUES; i < numOfChilds; i++) {
                 try {
+					console.log("collapse remove: "+ $td.children().eq(i));
                     $removalList = $removalList.add($td.children().eq(i));
                 } catch (err) {
                     console.error(err.message);
