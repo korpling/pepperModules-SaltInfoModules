@@ -31,6 +31,11 @@
     <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="root()/node()/@sName"/>.json</xsl:param>
     <xsl:param name="jsonOutputNameDeprecated">./anno_<xsl:value-of select="$currentFile"/>.json</xsl:param>
     <xsl:variable name="jsonOutputPath">./<xsl:value-of select="substring-after(replace(root()/node()/@id, $currentFile, concat('anno_', $currentFile, '.json')), 'salt:/')"/></xsl:variable>
+    
+    <!-- descriptions of sections (structural info, meta data and annotations) -->
+    <xsl:variable name="structuralInfoDesc">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.</xsl:variable>
+    <xsl:variable name="metaDataDesc">The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.</xsl:variable>
+    <xsl:variable name="annotationDesc">This section contains all annotations contained in this document or corpus. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
     <!-- tooltip descriptions for structural elements -->
     <xsl:variable name="SNode">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
     <xsl:variable name="SRelation">Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.</xsl:variable>
@@ -113,7 +118,9 @@
         <h3>Structural Info</h3>
         <hr/>
         <!-- paragraph for description -->
-        <p id="structInfoDescription"></p>
+        <p id="structInfoDescription">
+            <xsl:value-of select="$structuralInfoDesc"/>
+        </p>
         <br/>
         <!-- create table structure -->
         <table class="data-structuralInfo">
@@ -172,7 +179,9 @@
         <h4>Meta Data</h4>
         <hr/>
         <!-- paragraph for description -->
-        <p id="metaDataDescription"></p>
+        <p id="metaDataDescription">
+            <xsl:value-of select="$metaDataDesc"/>
+        </p>
         <br/>
         <table>
             <thead>
@@ -227,7 +236,9 @@
         <h4>Annotations</h4>
         <hr/>
             <!-- paragraph for description -->
-            <p id="annoDescription"></p>
+            <p id="annoDescription">
+               <xsl:value-of select="$annotationDesc"/>
+            </p>
             <br/>
         <table class="data-table">
             <thead>
