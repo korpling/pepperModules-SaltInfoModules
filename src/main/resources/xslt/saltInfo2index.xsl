@@ -50,7 +50,7 @@
     <!-- get all main corpora -->
     <xsl:template match="sCorpusInfo" mode="main"> { 
         "text" : "<xsl:value-of select="@sName"/>",
-        "metadata" : { "href" : ".<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
         "state" : { "opened" : true }, icon : "fa fa-folder-o"<xsl:if
             test="not(empty(child::node()))">, 
             "children" : [ 
@@ -66,7 +66,7 @@
     <!-- get all subcorpora of the corpus -->
     <xsl:template match="sCorpusInfo" mode="sub"> { 
         "text" : "<xsl:value-of select="@sName"/>",
-        "metadata" : { "href" : ".<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
         icon : "fa fa-folder-o"<xsl:if test="not(empty(*))">, 
         "children" : 
         [ <xsl:apply-templates
@@ -84,7 +84,7 @@
     <xsl:template match="sDocumentInfo"> { 
         "text" : "<xsl:value-of select="@sName"/>", 
         icon : "fa fa-file-o", 
-        "metadata" : { "href" : ".<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" }
+        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" }
         }<xsl:if test="not(empty(following-sibling::node()))">,</xsl:if>
     </xsl:template>
     
