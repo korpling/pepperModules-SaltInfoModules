@@ -272,7 +272,7 @@
         </xsl:choose>
     </xsl:template>
 
-<!-- get first 5 occurences -->
+    <!-- get first 5 occurences -->
     <xsl:template match="sValue">
         <xsl:choose>
             <xsl:when test="position() &lt; 6">
@@ -280,9 +280,9 @@
                     <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);">
                         <xsl:attribute name="onclick">goANNIS('<xsl:value-of select="./parent::sAnnotationInfo/@sName"></xsl:value-of>', this.innerHTML);</xsl:attribute><xsl:value-of select="text()"/>
                     </span>
-                </span>
-                <span class="anno-value-count">
-                    <xsl:value-of select="@occurrence"/>
+                    <span class="anno-value-count">
+                        <xsl:value-of select="@occurrence"/>
+                    </span>
                 </span>
             </xsl:when>
         </xsl:choose>
@@ -322,6 +322,7 @@
             
         </td>
         <td>
+            <!-- Print annotation values and their occurrence -->
             <xsl:attribute name="id">
                 <xsl:value-of select="@sName"/>
                 <xsl:text>_values</xsl:text>
