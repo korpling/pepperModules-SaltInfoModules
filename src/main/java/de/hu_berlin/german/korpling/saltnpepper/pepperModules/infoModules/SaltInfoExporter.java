@@ -205,7 +205,6 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "+resourceFolder);
 		}else{
 			try {
-				System.out.println("--------------> copy resources from: "+resourceFolder+ ", to: "+new File(getCorpusDesc().getCorpusPath().toFileString()));
 				FileUtils.copyDirectory(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()));
 			} catch (IOException e) {
 				logger.warn("Cannot export the resources for project site, because of a nested exception: "+e.getMessage());
