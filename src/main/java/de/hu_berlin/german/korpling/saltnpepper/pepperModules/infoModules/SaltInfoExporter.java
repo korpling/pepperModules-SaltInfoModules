@@ -42,6 +42,8 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
@@ -81,7 +83,8 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
  */
 @Component(name = "SaltInfoExporterComponent", factory = "PepperExporterComponentFactory")
 public class SaltInfoExporter extends PepperExporterImpl implements PepperExporter, SaltInfoDictionary{
-
+	private static final Logger logger= LoggerFactory.getLogger("SaltInfoExporter"); 
+	
 	final List<String> resources = new ArrayList<String>();
 	public static final String[] defaultResources = { "/css/saltinfo.css", "/css/index.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
 	/** name of the file containing the corpus-structure for SaltInfo**/
