@@ -22,8 +22,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -44,8 +42,6 @@ import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.io.Files;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
@@ -88,11 +84,9 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 public class SaltInfoExporter extends PepperExporterImpl implements PepperExporter, SaltInfoDictionary{
 	private static final Logger logger= LoggerFactory.getLogger("SaltInfoExporter"); 
 	
-//	final List<String> resources = new ArrayList<String>();
 	public static final String SITE_RESOURCES="site/";
 	public static final String XSLT_INFO_TO_HTML="xslt/saltInfo2html.xsl";
 	public static final String XSLT_INDEX_TO_HTML="xslt/saltInfo2index.xsl";
-//	public static final String[] defaultResources = { "/css/jquery-ui.css", "/css/style.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
 	/** name of the file containing the corpus-structure for SaltInfo**/
 	public static final String PROJECT_INFO_FILE="salt-project";
 	
@@ -100,7 +94,6 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 
 	public SaltInfoExporter() {
 		super();
-//		resources.addAll(Arrays.asList(defaultResources));
 		setName("SaltInfoExporter");
 		addSupportedFormat(PepperModule.ENDING_XML, "1.0", null);
 		setProperties(new SaltInfoProperties());
@@ -208,16 +201,16 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		//copy resources: css, js, and images
 		File resourceFolder= new File(siteResources.toFileString());
 		if (	(resourceFolder!= null)&&
-				(resourceFolder.exists())){
+				(!resourceFolder.exists())){
 			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "+resourceFolder);
 		}else{
 			try {
-				Files.copy(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()));
+				System.out.println("--------------> copy resources from: "+resourceFolder+ ", to: "+new File(getCorpusDesc().getCorpusPath().toFileString()));
+				FileUtils.copyDirectory(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()));
 			} catch (IOException e) {
 				logger.warn("Cannot export the resources for project site, because of a nested exception: "+e.getMessage());
 			}
 		}
-//		copyResources();
 	}
 	/**
 	 * Writes the project info file retrieved out of the {@link SaltProject} into the passed xml stream.
@@ -324,32 +317,5 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			throw new PepperModuleException("Can't create xslt transformer for " + path, e);
 		}
 		return t;
-	}
-	
-	/**
-	 * Copies all javascript, css and image resources to the target folder for displaying html output in case of it is set.
-	 */
-	private void copyResources(){
-		if (((SaltInfoProperties)getProperties()).isHtmlOutput()){
-			URI jsResource= getResources().appendSegment("js");
-			URI cssResource= getResources().appendSegment("css");
-			URI imgResource= getResources().appendSegment("img");
-			
-			File output= null;
-			File input= null;
-			try {
-				input= new File(jsResource.toFileString());
-				output= new File(getCorpusDesc().getCorpusPath().appendSegment("js").toFileString());
-				FileUtils.copyDirectory(input, output);
-				input= new File(cssResource.toFileString());
-				output= new File(getCorpusDesc().getCorpusPath().appendSegment("css").toFileString());
-				FileUtils.copyDirectory(input, output);
-				input= new File(imgResource.toFileString());
-				output= new File(getCorpusDesc().getCorpusPath().appendSegment("img").toFileString());
-				FileUtils.copyDirectory(input, output);
-			} catch (IOException e) {
-				throw new PepperModuleException(this, "Cannot copy resource '"+input.getAbsolutePath()+"' to target path '"+output.getAbsolutePath()+"'.", e);
-			}
-		}
 	}
 }
