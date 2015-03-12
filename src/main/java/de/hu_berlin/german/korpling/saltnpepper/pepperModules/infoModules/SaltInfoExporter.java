@@ -45,10 +45,13 @@ import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.io.Files;
+
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleNotReadyException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperExporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
@@ -69,7 +72,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
  * {@link #getSaltProject()}</li>
  * <li>special parameters given by Pepper workflow can be accessed via
  * {@link #getSpecialParams()}</li>
- * <li>a place to store temporary datas for processing can be accessed via
+ * <li>a place to store temporary data for processing can be accessed via
  * {@link #getTemproraries()}</li>
  * <li>a place where resources of this bundle are, can be accessed via
  * {@link #getResources()}</li>
@@ -85,19 +88,35 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 public class SaltInfoExporter extends PepperExporterImpl implements PepperExporter, SaltInfoDictionary{
 	private static final Logger logger= LoggerFactory.getLogger("SaltInfoExporter"); 
 	
-	final List<String> resources = new ArrayList<String>();
-	public static final String[] defaultResources = { "/css/saltinfo.css", "/css/index.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
+//	final List<String> resources = new ArrayList<String>();
+	public static final String SITE_RESOURCES="site/";
+	public static final String XSLT_INFO_TO_HTML="xslt/saltInfo2html.xsl";
+	public static final String XSLT_INDEX_TO_HTML="xslt/saltInfo2index.xsl";
+//	public static final String[] defaultResources = { "/css/jquery-ui.css", "/css/style.css", "/js/saltinfo.js", "/js/jquery.js", "/img/information.png", "/img/SaltNPepper_logo2010.svg" };
 	/** name of the file containing the corpus-structure for SaltInfo**/
 	public static final String PROJECT_INFO_FILE="salt-project";
-	private static final TransformerFactory transFac = TransformerFactory.newInstance();
+	
+	private static TransformerFactory transFac = null;
 
 	public SaltInfoExporter() {
 		super();
-		this.resources.addAll(Arrays.asList(defaultResources));
-		this.setName("SaltInfoExporter");
-		this.addSupportedFormat(PepperModule.ENDING_XML, "1.0", URI.createURI("https://korpling.german.hu-berlin.de/p/projects/peppermodules-statisticsmodules"));
-		this.setProperties(new SaltInfoProperties());
+//		resources.addAll(Arrays.asList(defaultResources));
+		setName("SaltInfoExporter");
+		addSupportedFormat(PepperModule.ENDING_XML, "1.0", null);
+		setProperties(new SaltInfoProperties());
 	}
+	
+	private URI siteResources = null;
+	@Override
+	public boolean isReadyToStart() throws PepperModuleNotReadyException {
+		siteResources= URI.createFileURI(getResources().toFileString()+SITE_RESOURCES);
+		
+		System.setProperty("javax.xml.transform.TransformerFactory",    
+		        "net.sf.saxon.TransformerFactoryImpl");
+		transFac = TransformerFactory.newInstance();
+		return super.isReadyToStart();
+	}
+	
 	/** Stores {@link SElementId}s to all {@link SDocument} and {@link SCorpus} objects and the corresponding {@link ContainerInfo} objects.**/
 	private Map<SElementId, ContainerInfo> sElementId2Container= null; 
 	/**
@@ -151,7 +170,10 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			resource= resource.appendFileExtension(PepperModule.ENDING_XML);
 			mapper.setResourceURI(resource);
 			mapper.getContainerInfo().setExportFile(new File(resource.toFileString()));
-			Transformer transformer= loadXSLTTransformer(getResources().appendSegment("xslt").appendSegment("info2html").appendFileExtension("xsl").toFileString());
+			
+			URI xslt= URI.createFileURI(getResources().toFileString()+XSLT_INFO_TO_HTML);
+			
+			Transformer transformer= loadXSLTTransformer(xslt.toFileString());
 			mapper.setXsltTransformer(transformer);
 		}
 		return(mapper);
@@ -179,11 +201,23 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		if (((SaltInfoProperties) getProperties()).isHtmlOutput()) {
 			URI htmlOutput= getCorpusDesc().getCorpusPath().appendSegment(PROJECT_INFO_FILE).appendFileExtension("html");
 			URI xmlInput= URI.createFileURI(projectInfoFile.getAbsolutePath());
-			Transformer transformer= loadXSLTTransformer(getResources().appendSegment("xslt").appendSegment("info2index").appendFileExtension("xsl").toFileString());
+			URI xslt= URI.createFileURI(getResources().toFileString()+XSLT_INDEX_TO_HTML);
+			Transformer transformer= loadXSLTTransformer(xslt.toFileString());
 			applyXSLT(transformer, xmlInput, htmlOutput);
 		}
 		//copy resources: css, js, and images
-		copyResources();
+		File resourceFolder= new File(siteResources.toFileString());
+		if (	(resourceFolder!= null)&&
+				(resourceFolder.exists())){
+			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "+resourceFolder);
+		}else{
+			try {
+				Files.copy(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()));
+			} catch (IOException e) {
+				logger.warn("Cannot export the resources for project site, because of a nested exception: "+e.getMessage());
+			}
+		}
+//		copyResources();
 	}
 	/**
 	 * Writes the project info file retrieved out of the {@link SaltProject} into the passed xml stream.
