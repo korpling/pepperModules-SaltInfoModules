@@ -123,19 +123,19 @@ public class SCorpusInfoTest {
 		assertEquals("2", xpath.evaluate("//sCorpusInfo/structuralInfo/entry[@key='SPointingRelation']/text()", document, XPathConstants.STRING));
 		
 		//annotationsInfo
-		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/@occurrences", document, XPathConstants.STRING));
+		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/@occurrence", document, XPathConstants.STRING));
 		//tests some examples if they are aggregated correctly
-		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/sValue[text()='be']/@occurrences", document, XPathConstants.STRING));
+		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/sValue[text()='be']/@occurrence", document, XPathConstants.STRING));
 		
-		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/@occurrences", document, XPathConstants.STRING));
+		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/@occurrence", document, XPathConstants.STRING));
 		//tests some examples if they are aggregated correctly
-		assertEquals("2", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='JJ']/@occurrences", document, XPathConstants.STRING));
-		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='VBZ']/@occurrences", document, XPathConstants.STRING));
+		assertEquals("2", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='JJ']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='VBZ']/@occurrence", document, XPathConstants.STRING));
 		
-		assertEquals("24", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/@occurrences", document, XPathConstants.STRING));
-		assertEquals("6", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='VP']/@occurrences", document, XPathConstants.STRING));
-		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='S']/@occurrences", document, XPathConstants.STRING));
-		assertEquals("2", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='ROOT']/@occurrences", document, XPathConstants.STRING));
+		assertEquals("24", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("6", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='VP']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='S']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("2", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='ROOT']/@occurrence", document, XPathConstants.STRING));
 	}
 
 }

@@ -50,7 +50,7 @@ public interface SaltInfoDictionary {
 	
 	public static final String ATT_KEY = "key";
 	public static final String ATT_TYPE = "type";
-	public static final String ATT_OCCURANCES = "occurrences";
+	public static final String ATT_OCCURRENCE = "occurrence";
 	public static final String ATT_XHREF = "rel-location";
 	public static final String ATT_SNAME = "sName";
 	public static final String ATT_SID = "id";

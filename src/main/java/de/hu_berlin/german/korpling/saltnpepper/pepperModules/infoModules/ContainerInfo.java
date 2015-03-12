@@ -109,9 +109,9 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 		}
 		return metaDataInfo;
 	}
-	/** A map mapping all {@link SLayer}, {@link SAnnotation}s and their occurances key= slayerName, value= annotations(key= sName, value=(key= SValue, value= occurences))**/
+	/** A map mapping all {@link SLayer}, {@link SAnnotation}s and their occurrences key= slayerName, value= annotations(key= sName, value=(key= SValue, value= occurrences))**/
 	private Map<String, Map<String, AnnotationInfo>> annotations= null;
-	/** @return a map mapping all {@link SLayer}, {@link SAnnotation}s and their occurances key= slayerName, value= annotations(key= sName, value=(key= SValue, value= occurences))**/
+	/** @return a map mapping all {@link SLayer}, {@link SAnnotation}s and their occurrences key= slayerName, value= annotations(key= sName, value=(key= SValue, value= occurences))**/
 	public Map<String, Map<String, AnnotationInfo>> getAnnotations() {
 		if (annotations== null){
 			annotations= new Hashtable<>();
@@ -121,17 +121,17 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	
 	public class AnnotationInfo{
 		public Map<String, Integer> annotations= new Hashtable<>();
-		public Integer occurances= 0;
+		public Integer occurrence= 0;
 		
 		public void add(String sAnnoValue){
 			if (	(sAnnoValue!= null)&&
 					(!sAnnoValue.isEmpty())){
-				occurances++;
-				Integer occurences= annotations.get(sAnnoValue);
-				if (occurences== null){
+				occurrence++;
+				Integer occurrence= annotations.get(sAnnoValue);
+				if (occurrence== null){
 					annotations.put(sAnnoValue, 1);
 				}else{
-					annotations.put(sAnnoValue, ++occurences);
+					annotations.put(sAnnoValue, ++occurrence);
 				}
 			}
 		}
@@ -248,10 +248,10 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 			for (String annoName: annotations.keySet()){
 				xml.writeStartElement(TAG_SANNOTATION_INFO);
 					xml.writeAttribute(ATT_SNAME, annoName);
-					xml.writeAttribute(ATT_OCCURANCES, annotations.get(annoName).occurances.toString());
+					xml.writeAttribute(ATT_OCCURRENCE, annotations.get(annoName).occurrence.toString());
 					for (String annoValue: annotations.get(annoName).keySet()){
 						xml.writeStartElement(TAG_SVALUE);
-							xml.writeAttribute(ATT_OCCURANCES, annotations.get(annoName).get(annoValue).toString());
+							xml.writeAttribute(ATT_OCCURRENCE, annotations.get(annoName).get(annoValue).toString());
 							xml.writeCharacters(annoValue);
 						xml.writeEndElement();
 					}

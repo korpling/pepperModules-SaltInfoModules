@@ -32,7 +32,7 @@ var CSV_SEPARATOR = ',';
 var CSV_DOUBLEQUOTE = '"';
 var CSV_LINEBREAK = '\r\n';
 var CSV_MIME_TYPE = 'text/csv';
-var CLASS_OCCURANCE= '.anno-value-count'
+var CLASS_OCCURRENCE= '.anno-value-count'
 
 /**
  * loads text as data uri
@@ -60,7 +60,7 @@ function convertToCSV(svalues) {
         function() {
             var valuename = escapeDQuote($(this).children(
                 '.svalue-text').text());
-            var valuecount = $(this).children(CLASS_OCCURANCE)
+            var valuecount = $(this).children(CLASS_OCCURRENCE)
                 .text();
             text += CSV_DOUBLEQUOTE + valuename + CSV_DOUBLEQUOTE;
             text += CSV_SEPARATOR;
@@ -226,8 +226,6 @@ function loadAndExpandAnnoValues(file, annoName) {
             });
             $.getJSON(file, function(json) {
                 annoTable = json;
-                console.log("-----------------------> loaded: "+file);
-                console.log("-----------------------> loaded: "+JSON.stringify(json));
                 expandAnnoValues(annoName);
             });
         } else {
@@ -246,16 +244,10 @@ function expandAnnoValues(annoName) {
         var $td = $("#"+annoName + "_values");
         var $span = $td.children().eq(0);
         var slot = annoTable[annoName];
-        
-        console.log("------------> annoTable: "+ JSON.stringify(annoTable));
-        
         for (var i = NUM_OF_SET_VALUES; i < slot.length; i++) {
             var $newSpan = $span.clone();
-            
-            console.log("expand add: "+slot[i].value+"("+slot[i].occurance+")");
-            
             $newSpan.children().eq(0).text(slot[i].value);
-            $newSpan.children().eq(1).text(slot[i].occurance);
+            $newSpan.children().eq(1).text(slot[i].occurrence);
             $td.append($newSpan);
         }
 
@@ -272,13 +264,11 @@ function expandAnnoValues(annoName) {
 function collapseValues(annoName) {
         var $td = $("#"+annoName + "_values");
         var numOfChilds= $td.children().length;
-        console.log("collapse numOfChilds: "+ numOfChilds);
         if (numOfChilds > NUM_OF_SET_VALUES) {
             //for better performance, first collect all items to be removed and make batch remove
             var $removalList = $();
             for (var i = NUM_OF_SET_VALUES; i < numOfChilds; i++) {
                 try {
-					console.log("collapse remove: "+ $td.children().eq(i));
                     $removalList = $removalList.add($td.children().eq(i));
                 } catch (err) {
                     console.error(err.message);

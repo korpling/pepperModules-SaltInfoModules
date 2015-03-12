@@ -42,7 +42,7 @@
     <xsl:variable name="SSpan">Number of ps in the current document or corpus. A p is an aggregation of a bunch of tokens containing 0..n token.</xsl:variable>
     <xsl:variable name="SSpanningRelation">Number of relations in the current document or corpus to connect ps (SSpan) with tokens (SToken).</xsl:variable>
     <xsl:variable name="STextualDS">Number of relations in the current document or corpus to connect a token (SToken) with a textual data source (STextualDS).</xsl:variable>
-    <xsl:variable name="STimeline">In Salt a common timeline exists, which can be used to identify the chronological occurance of a token. For instance to identify if one token corresponding to one text occurs before or after another token corresponding to another text. This would be important in dialogue corpora.</xsl:variable>
+    <xsl:variable name="STimeline">In Salt a common timeline exists, which can be used to identify the chronological occurrence of a token. For instance to identify if one token corresponding to one text occurs before or after another token corresponding to another text. This would be important in dialogue corpora.</xsl:variable>
     <xsl:variable name="SToken">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
     <xsl:variable name="SPointingRelation">Number of relations in the current document or corpus for loose connections like anaphoric relations.</xsl:variable>
     <xsl:variable name="STextualRelation">Number of relations in the current document or corpus to connect a token (SToken) with a textual data source (STextualDS).</xsl:variable>
@@ -272,7 +272,7 @@
         </xsl:choose>
     </xsl:template>
 
-<!-- get first 5 occurances -->
+<!-- get first 5 occurences -->
     <xsl:template match="sValue">
         <xsl:choose>
             <xsl:when test="position() &lt; 6">
@@ -282,7 +282,7 @@
                     </span>
                 </span>
                 <span class="anno-value-count">
-                    <xsl:value-of select="@occurrences"/>
+                    <xsl:value-of select="@occurrence"/>
                 </span>
             </xsl:when>
         </xsl:choose>
@@ -298,10 +298,10 @@
                     <xsl:value-of select="@sName"/>
                 </span>
                 <span class="anno-count">
-                    <xsl:value-of select="@occurrences"/>
+                    <xsl:value-of select="@occurrence"/>
                 </span>
             </span>
-            <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and concerning occurances as CSV file (you need to expand the view to download all values)"/>
+            <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding occurrences as CSV file (you need to expand the view to download all values)"/>
             <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
             
             <xsl:choose>
@@ -356,7 +356,7 @@
             </xsl:choose> </xsl:if>
     </xsl:otherwise></xsl:choose></xsl:template>
 
-    <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-unicode(normalize-space(replace(text(), '&quot;','\\&quot;')))"/>", "occurances": "<xsl:value-of select="@occurrences"/>
+    <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-unicode(normalize-space(replace(text(), '&quot;','\\&quot;')))"/>", "occurrence": "<xsl:value-of select="@occurrence"/>
         <xsl:choose>
             <xsl:when test="position()!=last()">"},
         </xsl:when>
