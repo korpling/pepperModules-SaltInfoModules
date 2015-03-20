@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+    
     <!-- first output in html format, use xhtml for wellformedness of unary tags -->
     <xsl:output encoding="UTF-8" indent="yes" method="xhtml" doctype-system="about:legacy-compat"/>
+    
     <!-- second output file for information saved in json format -->
     <xsl:output method="text" indent="no" name="json" encoding="UTF-8"/>
+    
+    <!-- third output file for the main page -->
     <xsl:output method="html" indent="yes" name="main" encoding="UTF-8"/>
+
+    <!-- fourth output file for params (params.json) -->
+    <xsl:output method="text" indent="no" name="params" encoding="UTF-8"/>
+
     <!-- path to the used css file -->
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
+    
     <!-- set the minimum of annotations shown at the tables if uncollapsed -->
     <xsl:variable name="minNumOfAnnos">5</xsl:variable>
+    
 <!-- set createJsonForAllAnnos to "true", if all annotations shall be loaded into json, even those with less than 5 values -->
     <xsl:variable name="createJsonForAllAnnos" select="false()" />
+    
     <!-- check if file is main corpus -->
     <xsl:variable name="isMainCorpus" select="sCorpusInfo/@sName=$corpusname"/>
+    
     <!-- get corpus name and save it as a variable for later use -->
     <xsl:variable name="corpusname">
         <xsl:choose>
@@ -24,18 +36,22 @@
             </xsl:otherwise>
     </xsl:choose>
     </xsl:variable>
+    
+    <!-- extract name from id (deprecated) -->
     <xsl:variable name="currentFile">
         <xsl:value-of select="replace(root()/node()/@id,'.*/','')"></xsl:value-of>
     </xsl:variable>
+    <xsl:param name="jsonOutputNameDeprecated">./anno_<xsl:value-of select="$currentFile"/>.json</xsl:param>
+   
     <!-- define output name for json file -->
     <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="root()/node()/@sName"/>.json</xsl:param>
-    <xsl:param name="jsonOutputNameDeprecated">./anno_<xsl:value-of select="$currentFile"/>.json</xsl:param>
     <xsl:variable name="jsonOutputPath">./<xsl:value-of select="substring-after(replace(root()/node()/@id, $currentFile, concat('anno_', $currentFile, '.json')), 'salt:/')"/></xsl:variable>
     
     <!-- descriptions of sections (structural info, meta data and annotations) -->
     <xsl:variable name="structuralInfoDesc">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.</xsl:variable>
     <xsl:variable name="metaDataDesc">The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.</xsl:variable>
     <xsl:variable name="annotationDesc">This section contains all annotations contained in this document or corpus. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
+   
     <!-- tooltip descriptions for structural elements -->
     <xsl:variable name="SNode">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
     <xsl:variable name="SRelation">Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.</xsl:variable>
@@ -96,6 +112,12 @@
                     </xsl:result-document>
                 </xsl:if>
                 
+                <xsl:if test="$isMainCorpus"> 
+                <xsl:result-document href="params.json" format="params">
+                    <xsl:call-template name="params"/>
+                </xsl:result-document>
+                </xsl:if>
+                
                 <xsl:apply-templates select="sLayerInfo">
                     <xsl:sort select="@sName"/>
                 </xsl:apply-templates>
@@ -120,6 +142,7 @@
         <!-- paragraph for description -->
         <p id="structInfoDescription">
             <xsl:value-of select="$structuralInfoDesc"/>
+            <xsl:value-of select="$corpusname"></xsl:value-of>
         </p>
         <br/>
         <!-- create table structure -->
@@ -275,7 +298,7 @@
     <!-- get first 5 occurences -->
     <xsl:template match="sValue">
         <xsl:choose>
-            <xsl:when test="position() &lt; 6">
+            <xsl:when test="position() &lt; minNumOfAnnos+1">
                 <span class="svalue">
                     <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);">
                         <xsl:attribute name="onclick">goANNIS('<xsl:value-of select="./parent::sAnnotationInfo/@sName"></xsl:value-of>', this.innerHTML);</xsl:attribute><xsl:value-of select="text()"/>
@@ -305,7 +328,7 @@
             <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
             
             <xsl:choose>
-                <xsl:when test="count(sValue) &lt; 6"></xsl:when>
+                <xsl:when test="count(sValue) &lt; minNumOfAnnos+1"></xsl:when>
                 <xsl:otherwise>
                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values">
                             <xsl:attribute name="id">
@@ -345,7 +368,7 @@
                 </xsl:otherwise>
             </xsl:choose></xsl:when>
     <xsl:otherwise>
-        <xsl:if test="count(.//sValue) > 5">"<xsl:value-of select="@sName"/>": [
+        <xsl:if test="count(.//sValue) > minNumOfAnnos">"<xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
@@ -418,6 +441,12 @@
                 <article id="annotators"></article>
             </body>
         </html>
+    </xsl:template>
+    
+    <!-- create params.json with corpus name -->
+    <xsl:template name="params">{
+        "corpusName" : "<xsl:value-of select="$corpusname"/>"
+        }
     </xsl:template>
     
     <!-- choose matching tooltip -->
