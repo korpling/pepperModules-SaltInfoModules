@@ -10,8 +10,8 @@
     <!-- third output file for the main page -->
     <xsl:output method="html" indent="yes" name="main" encoding="UTF-8"/>
 
-    <!-- fourth output file for params (params.json) -->
-    <xsl:output method="text" indent="no" name="params" encoding="UTF-8"/>
+    <!-- fourth output file for customization (customization.json) -->
+    <xsl:output method="text" indent="no" name="customization" encoding="UTF-8"/>
 
     <!-- path to the used css file -->
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
@@ -113,8 +113,8 @@
                 </xsl:if>
                 
                 <xsl:if test="$isMainCorpus"> 
-                <xsl:result-document href="params.json" format="params">
-                    <xsl:call-template name="params"/>
+                    <xsl:result-document href="customization.json" format="customization">
+                        <xsl:call-template name="customization"/>
                 </xsl:result-document>
                 </xsl:if>
                 
@@ -142,7 +142,6 @@
         <!-- paragraph for description -->
         <p id="structInfoDescription">
             <xsl:value-of select="$structuralInfoDesc"/>
-            <xsl:value-of select="$corpusname"></xsl:value-of>
         </p>
         <br/>
         <!-- create table structure -->
@@ -443,9 +442,27 @@
         </html>
     </xsl:template>
     
-    <!-- create params.json with corpus name -->
-    <xsl:template name="params">{
-        "corpusName" : "<xsl:value-of select="$corpusname"/>"
+    <!-- create customization.json with corpus name -->
+    <xsl:template name="customization">{
+        "corpusName" : "<xsl:value-of select="$corpusname"/>",
+        "shortDescription" : "short description of myCorpus",
+        "description" : "Here you can enter a description of your corpus.",
+        "structInfoDescription" : "Insert Description for meta Data here",
+        "annoDescription" : "Insert Description for sAnnotation here",
+        "sLayerDescription" : "Insert Description for sLayer here",
+        "annotators" : [ {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}],
+        "tooltips_metadata" : [
+        {"name": "Textualität", "tooltip": "Irgendwelche Metadaten"},
+        {"name": "Korrektur", "tooltip": "Irgendwelche Metadaten"},
+        {"name": "transcriptionName", "tooltip": "Irgendwelche Metadaten"},
+        {"name": "ALP", "tooltip": "Irgendwelche Metadaten"},
+        {"name": "line", "tooltip": "Irgendwelche Metadaten"}
+        ],
+        "tooltips_annonames" : [
+        {"name": "POS", "tooltip": "Irgendwelche Metadaten"},
+        {"name": "HuselDuselKrankerFuselMitVielSchnusel", "tooltip": "Irgendwelche Metadaten"}
+        ],
+        "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
         }
     </xsl:template>
     
