@@ -18,6 +18,7 @@
     
     <!-- set the minimum of annotations shown at the tables if uncollapsed -->
     <xsl:variable name="minNumOfAnnos">5</xsl:variable>
+    <xsl:variable name="NumOfTooltips">3</xsl:variable>
     
 <!-- set createJsonForAllAnnos to "true", if all annotations shall be loaded into json, even those with less than 5 values -->
     <xsl:variable name="createJsonForAllAnnos" select="false()" />
@@ -166,7 +167,7 @@
         <!-- get position of the entry and set class name for background colors -->
         <xsl:variable name="entry" select="position()"/>
         <xsl:choose>
-            <!-- seperate  -->
+            <!-- seperate every second value to  -->
             <xsl:when test="$entry mod 2=1">
                 <tr class="odd">
                     <td class="entry-key">
@@ -448,23 +449,38 @@
         "corpusName" : "<xsl:value-of select="$corpusname"/>",
         "shortDescription" : "short description of myCorpus",
         "description" : "Here you can enter a description of your corpus.",
-        "structInfoDescription" : "Insert Description for meta Data here",
-        "annoDescription" : "Insert Description for sAnnotation here",
-        "sLayerDescription" : "Insert Description for sLayer here",
-        "annotators" : [ {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}],
+        "annotators" : [ 
+            {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, 
+            {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}
+        ],
         "tooltips_metadata" : [
-        {"name": "Textualität", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "Korrektur", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "transcriptionName", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "ALP", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "line", "tooltip": "Irgendwelche Metadaten"}
+            <xsl:apply-templates mode="metaTooltips" select="metaDataInfo"/>
         ],
         "tooltips_annonames" : [
-        {"name": "POS", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "HuselDuselKrankerFuselMitVielSchnusel", "tooltip": "Irgendwelche Metadaten"}
-        ],
-        "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
+        <xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
+        ]
+        <!--"annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
+            "structInfoDescription" : "Insert Description for meta Data here",
+            "annoDescription" : "Insert Description for sAnnotation here",
+            "sLayerDescription" : "Insert Description for sLayer here",-->
         }
+    </xsl:template>
+    
+    <xsl:template match="metaDataInfo" mode="metaTooltips"><xsl:apply-templates mode="metaEntryTooltip" select="entry"/>
+    </xsl:template>
+    
+    <xsl:template match="entry" mode="metaEntryTooltip">
+        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips">
+                {"name": "<xsl:value-of select="@key"/>", "tooltip": ""},</xsl:when>
+            <xsl:when test="position() = $NumOfTooltips">
+                {"name": "<xsl:value-of select="@key"/>", "tooltip": ""}</xsl:when></xsl:choose>
+    </xsl:template>
+    
+    <xsl:template match="sAnnotationInfo" mode="annoTooltips">
+        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips">
+                {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""},</xsl:when>
+            <xsl:when test="position() = $NumOfTooltips">
+                {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""}</xsl:when></xsl:choose>
     </xsl:template>
     
     <!-- choose matching tooltip -->
