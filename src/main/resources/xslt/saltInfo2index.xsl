@@ -85,7 +85,7 @@
         "text" : "<xsl:value-of select="@sName"/>", 
         icon : "fa fa-file-o", 
         "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" }
-        }<xsl:if test="not(empty(following-sibling::node()))">,</xsl:if>
+        }<xsl:if test="true()">,</xsl:if> <!-- not(empty(following-sibling::node())) -->
     </xsl:template>
     
     <xsl:template name="body">
