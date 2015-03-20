@@ -142,14 +142,16 @@ function loadCustomization() {
             $("#search_me").css("visibility", "visible");
         }
         // load tooltips for meta data
-		if (json.tooltips_metadata!= null){
-			for (var i = 0; i < json.tooltips_metadata.length; i++) {
-				if (tooltips_metadata== null){
-					tooltips_metadata = new Object();
-				}
+	if (json.tooltips_metadata!= null){
+		for (var i = 0; i < json.tooltips_metadata.length; i++) {
+			if (tooltips_metadata== null){
+				tooltips_metadata = new Object();
+			}
+			if (json.tooltips_metadata[i].tooltip){
 				tooltips_metadata[json.tooltips_metadata[i].name] = json.tooltips_metadata[i].tooltip;
 			}
 		}
+	}
         if (tooltips_metadata== null){
 			console.debug("No tooltips for metadata found in file '"+FILE_CUSTOMIZATION+"'. ");
 		}
@@ -160,7 +162,9 @@ function loadCustomization() {
 				if (tooltips_annonames== null){
 					tooltips_annonames = new Object();
 				}
-				tooltips_annonames[json.tooltips_annonames[i].name] = json.tooltips_annonames[i].tooltip;
+				if (json.tooltips_annonames[i].tooltip){
+					tooltips_annonames[json.tooltips_annonames[i].name] = json.tooltips_annonames[i].tooltip;
+				}
 			}
 		}
         if (tooltips_annonames== null){
