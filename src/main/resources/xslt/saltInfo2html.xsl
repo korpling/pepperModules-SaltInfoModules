@@ -7,12 +7,12 @@
     <!-- second output file for information saved in json format -->
     <xsl:output method="text" indent="no" name="json" encoding="UTF-8"/>
     
-    <!-- third output file for the main page -->
+    <!-- third output file for main page -->
     <xsl:output method="html" indent="yes" name="main" encoding="UTF-8"/>
-
-    <!-- fourth output file for customization (customization.json) -->
+    
+    <!-- fourth output file for customization infos -->
     <xsl:output method="text" indent="no" name="customization" encoding="UTF-8"/>
-
+    
     <!-- path to the used css file -->
     <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
     
@@ -28,20 +28,21 @@
     <!-- get corpus name and save it as a variable for later use -->
     <xsl:variable name="corpusname">
         <xsl:choose>
+            <!-- if current file is a subcorpus or document extract name from id by selecting the string between first and second slash -->
             <xsl:when test="string-length(root()/node()/@id) - string-length(replace(root()/node()/@id, '/', '')) > 1">
             <xsl:value-of select="substring-before(substring-after(root()/node()/@id, 'salt:/'),'/')"/>
         </xsl:when>
             <xsl:otherwise>
+                <!-- if current file is main corpus extract name from id -->
                 <xsl:value-of select="substring-after(root()/node()/@id, 'salt:/')"/>
             </xsl:otherwise>
     </xsl:choose>
     </xsl:variable>
     
-    <!-- extract name from id (deprecated) -->
+    <!-- extract name of current file from id by selecting string after last slash -->
     <xsl:variable name="currentFile">
         <xsl:value-of select="replace(root()/node()/@id,'.*/','')"></xsl:value-of>
     </xsl:variable>
-    <xsl:param name="jsonOutputNameDeprecated">./anno_<xsl:value-of select="$currentFile"/>.json</xsl:param>
    
     <!-- define output name for json file -->
     <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="root()/node()/@sName"/>.json</xsl:param>
@@ -101,39 +102,39 @@
                 </xsl:if>
 
                 <!-- set meta data info as json input -->
-                
                     <xsl:result-document href="{$jsonOutputName}" format="json">
                             <xsl:call-template name="json"/>
                     </xsl:result-document>
                     
+                <!-- create main.html if current file is main corpus -->
                 <xsl:if test="$isMainCorpus"> 
                     <xsl:result-document href="main.html" format="main">
                         <xsl:call-template name="main"/>
                     </xsl:result-document>
                 </xsl:if>
                 
+                <!-- create customization.json if current file is main corpus -->
                 <xsl:if test="$isMainCorpus"> 
                     <xsl:result-document href="customization.json" format="customization">
                         <xsl:call-template name="customization"/>
-                </xsl:result-document>
+                    </xsl:result-document>
                 </xsl:if>
                 
+                <!-- get layer info table  -->
                 <xsl:apply-templates select="sLayerInfo">
                     <xsl:sort select="@sName"/>
                 </xsl:apply-templates>
                 
+                <!-- insert javascript code -->
                 <script>
                   	 addTooltips_MetaData();
                   	 addTooltips_AnnotationNames();
                   	 styleToolTips();
                 </script>
             </body>
-            
         </html>
     </xsl:template>
     
-    
-
     <!-- build structural info table -->
     <xsl:template name="structInfo" match="structuralInfo">
         <xsl:if test="not(empty(child::node()))">
@@ -165,6 +166,7 @@
         <!-- get position of the entry and set class name for background colors -->
         <xsl:variable name="entry" select="position()"/>
         <xsl:choose>
+            <!-- seperate  -->
             <xsl:when test="$entry mod 2=1">
                 <tr class="odd">
                     <td class="entry-key">
@@ -297,7 +299,7 @@
     <!-- get first 5 occurences -->
     <xsl:template match="sValue">
         <xsl:choose>
-            <xsl:when test="position() &lt; minNumOfAnnos+1">
+            <xsl:when test="position() &lt; $minNumOfAnnos+1">
                 <span class="svalue">
                     <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);">
                         <xsl:attribute name="onclick">goANNIS('<xsl:value-of select="./parent::sAnnotationInfo/@sName"></xsl:value-of>', this.innerHTML);</xsl:attribute><xsl:value-of select="text()"/>
@@ -327,7 +329,7 @@
             <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
             
             <xsl:choose>
-                <xsl:when test="count(sValue) &lt; minNumOfAnnos+1"></xsl:when>
+                <xsl:when test="count(sValue) &lt; $minNumOfAnnos+1"></xsl:when>
                 <xsl:otherwise>
                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values">
                             <xsl:attribute name="id">
@@ -367,7 +369,7 @@
                 </xsl:otherwise>
             </xsl:choose></xsl:when>
     <xsl:otherwise>
-        <xsl:if test="count(.//sValue) > minNumOfAnnos">"<xsl:value-of select="@sName"/>": [
+        <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
@@ -442,7 +444,6 @@
         </html>
     </xsl:template>
     
-    <!-- create customization.json with corpus name -->
     <xsl:template name="customization">{
         "corpusName" : "<xsl:value-of select="$corpusname"/>",
         "shortDescription" : "short description of myCorpus",
