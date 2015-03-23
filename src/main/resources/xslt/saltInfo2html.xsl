@@ -358,11 +358,12 @@
                 <xsl:otherwise>
                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values">
                             <xsl:attribute name="id">
+                                <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if>
                                 <xsl:value-of select="@sName"/><xsl:text>_btn</xsl:text>
                             </xsl:attribute>
                             <xsl:attribute name="onClick">
                                 <xsl:text>loadAndExpandAnnoValues('</xsl:text><xsl:value-of select="$jsonOutputPath"/><xsl:text>','</xsl:text>
-                                <xsl:value-of select="@sName"/><xsl:text>')</xsl:text>
+                                <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/><xsl:text>')</xsl:text>
                             </xsl:attribute>
                     </i>
                 </xsl:otherwise>
@@ -371,7 +372,7 @@
         <td>
             <!-- Print annotation values and their occurrence -->
             <xsl:attribute name="id">
-                <xsl:value-of select="@sName"/>
+                <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>
                 <xsl:text>_values</xsl:text>
             </xsl:attribute>
             <xsl:apply-templates select="sValue">
@@ -389,9 +390,7 @@
     <!-- create the json file for annotations -->
     <xsl:template match="sAnnotationInfo" mode="annoJson">        <xsl:choose>
         <xsl:when test="$createJsonForAllAnnos">
-            <xsl:choose>
-                <xsl:when test="parent::sLayerInfo">"<xsl:value-of select="../@sName"/> : </xsl:when>
-            </xsl:choose><xsl:value-of select="@sName"/>": [
+            <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
@@ -403,9 +402,8 @@
             </xsl:choose>
         </xsl:when>
     <xsl:otherwise>
-        <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:choose>
-            <xsl:when test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:when>
-        </xsl:choose><xsl:value-of select="@sName"/>": [
+        <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if>
+        <xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
@@ -532,6 +530,7 @@
         }
     </xsl:template>
     
+    <!-- build default layer descriptions for each layer -->
     <xsl:template mode="sLayerDesc" match="sLayerInfo">
         "<xsl:value-of select="@sName"/>Desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer."
         <xsl:if test="exists(following-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if>
