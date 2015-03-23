@@ -54,7 +54,16 @@
     <!-- descriptions of sections (structural info, meta data and annotations) -->
     <xsl:variable name="structuralInfoDesc">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.</xsl:variable>
     <xsl:variable name="metaDataDesc">The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.</xsl:variable>
-    <xsl:variable name="annotationDesc">This section contains all annotations contained in this document or corpus. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
+    <xsl:variable name="annotationDescNoLayer">This section shows all annotations contained in this <xsl:choose>
+        <xsl:when test="root() = sCorpusInfo">corpus</xsl:when>
+        <xsl:when test="root() = sDocumentInfo">document</xsl:when>
+        <xsl:otherwise>corpus or document</xsl:otherwise>
+    </xsl:choose>. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
+    <xsl:variable name="annotationDescWithLayer">This section shows all annotations contained in this <xsl:choose>
+        <xsl:when test="root() = sCorpusInfo">corpus</xsl:when>
+        <xsl:when test="root() = sDocumentInfo">document</xsl:when>
+        <xsl:otherwise>corpus or document</xsl:otherwise>
+    </xsl:choose> which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
    
     <!-- tooltip descriptions for structural elements -->
     <xsl:variable name="SNode">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
@@ -267,7 +276,14 @@
         <hr/>
             <!-- paragraph for description -->
             <p id="annoDescription">
-               <xsl:value-of select="$annotationDesc"/>
+                <xsl:choose>
+                    <xsl:when test="exists(//sLayerInfo)">
+                        <xsl:value-of select="$annotationDescWithLayer"></xsl:value-of>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$annotationDescNoLayer"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </p>
             <br/>
         <table class="data-table">
@@ -372,7 +388,10 @@
 
     <!-- create the json file for annotations -->
     <xsl:template match="sAnnotationInfo" mode="annoJson">        <xsl:choose>
-        <xsl:when test="$createJsonForAllAnnos">"<xsl:value-of select="@sName"/>": [
+        <xsl:when test="$createJsonForAllAnnos">
+            <xsl:choose>
+                <xsl:when test="parent::sLayerInfo">"<xsl:value-of select="../@sName"/> : </xsl:when>
+            </xsl:choose><xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
@@ -381,9 +400,12 @@
                 </xsl:when>
                 <xsl:otherwise>]
                 </xsl:otherwise>
-            </xsl:choose></xsl:when>
+            </xsl:choose>
+        </xsl:when>
     <xsl:otherwise>
-        <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:value-of select="@sName"/>": [
+        <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:choose>
+            <xsl:when test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:when>
+        </xsl:choose><xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
@@ -483,15 +505,29 @@
             {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, 
             {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}
         ],
+        <xsl:if test="not(empty(//metaDataInfo//entry))">
         "tooltips_metadata" : [<xsl:apply-templates mode="metaTooltips" select="metaDataInfo"/>
         ],
+        </xsl:if>
+        <xsl:if test="not(empty(//sAnnotationInfo))">
         "tooltips_annonames" : [<xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
-        ]
-        <!-- deprecated json-infos:
-            "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
-            "structInfoDescription" : "Insert Description for meta Data here",
-            "annoDescription" : "Insert Description for sAnnotation here",
-            "sLayerDescription" : "Insert Description for sLayer here"-->
+        ],
+        </xsl:if>
+         <!--deprecated json-infos:-->
+         "structInfoDesc" : "Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.",
+         "metaDataDesc" : "The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.",
+         "annoDesc" : "This section shows all annotations contained in this <xsl:choose>
+        <xsl:when test="root() = sCorpusInfo">corpus</xsl:when>
+        <xsl:when test="root() = sDocumentInfo">document</xsl:when>
+        <xsl:otherwise>corpus or document</xsl:otherwise>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="exists(//sLayerInfo)"> which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:when>
+            <xsl:otherwise>. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:otherwise>
+        </xsl:choose>,
+         "sLayerDesc" : "Insert Description for sLayer here",
+         
+         "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
         }
     </xsl:template>
     
