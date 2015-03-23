@@ -532,7 +532,7 @@
     
     <!-- build default layer descriptions for each layer -->
     <xsl:template mode="sLayerDesc" match="sLayerInfo">
-        {"name" : "<xsl:value-of select="@sName"/>" , "desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer."
+        {"name" : "<xsl:value-of select="@sName"/>" , "desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."
         }<xsl:if test="exists(following-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if>
     </xsl:template>
     
