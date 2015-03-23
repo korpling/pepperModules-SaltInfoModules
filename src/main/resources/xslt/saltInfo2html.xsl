@@ -514,6 +514,7 @@
         ],
         </xsl:if>
          <!--deprecated json-infos:-->
+<!--        "annisLink" : "https://korpling.german.hu-berlin.de/annis3/",-->
          "structInfoDesc" : "Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.",
          "metaDataDesc" : "The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.",
          "annoDesc" : "This section shows all annotations contained in this <xsl:choose>
@@ -525,10 +526,15 @@
             <xsl:when test="exists(//sLayerInfo)"> which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:when>
             <xsl:otherwise>. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:otherwise>
         </xsl:choose>,
-         "sLayerDesc" : "Insert Description for sLayer here",
-         
-         "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
+        <xsl:apply-templates mode="sLayerDesc" select="sLayerInfo">
+            <xsl:sort select="@sName"/>
+        </xsl:apply-templates>
         }
+    </xsl:template>
+    
+    <xsl:template mode="sLayerDesc" match="sLayerInfo">
+        "<xsl:value-of select="@sName"/>Desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer."
+        <xsl:if test="exists(following-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if>
     </xsl:template>
     
     <!-- set tooltips for meta data entries -->
