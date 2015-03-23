@@ -228,8 +228,8 @@ function loadAndExpandAnnoValues(file, annoName) {
                     }
                 }
             });
-            $.getJSON(file, function(json) {
-                annoTable = json;
+	    $.getJSON(file, function(json) {
+		annoTable = json;
                 expandAnnoValues(annoName);
             });
         } else {
@@ -245,9 +245,15 @@ function loadAndExpandAnnoValues(file, annoName) {
  * passed annoName.
  **/
 function expandAnnoValues(annoName) {
-        var $td = $("#"+annoName + "_values");
+        var slot= annoTable[annoName];
+	if (typeof slot=== "undefined"){
+		console.warn("No entry in json found for anno name '"+annoName+"'. ");
+	}
+	var id= "#"+annoName.replace(":", "\\:");
+	
+	var $td = $(id+ "_values");
         var $span = $td.children().eq(0);
-        var slot = annoTable[annoName];
+
         for (var i = NUM_OF_SET_VALUES; i < slot.length; i++) {
             var $newSpan = $span.clone();
             $newSpan.children().eq(0).text(slot[i].value);
@@ -255,7 +261,7 @@ function expandAnnoValues(annoName) {
             $td.append($newSpan);
         }
 
-        var $btn = $("#" + annoName + "_btn");
+        var $btn = $(id + "_btn");
         $btn.removeClass(SYMBOL_EXPAND);
         $btn.addClass(SYMBOL_COLLAPSE);
         $btn.unbind('click');
@@ -266,7 +272,8 @@ function expandAnnoValues(annoName) {
  * passed annoName.
  **/
 function collapseValues(annoName) {
-        var $td = $("#"+annoName + "_values");
+	var id= "#"+annoName.replace(":", "\\:");
+        var $td = $(id + "_values");
         var numOfChilds= $td.children().length;
         if (numOfChilds > NUM_OF_SET_VALUES) {
             //for better performance, first collect all items to be removed and make batch remove
@@ -281,7 +288,7 @@ function collapseValues(annoName) {
             $removalList.remove();
         }
 
-        var $btn = $("#" + annoName + "_btn");
+        var $btn = $(id + "_btn");
         $btn.removeClass(SYMBOL_COLLAPSE);
         $btn.addClass(SYMBOL_EXPAND);
         $btn.unbind('click');
