@@ -93,13 +93,13 @@ var shortDescription = "";
 /** Contains a long description of the corpus if given */
 var description = "";
 /** Contains a description of "structuralInfo" if given */
-var structInfoDescription = "";
+var structInfoDesc = "";
 /** Contains a description of "metaDataInfo" if given */
-var metaDataDescription = "";
+var metaDataDesc = "";
 /** Contains a description of "sAnnotationInfo" if given */
-var annoDescription = "";
-/** Contains a description of "sLayerInfo" if given */
-var sLayerDescription = "";
+var annoDesc = "";
+/** A table containing description of layer annotations */
+var layerDesc = [];
 /** Contains an array of author names*/
 var annotators = [];
 /** Link to ANNIS instance **/
@@ -115,6 +115,12 @@ function Author(name, eMail) {
     this.eMail = eMail;
 }
 
+function Layer(name, desc) {
+    this.name = name;
+    this.desc = desc;
+}
+
+
 /** loads customization file and files variables **/
 function loadCustomization() {
     //set the MIME type to json, otherwise firefoy produces a warning
@@ -129,11 +135,18 @@ function loadCustomization() {
     $.getJSON(FILE_CUSTOMIZATION, function(json) {
         shortDescription = json.shortDescription;
         description = json.description;
+        structInfoDesc = json.structInfoDesc;
+        metaDataDesc = json.metaDataDesc;
+        annoDesc = json.annoDesc;
         
         $("#project_tagline").text(shortDescription);
         
         for (var i = 0; i < json.annotators.length; i++) {
             annotators[annotators.length] = new Author(json.annotators[i].name, json.annotators[i].eMail);
+        }
+        
+        for (var i = 0; i < json.layerDesc.length; i++) {
+        	layerDesc[layerDesc.length] = new Layer(json.layerDesc[i].name, json.layerDesc[i].desc);
         }
 
         //load annis links
@@ -152,9 +165,12 @@ function loadCustomization() {
 			}
 		}
 	}
-        if (tooltips_metadata== null){
-			console.debug("No tooltips for metadata found in file '"+FILE_CUSTOMIZATION+"'. ");
-		}
+	
+    if (tooltips_metadata== null){
+		console.debug("No tooltips for metadata found in file '"+FILE_CUSTOMIZATION+"'. ");
+	}
+
+        
 		
 		// load tooltips for annotation names
 		if (json.tooltips_annonames!= null){
@@ -313,12 +329,17 @@ function styleToolTips() {
         }
     });
 };
+
+
+
+
 /*******************************************************************************
  * Adding tooltips for metadata and annotation names
  ******************************************************************************/
 var CLASS_METADATA="metadata-name";
 var CLASS_ANNO_NAMES="anno-sname";
 var CLASS_TOOLTIP="tooltip";
+var CLASS_LAYER_NAMES="layer-desc";
 /** 
  * Adds tootlips to all elements having the class CLASS_METADATA.
  **/
@@ -360,6 +381,25 @@ function addTooltips_MetaData() {
 		}
 	}
 }
+
+
+function addDescs(){
+        $("#structInfoDescription").append("<p>"+structInfoDesc+"</p>");
+    
+    if (metaDataDesc != null) {
+        $("#metaDataDescription").append("<p>"+metaDataDesc+"</p>");
+    }
+    if (annoDesc != null) {
+        $("#annoDescription").append("<p>"+annoDesc+"</p>");
+    }
+    if (layerDesc != null){
+    	for (var i = 0; i < layerDesc.length; i++) {
+    		document.getElementById(layerDesc[i].name).innerHTML = layerDesc[i].desc;
+    	}
+    }
+}
+
+
 
 /** 
  * Adds tootlips all elements having the class CLASS_METADATA.
