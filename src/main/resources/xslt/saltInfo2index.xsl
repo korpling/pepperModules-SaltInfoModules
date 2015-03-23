@@ -77,7 +77,7 @@
                                     <xsl:sort select="@sName"/>
             </xsl:apply-templates> 
             ] 
-        </xsl:if> }<xsl:if test="not(empty(following-sibling::node()))">,</xsl:if>
+        </xsl:if> }<xsl:if test="exists(following-sibling::sCorpusInfo)">,</xsl:if>
     </xsl:template>
 
     <!-- get all documents of the corpus/ subcorpus -->
@@ -85,7 +85,7 @@
         "text" : "<xsl:value-of select="@sName"/>", 
         icon : "fa fa-file-o", 
         "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" }
-        }<xsl:if test="true()">,</xsl:if> <!-- not(empty(following-sibling::node())) -->
+        }<xsl:if test="exists(following-sibling::sDocumentInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sDocumentInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if> <!-- not(empty(following-sibling::node())) -->
     </xsl:template>
     
     <xsl:template name="body">

@@ -19,13 +19,16 @@
     <!-- set the minimum of annotations shown at the tables if uncollapsed -->
     <xsl:variable name="minNumOfAnnos">5</xsl:variable>
     
+    <!-- set the number of tooltips for meta data and annotations -->
+    <xsl:variable name="NumOfTooltips">3</xsl:variable>
+    
 <!-- set createJsonForAllAnnos to "true", if all annotations shall be loaded into json, even those with less than 5 values -->
     <xsl:variable name="createJsonForAllAnnos" select="false()" />
     
     <!-- check if file is main corpus -->
     <xsl:variable name="isMainCorpus" select="sCorpusInfo/@sName=$corpusname"/>
     
-    <!-- get corpus name and save it as a variable for later use -->
+    <!-- get corpus name from id and save it as a variable for later use -->
     <xsl:variable name="corpusname">
         <xsl:choose>
             <!-- if current file is a subcorpus or document extract name from id by selecting the string between first and second slash -->
@@ -165,11 +168,12 @@
     <xsl:template match="entry" mode="structEntry">
         <!-- get position of the entry and set class name for background colors -->
         <xsl:variable name="entry" select="position()"/>
+        <!-- seperate every second value to differ in background color in every second row -->
         <xsl:choose>
-            <!-- seperate  -->
             <xsl:when test="$entry mod 2=1">
                 <tr class="odd">
                     <td class="entry-key">
+                        <!-- include tooltips for structural infos -->
                         <span class="tooltip">
                             <xsl:attribute name="title"><xsl:call-template name="structTooltips"/></xsl:attribute>
                             <xsl:value-of select="@key"/>
@@ -198,6 +202,7 @@
         </xsl:choose>
     </xsl:template>
 
+<!-- build meta data table -->
     <xsl:template match="metaDataInfo">
         <xsl:if test="not(empty(child::node()))">
         <h4>Meta Data</h4>
@@ -254,6 +259,7 @@
         </xsl:choose>
     </xsl:template>
 
+<!-- build annotation table -->
     <xsl:template name="annoTable">
         <xsl:if test="not(empty(sAnnotationInfo/child::node()))">
         <div>
@@ -280,7 +286,9 @@
         </xsl:if>
     </xsl:template>
 
+<!-- get annotation values -->
     <xsl:template match="sAnnotationInfo" mode="annoTable">
+        <!-- get position of the entry and set class name for background colors -->
         <xsl:variable name="sName" select="position()"/>
         <xsl:choose>
             <xsl:when test="($sName mod 2=1)">
@@ -301,6 +309,7 @@
         <xsl:choose>
             <xsl:when test="position() &lt; $minNumOfAnnos+1">
                 <span class="svalue">
+                    <!-- include link to annis -->
                     <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);">
                         <xsl:attribute name="onclick">goANNIS('<xsl:value-of select="./parent::sAnnotationInfo/@sName"></xsl:value-of>', this.innerHTML);</xsl:attribute><xsl:value-of select="text()"/>
                     </span>
@@ -327,7 +336,7 @@
             </span>
             <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding occurrences as CSV file (you need to expand the view to download all values)"/>
             <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
-            
+            <!-- if current value is not one of the first annotation values, enable loading of values from the json file -->
             <xsl:choose>
                 <xsl:when test="count(sValue) &lt; $minNumOfAnnos+1"></xsl:when>
                 <xsl:otherwise>
@@ -340,10 +349,8 @@
                                 <xsl:value-of select="@sName"/><xsl:text>')</xsl:text>
                             </xsl:attribute>
                     </i>
-                    
                 </xsl:otherwise>
             </xsl:choose>
-            
         </td>
         <td>
             <!-- Print annotation values and their occurrence -->
@@ -356,16 +363,23 @@
             </xsl:apply-templates>
         </td>
     </xsl:template>
+    
+    <xsl:template match="sLayerInfo" mode="layerJson">
+        <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
+            <xsl:sort select="@sName"/>
+        </xsl:apply-templates>
+    </xsl:template>
 
-    <xsl:template match="sAnnotationInfo" mode="annoJson">         <xsl:choose>
+    <!-- create the json file for annotations -->
+    <xsl:template match="sAnnotationInfo" mode="annoJson">        <xsl:choose>
         <xsl:when test="$createJsonForAllAnnos">"<xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
             <xsl:choose>
-                <xsl:when test="position()!=last()">"],
+                <xsl:when test="position()!=last() or not(empty(following-sibling::sLayerInfo) and empty(../following-sibling::sLayerInfo))">],
                 </xsl:when>
-                <xsl:otherwise>"]
+                <xsl:otherwise>]
                 </xsl:otherwise>
             </xsl:choose></xsl:when>
     <xsl:otherwise>
@@ -373,15 +387,30 @@
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
-            <xsl:choose>
-                <xsl:when test="position()!=last()">],
+             <!--<xsl:choose>
+                 <xsl:when test="position()!=last() or (exists(following-sibling::sLayerInfo//sAnnotationInfo[count(//sValue)>$minNumOfAnnos]) or exists(../following-sibling::sLayerInfo//sAnnotationInfo[count(//sValue)> $minNumOfAnnos]))">],
                 </xsl:when>
                 <xsl:otherwise>]
+                </xsl:otherwise>
+            </xsl:choose>-->
+            <xsl:choose>
+                <xsl:when test="exists(//sLayerInfo)">
+        <xsl:choose>
+            <xsl:when test="not(exists(following::sAnnotationInfo[count(.//sValue) > $minNumOfAnnos]))">]</xsl:when>
+            <xsl:otherwise>],</xsl:otherwise>
+        </xsl:choose></xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="position()!=last()">],
+                        </xsl:when>
+                        <xsl:otherwise>]
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose> </xsl:if>
     </xsl:otherwise></xsl:choose></xsl:template>
 
-    <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-unicode(normalize-space(replace(text(), '&quot;','\\&quot;')))"/>", "occurrence": "<xsl:value-of select="@occurrence"/>
+    <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-unicode(normalize-space(replace(replace(text(), '\\','\\\\'), '&quot;', '\\&quot;')))"/>", "occurrence": "<xsl:value-of select="@occurrence"/>
         <xsl:choose>
             <xsl:when test="position()!=last()">"},
         </xsl:when>
@@ -395,6 +424,7 @@
         <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
                 <xsl:sort select="@sName"/>
         </xsl:apply-templates>
+        <xsl:apply-templates select="sLayerInfo" mode="layerJson"/>
         }
     </xsl:template>
     
@@ -444,30 +474,49 @@
         </html>
     </xsl:template>
     
+    <!-- create customization file with information like corpus name, corpus description etc. -->
     <xsl:template name="customization">{
         "corpusName" : "<xsl:value-of select="$corpusname"/>",
         "shortDescription" : "short description of myCorpus",
         "description" : "Here you can enter a description of your corpus.",
-        "structInfoDescription" : "Insert Description for meta Data here",
-        "annoDescription" : "Insert Description for sAnnotation here",
-        "sLayerDescription" : "Insert Description for sLayer here",
-        "annotators" : [ {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}],
-        "tooltips_metadata" : [
-        {"name": "Textualität", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "Korrektur", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "transcriptionName", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "ALP", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "line", "tooltip": "Irgendwelche Metadaten"}
+        "annotators" : [ 
+            {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, 
+            {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}
         ],
-        "tooltips_annonames" : [
-        {"name": "POS", "tooltip": "Irgendwelche Metadaten"},
-        {"name": "HuselDuselKrankerFuselMitVielSchnusel", "tooltip": "Irgendwelche Metadaten"}
+        "tooltips_metadata" : [<xsl:apply-templates mode="metaTooltips" select="metaDataInfo"/>
         ],
-        "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
+        "tooltips_annonames" : [<xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
+        ]
+        <!-- deprecated json-infos:
+            "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
+            "structInfoDescription" : "Insert Description for meta Data here",
+            "annoDescription" : "Insert Description for sAnnotation here",
+            "sLayerDescription" : "Insert Description for sLayer here"-->
         }
     </xsl:template>
     
-    <!-- choose matching tooltip -->
+    <!-- set tooltips for meta data entries -->
+    <xsl:template match="metaDataInfo" mode="metaTooltips">
+        <xsl:apply-templates mode="metaEntryTooltip" select="entry"/>
+    </xsl:template>
+    
+    <!-- create first 3/"NumOfTooltips" tooltips for meta data -->
+    <xsl:template match="entry" mode="metaEntryTooltip">
+        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips">
+                {"name": "<xsl:value-of select="@key"/>", "tooltip": ""},</xsl:when>
+            <xsl:when test="position() = $NumOfTooltips">
+                {"name": "<xsl:value-of select="@key"/>", "tooltip": ""}</xsl:when></xsl:choose>
+    </xsl:template>
+    
+    <!-- set tooltips for the first "NumOfTooltips" annotations  -->
+    <xsl:template match="sAnnotationInfo" mode="annoTooltips">
+        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips">
+                {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""},</xsl:when>
+            <xsl:when test="position() = $NumOfTooltips">
+                {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""}</xsl:when></xsl:choose>
+    </xsl:template>
+    
+    <!-- choose matching tooltip for structual info -->
     <xsl:template name="structTooltips">
         <xsl:choose>
             <xsl:when test="@key = 'SNode'"><xsl:value-of select="$SNode"/></xsl:when>
