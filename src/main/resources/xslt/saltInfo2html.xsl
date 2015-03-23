@@ -52,7 +52,7 @@
     <xsl:variable name="jsonOutputPath">./<xsl:value-of select="substring-after(replace(root()/node()/@id, $currentFile, concat('anno_', $currentFile, '.json')), 'salt:/')"/></xsl:variable>
     
     <!-- descriptions of sections (structural info, meta data and annotations) -->
-    <xsl:variable name="structuralInfoDesc">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.</xsl:variable>
+   <!-- <xsl:variable name="structuralInfoDesc">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.</xsl:variable>
     <xsl:variable name="metaDataDesc">The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.</xsl:variable>
     <xsl:variable name="annotationDescNoLayer">This section shows all annotations contained in this <xsl:choose>
         <xsl:when test="root() = sCorpusInfo">corpus</xsl:when>
@@ -64,7 +64,7 @@
         <xsl:when test="root() = sDocumentInfo">document</xsl:when>
         <xsl:otherwise>corpus or document</xsl:otherwise>
     </xsl:choose> which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
-   
+   -->
     <!-- tooltip descriptions for structural elements -->
     <xsl:variable name="SNode">Number of token (smallest annotatable unit) in the current document or corpus.</xsl:variable>
     <xsl:variable name="SRelation">Total number of all relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSPanningRelation and SDominanceRelation.</xsl:variable>
@@ -142,6 +142,7 @@
                   	 addTooltips_MetaData();
                   	 addTooltips_AnnotationNames();
                   	 styleToolTips();
+                  	 addDescs();
                 </script>
             </body>
         </html>
@@ -154,7 +155,7 @@
         <hr/>
         <!-- paragraph for description -->
         <p id="structInfoDescription">
-            <xsl:value-of select="$structuralInfoDesc"/>
+<!--            <xsl:value-of select="$structuralInfoDesc"/>-->
         </p>
         <br/>
         <!-- create table structure -->
@@ -218,7 +219,7 @@
         <hr/>
         <!-- paragraph for description -->
         <p id="metaDataDescription">
-            <xsl:value-of select="$metaDataDesc"/>
+            <!--<xsl:value-of select="$metaDataDesc"/>-->
         </p>
         <br/>
         <table>
@@ -276,14 +277,14 @@
         <hr/>
             <!-- paragraph for description -->
             <p id="annoDescription">
-                <xsl:choose>
+              <!--  <xsl:choose>
                     <xsl:when test="exists(//sLayerInfo)">
                         <xsl:value-of select="$annotationDescWithLayer"></xsl:value-of>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="$annotationDescNoLayer"/>
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>-->
             </p>
             <br/>
         <table class="data-table">
@@ -344,7 +345,7 @@
                 <span class="anno-sname" onmouseover="clickifyMe($(this));"
                     onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);"
                     onclick="goANNIS(this.innerHTML);">
-                    <xsl:value-of select="@sName"/>
+                    <xsl:value-of select="normalize-unicode(normalize-space(replace(replace(@sName, '\\','\\\\'), '&quot;', '\\&quot;')))"/>
                 </span>
                 <span class="anno-count">
                     <xsl:value-of select="@occurrence"/>
@@ -359,11 +360,11 @@
                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values">
                             <xsl:attribute name="id">
                                 <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if>
-                                <xsl:value-of select="@sName"/><xsl:text>_btn</xsl:text>
+                                <xsl:value-of select="normalize-unicode(normalize-space(replace(replace(@sName, '\\','\\\\'), '&quot;', '\\&quot;')))"/><xsl:text>_btn</xsl:text>
                             </xsl:attribute>
                             <xsl:attribute name="onClick">
                                 <xsl:text>loadAndExpandAnnoValues('</xsl:text><xsl:value-of select="$jsonOutputPath"/><xsl:text>','</xsl:text>
-                                <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/><xsl:text>')</xsl:text>
+                                <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="normalize-unicode(normalize-space(replace(replace(@sName, '\\','\\\\'), '&quot;', '\\&quot;')))"/><xsl:text>')</xsl:text>
                             </xsl:attribute>
                     </i>
                 </xsl:otherwise>
@@ -372,7 +373,7 @@
         <td>
             <!-- Print annotation values and their occurrence -->
             <xsl:attribute name="id">
-                <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>
+                <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="normalize-unicode(normalize-space(replace(replace(@sName, '\\','\\\\'), '&quot;', '\\&quot;')))"/>
                 <xsl:text>_values</xsl:text>
             </xsl:attribute>
             <xsl:apply-templates select="sValue">
@@ -381,6 +382,7 @@
         </td>
     </xsl:template>
     
+    <!-- create entries for layer annotation -->
     <xsl:template match="sLayerInfo" mode="layerJson">
         <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
             <xsl:sort select="@sName"/>
@@ -403,16 +405,10 @@
         </xsl:when>
     <xsl:otherwise>
         <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if>
-        <xsl:value-of select="@sName"/>": [
+            <xsl:value-of select="normalize-unicode(normalize-space(replace(replace(@sName, '\\','\\\\'), '&quot;', '\\&quot;')))"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
-             <!--<xsl:choose>
-                 <xsl:when test="position()!=last() or (exists(following-sibling::sLayerInfo//sAnnotationInfo[count(//sValue)>$minNumOfAnnos]) or exists(../following-sibling::sLayerInfo//sAnnotationInfo[count(//sValue)> $minNumOfAnnos]))">],
-                </xsl:when>
-                <xsl:otherwise>]
-                </xsl:otherwise>
-            </xsl:choose>-->
             <xsl:choose>
                 <xsl:when test="exists(//sLayerInfo)">
         <xsl:choose>
@@ -430,6 +426,7 @@
             </xsl:choose> </xsl:if>
     </xsl:otherwise></xsl:choose></xsl:template>
 
+<!-- get annotation values and normalize strings -->
     <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-unicode(normalize-space(replace(replace(text(), '\\','\\\\'), '&quot;', '\\&quot;')))"/>", "occurrence": "<xsl:value-of select="@occurrence"/>
         <xsl:choose>
             <xsl:when test="position()!=last()">"},
@@ -454,7 +451,9 @@
             <h4><xsl:value-of select="@sName"/></h4>
             <hr/>
             <!-- paragraph for description -->
-            <p id="sLayerDescription"></p>
+            <p class="layer-desc">
+                <xsl:attribute name="id"><xsl:value-of select="@sName"/>_desc</xsl:attribute>
+            </p>
             <br/>
             <table class="data-table">
                 <thead>
@@ -524,16 +523,17 @@
             <xsl:when test="exists(//sLayerInfo)"> which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:when>
             <xsl:otherwise>. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:otherwise>
         </xsl:choose>,
+        "layerDesc" : [
         <xsl:apply-templates mode="sLayerDesc" select="sLayerInfo">
             <xsl:sort select="@sName"/>
-        </xsl:apply-templates>
+        </xsl:apply-templates>]
         }
     </xsl:template>
     
     <!-- build default layer descriptions for each layer -->
     <xsl:template mode="sLayerDesc" match="sLayerInfo">
-        "<xsl:value-of select="@sName"/>Desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer."
-        <xsl:if test="exists(following-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if>
+        {"name" : "<xsl:value-of select="@sName"/>" , "desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer."
+        }<xsl:if test="exists(following-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if>
     </xsl:template>
     
     <!-- set tooltips for meta data entries -->
