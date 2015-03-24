@@ -114,9 +114,11 @@
                 </xsl:if>
 
                 <!-- set meta data info as json input -->
+                <xsl:if test="exists(sAnnotationInfo[count(.//sValue) &gt; $minNumOfAnnos])">
                     <xsl:result-document href="{$jsonOutputName}" format="json">
                             <xsl:call-template name="json"/>
                     </xsl:result-document>
+                </xsl:if>
                     
                 <!-- create main.html if current file is main corpus -->
                 <xsl:if test="$isMainCorpus"> 
