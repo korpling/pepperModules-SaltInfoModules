@@ -116,10 +116,105 @@ To adopt the description of the corpus, change the entry for the variable "descr
 
 ```json
     ...
-    	"description" : "The pcc2 corpus is a subset of the Potsdam Commentary Corpus (PCC), which is a corpus of 220 German newspaper commentaries (2.900 sentences, 44.000 tokens) taken from the online issues of the <a href=\"http://www.maerkischeallgemeine.de/\">Märkische Allgemeine Zeitung</a> (MAZ subcorpus) and Tagesspiegel (ProCon subcorpus) and is annotated with a range of different types of linguistic information.<br/> The central subcorpus that we are making publicly available consists of 175 MAZ texts, which are annotated with: <ul><li>Sentence Syntax</li><li>Coreference</li><li>Discourse Structure (RST)</li><li>Connectives and their arguments</li></ul>",
+    "description" : "The pcc2 corpus is a subset of the Potsdam Commentary Corpus (PCC), which is a corpus of 220 German newspaper commentaries (2.900 sentences, 44.000 tokens) taken from the online issues of the <a href=\"http://www.maerkischeallgemeine.de/\">Märkische Allgemeine Zeitung</a> (MAZ subcorpus) and Tagesspiegel (ProCon subcorpus) and is annotated with a range of different types of linguistic information.<br/> The central subcorpus that we are making publicly available consists of 175 MAZ texts, which are annotated with: <ul><li>Sentence Syntax</li><li>Coreference</li><li>Discourse Structure (RST)</li><li>Connectives and their arguments</li></ul>",
     "annotators" : [ {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}],
     ...
 ```
+
+#### Tooltips
+The corpus site offers you to create customized tooltips for all annotation and meta data names. For instance to give the user a detailed description about the meaning of the data. The following screenshot shows a tooltip for the annotation name 'pos'.
+
+![screenshot of a tooltip](./gh-site/img/sample_pcc_tooltip.png)
+
+To add tooltips, add the following snippet to the customization.json.
+
+```json
+{
+...
+	"tooltips_metadata" : [
+		{"name": "auhor", "tooltip": "This is the author of the primary text."}
+	],
+	"tooltips_annonames" : [
+		{"name": "pos", "tooltip": "A part of speech is a category of words (or, more generally, of lexical items) which have similar grammatical properties."}
+	],
+...
+}
+
+```
+#### ANNIS links
+When your corpus is also available in a public accessible ANNIS instance you can add the link to the instance in the JSON file. This allows the corpus site to create links directing to the ANNIS instance. The corpus site then enables three different links to ANNIS:
+1. a link in the header section of the site to the corpus in the ANNIS instance
+1. a link in each annotation name to the ANNIS instance 
+1. a link in each annotation value to the ANNIS instance
+
+Clicking on one of the links automatically creates an ANNIS query and opens it in a new tab. To enable the linking, you need to add the following entry to the JSON file and write the correct link. For our sample, we use the ANNIS instance located at https://korpling.german.hu-berlin.de/annis3/.
+```json
+{
+    ...
+    "annisLink" : "https://korpling.german.hu-berlin.de/annis3/"
+    ...
+}
+```
+#### Impressum
+The corpus site comes with a default automatically generated impressum. Therefore this impressum only contains some dummy values and needs to be adopted. You should adopt the impressum for your specific dates, like who is in charge for that site etc. The file to be adopted is an html file named 'impressum.html' which is to find in the root folder of the corpus site. The following snippet shows the important parts for adoption:
+```html
+    <br />
+    INSTITUTION
+    <br />
+    ADDRESS
+    <br />
+    <h2>Represented by</h2>
+    PERSON
+    <br />
+    <h2>Contact</h2>
+    Telephone: PHONE
+    <br />
+    E-Mail:
+    <a href="EMAIL">EMAIL</a>
+    <br />
+    Internetadresse:
+    <a href="WEB_ADDRESS" target="_blank">WEB_ADDRESS</a>
+    <br />
+```
+
+Please change the placeholders: INSTITUTION, ADDRESS, PERSON, PHONE, EMAIL and WEB_ADDRESS with your individual dates.
+
+#### Browsers
+The corpus site is optimized for the Mozilla Firefox (see: https://www.mozilla.org/en-US/firefox/). 
+For running the site under Chrome (see: http://www.google.com/chrome) and may be even other browsers, you need to access the site via http. This is because of the cross origin policy of some brother, which prohibit to access URL using the file scheme ("file:/"). To solve that problem you can install a webserver on your local mashine, upload the corpus site to an accessible webserver or start the browser (only for Chorme)  with additional arguments:
+```
+chromium-browser --disable-web-security
+```
+
+### XML output
+The xml output produces two different kinds of files. One representing the corpus structure and the other representing the document structure. There is just one file representing the corpus structure ('salt-project.xml') and a bunch files representing the document structure of the single documents. These files are organized in a folder structure, following the corpus structure. Imagine a corpus named 'corp' having a subcorpus named 'sub' which contains the two documents 'doc1' and 'doc2'. The file structure looks as follows:
+```
+|
++-salt-project.xml
+|
++-myCorpus.xml
+|
++-myCorpus
+  |
+  +sub.xml
+  |
+  +-sub
+    |
+    +-doc1.xml
+    |
+    +-doc2.xml
+```
+The 'salt-project.xml'  is similar to the following sample:
+```xml
+<saltProjectInfo sName="myCorpus" generatedOn="2015-03-20 17:29:42">
+    <sCorpusInfo sName="myCorpus" id="salt:/myCorpus" rel-location="/myCorpus.xml">
+        <sDocumentInfo sName="sub" id="salt:/myCorpus/sub" rel-location="/myCorpus/sub.xml"/>
+        <sDocumentInfo sName="doc1" id="salt:/myCorpus/sub/doc1" rel-location="/myCorpus/sub/doc1.xml"/>
+        <sDocumentInfo sName="doc2" id="salt:/myCorpus/sub/doc2" rel-location="/myCorpus/sub/doc2.xml"/>
+    </sCorpusInfo>
+</saltProjectInfo>
+```
+
 
 ## Contribute
 Since this Pepper module is under a free license, please feel free to fork it from github and improve the module. If you even think that others can benefit from your improvements, don't hesitate to make a pull request, so that your changes can be merged.
