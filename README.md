@@ -204,7 +204,7 @@ The xml output produces two different kinds of files. One representing the corpu
     |
     +-doc2.xml
 ```
-The 'salt-project.xml'  is similar to the following sample:
+The 'salt-project.xml' is similar to the following sample:
 ```xml
 <saltProjectInfo sName="myCorpus" generatedOn="2015-03-20 17:29:42">
     <sCorpusInfo sName="myCorpus" id="salt:/myCorpus" rel-location="/myCorpus.xml">
@@ -214,7 +214,37 @@ The 'salt-project.xml'  is similar to the following sample:
     </sCorpusInfo>
 </saltProjectInfo>
 ```
+The xml files for document structures are similar to the following sample:
 
+```xml
+<?xml version="1.0" ?>
+<sCorpusInfo generatedOn="2015-03-20 17:29:42" sName="pcc2" id="salt:/pcc2">
+    <metaDataInfo>
+        <entry key="author">...</entry>
+        <!-- ... -->
+    </metaDataInfo>
+    <structuralInfo>
+        <entry key="SNode">995</entry>
+        <!-- ... -->
+    </structuralInfo>
+    <sAnnotationInfo sName="func" occurrence="893">
+        <sValue occurrence="9">app</sValue>
+        <sValue occurrence="3">AG</sValue>
+        <sValue occurrence="65">MO</sValue>
+        <!-- ... -->
+    </sAnnotationInfo>
+    <!-- ... -->
+    </sLayerInfo>
+    <sLayerInfo sName="exmaralda">
+        <sAnnotationInfo sName="Sent" occurrence="28">
+            <sValue occurrence="28">s</sValue>
+            <!-- ... -->
+        </sAnnotationInfo>
+        <!-- ... -->
+    </sLayerInfo>
+    <!-- ... -->
+</sCorpusInfo>
+```
 
 ## Contribute
 Since this Pepper module is under a free license, please feel free to fork it from github and improve the module. If you even think that others can benefit from your improvements, don't hesitate to make a pull request, so that your changes can be merged.
