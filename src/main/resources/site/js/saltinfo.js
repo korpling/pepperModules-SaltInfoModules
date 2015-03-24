@@ -286,24 +286,25 @@ function expandAnnoValues(annoName) {
 /**
  * Collapses the annotation values for the cell corresponding to
  * passed annoName.
+ * For better performance, first all childs of the concerning <td> element 
+ * are removed and second the first NUM_OF_SET_VALUES are added again. This 
+ * is much faster than removing all elements after element NUM_OF_SET_VALUES.
  **/
 function collapseValues(annoName) {
+	var slot= annoTable[annoName];
+	if (typeof slot=== "undefined"){
+		console.warn("No entry in json found for anno name '"+annoName+"'. ");
+	}	
 	var id= "#"+annoName.replace(":", "\\:");
         var $td = $(id + "_values");
-        var numOfChilds= $td.children().length;
-        if (numOfChilds > NUM_OF_SET_VALUES) {
-            //for better performance, first collect all items to be removed and make batch remove
-            var $removalList = $();
-            for (var i = NUM_OF_SET_VALUES; i < numOfChilds; i++) {
-                try {
-                    $removalList = $removalList.add($td.children().eq(i));
-                } catch (err) {
-                    console.error(err.message);
-                }
-            }
-            $removalList.remove();
+	var $span = $td.children().eq(0).clone();
+	$td.empty();
+	for (var i = 0; i < NUM_OF_SET_VALUES; i++) {
+	    var $newSpan = $span.clone();
+            $newSpan.children().eq(0).text(slot[i].value);
+            $newSpan.children().eq(1).text(slot[i].occurrence);
+            $td.append($newSpan);
         }
-
         var $btn = $(id + "_btn");
         $btn.removeClass(SYMBOL_COLLAPSE);
         $btn.addClass(SYMBOL_EXPAND);
