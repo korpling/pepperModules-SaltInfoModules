@@ -134,7 +134,7 @@
                 
                 <!-- get layer info table  -->
                 <xsl:apply-templates select="sLayerInfo">
-                    <xsl:sort select="@sName"/>
+                    <xsl:sort select="@sName" lang="de"/>
                 </xsl:apply-templates>
                 
                 <!-- insert javascript code -->
@@ -167,7 +167,7 @@
             <tbody>
                 <!-- set all structural entries -->
                 <xsl:apply-templates select="entry" mode="structEntry">
-                    <xsl:sort select="@key"/>
+                    <xsl:sort select="@key" lang="de"/>
                 </xsl:apply-templates>
             </tbody>
         </table>
@@ -230,7 +230,7 @@
             <tbody>
                 <!-- set metadata entries -->
                 <xsl:apply-templates select="entry" mode="metaEntry">
-                    <xsl:sort select="@key"/>
+                    <xsl:sort select="@key" lang="de"/>
                 </xsl:apply-templates>
             </tbody>
         </table>
@@ -295,7 +295,7 @@
             <tbody>
                 <!-- set metadata entries -->
                 <xsl:apply-templates select="sAnnotationInfo" mode="annoTable">
-                    <xsl:sort select="@sName"/>
+                    <xsl:sort select="@sName" lang="de"/>
                 </xsl:apply-templates>
             </tbody>
         </table>
@@ -377,7 +377,7 @@
                 <xsl:text>_values</xsl:text>
             </xsl:attribute>
             <xsl:apply-templates select="sValue">
-                <xsl:sort select="text()"/>
+                <xsl:sort select="text()" lang="de"/>
             </xsl:apply-templates>
         </td>
     </xsl:template>
@@ -385,7 +385,7 @@
     <!-- create entries for layer annotation -->
     <xsl:template match="sLayerInfo" mode="layerJson">
         <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
-            <xsl:sort select="@sName"/>
+            <xsl:sort select="@sName" lang="de"/>
         </xsl:apply-templates>
     </xsl:template>
 
@@ -394,7 +394,7 @@
         <xsl:when test="$createJsonForAllAnnos">
             <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
-                <xsl:sort select="text()"></xsl:sort>
+                <xsl:sort select="text()"  lang="de"/>
             </xsl:apply-templates>
             <xsl:choose>
                 <xsl:when test="position()!=last() or not(empty(following-sibling::sLayerInfo) and empty(../following-sibling::sLayerInfo))">],
@@ -407,7 +407,7 @@
         <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if>
             <xsl:value-of select="normalize-unicode(normalize-space(replace(replace(@sName, '\\','\\\\'), '&quot;', '\\&quot;')))"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
-                <xsl:sort select="text()"></xsl:sort>
+                <xsl:sort select="text()" lang="de"/>
             </xsl:apply-templates>
             <xsl:choose>
             <xsl:when test="exists(//sLayerInfo)">
@@ -439,10 +439,10 @@
 
     <xsl:template name="json">{
         <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
-                <xsl:sort select="@sName"/>
+                <xsl:sort select="@sName" lang="de"/>
         </xsl:apply-templates>
         <xsl:apply-templates select="sLayerInfo" mode="layerJson">
-            <xsl:sort select="@sName"/>
+            <xsl:sort select="@sName" lang="de"/>
         </xsl:apply-templates>
         }
     </xsl:template>
@@ -465,7 +465,7 @@
                 <tbody>
                     <!-- set metadata entries -->
                     <xsl:apply-templates select="sAnnotationInfo" mode="annoTable">
-                        <xsl:sort select="@sName"/>
+                        <xsl:sort select="@sName" lang="de"/>
                     </xsl:apply-templates>
                 </tbody>
             </table>
@@ -527,7 +527,7 @@
         </xsl:choose>,
         "layerDesc" : [
         <xsl:apply-templates mode="sLayerDesc" select="sLayerInfo">
-            <xsl:sort select="@sName"/>
+            <xsl:sort select="@sName" lang="de"/>
         </xsl:apply-templates>]
         }
     </xsl:template>
