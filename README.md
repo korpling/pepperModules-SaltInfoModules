@@ -141,6 +141,21 @@ To add tooltips, add the following snippet to the customization.json.
 }
 
 ```
+#### Section descriptions
+Each section like the structural info section, the meta data section, the annotation section and even the sections for for each layer can have a description. A description is given per default, but may be not a very practical one. To adopt the description, change the following entries in the json file:
+```json
+    "structInfoDesc" : "Structural data are those, which were necessary to create the Salt model. ...",
+    "metaDataDesc" : "The meta data of a document or a corpus give some information about ...",
+    "annoDesc" : "This section shows all annotations contained in this corpus or document ...",
+```
+
+The next snippet shows the adoption of the json file for descriptions to the single layers. The used layers come from the pcc2 corpus and are 'exmaralda' and 'mmax'.
+```json
+    "layerDesc" : [
+        {"name" : "exmaralda" , "desc" : "These are the annotations for the exmaralda layer. ...},
+        {"name" : "mmax" , "desc" : "These are the annotations for the mmax layer. ..."}
+    ]
+```
 #### ANNIS links
 When your corpus is also available in a public accessible ANNIS instance you can add the link to the instance in the JSON file. This allows the corpus site to create links directing to the ANNIS instance. The corpus site then enables three different links to ANNIS:
 1. a link in the header section of the site to the corpus in the ANNIS instance
@@ -179,7 +194,7 @@ The corpus site comes with a default automatically generated impressum. Therefor
 
 Please change the placeholders: INSTITUTION, ADDRESS, PERSON, PHONE, EMAIL and WEB_ADDRESS with your individual dates.
 
-#### Browsers
+### Browsers
 The corpus site is optimized for the Mozilla Firefox (see: https://www.mozilla.org/en-US/firefox/). 
 For running the site under Chrome (see: http://www.google.com/chrome) and may be even other browsers, you need to access the site via http. This is because of the cross origin policy of some brother, which prohibit to access URL using the file scheme ("file:/"). To solve that problem you can install a webserver on your local mashine, upload the corpus site to an accessible webserver or start the browser (only for Chorme)  with additional arguments:
 ```
