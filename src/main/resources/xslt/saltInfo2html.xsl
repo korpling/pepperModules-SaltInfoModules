@@ -410,11 +410,11 @@
                 <xsl:sort select="text()"></xsl:sort>
             </xsl:apply-templates>
             <xsl:choose>
-                <xsl:when test="exists(//sLayerInfo)">
-        <xsl:choose>
-            <xsl:when test="not(exists(following::sAnnotationInfo[count(.//sValue) > $minNumOfAnnos]))">]</xsl:when>
-            <xsl:otherwise>],</xsl:otherwise>
-        </xsl:choose></xsl:when>
+            <xsl:when test="exists(//sLayerInfo)">
+            <xsl:choose>
+                <xsl:when test="not(exists(following::sAnnotationInfo[compare(@sName,current()/@sName)&gt;0 and count(.//sValue) > $minNumOfAnnos])) and not(exists(preceding::sAnnotationInfo[compare(@sName,current()/@sName)&gt;0 and count(.//sValue) > $minNumOfAnnos]))">]</xsl:when>
+                <xsl:otherwise>],</xsl:otherwise>
+            </xsl:choose></xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
                         <xsl:when test="position()!=last()">],
@@ -441,7 +441,9 @@
         <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
                 <xsl:sort select="@sName"/>
         </xsl:apply-templates>
-        <xsl:apply-templates select="sLayerInfo" mode="layerJson"/>
+        <xsl:apply-templates select="sLayerInfo" mode="layerJson">
+            <xsl:sort select="@sName"/>
+        </xsl:apply-templates>
         }
     </xsl:template>
     
