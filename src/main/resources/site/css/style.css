@@ -208,6 +208,12 @@ td.entry-key {
 	background: -ms-linear-gradient(top, #373737, #212121);
 	background: -o-linear-gradient(top, #373737, #212121);
 	background: linear-gradient(top, #373737, #212121);
+	
+	position:fixed;
+    top:0; left:0; right:0;
+    text-align:center;
+    margin:0;
+    z-index:1;
 }
 
 #project_title {
