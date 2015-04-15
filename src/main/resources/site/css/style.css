@@ -22,17 +22,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 }
 
-/*
-nav {
-	line-height: 30px;
-	background-color: #eeeeee;
-	height: 300px;
-	width: 100px;
-	float: left;
-	padding: 5px;
-}
-* */
-
 span.svalue-text{
 	font-weight: bold;
 }
@@ -85,7 +74,8 @@ section {
 	margin: 0 auto;
 }
 
-footer {
+#footer {
+	position:relative;
 	background: #212121;
 	color: white;
 	clear: both;
@@ -98,8 +88,8 @@ a:hover, a:focus {
 }
 
 footer a {
-	color: #007edf;
-	text-decoration: none;
+	color: white;
+	text-decoration: underline;
 }
 
 table {
