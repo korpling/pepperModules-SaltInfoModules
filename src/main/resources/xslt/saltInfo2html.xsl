@@ -394,7 +394,7 @@
     <!-- create the json file for annotations -->
     <xsl:template match="sAnnotationInfo" mode="annoJson">        <xsl:choose>
         <xsl:when test="$createJsonForAllAnnos">
-            <xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>": [
+            "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"  lang="de"/>
             </xsl:apply-templates>
@@ -411,22 +411,25 @@
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()" lang="de"/>
             </xsl:apply-templates>
+            <xsl:variable name="curName"><xsl:value-of select="@sName"/></xsl:variable>
             <xsl:choose>
             <xsl:when test="exists(//sLayerInfo)">
             <xsl:choose>
-                <xsl:when test="not(exists(following::sAnnotationInfo[compare(@sName,current()/@sName)&gt;0 and count(.//sValue) > $minNumOfAnnos])) and not(exists(preceding::sAnnotationInfo[compare(@sName,current()/@sName)&gt;0 and count(.//sValue) > $minNumOfAnnos]))">]</xsl:when>
-                <xsl:otherwise>],</xsl:otherwise>
+                <xsl:when test="exists(following::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos])">],
+                </xsl:when>
+                <xsl:otherwise>]</xsl:otherwise>
             </xsl:choose></xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
-                        <xsl:when test="position()!=last()">],
+                        <xsl:when test="exists(following::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos])">],
                         </xsl:when>
                         <xsl:otherwise>]
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose> </xsl:if>
-    </xsl:otherwise></xsl:choose></xsl:template>
+         </xsl:otherwise></xsl:choose>
+         </xsl:template>
 
 <!-- get annotation values and normalize strings -->
     <xsl:template match="sValue" mode="ValueJson">{"value":"<xsl:value-of select="normalize-unicode(normalize-space(replace(replace(text(), '\\','\\\\'), '&quot;', '\\&quot;')))"/>", "occurrence": "<xsl:value-of select="@occurrence"/>

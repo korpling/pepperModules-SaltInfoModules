@@ -1,15 +1,13 @@
+/**************************************
+ * html basic properties
+ * ************************************/
+ 
 html, body {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font: inherit;
 	vertical-align: baseline;
-}
-
-header {
-	color: white;
-	text-align: center;
-	padding: 5px;
 }
 
 body {
@@ -56,8 +54,8 @@ span.sannotationinfo-sname {
 
 section {
 	position: relative;
-	max-width: 1000px;
-	padding: 20px 10px;
+	max-width: 100%;
+	padding: 2% 10%;
 	margin: 0 auto;
 	box-shadow: 0 0 10px rgba(0, 0, 0, .5);
 }
@@ -65,32 +63,16 @@ section {
 .outer {
 	width: 100%;
 	background-color: #eeeeee;
+	/*to disable scrolling of the background-image with the text*/
+	background-attachment:fixed;
 }
 
 .inner {
 	position: relative;
-	max-width: 1000px;
-	padding: 20px 10px;
+	width: 70%;
+	padding-left:2%;
+	padding-right:2%;
 	margin: 0 auto;
-}
-
-#footer {
-	position:relative;
-	background: #212121;
-	color: white;
-	clear: both;
-	text-align: center;
-	padding: 5px;
-	margin-top:1em;
-}
-
-a:hover, a:focus {
-	text-decoration: underline;
-}
-
-footer a {
-	color: white;
-	text-decoration: underline;
 }
 
 table {
@@ -165,6 +147,11 @@ td.entry-key {
 	overflow-x: hidden;
     z-index:5;
 	width:15%;
+	border:2px;
+    top:10em;
+    width:15%;
+    padding:0.5em;
+    bottom:4em;
 }
 
 #search_me {
@@ -202,6 +189,12 @@ td.entry-key {
 /**************************************
  * HEADER
  * ************************************/
+ header {
+	color: white;
+	text-align: center;
+	padding: 5px;
+}
+ 
 #header_wrap {
 	background: -moz-linear-gradient(top, #373737, #212121);
 	background: -webkit-linear-gradient(top, #373737, #212121);
@@ -233,4 +226,45 @@ td.entry-key {
 	text-align: left;
 }
 
+/**************************************
+ * CONTENT
+ **************************************/
+
+#main_content_wrap{
+	margin:0;
+    padding-top:10em;
+    z-index:2;
+    width:100%;
+}
+
+#content{
+	left:5%;
+	padding-left:2%;
+	padding-right:2%;
+	width:70%;
+}
+
+/**************************************
+ * FOOTER
+ **************************************/
+
+#footer {
+	position:relative;
+	bottom:0; left:0; right:0;
+	background: #212121;
+	color: white;
+	clear: both;
+	text-align: center;
+	padding: 0%;
+	margin-top:1em;
+}
+
+a:hover, a:focus {
+	text-decoration: underline;
+}
+
+footer a {
+	color: white;
+	text-decoration: underline;
+}
 
