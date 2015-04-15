@@ -81,6 +81,7 @@ section {
 	clear: both;
 	text-align: center;
 	padding: 5px;
+	margin-top:1em;
 }
 
 a:hover, a:focus {
@@ -158,7 +159,12 @@ td.entry-key {
 
 #navigation {
 	float: left;
-	position: absolute;
+	position: fixed;
+	white-space: nowrap; 
+    overflow: scroll;
+	overflow-x: hidden;
+    z-index:5;
+	width:15%;
 }
 
 #search_me {
