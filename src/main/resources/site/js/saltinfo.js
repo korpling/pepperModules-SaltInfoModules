@@ -141,13 +141,16 @@ function loadCustomization() {
         
         $("#project_tagline").text(shortDescription);
         
-        for (var i = 0; i < json.annotators.length; i++) {
-            annotators[annotators.length] = new Author(json.annotators[i].name, json.annotators[i].eMail);
-        }
-        
-        for (var i = 0; i < json.layerDesc.length; i++) {
-        	layerDesc[layerDesc.length] = new Layer(json.layerDesc[i].name, json.layerDesc[i].desc);
-        }
+		if (typeof json.annotators!== "undefined"){
+			for (var i = 0; i < json.annotators.length; i++) {
+			    annotators[annotators.length] = new Author(json.annotators[i].name, json.annotators[i].eMail);
+			}
+		}
+		if (typeof json.layerDesc!== "undefined"){
+			for (var i = 0; i < json.layerDesc.length; i++) {
+				layerDesc[layerDesc.length] = new Layer(json.layerDesc[i].name, json.layerDesc[i].desc);
+			}
+		}
 
         //load annis links
         annisLink = json.annisLink;
