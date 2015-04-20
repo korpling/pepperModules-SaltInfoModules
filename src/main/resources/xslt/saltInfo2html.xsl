@@ -215,6 +215,7 @@
 <!-- build meta data table -->
     <xsl:template match="metaDataInfo">
         <xsl:if test="not(empty(child::node()))">
+            <br/>
         <h3>Meta Data</h3>
         <hr/>
         <!-- paragraph for description -->
@@ -271,6 +272,7 @@
 <!-- build annotation table -->
     <xsl:template name="annoTable">
         <xsl:if test="not(empty(sAnnotationInfo/child::node()))">
+            <br/>
         <div>
         <h3>Annotations</h3>
         <hr/>
@@ -450,6 +452,7 @@
     
     <xsl:template match="sLayerInfo">
         <xsl:if test="not(empty(child::node()))">
+            <br/>
         <div>
             <h3><xsl:value-of select="@sName"/></h3>
             <hr/>
