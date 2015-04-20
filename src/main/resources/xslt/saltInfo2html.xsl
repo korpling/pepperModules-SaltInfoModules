@@ -103,7 +103,6 @@
                 <xsl:apply-templates select="structuralInfo"/>
 
                 <div>
-                    <br/>
                     <!-- get meta info table -->
                     <xsl:apply-templates select="metaDataInfo"/>
                 </div>
@@ -159,7 +158,6 @@
         <p id="structInfoDescription">
 <!--            <xsl:value-of select="$structuralInfoDesc"/>-->
         </p>
-        <br/>
         <!-- create table structure -->
         <table class="data-structuralInfo">
             <thead>
@@ -217,13 +215,12 @@
 <!-- build meta data table -->
     <xsl:template match="metaDataInfo">
         <xsl:if test="not(empty(child::node()))">
-        <h4>Meta Data</h4>
+        <h3>Meta Data</h3>
         <hr/>
         <!-- paragraph for description -->
         <p id="metaDataDescription">
             <!--<xsl:value-of select="$metaDataDesc"/>-->
         </p>
-        <br/>
         <table>
             <thead>
                 <th>Name</th>
@@ -275,7 +272,7 @@
     <xsl:template name="annoTable">
         <xsl:if test="not(empty(sAnnotationInfo/child::node()))">
         <div>
-        <h4>Annotations</h4>
+        <h3>Annotations</h3>
         <hr/>
             <!-- paragraph for description -->
             <p id="annoDescription">
@@ -288,7 +285,6 @@
                     </xsl:otherwise>
                 </xsl:choose>-->
             </p>
-            <br/>
         <table class="data-table">
             <thead>
                 <th>Name</th>
@@ -455,13 +451,12 @@
     <xsl:template match="sLayerInfo">
         <xsl:if test="not(empty(child::node()))">
         <div>
-            <h4><xsl:value-of select="@sName"/></h4>
+            <h3><xsl:value-of select="@sName"/></h3>
             <hr/>
             <!-- paragraph for description -->
             <p class="layer-desc">
                 <xsl:attribute name="id"><xsl:value-of select="@sName"/>_desc</xsl:attribute>
             </p>
-            <br/>
             <table class="data-table">
                 <thead>
                     <th>Name</th>
@@ -493,6 +488,7 @@
                 <hr/>
                 <article id="corpusDescription">
                 </article>
+                <br/>
                 <h3>Annotators</h3>
                 <hr/>
                 <article id="annotators"></article>
