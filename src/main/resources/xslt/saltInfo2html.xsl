@@ -514,27 +514,26 @@
         ],
         </xsl:if>
         <xsl:if test="not(empty(//sAnnotationInfo))">
-        "tooltips_annonames" : [<xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
+            "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"/><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
         ],
         </xsl:if>
          <!--deprecated json-infos:-->
 <!--        "annisLink" : "https://korpling.german.hu-berlin.de/annis3/",-->
          "structInfoDesc" : "Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.",
          "metaDataDesc" : "The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.",
-         "annoDesc" : "This section shows all annotations contained in this <xsl:choose>
-        <xsl:when test="root() = sCorpusInfo">corpus</xsl:when>
-        <xsl:when test="root() = sDocumentInfo">document</xsl:when>
-        <xsl:otherwise>corpus or document</xsl:otherwise>
-        </xsl:choose>
-        <xsl:choose>
+         "annoDesc" : "This section shows all annotations contained in this corpus or document<xsl:choose>
             <xsl:when test="exists(//sLayerInfo)"> which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:when>
             <xsl:otherwise>. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:otherwise>
-        </xsl:choose>,
+        </xsl:choose><xsl:choose><xsl:when test="exists(//sLayerInfo)">,
         "layerDesc" : [
         <xsl:apply-templates mode="sLayerDesc" select="sLayerInfo">
             <xsl:sort select="@sName" lang="de"/>
-        </xsl:apply-templates>]
+        </xsl:apply-templates>]</xsl:when></xsl:choose>
         }
+    </xsl:template>
+    
+    <xsl:template mode="layerTooltips" match="sLayerInfo">
+        <xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
     </xsl:template>
     
     <!-- build default layer descriptions for each layer -->
@@ -550,17 +549,17 @@
     
     <!-- create first 3/"NumOfTooltips" tooltips for meta data -->
     <xsl:template match="entry" mode="metaEntryTooltip">
-        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips">
+        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips and position() != last()">
                 {"name": "<xsl:value-of select="@key"/>", "tooltip": ""},</xsl:when>
-            <xsl:when test="position() = $NumOfTooltips">
+            <xsl:when test="position() = $NumOfTooltips or position() = last()">
                 {"name": "<xsl:value-of select="@key"/>", "tooltip": ""}</xsl:when></xsl:choose>
     </xsl:template>
     
     <!-- set tooltips for the first "NumOfTooltips" annotations  -->
     <xsl:template match="sAnnotationInfo" mode="annoTooltips">
-        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips">
+        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips and position() != last()">
                 {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""},</xsl:when>
-            <xsl:when test="position() = $NumOfTooltips">
+            <xsl:when test="position() = $NumOfTooltips or position() = last()">
                 {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""}</xsl:when></xsl:choose>
     </xsl:template>
     
