@@ -199,7 +199,7 @@ Please change the placeholders: INSTITUTION, ADDRESS, PERSON, PHONE, EMAIL and W
 
 ### Browsers
 The corpus site is optimized for the Mozilla Firefox (see: https://www.mozilla.org/en-US/firefox/). 
-For running the site under Chrome (see: http://www.google.com/chrome) and may be even other browsers, you need to access the site via http. This is because of the cross origin policy of some brother, which prohibit to access URL using the file scheme ("file:/"). To solve that problem you can install a webserver on your local mashine, upload the corpus site to an accessible webserver or start the browser (only for Chorme)  with additional arguments:
+For running the site under Chrome (see: http://www.google.com/chrome) and may be even other browsers, you need to access the site via http. This is because of the cross origin policy of some browser, which prohibit to access URL using the file scheme ("file:/"). To solve that problem you can install a webserver on your local mashine, upload the corpus site to an accessible webserver or start the browser (only for Chorme)  with additional arguments:
 ```
 chromium-browser --disable-web-security
 ```
