@@ -33,12 +33,20 @@ public class SaltInfoProperties extends PepperModuleProperties {
 	private static final long serialVersionUID = 8478680295397920096L;
 	public final static String HTML_OUTPUT = "htmlOutput";
 	public final static String INCLUDE_XML_HEADER = "includeXMLHeader";
+	/**
+	 * Property name of the theme
+	 */
+	public final static String PROP_THEME = "theme";
+	public static final String THEME_DEFAULT="default";
+	public static final String THEME_HISTORIC="historic";
 
 	public SaltInfoProperties() {
 		this.addProperty(new PepperModuleProperty<Boolean>(INCLUDE_XML_HEADER,
 				Boolean.class, "", false));
 		this.addProperty(new PepperModuleProperty<Boolean>(HTML_OUTPUT,
 				Boolean.class, "", true,true));
+		this.addProperty(new PepperModuleProperty<Boolean>(PROP_THEME,
+				Boolean.class, "Determines the theme of the output HTML project. The theme could be 'historic' or 'default', ", true,true));
 	}
 
 	public Boolean getIncludeXMLHeader() {
@@ -47,5 +55,9 @@ public class SaltInfoProperties extends PepperModuleProperties {
 	
 	public Boolean isHtmlOutput() {
 		return (Boolean) this.getProperty(HTML_OUTPUT).getValue();
+	}
+	
+	public String getTheme() {
+		return (String) this.getProperty(PROP_THEME).getValue();
 	}
 }

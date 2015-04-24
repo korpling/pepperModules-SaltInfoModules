@@ -97,6 +97,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		setName("SaltInfoExporter");
 		addSupportedFormat(PepperModule.ENDING_XML, "1.0", null);
 		setProperties(new SaltInfoProperties());
+		setProperties(new SaltInfoProperties());
 	}
 	
 	private URI siteResources = null;
@@ -204,6 +205,11 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 				(!resourceFolder.exists())){
 			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "+resourceFolder);
 		}else{
+			if (SaltInfoProperties.THEME_DEFAULT.equals(((SaltInfoProperties)getProperties()).getTheme())){
+				
+			}else if(SaltInfoProperties.THEME_HISTORIC.equals(((SaltInfoProperties)getProperties()).getTheme())){
+				
+			}
 			try {
 				FileUtils.copyDirectory(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()));
 			} catch (IOException e) {
