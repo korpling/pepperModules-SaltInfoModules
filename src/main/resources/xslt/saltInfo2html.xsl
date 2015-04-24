@@ -13,8 +13,6 @@
     <!-- fourth output file for customization infos -->
     <xsl:output method="text" indent="no" name="customization" encoding="UTF-8"/>
     
-    <!-- path to the used css file -->
-    <xsl:variable name="saltinfocss">css/saltinfo.css</xsl:variable>
     
     <!-- set the minimum of annotations shown at the tables if uncollapsed -->
     <xsl:variable name="minNumOfAnnos">5</xsl:variable>
@@ -85,11 +83,7 @@
         <html>
             <head>
                 <META http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-                <xsl:element name="link">
-                    <xsl:attribute name="href">{$saltinfocss}</xsl:attribute>
-                    <xsl:attribute name="rel">StyleSheet</xsl:attribute>
-                    <xsl:attribute name="type">text/css</xsl:attribute>
-                </xsl:element>
+                
                 <link href="./css/jquery-ui.css" rel="stylesheet"/>
                 <script src="./js/jquery.js"></script>
                 <script src="./js/jquery-ui.js"></script>
