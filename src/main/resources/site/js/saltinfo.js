@@ -16,8 +16,6 @@ function main() {
     /** Creation of boxes around annotation values*/
     $("#content").on("click", ".btn-toggle-box", toggleBox);
 
-    // Load params file (params.json) into global variables
-    loadParams();
     // loads customization file into global variables
     loadCustomization();
 
@@ -80,10 +78,8 @@ function toggleBox(event) {
 }
 
 /*******************************************************************************
- * Load params file (params.json and customization.json) into variables
+ * Load customization file (customization.json) into variables
  ******************************************************************************/
-/** param file contains data of the corpus */
-var FILE_PARAMS = "params.json";
 /** customization file containing user defined vaules to adapt web site */
 var FILE_CUSTOMIZATION = "./customization.json";
 /** Contains the name of the root corpus */
@@ -133,25 +129,24 @@ function loadCustomization() {
     });
     /** load customization file */
     $.getJSON(FILE_CUSTOMIZATION, function(json) {
-        shortDescription = json.shortDescription;
+	corpusName = json.corpusName;        
+	shortDescription = json.shortDescription;
         description = json.description;
         structInfoDesc = json.structInfoDesc;
         metaDataDesc = json.metaDataDesc;
         annoDesc = json.annoDesc;
         
         $("#project_tagline").text(shortDescription);
-        
-		if (typeof json.annotators!== "undefined"){
-			for (var i = 0; i < json.annotators.length; i++) {
-			    annotators[annotators.length] = new Author(json.annotators[i].name, json.annotators[i].eMail);
-			}
+       	if (typeof json.annotators!== "undefined"){
+		for (var i = 0; i < json.annotators.length; i++) {
+		    annotators[annotators.length] = new Author(json.annotators[i].name, json.annotators[i].eMail);
 		}
-		if (typeof json.layerDesc!== "undefined"){
-			for (var i = 0; i < json.layerDesc.length; i++) {
-				layerDesc[layerDesc.length] = new Layer(json.layerDesc[i].name, json.layerDesc[i].desc);
-			}
+        }
+	if (typeof json.layerDesc!== "undefined"){
+		for (var i = 0; i < json.layerDesc.length; i++) {
+			layerDesc[layerDesc.length] = new Layer(json.layerDesc[i].name, json.layerDesc[i].desc);
 		}
-
+	}
         //load annis links
         annisLink = json.annisLink;
         if (annisLink != null) {
@@ -205,21 +200,6 @@ function loadCustomization() {
     });
 }
 
-/** loads params file and fills variables */
-function loadParams() {
-        //set the MIME type to json, otherwise firefoy produces a warning
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                if (xhr.overrideMimeType) {
-                    xhr.overrideMimeType("application/json");
-                }
-            }
-        });
-        /** load params file */
-        $.getJSON(FILE_PARAMS, function(json) {
-            corpusName = json.corpusName;
-        });
-    }
 /*******************************************************************************
  * Collapse/expand the annotation values corresponding to an annotation name,
  * when there are more annotations as predefined treshhold.
@@ -459,6 +439,7 @@ function goANNIS(annoName, annoValue) {
         }
         // create corpus part tu url
         if (corpusName != null) {
+		console.log("--------------> corpusName: "+ corpusName);
             link = link + "_c=" + btoa(corpusName);
         }
         //open link in new window
