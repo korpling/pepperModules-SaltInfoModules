@@ -184,18 +184,6 @@ function loadCustomization() {
         if (tooltips_annonames== null){
 			console.debug("No tooltips for annotation names found in file '"+FILE_CUSTOMIZATION+"'. ");
 		}
-        
-        if (json.tooltips_structuralInfo!= null){
-			for (var i = 0; i < json.tooltips_structuralInfo.length; i++) {
-				if (tooltips_structuralInfo== null){
-					tooltips_structuralInfo = new Object();
-				}
-				tooltips_structuralInfo[json.tooltips_structuralInfo[i].name] = json.tooltips_structuralInfo[i].tooltip;
-			}
-		}
-        if (tooltips_structuralInfo== null){
-			console.debug("No tooltips for structural info found in file '"+FILE_CUSTOMIZATION+"'. ");
-		}
 		
     });
 }
