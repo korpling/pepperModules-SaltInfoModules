@@ -462,7 +462,12 @@ function loadMainPage() {
 				    var annotatorElement = $("#annotators");
                     for (var i = 0; i < annotators.length; i++) {
                         var span = document.createElement('div');
-                        $(span).append(annotators[i].name + ": <a href='mailto:" + annotators[i].eMail + "'>" + annotators[i].eMail + "<a/>");
+                        if (annotators[i].eMail != null) {
+                        	$(span).append(annotators[i].name + ": <a href='mailto:" + annotators[i].eMail + "'>" + annotators[i].eMail + "<a/>");
+                        }
+                        else {
+                        	$(span).append(annotators[i].name + ": no email available");
+                        }
                         $(annotatorElement).append(span);
                     }
                 }
