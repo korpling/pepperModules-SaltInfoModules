@@ -79,15 +79,15 @@
     <xsl:variable name="STimelineRelation">Number of relations in the current document or corpus to connect a token (SToken) with the common timeline (STimeline).</xsl:variable>
 
 	<!-- tooltips for functional buttons -->    
-    <xsl:variable name="TOOLTIP_DOWNLOAD">Downloads annotation values and corresponding occurrences as CSV file (you need to expand the view to download all values)</xsl:variable>
+    <xsl:variable name="TOOLTIP_DOWNLOAD">Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)</xsl:variable>
     <xsl:variable name="TOOLTIP_BOXES">Draws boxes around annotation values to find whitespaces</xsl:variable>
 	<xsl:variable name="TOOLTIP_EXPAND">Expands/Collapses annotation values</xsl:variable>
     
     <!-- description texts for sections -->
-    <xsl:variable name="DESC_STRUCTURAL_INFO">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.</xsl:variable>
-    <xsl:variable name="DESC_META_DATA">The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.</xsl:variable>
-    <xsl:variable name="DESC_ANNO_DESC">This section shows all annotations contained in this corpus or document</xsl:variable>
-    <xsl:variable name="DESC_ANNO_DESC_1">which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:variable>
+    <xsl:variable name="DESC_STRUCTURAL_INFO">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of nodes and relations. Subtypes of nodes are: SToken, STextualDS (primary data), SSpan, SStructure and some more. Subtypes of relations are: SSpanningRelation, SDominanceRelation, SPointingRelation and some more. This section gives an overview of the frequency of such elements used in this corpus or document.</xsl:variable>
+    <xsl:variable name="DESC_META_DATA">Meta data of a document or a corpus give information about its provenance and the annotation process. Meta data for instance can give information on where does the primary data came from, who annotated them, which tools have been used and so on.</xsl:variable>
+    <xsl:variable name="DESC_ANNO_DESC">This section displays all annotations contained in this corpus or document</xsl:variable>
+    <xsl:variable name="DESC_ANNO_DESC_1">which does not belong to any layer. Annotations being contained in layers are displayed below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:variable>
     <xsl:variable name="DESC_ANNO_DESC_2">. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:variable>
     <!-- buid html sceleton-->
     <xsl:template match="sCorpusInfo|sDocumentInfo">
@@ -167,7 +167,7 @@
         <table class="data-structuralInfo">
             <thead>
                 <th>Name</th>
-                <th>Count</th>
+                <th>Frequency</th>
             </thead>
             <tbody>
                 <!-- set all structural entries -->
