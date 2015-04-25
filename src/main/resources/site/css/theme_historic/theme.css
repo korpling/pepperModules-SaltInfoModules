@@ -11,7 +11,7 @@ html, body {
 	font-family: asul, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
 	color: #1F0F00;
 	background-repeat: repeat;
-	background-image:url('img/parchment.jpg');
+	background-image:url('parchment.jpg');
 }
 
 body {
@@ -68,7 +68,7 @@ section {
 	/*to disable scrolling of the background-image with the text*/
 	background-attachment:fixed;
 	background-repeat: repeat;
-	background-image:url('img/parchment.jpg');
+	background-image:url('parchment.jpg');
 }
 
 

@@ -1,6 +1,6 @@
 ![SaltNPepper project](./gh-site/img/SaltNPepper_logo2010.png)
 # pepperModules-SaltInfoModules
-The SaltInfoExporter helps you to get an overview of your corpus. It illustrates, which annotations (names and values as well) are used and how often they occur in a single document or in the entire corpus. The SaltInfoExporter is a module to be plugged in the linguistic converter framework Pepper (see https://u.hu-berlin.de/saltnpepper). This allows, to create a corpus overview for each corpus which is processable with one of Pepper's importer modules. The module produces two outputs, an xml output for further processing and an html output for illustration.  Both outputs lists all annotation names and values and the corresponding frequencies. 
+The SaltInfoExporter helps you to get an overview of your corpus. It illustrates, which annotations (names and values as well) are used and how often they occur in a single document or in the entire corpus. The SaltInfoExporter is a module to be plugged in the linguistic converter framework Pepper (see https://u.hu-berlin.de/saltnpepper). This allows, to create a corpus overview for each corpus which is processable with one of Pepper's importer modules. The module produces two outputs, an xml output for further processing and a html output for illustration.  Both outputs lists all annotation names and values and the corresponding frequencies. 
 
 ![sample html output for pcc corpus](./gh-site/img/sample_pcc_all.png)
 
@@ -49,8 +49,7 @@ A detailed description of the Pepper workflow can be found on the [Pepper projec
 <exporter name="SaltInfoExporter" path="PATH_TO_CORPUS"/>
 ```
 
-```
-### c) Use properties
+### b) Use properties
 
 ```xml
 <exporter name="SaltInfoExporter" path="PATH_TO_CORPUS">
