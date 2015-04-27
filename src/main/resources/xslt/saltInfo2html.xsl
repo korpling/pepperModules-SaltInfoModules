@@ -49,20 +49,6 @@
     <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="root()/node()/@sName"/>.json</xsl:param>
     <xsl:variable name="jsonOutputPath">./<xsl:value-of select="substring-after(replace(root()/node()/@id, $currentFile, concat('anno_', $currentFile, '.json')), 'salt:/')"/></xsl:variable>
     
-    <!-- descriptions of sections (structural info, meta data and annotations) -->
-   <!-- <xsl:variable name="structuralInfoDesc">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of the node element like SToken, STextualDS (primary data), SSpan etc. and a set of subtypes of the relation element like SSpanning Relation, SDominanceRelation, SPointingRelation etc. This section gives an overview of the amount of these elements used in this corpus/document.</xsl:variable>
-    <xsl:variable name="metaDataDesc">The meta data of a document or a corpus give some information about its provenance e.g. from where does the primary data came from, who annotated it or when and so on.</xsl:variable>
-    <xsl:variable name="annotationDescNoLayer">This section shows all annotations contained in this <xsl:choose>
-        <xsl:when test="root() = sCorpusInfo">corpus</xsl:when>
-        <xsl:when test="root() = sDocumentInfo">document</xsl:when>
-        <xsl:otherwise>corpus or document</xsl:otherwise>
-    </xsl:choose>. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
-    <xsl:variable name="annotationDescWithLayer">This section shows all annotations contained in this <xsl:choose>
-        <xsl:when test="root() = sCorpusInfo">corpus</xsl:when>
-        <xsl:when test="root() = sDocumentInfo">document</xsl:when>
-        <xsl:otherwise>corpus or document</xsl:otherwise>
-    </xsl:choose> which does not belong to any layer. Annotations being contained in layers are visualized below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values.</xsl:variable>
-   -->
     <!-- tooltip descriptions for structural elements -->
     <xsl:variable name="SNode">Total number of nodes in the current document or corpus. An SNode is an abstract node which could be instantiated as e.g. SToken, SSpan, SStructure, STextualDS and so on.</xsl:variable>
     <xsl:variable name="SRelation">Total number of  relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSpanningRelation, SDominanceRelation and so on.</xsl:variable>
@@ -83,12 +69,21 @@
     <xsl:variable name="TOOLTIP_BOXES">Draws boxes around annotation values to find whitespaces</xsl:variable>
 	<xsl:variable name="TOOLTIP_EXPAND">Expands/Collapses annotation values</xsl:variable>
     
+    <!-- general descriptions -->
+    <xsl:variable name="DESC_SHORT">short description of myCorpus</xsl:variable>
+    <xsl:variable name="DESC_CORPUS">Here you can enter a description of your corpus.</xsl:variable>
+    <xsl:variable name="DEFAULT_ANNOTATOR_M">John Doe</xsl:variable>
+    <xsl:variable name="DEFAULT_EMAIL_M">john-doe@sample.com</xsl:variable>
+    <xsl:variable name="DEFAULT_ANNOTATOR_W">Jane Doe</xsl:variable>
+    <xsl:variable name="DEFAULT_EMAIL_W">jane-doe@sample.com</xsl:variable>
+    
     <!-- description texts for sections -->
     <xsl:variable name="DESC_STRUCTURAL_INFO">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of nodes and relations. Subtypes of nodes are: SToken, STextualDS (primary data), SSpan, SStructure and some more. Subtypes of relations are: SSpanningRelation, SDominanceRelation, SPointingRelation and some more. This section gives an overview of the frequency of such elements used in this corpus or document.</xsl:variable>
     <xsl:variable name="DESC_META_DATA">Meta data of a document or a corpus give information about its provenance and the annotation process. Meta data for instance can give information on where does the primary data came from, who annotated them, which tools have been used and so on.</xsl:variable>
     <xsl:variable name="DESC_ANNO_DESC">This section displays all annotations contained in this corpus or document</xsl:variable>
     <xsl:variable name="DESC_ANNO_DESC_1">which does not belong to any layer. Annotations being contained in layers are displayed below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:variable>
     <xsl:variable name="DESC_ANNO_DESC_2">. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:variable>
+    
     <!-- buid html sceleton-->
     <xsl:template match="sCorpusInfo|sDocumentInfo">
         <html>
@@ -161,7 +156,6 @@
         <hr/>
         <!-- paragraph for description -->
         <p id="structInfoDescription">
-<!--            <xsl:value-of select="$structuralInfoDesc"/>-->
         </p>
         <!-- create table structure -->
         <table class="data-structuralInfo">
@@ -225,7 +219,6 @@
         <hr/>
         <!-- paragraph for description -->
         <p id="metaDataDescription">
-            <!--<xsl:value-of select="$metaDataDesc"/>-->
         </p>
         <table>
             <thead>
@@ -283,14 +276,6 @@
         <hr/>
             <!-- paragraph for description -->
             <p id="annoDescription">
-              <!--  <xsl:choose>
-                    <xsl:when test="exists(//sLayerInfo)">
-                        <xsl:value-of select="$annotationDescWithLayer"></xsl:value-of>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$annotationDescNoLayer"/>
-                    </xsl:otherwise>
-                </xsl:choose>-->
             </p>
         <table class="data-table">
             <thead>
@@ -396,12 +381,15 @@
 
     <!-- create the json file for annotations -->
     <xsl:template match="sAnnotationInfo" mode="annoJson">        <xsl:choose>
+        <!-- print all annotations independed of the amount of annotation values into the json file -->
         <xsl:when test="$createJsonForAllAnnos">
+            <!-- print sLayer name before annotation layer if one exists -->
             "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
                 <xsl:sort select="text()"  lang="de"/>
             </xsl:apply-templates>
             <xsl:choose>
+                <!-- check for following sLayer -->
                 <xsl:when test="position()!=last() or not(empty(following-sibling::sLayerInfo) and empty(../following-sibling::sLayerInfo))">],
                 </xsl:when>
                 <xsl:otherwise>]
@@ -409,6 +397,7 @@
             </xsl:choose>
         </xsl:when>
     <xsl:otherwise>
+        <!-- only print those annotations into the json file, that include more than 5 annotation values -->
         <xsl:if test="count(.//sValue) > $minNumOfAnnos">"<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if>
             <xsl:value-of select="normalize-unicode(normalize-space(replace(replace(@sName, '\\','\\\\'), '&quot;', '\\&quot;')))"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
@@ -416,8 +405,10 @@
             </xsl:apply-templates>
             <xsl:variable name="curName"><xsl:value-of select="@sName"/></xsl:variable>
             <xsl:choose>
+                <!-- print sLayer  -->
             <xsl:when test="exists(//sLayerInfo)">
             <xsl:choose>
+                <!-- check for annotations that are following the current one, lexically -->
                 <xsl:when test="exists(following::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos])">],
                 </xsl:when>
                 <xsl:otherwise>]</xsl:otherwise>
@@ -444,7 +435,7 @@
     </xsl:choose>
     </xsl:template>
     
-
+    <!-- build json file for annotations -->
     <xsl:template name="json">{
         <xsl:apply-templates select="sAnnotationInfo" mode="annoJson">
                 <xsl:sort select="@sName" lang="de"/>
@@ -455,6 +446,7 @@
         }
     </xsl:template>
     
+    <!-- build sLayer table for each sLayer -->
     <xsl:template match="sLayerInfo">
         <xsl:if test="not(empty(child::node()))">
             <br/>
@@ -507,11 +499,11 @@
     <!-- create customization file with information like corpus name, corpus description etc. -->
     <xsl:template name="customization">{
         "corpusName" : "<xsl:value-of select="$corpusname"/>",
-        "shortDescription" : "short description of myCorpus",
-        "description" : "Here you can enter a description of your corpus.",
+        "shortDescription" : "<xsl:value-of select="$DESC_SHORT"></xsl:value-of>",
+        "description" : "<xsl:value-of select="$DESC_CORPUS"></xsl:value-of>",
         "annotators" : [ 
-            {"name" : "John Doe", "eMail" : "john-doe@sample.com"}, 
-            {"name" : "Jane Doe", "eMail" : "jane-doe@sample.com"}
+            {"name" : "<xsl:value-of select="$DEFAULT_ANNOTATOR_M"/>", "eMail" : "<xsl:value-of select="$DEFAULT_EMAIL_M"></xsl:value-of>"}, 
+        {"name" : "<xsl:value-of select="$DEFAULT_ANNOTATOR_W"/>", "eMail" : "<xsl:value-of select="$DEFAULT_EMAIL_W"></xsl:value-of>"}
         ],
         <xsl:if test="not(empty(//metaDataInfo//entry))">
         "tooltips_metadata" : [<xsl:apply-templates mode="metaTooltips" select="metaDataInfo"/>
@@ -521,7 +513,7 @@
             "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"/><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
         ],
         </xsl:if>
-         <!--deprecated json-infos:-->
+         <!--deprecated json-info:-->
 <!--        "annisLink" : "https://korpling.german.hu-berlin.de/annis3/",-->
          "structInfoDesc" : "<xsl:value-of select="$DESC_STRUCTURAL_INFO"/>",
          "metaDataDesc" : "<xsl:value-of select="$DESC_META_DATA"/>",
