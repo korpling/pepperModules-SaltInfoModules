@@ -44,9 +44,9 @@ public class SaltInfoProperties extends PepperModuleProperties {
 		this.addProperty(new PepperModuleProperty<Boolean>(INCLUDE_XML_HEADER,
 				Boolean.class, "", false));
 		this.addProperty(new PepperModuleProperty<Boolean>(HTML_OUTPUT,
-				Boolean.class, "", true,true));
+				Boolean.class, "", true,false));
 		this.addProperty(new PepperModuleProperty<String>(PROP_THEME,
-				String.class, "Determines the theme of the output HTML project. The theme could be 'historic' or 'default', ", THEME_DEFAULT, true));
+				String.class, "Determines the theme of the output HTML project. The theme could be 'historic' or 'default'. ", THEME_DEFAULT, false));
 	}
 
 	public Boolean getIncludeXMLHeader() {

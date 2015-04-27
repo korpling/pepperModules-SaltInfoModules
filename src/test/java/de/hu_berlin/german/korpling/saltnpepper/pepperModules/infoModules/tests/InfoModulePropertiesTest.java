@@ -23,6 +23,7 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.tests
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.SaltInfoProperties;
 
@@ -32,20 +33,40 @@ import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.SaltIn
  */
 public class InfoModulePropertiesTest {
 	
+	private SaltInfoProperties fixture= null;
 	
+	
+	public SaltInfoProperties getFixture() {
+		return fixture;
+	}
+
+	public void setFixture(SaltInfoProperties fixture) {
+		this.fixture = fixture;
+	}
+
 	public static final URI PROP_URI = URI.createURI("./src/main/resources/sample-config/default.properties");
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-	
+		setFixture(new SaltInfoProperties());
 	}
 
 	@Test
 	public void testLoadSampleProperties() {
 		SaltInfoProperties properties = new SaltInfoProperties();
 		properties.addProperties(PROP_URI);
+	}
+	
+	@Test
+	public void testGetTheme_default() {
+		assertEquals(SaltInfoProperties.THEME_DEFAULT, getFixture().getTheme());
+	}
+	@Test
+	public void testGetTheme_historic() {
+		getFixture().setPropertyValue(SaltInfoProperties.PROP_THEME, SaltInfoProperties.THEME_HISTORIC);
+		assertEquals(SaltInfoProperties.THEME_HISTORIC, getFixture().getTheme());
 	}
 
 }
