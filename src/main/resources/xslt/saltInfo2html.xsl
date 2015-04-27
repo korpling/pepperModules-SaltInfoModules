@@ -78,11 +78,12 @@
     <xsl:variable name="DEFAULT_EMAIL_W">jane-doe@sample.com</xsl:variable>
     
     <!-- description texts for sections -->
-    <xsl:variable name="DESC_STRUCTURAL_INFO">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of nodes and relations. Subtypes of nodes are: SToken, STextualDS (primary data), SSpan, SStructure and some more. Subtypes of relations are: SSpanningRelation, SDominanceRelation, SPointingRelation and some more. This section gives an overview of the frequency of such elements used in this corpus or document.</xsl:variable>
-    <xsl:variable name="DESC_META_DATA">Meta data of a document or a corpus give information about its provenance and the annotation process. Meta data for instance can give information on where does the primary data came from, who annotated them, which tools have been used and so on.</xsl:variable>
+    <xsl:variable name="DESC_STRUCTURAL_INFO">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of nodes and relations. Subtypes of nodes are: SToken, STextualDS (primary data), SSpan, SStructure and some more. Subtypes of relations are: SSpanningRelation, SDominanceRelation, SPointingRelation and some more. This section gives an overview of the frequency (Count) for each of those elements (Name) used in this corpus or document.</xsl:variable>
+    <xsl:variable name="DESC_META_DATA">Meta data of a document or a corpus give information about its provenance and the annotation process. Meta data for instance can give information on where does the primary data came from, who annotated them, which tools have been used and so on. Thereby the row "Name" shows the respective categories like "writer" and the row "Values" contains a list of the represented values like "Goethe", "Schiller", etc.</xsl:variable>
     <xsl:variable name="DESC_ANNO_DESC">This section displays all annotations contained in this corpus or document</xsl:variable>
-    <xsl:variable name="DESC_ANNO_DESC_1">which does not belong to any layer. Annotations being contained in layers are displayed below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:variable>
-    <xsl:variable name="DESC_ANNO_DESC_2">. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."</xsl:variable>
+    <xsl:variable name="DESC_ANNO_DESC_1">which does not belong to any layer. Annotations being contained in layers are displayed below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."</xsl:variable>
+    <xsl:variable name="DESC_ANNO_DESC_2">. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."</xsl:variable>
+    <xsl:variable name="DESC_SLAYER">Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values).</xsl:variable>
     
     <!-- buid html sceleton-->
     <xsl:template match="sCorpusInfo|sDocumentInfo">
@@ -534,7 +535,7 @@
     
     <!-- build default layer descriptions for each layer -->
     <xsl:template mode="sLayerDesc" match="sLayerInfo">
-        {"name" : "<xsl:value-of select="@sName"/>_desc" , "desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names and annotation values."
+        {"name" : "<xsl:value-of select="@sName"/>_desc" , "desc" : "These are the annotations for the <xsl:value-of select="@sName"/> layer. <xsl:value-of select="$DESC_SLAYER"/>"
         }<xsl:if test="exists(following-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sLayerInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if>
     </xsl:template>
     
