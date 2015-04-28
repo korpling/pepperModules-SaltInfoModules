@@ -79,10 +79,10 @@
     
     <!-- description texts for sections -->
     <xsl:variable name="DESC_STRUCTURAL_INFO">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of nodes and relations. Subtypes of nodes are: SToken, STextualDS (primary data), SSpan, SStructure and some more. Subtypes of relations are: SSpanningRelation, SDominanceRelation, SPointingRelation and some more. This section gives an overview of the frequency (Count) for each of those elements (Name) used in this corpus or document.</xsl:variable>
-    <xsl:variable name="DESC_META_DATA">Meta data of a document or a corpus provide information about its origin and the annotation process. Meta data for instance can give information on where the primary data came from, who annotated it, which tools have been used and so on. Thereby the row "Name" shows the respective categories like "writer" and the row "Values" contains a list of the represented values like "Goethe", "Schiller", etc.</xsl:variable>
+    <xsl:variable name="DESC_META_DATA">Meta data of a document or a corpus provide information about its origin and the annotation process. Meta data for instance can give information on where the primary data came from, who annotated it, which tools have been used and so on. Thereby the row 'Name' shows the respective categories like 'writer' and the row 'Values' contains a list of the represented values like 'Goethe', 'Schiller', etc.</xsl:variable>
     <xsl:variable name="DESC_ANNO_DESC">This section displays all annotations contained in this corpus or document</xsl:variable>
-    <xsl:variable name="DESC_ANNO_DESC_1">which does not belong to any layer. Annotations being contained in layers are displayed below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."</xsl:variable>
-    <xsl:variable name="DESC_ANNO_DESC_2">. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."</xsl:variable>
+    <xsl:variable name="DESC_ANNO_DESC_1">which does not belong to any layer. Annotations being contained in layers are displayed below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values).</xsl:variable>
+    <xsl:variable name="DESC_ANNO_DESC_2">. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values).</xsl:variable>
     <xsl:variable name="DESC_SLAYER">Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values).</xsl:variable>
     
     <!-- buid html sceleton-->
@@ -507,11 +507,11 @@
         {"name" : "<xsl:value-of select="$DEFAULT_ANNOTATOR_W"/>", "eMail" : "<xsl:value-of select="$DEFAULT_EMAIL_W"></xsl:value-of>"}
         ],
         <xsl:if test="not(empty(//metaDataInfo//entry))">
-        "tooltips_metadata" : [<xsl:apply-templates mode="metaTooltips" select="metaDataInfo"/>
+        "tooltips_metadata" : [<xsl:apply-templates mode="metaTooltips" select="metaDataInfo"><xsl:sort select="@key"></xsl:sort></xsl:apply-templates>
         ],
         </xsl:if>
         <xsl:if test="not(empty(//sAnnotationInfo))">
-            "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"/><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
+            "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"/><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"><xsl:sort select="@sName"></xsl:sort></xsl:apply-templates>
         ],
         </xsl:if>
          <!--deprecated json-info:-->
@@ -530,7 +530,9 @@
     </xsl:template>
     
     <xsl:template mode="layerTooltips" match="sLayerInfo">
-        <xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"/>
+        <xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo">
+            <xsl:sort select="@sName"></xsl:sort>
+        </xsl:apply-templates>
     </xsl:template>
     
     <!-- build default layer descriptions for each layer -->
