@@ -511,7 +511,7 @@
         ],
         </xsl:if>
         <xsl:if test="not(empty(//sAnnotationInfo))">
-            "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"/><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"><xsl:sort select="@sName"></xsl:sort></xsl:apply-templates>
+            "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"/><xsl:if test="count(//sLayerInfo//sAnnotationInfo) &lt; $NumOfTooltips"><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"><xsl:sort select="@sName"></xsl:sort></xsl:apply-templates></xsl:if>
         ],
         </xsl:if>
          <!--deprecated json-info:-->
@@ -548,7 +548,7 @@
     
     <!-- create first 3/"NumOfTooltips" tooltips for meta data -->
     <xsl:template match="entry" mode="metaEntryTooltip">
-        <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips and position() != last()">
+        <xsl:choose><xsl:when test="position() &lt; ($NumOfTooltips - count(//sLayerInfo//sAnnotationInfo)) and position() != last()">
                 {"name": "<xsl:value-of select="@key"/>", "tooltip": ""},</xsl:when>
             <xsl:when test="position() = $NumOfTooltips or ((count(following-sibling::entry) + count(preceding-sibling::entry) &lt; $NumOfTooltips) and position() = last())">
                 {"name": "<xsl:value-of select="@key"/>", "tooltip": ""}</xsl:when></xsl:choose>
@@ -557,9 +557,9 @@
     <!-- set tooltips for the first "NumOfTooltips" annotations  -->
     <xsl:template match="sAnnotationInfo" mode="annoTooltips">
         <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips and position() != last()">
-                {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""},</xsl:when>
+            {"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""},</xsl:when>
             <xsl:when test="position() = $NumOfTooltips or ((count(following-sibling::sAnnotationInfo) + count(preceding-sibling::sAnnotationInfo) &lt; $NumOfTooltips) and position() = last())">
-                {"name": "<xsl:value-of select="@sName"/>", "tooltip": ""}</xsl:when></xsl:choose>
+                {"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""}</xsl:when></xsl:choose>
     </xsl:template>
     
     <!-- choose matching tooltip for structual info -->
