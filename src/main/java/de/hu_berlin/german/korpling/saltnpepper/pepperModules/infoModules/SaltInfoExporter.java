@@ -206,6 +206,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		//copy resources: css, js, and images
 		File resourceFolder= new File(siteResources.toFileString());
 		File cssFolder = new File(cssResources.toFileString());
+		//first copy the whole site-folder except for the theme-*-folder under the css-directory
 		if (	(resourceFolder!= null)&&
 				(!resourceFolder.exists())){
 			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "+resourceFolder);
@@ -221,12 +222,31 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			} catch (IOException e) {
 				logger.warn("Cannot export the resources for project site, because of a nested exception: "+e.getMessage());
 			}
-				logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "+resourceFolder);
-			}
+		}
 			if (SaltInfoProperties.THEME_DEFAULT.equals(((SaltInfoProperties)getProperties()).getTheme())){
-
+				File theme = new File(getCorpusDesc().getCorpusPath().toFileString()+"/css/theme/");
+				File[] cssFiles = cssFolder.listFiles();
+				for(File css : cssFiles){
+					if (css.isDirectory()) {
+		                try {
+							FileUtils.copyDirectory(new File(cssResources.toFileString()+"theme_"+SaltInfoProperties.THEME_DEFAULT), theme);
+						} catch (IOException e) {
+							logger.warn("Cannot export the css_theme-resources for project site, because of a nested exception: "+e.getMessage());
+							}
+		            }
+				}
 			}else if(SaltInfoProperties.THEME_HISTORIC.equals(((SaltInfoProperties)getProperties()).getTheme())){
-		
+				File theme = new File(getCorpusDesc().getCorpusPath().toFileString()+"/css/theme/");
+				File[] cssFiles = cssFolder.listFiles();
+				for(File css : cssFiles){
+					if (css.isDirectory()) {
+		                try {
+							FileUtils.copyDirectory(new File(cssResources.toFileString()+"theme_"+SaltInfoProperties.THEME_HISTORIC), theme);
+						} catch (IOException e) {
+							logger.warn("Cannot export the css_theme-resources for project site, because of a nested exception: "+e.getMessage());
+							}
+		            }
+				}
 			}
 	}
 	/**
