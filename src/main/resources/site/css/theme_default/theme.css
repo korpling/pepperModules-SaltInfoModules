@@ -143,7 +143,7 @@ td.entry-key {
 	float: left;
 	position: fixed;
 	white-space: nowrap; 
-    overflow: scroll;
+    overflow: auto scroll;
 	overflow-x: hidden;
     z-index:5;
 	width:15%;
