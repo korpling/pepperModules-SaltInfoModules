@@ -384,6 +384,7 @@
     <xsl:template match="sAnnotationInfo" mode="annoJson">        <xsl:choose>
         <!-- print all annotations independed of the amount of annotation values into the json file -->
         <xsl:when test="$createJsonForAllAnnos">
+            <xsl:variable name="curName"><xsl:value-of select="@sName"/></xsl:variable>
             <!-- print sLayer name before annotation layer if one exists -->
             "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>": [
             <xsl:apply-templates select="sValue" mode="ValueJson">
@@ -391,7 +392,7 @@
             </xsl:apply-templates>
             <xsl:choose>
                 <!-- check for following sLayer -->
-                <xsl:when test="position()!=last() or not(empty(following-sibling::sLayerInfo) and empty(../following-sibling::sLayerInfo))">],
+                <xsl:when test="exists(following::sAnnotationInfo[compare($curName, @sName) &lt; 0]) or exists(preceding::sAnnotationInfo[compare($curName, @sName) &lt; 0])">],
                 </xsl:when>
                 <xsl:otherwise>]
                 </xsl:otherwise>
@@ -407,16 +408,17 @@
             <xsl:variable name="curName"><xsl:value-of select="@sName"/></xsl:variable>
             <xsl:choose>
                 <!-- print sLayer  -->
-            <xsl:when test="exists(//sLayerInfo)">
+            <xsl:when test="parent::sLayerInfo">
+                <xsl:variable name="curSLayer"><xsl:value-of select="parent::sLayerInfo/@sName"/></xsl:variable>
             <xsl:choose>
                 <!-- check for annotations that are following the current one, lexically -->
-                <xsl:when test="exists(following::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos])">],
+                <xsl:when test="exists(following-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(following::sLayerInfo[compare($curSLayer, @sName) &lt; 0 and exists(./sAnnotationInfo[count(.//sValue) &gt; $minNumOfAnnos])]) or exists(preceding::sLayerInfo[compare($curSLayer, @sName) &lt; 0 and exists(./sAnnotationInfo[count(.//sValue) &gt; $minNumOfAnnos])])">],
                 </xsl:when>
                 <xsl:otherwise>]</xsl:otherwise>
             </xsl:choose></xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
-                        <xsl:when test="exists(following::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos])">],
+                        <xsl:when test="exists(following-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(//sLayerInfo[count(//sAnnotationInfo//sValue) &gt; $minNumOfAnnos])">],
                         </xsl:when>
                         <xsl:otherwise>]
                         </xsl:otherwise>
@@ -511,14 +513,14 @@
         ],
         </xsl:if>
         <xsl:if test="not(empty(//sAnnotationInfo))">
-            "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"/><xsl:if test="count(//sLayerInfo//sAnnotationInfo) &lt; $NumOfTooltips"><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"><xsl:sort select="@sName"></xsl:sort></xsl:apply-templates></xsl:if>
+            "tooltips_annonames" : [<xsl:apply-templates mode="layerTooltips" select="sLayerInfo"><xsl:sort select="@sName"/></xsl:apply-templates><xsl:if test="count(//sLayerInfo//sAnnotationInfo) &lt; $NumOfTooltips"><xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo"><xsl:sort select="@sName"></xsl:sort></xsl:apply-templates></xsl:if>
         ],
         </xsl:if>
          <!--deprecated json-info:-->
 <!--        "annisLink" : "https://korpling.german.hu-berlin.de/annis3/",-->
          "structInfoDesc" : "<xsl:value-of select="$DESC_STRUCTURAL_INFO"/>",
-         "metaDataDesc" : "<xsl:value-of select="$DESC_META_DATA"/>",
-         "annoDesc" : "<xsl:value-of select="$DESC_ANNO_DESC"/><xsl:choose>
+        "metaDataDesc" : "<xsl:value-of select="$DESC_META_DATA"/>"<xsl:if test="exists(//sAnnotationInfo)">,
+            "annoDesc" : "<xsl:value-of select="$DESC_ANNO_DESC"/></xsl:if><xsl:choose>
             <xsl:when test="exists(//sLayerInfo)"> <xsl:value-of select="$DESC_ANNO_DESC_1"/>"</xsl:when>
             <xsl:otherwise><xsl:value-of select="$DESC_ANNO_DESC_2"/>"</xsl:otherwise>
         </xsl:choose><xsl:choose><xsl:when test="exists(//sLayerInfo)">,
@@ -529,9 +531,10 @@
         }
     </xsl:template>
     
+    <!-- create tooltips for slayer -->
     <xsl:template mode="layerTooltips" match="sLayerInfo">
         <xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo">
-            <xsl:sort select="@sName"></xsl:sort>
+            <xsl:sort select="@sName"/>
         </xsl:apply-templates>
     </xsl:template>
     
@@ -543,14 +546,16 @@
     
     <!-- set tooltips for meta data entries -->
     <xsl:template match="metaDataInfo" mode="metaTooltips">
-        <xsl:apply-templates mode="metaEntryTooltip" select="entry"/>
+        <xsl:apply-templates mode="metaEntryTooltip" select="entry">
+            <xsl:sort select="@key"/>
+        </xsl:apply-templates>
     </xsl:template>
     
-    <!-- create first 3/"NumOfTooltips" tooltips for meta data -->
+    <!-- create first "NumOfTooltips" (3) tooltips for meta data -->
     <xsl:template match="entry" mode="metaEntryTooltip">
-        <xsl:choose><xsl:when test="position() &lt; ($NumOfTooltips - count(//sLayerInfo//sAnnotationInfo)) and position() != last()">
+        <xsl:choose><xsl:when test="(position() &lt; $NumOfTooltips) and position() != last()">
                 {"name": "<xsl:value-of select="@key"/>", "tooltip": ""},</xsl:when>
-            <xsl:when test="position() = $NumOfTooltips or ((count(following-sibling::entry) + count(preceding-sibling::entry) &lt; $NumOfTooltips) and position() = last())">
+            <xsl:when test="(position() = $NumOfTooltips) or ((count(following-sibling::entry) + count(preceding-sibling::entry) &lt; $NumOfTooltips) and position() = last())">
                 {"name": "<xsl:value-of select="@key"/>", "tooltip": ""}</xsl:when></xsl:choose>
     </xsl:template>
     

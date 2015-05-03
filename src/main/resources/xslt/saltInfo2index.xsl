@@ -37,7 +37,7 @@
         { 
         'core' : { 'data' : 
         [
-            <xsl:apply-templates select="sCorpusInfo" mode="main">
+        <xsl:apply-templates select="sCorpusInfo" mode="main">
             <xsl:sort select="@sName"/>
         </xsl:apply-templates>
         ]
