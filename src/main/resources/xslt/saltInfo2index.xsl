@@ -19,7 +19,7 @@
                 <!-- load the theme CSS file -->
                 <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css"/>
                 <link rel="stylesheet" href="dist/themes/default/style.min.css"/>
-                <link rel="stylesheet" type="text/css" href="css/theme.css"/>
+                <link rel="stylesheet" type="text/css" href="css/theme/theme.css"/>
                 <script type="text/javascript">
                     <xsl:call-template name="jstree"/>
                 </script>
@@ -37,7 +37,7 @@
         { 
         'core' : { 'data' : 
         [
-            <xsl:apply-templates select="sCorpusInfo" mode="main">
+        <xsl:apply-templates select="sCorpusInfo" mode="main">
             <xsl:sort select="@sName"/>
         </xsl:apply-templates>
         ]

@@ -18,6 +18,7 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -85,6 +86,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	private static final Logger logger= LoggerFactory.getLogger("SaltInfoExporter"); 
 	
 	public static final String SITE_RESOURCES="site/";
+	public static final String CSS_RESOURCES="css/";
 	public static final String XSLT_INFO_TO_HTML="xslt/saltInfo2html.xsl";
 	public static final String XSLT_INDEX_TO_HTML="xslt/saltInfo2index.xsl";
 	/** name of the file containing the corpus-structure for SaltInfo**/
@@ -101,9 +103,11 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	}
 	
 	private URI siteResources = null;
+	private URI cssResources = null;
 	@Override
 	public boolean isReadyToStart() throws PepperModuleNotReadyException {
 		siteResources= URI.createFileURI(getResources().toFileString()+SITE_RESOURCES);
+		cssResources = URI.createFileURI(getResources().toFileString()+SITE_RESOURCES+CSS_RESOURCES);
 		
 		System.setProperty("javax.xml.transform.TransformerFactory",    
 		        "net.sf.saxon.TransformerFactoryImpl");
@@ -201,21 +205,49 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		}
 		//copy resources: css, js, and images
 		File resourceFolder= new File(siteResources.toFileString());
+		File cssFolder = new File(cssResources.toFileString());
+		//first copy the whole site-folder except for the theme-*-folder under the css-directory
 		if (	(resourceFolder!= null)&&
 				(!resourceFolder.exists())){
 			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "+resourceFolder);
 		}else{
-			if (SaltInfoProperties.THEME_DEFAULT.equals(((SaltInfoProperties)getProperties()).getTheme())){
-				
-			}else if(SaltInfoProperties.THEME_HISTORIC.equals(((SaltInfoProperties)getProperties()).getTheme())){
-				
-			}
 			try {
-				FileUtils.copyDirectory(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()));
+				FileUtils.copyDirectory(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()), new FileFilter() {
+				    public boolean accept(File pathname) {
+				        String name = pathname.getName();
+
+				        return !(name.contains("theme_") && pathname.isDirectory());
+				    }
+				}, true);
 			} catch (IOException e) {
 				logger.warn("Cannot export the resources for project site, because of a nested exception: "+e.getMessage());
 			}
 		}
+			if (SaltInfoProperties.THEME_DEFAULT.equals(((SaltInfoProperties)getProperties()).getTheme())){
+				File theme = new File(getCorpusDesc().getCorpusPath().toFileString()+"/css/theme/");
+				File[] cssFiles = cssFolder.listFiles();
+				for(File css : cssFiles){
+					if (css.isDirectory()) {
+		                try {
+							FileUtils.copyDirectory(new File(cssResources.toFileString()+"theme_"+SaltInfoProperties.THEME_DEFAULT), theme);
+						} catch (IOException e) {
+							logger.warn("Cannot export the css_theme-resources for project site, because of a nested exception: "+e.getMessage());
+							}
+		            }
+				}
+			}else if(SaltInfoProperties.THEME_HISTORIC.equals(((SaltInfoProperties)getProperties()).getTheme())){
+				File theme = new File(getCorpusDesc().getCorpusPath().toFileString()+"/css/theme/");
+				File[] cssFiles = cssFolder.listFiles();
+				for(File css : cssFiles){
+					if (css.isDirectory()) {
+		                try {
+							FileUtils.copyDirectory(new File(cssResources.toFileString()+"theme_"+SaltInfoProperties.THEME_HISTORIC), theme);
+						} catch (IOException e) {
+							logger.warn("Cannot export the css_theme-resources for project site, because of a nested exception: "+e.getMessage());
+							}
+		            }
+				}
+			}
 	}
 	/**
 	 * Writes the project info file retrieved out of the {@link SaltProject} into the passed xml stream.
