@@ -531,6 +531,7 @@
         }
     </xsl:template>
     
+    <!-- create a loop to iterate $NumOfTooltips-times -->
     <xsl:template name="loop">
         <xsl:param name="index"></xsl:param>
         <xsl:param name="max"></xsl:param>
@@ -574,7 +575,6 @@
     <xsl:template match="sAnnotationInfo" mode="annoTooltips">
        <xsl:param name="index"/> 
         <xsl:param name="max"/>
-        
         <xsl:if test="$index &lt; $max and (exists(following::sAnnotationInfo) or exists(//sLayerInfo))">{"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""},
             </xsl:if>
         <xsl:if test="$index = $max or (count(//sAnnotationInfo[not(parent::sLayerInfo)]) &lt; $NumOfTooltips and not(exists(following::sAnnotationInfo)) and not(exists(//sLayerInfo)))">{"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""}
