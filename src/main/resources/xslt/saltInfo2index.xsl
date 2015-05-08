@@ -51,6 +51,7 @@
     <xsl:template match="sCorpusInfo" mode="main"> { 
         "text" : "<xsl:value-of select="@sName"/>",
         "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+         a_attr : { "title" : "<xsl:value-of select="@sName"/>" },
         "state" : { "opened" : true }, icon : "fa fa-folder-o"<xsl:if
             test="not(empty(child::node()))">, 
             "children" : [ 
@@ -67,6 +68,7 @@
     <xsl:template match="sCorpusInfo" mode="sub"> { 
         "text" : "<xsl:value-of select="@sName"/>",
         "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+        a_attr : { "title" : "<xsl:value-of select="@sName"/>" },
         icon : "fa fa-folder-o"<xsl:if test="not(empty(*))">, 
         "children" : 
         [ <xsl:apply-templates
@@ -84,7 +86,8 @@
     <xsl:template match="sDocumentInfo"> { 
         "text" : "<xsl:value-of select="@sName"/>", 
         icon : "fa fa-file-o", 
-        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" }
+        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+        a_attr : { "title" : "<xsl:value-of select="@sName"/>" }
         }<xsl:if test="exists(following-sibling::sDocumentInfo[compare(@sName,current()/@sName)&gt;0]) or exists(preceding-sibling::sDocumentInfo[compare(@sName,current()/@sName)&gt;0])">,</xsl:if>
     </xsl:template>
     
