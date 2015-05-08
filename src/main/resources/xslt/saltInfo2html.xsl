@@ -534,13 +534,12 @@
     <xsl:template name="loop">
         <xsl:param name="index"></xsl:param>
         <xsl:param name="max"></xsl:param>
-        <xsl:if test="not($index &gt; $max)">
+        <xsl:if test="not($index + count(preceding::sAnnotationInfo) &gt; $max)">
             <xsl:apply-templates mode="annoTooltips" select="sAnnotationInfo[position() = $index]">
                 <xsl:with-param name="index"><xsl:value-of select="$index"/></xsl:with-param>
                 <xsl:with-param name="max"><xsl:value-of select="$max"/></xsl:with-param>
                 <xsl:sort select="@sName" lang="de"/>
             </xsl:apply-templates>
-            
             <xsl:if test="not(exists(sAnnotationInfo[not(parent::sLayerInfo)])) and count(sAnnotationInfo[not(parent::sLayerInfo)]) &lt; $NumOfTooltips">
                 <xsl:apply-templates mode="annoTooltips" select="sLayerInfo/sAnnotationInfo[position() = $index + count(sAnnotationInfo[not(parent::sLayerInfo)])]">
                     <xsl:with-param name="index"><xsl:value-of select="$index + count(sAnnotationInfo[not(parent::sLayerInfo)])"/></xsl:with-param>
@@ -548,14 +547,12 @@
                     <xsl:sort select="@sName" lang="de"/>
                 </xsl:apply-templates>
             </xsl:if>
-            
             <xsl:call-template name="loop">
                 <xsl:with-param name="index"><xsl:value-of select="$index + 1"/></xsl:with-param>
                 <xsl:with-param name="max"><xsl:value-of select="$max"/></xsl:with-param>
             </xsl:call-template>
-            
-            <xsl:if test="exists(sAnnotationInfo[not(parent::sLayerInfo)]) and count(sAnnotationInfo[not(parent::sLayerInfo)]) &lt; $NumOfTooltips">
-                <xsl:apply-templates mode="annoTooltips" select="sLayerInfo/sAnnotationInfo[position() = $index + count(sAnnotationInfo[not(parent::sLayerInfo)])]">
+            <xsl:if test="exists(sAnnotationInfo[not(parent::sLayerInfo)]) and count(preceding::sAnnotationInfo[not(parent::sLayerInfo)])  &lt; $NumOfTooltips">
+                <xsl:apply-templates mode="annoTooltips" select="sLayerInfo/sAnnotationInfo[position() = $index + count(sAnnotationInfo[not(parent::sLayerInfo)]) - count(preceding::sAnnotationInfo[parent::sLayerInfo])]">
                     <xsl:with-param name="index"><xsl:value-of select="$index + count(sAnnotationInfo[not(parent::sLayerInfo)])"/></xsl:with-param>
                     <xsl:with-param name="max"><xsl:value-of select="$max"/></xsl:with-param>
                     <xsl:sort select="@sName" lang="de"/>
@@ -578,15 +575,11 @@
        <xsl:param name="index"/> 
         <xsl:param name="max"/>
         
-        <xsl:if test="$index &lt; $max and (not(count(//sAnnotationInfo[not(parent::sLayerInfo)]) &lt; $NumOfTooltips) or exists(//sLayerInfo))">{"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""},
+        <xsl:if test="$index &lt; $max and (exists(following::sAnnotationInfo) or exists(//sLayerInfo))">{"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""},
             </xsl:if>
-        <xsl:if test="$index = $max or (count(//sAnnotationInfo[not(parent::sLayerInfo)]) &lt; $NumOfTooltips and position() = last() and not(exists(//sLayerInfo)))">{"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""}
+        <xsl:if test="$index = $max or (count(//sAnnotationInfo[not(parent::sLayerInfo)]) &lt; $NumOfTooltips and not(exists(following::sAnnotationInfo)) and not(exists(//sLayerInfo)))">{"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""}
         </xsl:if>
-       <!-- <xsl:choose><xsl:when test="position() &lt; $NumOfTooltips and position() != last() and ((count(preceding::sLayerinfo//sAnnotationInfo) + count(preceding-sibling::sAnnotationInfo) &lt; $NumOfTooltips or count(preceding::sLayerinfo//sAnnotationInfo) + count(preceding-sibling::sAnnotationInfo) = 0))">
-            {"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""},</xsl:when>
-            <xsl:when test="position() = $NumOfTooltips or ((count(preceding::sLayerinfo//sAnnotationInfo) + count(preceding-sibling::sAnnotationInfo) &lt; $NumOfTooltips) and position() = last())">
-                {"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""}</xsl:when></xsl:choose>
--->    </xsl:template>
+    </xsl:template>
     
     <!-- create tooltips for slayer -->
     <xsl:template mode="annoTooltips" match="sLayerInfo/sAnnotationInfo">
@@ -596,6 +589,7 @@
         </xsl:if>
         <xsl:if test="$index = $max or (count(//sAnnotationInfo[parent::sLayerInfo]) + count(//sAnnotationInfo[not(parent::sLayerInfo)]) &lt; $NumOfTooltips and position() = last())">{"name": "<xsl:if test="parent::sLayerInfo"><xsl:value-of select="../@sName"/>:</xsl:if><xsl:value-of select="@sName"/>", "tooltip": ""}
         </xsl:if>
+        <xsl:value-of select="$index"/>
     </xsl:template>
     
     <!-- build default layer descriptions for each layer -->
