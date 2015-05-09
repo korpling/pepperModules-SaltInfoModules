@@ -174,7 +174,7 @@ Clicking on one of the links automatically creates an ANNIS query and opens it i
 ```
 
 #### Theme
-The corpus site can be produces in different themes. To customize the theme you need to set a customization property, which influences the creation of the site. More information on changing the site's theme can be found <a href="sec_theme">here</a>.
+The corpus site can be produces in different themes. To customize the theme you need to set a customization property, which influences the creation of the site. More information on changing the site's theme can be found <a href="#sec_theme">here</a>.
 
 #### Impressum
 The corpus site comes with a default automatically generated impressum. Therefore this impressum only contains some dummy values and needs to be adapted. You should adapt the impressum for your specific dates, like who is in charge for that site etc. The file to be adapted is an html file named 'impressum.html' which is to find in the root folder of the corpus site. The following snippet shows the important parts for adaption:
