@@ -172,6 +172,10 @@ Clicking on one of the links automatically creates an ANNIS query and opens it i
     ...
 }
 ```
+
+#### Theme
+The corpus site can be produces in different themes. To customize the theme you need to set a customization property, which influences the creation of the site. More information on changing the site's theme can be found <a href="sec_theme">here</a>.
+
 #### Impressum
 The corpus site comes with a default automatically generated impressum. Therefore this impressum only contains some dummy values and needs to be adapted. You should adapt the impressum for your specific dates, like who is in charge for that site etc. The file to be adapted is an html file named 'impressum.html' which is to find in the root folder of the corpus site. The following snippet shows the important parts for adaption:
 ```html
@@ -261,6 +265,19 @@ The xml files for document structures are similar to the following sample:
     </sLayerInfo>
     <!-- ... -->
 </sCorpusInfo>
+```
+## Properties
+The table below contains an overview of all usable properties to customize the behaviour of this Pepper module. The following section contains a close description to each single property and describes the resulting differences in the mapping to TCF.
+
+| Name of property | Type of property | optional/mandatory | default value |
+|------------------|------------------|--------------------|---------------|
+| theme | default|historic | optional | default |
+
+### <a name="sec_theme">theme</a>
+Determines the theme of the output HTML project. The theme could be 'historic' or 'default'.
+To use the historic theme set use the property in the workflow description as follows:
+```xml
+<property key="theme">historic</property>
 ```
 
 ## Contribute
