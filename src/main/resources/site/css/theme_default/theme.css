@@ -186,6 +186,16 @@ td.entry-key {
     border: 1px solid black;
 }
 
+}
+.help{
+    border: 2px solid rgb(174, 174, 174);
+    font-size: 11pt;
+    border-radius: 5px;
+    padding: 4px;
+    cursor: pointer;
+    align: right;
+}
+
 /**************************************
  * HEADER
  * ************************************/

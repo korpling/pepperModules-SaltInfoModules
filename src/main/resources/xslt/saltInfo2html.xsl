@@ -75,6 +75,7 @@
     <xsl:variable name="DEFAULT_EMAIL_M">john-doe@sample.com</xsl:variable>
     <xsl:variable name="DEFAULT_ANNOTATOR_W">Jane Doe</xsl:variable>
     <xsl:variable name="DEFAULT_EMAIL_W">jane-doe@sample.com</xsl:variable>
+    <xsl:variable name="LICENSE">No license is given for this corpus.</xsl:variable>
     
     <!-- description texts for sections -->
     <xsl:variable name="DESC_STRUCTURAL_INFO">Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of nodes and relations. Subtypes of nodes are: SToken, STextualDS (primary data), SSpan, SStructure and some more. Subtypes of relations are: SSpanningRelation, SDominanceRelation, SPointingRelation and some more. This section gives an overview of the frequency (Count) for each of those elements (Name) used in this corpus or document.</xsl:variable>
@@ -490,10 +491,10 @@
                 <hr/>
                 <article id="corpusDescription">
                 </article>
-                <br/>
                 <h3>Annotators</h3>
-                <hr/>
                 <article id="annotators"></article>
+                <h3>License</h3>
+                <article id="license"></article>
             </body>
         </html>
     </xsl:template>
@@ -507,6 +508,7 @@
             {"name" : "<xsl:value-of select="$DEFAULT_ANNOTATOR_M"/>", "eMail" : "<xsl:value-of select="$DEFAULT_EMAIL_M"></xsl:value-of>"}, 
         {"name" : "<xsl:value-of select="$DEFAULT_ANNOTATOR_W"/>", "eMail" : "<xsl:value-of select="$DEFAULT_EMAIL_W"></xsl:value-of>"}
         ],
+        "license": "<xsl:value-of select="$LICENSE"/>",
         <xsl:if test="not(empty(//metaDataInfo//entry))">
         "tooltips_metadata" : [<xsl:apply-templates mode="metaTooltips" select="metaDataInfo"><xsl:sort select="@key"></xsl:sort></xsl:apply-templates>
         ],
