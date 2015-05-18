@@ -207,6 +207,20 @@ hr {
     background: #361B01;
     border: 0;
 }
+a.help:hover {
+    background: #373737;
+    color: #EFC17E;
+}
+.help{
+    border: 2px solid #373737;
+    background: #EFC17E; 
+    font-size: 11pt;
+    color: #373737;
+    border-radius: 5px;
+    padding: 4px;
+    cursor: pointer;
+    align: right;
+}
 
 /**************************************
  * HEADER
