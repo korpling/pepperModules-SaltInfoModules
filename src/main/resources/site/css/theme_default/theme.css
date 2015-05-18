@@ -187,6 +187,10 @@ td.entry-key {
 }
 
 }
+a.help:hover {
+    background: rgb(214, 214, 214); 
+    border: 2px solid rgb(134, 134, 134);
+}
 .help{
     border: 2px solid rgb(174, 174, 174);
     font-size: 11pt;

@@ -484,6 +484,10 @@
                     About
                 </title>
             </head>
+            
+            <div align="right">
+               <a class="help" onclick="loadHelpPage();"><i class="fa fa-question-circle"/> Help</a>
+            </div>
             <body>
                 <h2 id="corpusTitle">
                     <xsl:value-of select="$currentFile"/>

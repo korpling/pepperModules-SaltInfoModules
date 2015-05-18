@@ -484,3 +484,11 @@ function loadImpressumPage() {
     $('#content')
         .load('impressum.html');
 }
+
+/*******************************************************************************
+ * Load content for help page
+ ******************************************************************************/
+function loadHelpPage() {
+    $('#content')
+        .load('help.html');
+}
