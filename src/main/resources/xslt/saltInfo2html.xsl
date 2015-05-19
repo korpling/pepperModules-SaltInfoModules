@@ -25,7 +25,7 @@
     <!-- check if file is main corpus -->
     <xsl:variable name="isMainCorpus" select="sCorpusInfo/@sName=$corpusname"/>
     
-    <!-- get corpus name from id and save it as a variable for later use -->
+    <!-- get corpus or document name from id and save it as a variable for later use -->
     <xsl:variable name="corpusname">
         <xsl:choose>
             <!-- if current file is a subcorpus or document extract name from id by selecting the string between first and second slash -->
@@ -45,7 +45,7 @@
     </xsl:variable>
    
     <!-- define output name for json file -->
-    <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="root()/node()/@sName"/>.json</xsl:param>
+    <xsl:param name="jsonOutputName">./anno_<xsl:value-of select="$currentFile"/>.json</xsl:param>
     <xsl:variable name="jsonOutputPath">./<xsl:value-of select="substring-after(replace(root()/node()/@id, $currentFile, concat('anno_', $currentFile, '.json')), 'salt:/')"/></xsl:variable>
     
     <!-- tooltip descriptions for structural elements -->
