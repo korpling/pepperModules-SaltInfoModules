@@ -96,6 +96,9 @@
                 <script src="./js/jquery-ui.js"></script>
             </head>
             <body>
+                <div align="right">
+                   <a class="help" onclick="loadHelpPage();"><i class="fa fa-question-circle"/> Help</a>
+                </div>
                 <!-- get corpus name-->
                 <h2 id="title">
                     <xsl:value-of select="@sName"/>
