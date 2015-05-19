@@ -99,9 +99,6 @@
                 <h2 id="title">
                     <xsl:value-of select="@sName"/>
                 </h2>
-                <!-- get structural info table -->
-                <xsl:apply-templates select="structuralInfo"/>
-
                 <div>
                     <!-- get meta info table -->
                     <xsl:apply-templates select="metaDataInfo"/>
@@ -137,6 +134,9 @@
                 <xsl:apply-templates select="sLayerInfo">
                     <xsl:sort select="@sName" lang="de"/>
                 </xsl:apply-templates>
+                
+                <!-- get structural info table -->
+                <xsl:apply-templates select="structuralInfo"/>
                 
                 <!-- insert javascript code -->
                 <script>
