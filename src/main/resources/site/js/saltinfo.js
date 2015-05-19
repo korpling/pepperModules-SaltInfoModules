@@ -489,6 +489,6 @@ function loadImpressumPage() {
  * Load content for help page
  ******************************************************************************/
 function loadHelpPage() {
-    $('#content')
-        .load('help.html');
+var helpWindow= window.open('help.html', 'popUpWindow', 'height=530,width=530,left=100,top=100,resizable=no, scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no, status=no,titlebar=no,location=no'); 
+helpWindow.focus();
 }

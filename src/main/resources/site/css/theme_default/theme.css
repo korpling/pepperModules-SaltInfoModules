@@ -185,19 +185,40 @@ td.entry-key {
 .boxed{
     border: 1px solid black;
 }
-
-}
+/**************************************
+ * HELP Button and Page
+ * ************************************/
 a.help:hover {
-    background: rgb(214, 214, 214); 
-    border: 2px solid rgb(134, 134, 134);
+    background:#373737;
+    color:#EFC17E
 }
-.help{
-    border: 2px solid rgb(174, 174, 174);
-    font-size: 11pt;
-    border-radius: 5px;
-    padding: 4px;
-    cursor: pointer;
-    align: right;
+
+.help {
+    border:2px solid #373737;
+    background:#EFC17E;
+    font-size:11pt;
+    color:#373737;
+    border-radius:5px;
+    padding:4px;
+    cursor:pointer
+}
+
+#help_content {
+    left:1%;
+    padding-left:8px;
+    padding-right:8px;
+    width:95%;
+    -webkit-box-shadow:0 0 10px 10px rgba(120,71,9,0.26);
+    box-shadow:0 0 10px 10px rgba(120,71,9,0.26);
+    background-color:hsla(40,53%,100%,0.80)
+}
+
+#help_content_wrap {
+    margin:0;
+    padding-top:8px;
+    z-index:2;
+    width:100%;
+    padding-bottom:8px
 }
 
 /**************************************
