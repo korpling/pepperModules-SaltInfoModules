@@ -90,7 +90,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	public static final String XSLT_INFO_TO_HTML = "xslt/saltInfo2html.xsl";
 	public static final String XSLT_INDEX_TO_HTML = "xslt/saltInfo2index.xsl";
 	/** name of the file containing the corpus-structure for SaltInfo **/
-	public static final String PROJECT_INFO_FILE = "salt-project";
+	public static final String PROJECT_INFO_FILE = "index";
 
 	private static TransformerFactory transFac = null;
 
@@ -190,7 +190,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
 		XMLStreamWriter xml;
-		File projectInfoFile = new File(getCorpusDesc().getCorpusPath().appendSegment("salt-project").appendFileExtension(PepperModule.ENDING_XML).toFileString());
+		File projectInfoFile = new File(getCorpusDesc().getCorpusPath().appendSegment(PROJECT_INFO_FILE).appendFileExtension(PepperModule.ENDING_XML).toFileString());
 		try {
 			xml = xof.createXMLStreamWriter(new FileWriter(projectInfoFile));
 		} catch (XMLStreamException | IOException e) {

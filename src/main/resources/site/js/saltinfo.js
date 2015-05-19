@@ -98,6 +98,8 @@ var annoDesc = "";
 var layerDesc = [];
 /** Contains an array of author names*/
 var annotators = [];
+/** Contains the license of the corpus**/
+var license = "";
 /** Link to ANNIS instance **/
 var annisLink = null;
 /** A table containing tooltips for metadata **/
@@ -132,6 +134,7 @@ function loadCustomization() {
 	corpusName = json.corpusName;        
 	shortDescription = json.shortDescription;
         description = json.description;
+        license = json.license;
         structInfoDesc = json.structInfoDesc;
         metaDataDesc = json.metaDataDesc;
         annoDesc = json.annoDesc;
@@ -452,11 +455,11 @@ function loadMainPage() {
         .load(
             'main.html',
             function() {
-//            	if (corpusName != null) {
-//            		$("#corpusTitle").append(corpusName);
-//            	}
                 if (description != null) {
                 	$("#corpusDescription").append("<p>"+description+"</p>");
+                }
+                if (license != null) {
+                	$("#license").append("<p>"+license+"</p>");
                 }
                 if (annotators != null) {
 				    var annotatorElement = $("#annotators");
@@ -480,4 +483,12 @@ function loadMainPage() {
 function loadImpressumPage() {
     $('#content')
         .load('impressum.html');
+}
+
+/*******************************************************************************
+ * Load content for help page
+ ******************************************************************************/
+function loadHelpPage() {
+var helpWindow= window.open('help.html', 'popUpWindow', 'height=530,width=530,left=100,top=100,resizable=no, scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no, status=no,titlebar=no,location=no'); 
+helpWindow.focus();
 }
