@@ -70,6 +70,7 @@ section {
 .inner {
 	position: relative;
 	width: 70%;
+	left: 5%;
 	padding-left:2%;
 	padding-right:2%;
 	margin: 0 auto;
