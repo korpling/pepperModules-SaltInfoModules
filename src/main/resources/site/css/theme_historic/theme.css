@@ -7,7 +7,7 @@ html,body {
     border:0;
     font:inherit;
     vertical-align:baseline;
-    font-family: asul,"Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans",Verdana,sans-serif;
+    font-family: "Junicode","Lucida Grande","Lucida Sans Unicode","Lucida Sans","DejaVu Sans",Verdana,sans-serif;
     color:#1F0F00;
     background-repeat:repeat;
     background-image:url(parchment.jpg)
@@ -15,8 +15,8 @@ html,body {
 
 body {
     box-sizing:border-box;
-    font-size:16px;
-    font-family:'Myriad Pro',Calibri,Helvetica,Arial,sans-serif;
+    font-size:20px;
+    font-family: "Junicode",'Myriad Pro',Calibri,Helvetica,Arial,sans-serif;
     line-height:1.5;
     -webkit-font-smoothing:antialiased
 }
@@ -160,7 +160,7 @@ td.entry-key {
     width:15%;
     padding:.5em;
     bottom:4em;
-    font-family:'Lucida Grande','Helvetica Neue',Helvetica,Arial,sans-serif
+    font-family:'Junicode','Lucida Grande','Helvetica Neue',Helvetica,Arial,sans-serif
 }
 
 #search_me {
@@ -173,7 +173,7 @@ td.entry-key {
     padding:10px;
     color:#361B01;
     background:#EFC17E no-repeat 95% 50%;
-    font-family:'Lucida Grande','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-family:'Junicode','Lucida Grande','Helvetica Neue',Helvetica,Arial,sans-serif;
     font-weight:700;
     cursor:pointer;
     box-shadow:0 0 10px rgba(0,0,0,.5);
@@ -214,7 +214,7 @@ a.help:hover {
     border:2px solid #361B01;
     background:#EFC17E;
     font-size:11pt;
-    color:#361B01;
+    color:#373737;
     border-radius:5px;
     padding:4px;
     cursor:pointer
@@ -248,7 +248,7 @@ header {
 }
 
 #header_wrap {
-    font-family:'CloisterBlackLight','MathJax_Fraktur';
+    font-family:'Junicode';
     background:-moz-linear-gradient(top,#361B01,#361B01);
     background:-webkit-linear-gradient(top,#361B01,#361B01);
     background:-ms-linear-gradient(top,#361B01,#361B01);
@@ -336,10 +336,9 @@ footer a {
  * additional fonts
  **************************************/
 @font-face {
-    font-family:'CloisterBlackLight';
-    src:url(CloisterBlack-webfont.eot);
-    src:url(CloisterBlack-webfont.eot?#iefix) format("embedded-opentype"),url(CloisterBlack-webfont.woff) format("woff"),url(CloisterBlack-webfont.ttf) format("truetype"),url(CloisterBlack-webfont.svg#CloisterBlackLight) format("svg")
-}
+    font-family:'Junicode';
+    src:url(Junicode.ttf) format("truetype")
+} 
 
 @font-face {
     font-family:'antinoouRegular';
