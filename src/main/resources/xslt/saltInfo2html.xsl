@@ -498,10 +498,12 @@
                 <hr/>
                 <article id="corpusDescription">
                 </article>
-                <h3>Annotators</h3>
-                <article id="annotators"></article>
-                <h3>License</h3>
-                <article id="license"></article>
+                <article id="annotators">
+	        	<h3>Annotators</h3>
+                </article>
+                <article id="license">
+			<h3>License</h3>
+              	</article>
             </body>
         </html>
     </xsl:template>
