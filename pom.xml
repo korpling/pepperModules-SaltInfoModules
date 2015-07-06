@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>pepperModules-SaltInfoModules</artifactId>
@@ -10,7 +9,7 @@
 			<id>korpling</id>
 			<name>korpling maven repo</name>
 			<url>file:///srv/www/maven2/</url>
-			<!-- <url>scpexe://korpling.german.hu-berlin.de/srv/www/maven2/</url> -->
+			
 		</repository>
 	</distributionManagement>
 	<repositories>
@@ -20,13 +19,11 @@
 			<url>http://korpling.german.hu-berlin.de/maven2</url>
 		</repository>
 	</repositories>
-	<!-- Declares this project to be an extension of the project pepper-parentModule. 
-		The parent project for instance contains all dependencies necessary for using 
-		the SaltNPepper environment (all Pepper projects and all Salt projects). -->
+	
 	<parent>
 		<groupId>de.hu_berlin.german.korpling.saltnpepper</groupId>
 		<artifactId>pepper-parentModule</artifactId>
-		<version>2.1.0</version>
+		<version>2.1.2-SNAPSHOT</version>
 	</parent>
 	<description>This project provides a exporter module to render information on the Salt model that is used in  a given corpus. </description>
 	<url>http://korpling.github.io/pepperModules-SaltInfoModule</url>
@@ -40,7 +37,7 @@
 	</ciManagement>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
-		<name>Humboldt-Universität zu Berlin</name>
+		<name>Humboldt-Universit&#228;t zu Berlin</name>
 	</organization>
 	<scm>
 		<connection>scm:git:git://github.com/korpling/pepperModules-SaltInfoModules.git</connection>
@@ -61,7 +58,7 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<!-- start: Plugin for automatic releasing -->
+			
 			<plugin>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>${maven-release-plugin.version}</version>
@@ -70,10 +67,7 @@
 					<goals>package assembly:single deploy</goals>
 				</configuration>
 			</plugin>
-			<!-- start: creation of bundle jar This plugIn creates a META-INF folder 
-				if not present and adds the entries into the MANIFEST.MF file required for 
-				OSGi. It also creates an OSGI-INF folder necessary for using service-components 
-				in OSGi. -->
+			
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -103,7 +97,7 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<!-- end: creation of bundle jar -->
+			
 		</plugins>
 	</build>
 </project>
