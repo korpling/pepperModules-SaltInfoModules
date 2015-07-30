@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>pepperModules-SaltInfoModules</artifactId>
 	<name>${project.groupId}.${project.artifactId}</name>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<packaging>bundle</packaging>
 	<distributionManagement>
 		<repository>
@@ -37,7 +37,7 @@
 	</ciManagement>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
-		<name>Humboldt-Universit&#228;t zu Berlin</name>
+		<name>Humboldt-Universität zu Berlin</name>
 	</organization>
 	<scm>
 		<connection>scm:git:git://github.com/korpling/pepperModules-SaltInfoModules.git</connection>
