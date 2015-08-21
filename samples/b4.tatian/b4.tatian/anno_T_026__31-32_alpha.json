@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"adhuc", "occurrence": "1"},
+        {"value":"et", "occurrence": "1"},
+        {"value":"replebitur", "occurrence": "1"},
+        {"value":"sancto", "occurrence": "1"},
+        {"value":"spiritu", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"&", "occurrence": "1"},
+        {"value":"confitebor", "occurrence": "1"},
+        {"value":"coram", "occurrence": "1"},
+        {"value":"ego", "occurrence": "1"},
+        {"value":"eum", "occurrence": "1"},
+        {"value":"meo", "occurrence": "1"},
+        {"value":"patre", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

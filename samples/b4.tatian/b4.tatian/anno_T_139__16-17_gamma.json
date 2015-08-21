@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"aeternam", "occurrence": "1"},
+        {"value":"habere", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"ipsis", "occurrence": "1"},
+        {"value":"putatis", "occurrence": "1"},
+        {"value":"quia", "occurrence": "1"},
+        {"value":"uitam", "occurrence": "1"},
+        {"value":"uos", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "2"}
+        ]
+                        
+        }
+    

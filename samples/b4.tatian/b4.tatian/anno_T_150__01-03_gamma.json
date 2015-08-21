@@ -1,0 +1,27 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "2"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"autem", "occurrence": "1"},
+        {"value":"demoniorum", "occurrence": "1"},
+        {"value":"eicitur", "occurrence": "1"},
+        {"value":"genus", "occurrence": "1"},
+        {"value":"hoc", "occurrence": "1"},
+        {"value":"ieiunium", "occurrence": "1"},
+        {"value":"nisi", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"orationem", "occurrence": "1"},
+        {"value":"per", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "4"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

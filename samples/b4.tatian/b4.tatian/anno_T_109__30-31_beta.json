@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"eis", "occurrence": "1"},
+        {"value":"et", "occurrence": "1"},
+        {"value":"loquebatur", "occurrence": "1"},
+        {"value":"multis", "occurrence": "1"},
+        {"value":"parabolis", "occurrence": "1"},
+        {"value":"talibus", "occurrence": "1"},
+        {"value":"uerbum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

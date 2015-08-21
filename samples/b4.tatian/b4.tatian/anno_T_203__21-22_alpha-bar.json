@@ -1,0 +1,33 @@
+{
+        "gf": [
+            {"value":"ADVLOC", "occurrence": "1"},
+        {"value":"ADVMOD", "occurrence": "1"},
+        {"value":"ADVTEMP", "occurrence": "1"},
+        {"value":"DO", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "1"}
+        ],
+                        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"ad", "occurrence": "1"},
+        {"value":"autem", "occurrence": "1"},
+        {"value":"dicens", "occurrence": "1"},
+        {"value":"eos", "occurrence": "1"},
+        {"value":"filium", "occurrence": "1"},
+        {"value":"misit", "occurrence": "1"},
+        {"value":"nouissime", "occurrence": "1"},
+        {"value":"suum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "2"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

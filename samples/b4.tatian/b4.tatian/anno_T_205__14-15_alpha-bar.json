@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"alios", "occurrence": "1"},
+        {"value":"dicens", "occurrence": "1"},
+        {"value":"Iterum", "occurrence": "1"},
+        {"value":"misit", "occurrence": "1"},
+        {"value":"seruos", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "2"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

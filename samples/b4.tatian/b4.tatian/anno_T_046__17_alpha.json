@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"...", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"arbor", "occurrence": "1"},
+        {"value":"excid&ur", "occurrence": "1"},
+        {"value":"ignem", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"mitt&ur", "occurrence": "1"},
+        {"value":"omnis", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "2"}
+        ]
+                        
+        }
+    

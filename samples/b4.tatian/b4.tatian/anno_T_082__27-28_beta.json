@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"confestim", "occurrence": "1"},
+        {"value":"eius", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"lepra", "occurrence": "1"},
+        {"value":"mundata", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "2"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

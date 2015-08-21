@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "2"},
+        {"value":"...", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"caro", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"mea", "occurrence": "1"},
+        {"value":"mundi", "occurrence": "1"},
+        {"value":"panis", "occurrence": "1"},
+        {"value":"pro", "occurrence": "1"},
+        {"value":"uita", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "4"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "2"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

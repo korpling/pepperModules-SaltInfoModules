@@ -1,0 +1,23 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"cum", "occurrence": "1"},
+        {"value":"diebus", "occurrence": "1"},
+        {"value":"Et", "occurrence": "1"},
+        {"value":"ieiunass&", "occurrence": "1"},
+        {"value":"noctibus", "occurrence": "1"},
+        {"value":"quadraginta", "occurrence": "1"},
+        {"value":"xl", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "3"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"NUM", "occurrence": "2"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

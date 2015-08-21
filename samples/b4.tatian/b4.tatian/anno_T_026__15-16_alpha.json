@@ -1,0 +1,34 @@
+{
+        "gf": [
+            {"value":"ADVLOC", "occurrence": "1"},
+        {"value":"ADVTEMP", "occurrence": "1"},
+        {"value":"ATTR", "occurrence": "1"},
+        {"value":"PARTPR", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "1"}
+        ],
+                        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"erat", "occurrence": "1"},
+        {"value":"foris", "occurrence": "1"},
+        {"value":"hora", "occurrence": "1"},
+        {"value":"Incensi", "occurrence": "1"},
+        {"value":"multitudo", "occurrence": "1"},
+        {"value":"omnis", "occurrence": "1"},
+        {"value":"orans", "occurrence": "1"},
+        {"value":"populi", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "4"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "4"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

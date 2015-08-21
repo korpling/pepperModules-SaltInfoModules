@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"dei", "occurrence": "1"},
+        {"value":"demonia", "occurrence": "1"},
+        {"value":"digito", "occurrence": "1"},
+        {"value":"eicio", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"porro", "occurrence": "1"},
+        {"value":"si", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

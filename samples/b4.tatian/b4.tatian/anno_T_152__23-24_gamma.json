@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"bonum", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"luscum", "occurrence": "1"},
+        {"value":"regnare", "occurrence": "1"},
+        {"value":"tibi", "occurrence": "1"},
+        {"value":"uitam", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"NUM", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

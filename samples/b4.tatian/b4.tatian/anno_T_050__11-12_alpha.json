@@ -1,0 +1,23 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"ad", "occurrence": "1"},
+        {"value":"forte", "occurrence": "1"},
+        {"value":"lapidem", "occurrence": "1"},
+        {"value":"ne", "occurrence": "1"},
+        {"value":"offendas", "occurrence": "1"},
+        {"value":"pedem", "occurrence": "1"},
+        {"value":"tuum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

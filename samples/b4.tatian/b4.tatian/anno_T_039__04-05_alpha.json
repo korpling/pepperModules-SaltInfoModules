@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"domini", "occurrence": "1"},
+        {"value":"legem", "occurrence": "1"},
+        {"value":"omnia", "occurrence": "1"},
+        {"value":"perfecerunt", "occurrence": "1"},
+        {"value":"secundum", "occurrence": "1"},
+        {"value":"ut", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

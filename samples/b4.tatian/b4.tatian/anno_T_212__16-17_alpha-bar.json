@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"fuerat", "occurrence": "1"},
+        {"value":"glorificatus", "occurrence": "1"},
+        {"value":"ihesus", "occurrence": "1"},
+        {"value":"nondum", "occurrence": "1"},
+        {"value":"quia", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

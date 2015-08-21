@@ -1,0 +1,23 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"cyrino", "occurrence": "1"},
+        {"value":"descriptio", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"facta", "occurrence": "1"},
+        {"value":"haec", "occurrence": "1"},
+        {"value":"praeside", "occurrence": "1"},
+        {"value":"prima", "occurrence": "1"},
+        {"value":"syriae", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"N", "occurrence": "4"},
+        {"value":"P", "occurrence": "3"},
+        {"value":"PRONDEM", "occurrence": "2"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

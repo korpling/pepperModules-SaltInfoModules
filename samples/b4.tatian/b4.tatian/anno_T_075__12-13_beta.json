@@ -1,0 +1,26 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"audit", "occurrence": "1"},
+        {"value":"ea", "occurrence": "1"},
+        {"value":"facit", "occurrence": "1"},
+        {"value":"haec", "occurrence": "1"},
+        {"value":"mea", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"qui", "occurrence": "1"},
+        {"value":"uerba", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"PRONREL", "occurrence": "1"},
+        {"value":"V", "occurrence": "2"}
+        ]
+                        
+        }
+    

@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"annorum", "occurrence": "1"},
+        {"value":"cum", "occurrence": "1"},
+        {"value":"duodecim", "occurrence": "1"},
+        {"value":"factus", "occurrence": "1"},
+        {"value":"fuiss&", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

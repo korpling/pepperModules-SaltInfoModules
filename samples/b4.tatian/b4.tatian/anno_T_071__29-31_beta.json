@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"autem", "occurrence": "1"},
+        {"value":"festucam", "occurrence": "1"},
+        {"value":"fratris", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"oculo", "occurrence": "1"},
+        {"value":"Quid", "occurrence": "1"},
+        {"value":"tui", "occurrence": "1"},
+        {"value":"uides", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONINTERR", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

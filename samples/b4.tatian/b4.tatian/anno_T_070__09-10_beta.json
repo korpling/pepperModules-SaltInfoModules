@@ -1,0 +1,25 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"anima", "occurrence": "1"},
+        {"value":"corpus", "occurrence": "1"},
+        {"value":"esca", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"Nonne", "occurrence": "1"},
+        {"value":"plus", "occurrence": "2"},
+        {"value":"quam", "occurrence": "2"},
+        {"value":"uestimentum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "2"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "4"},
+        {"value":"P", "occurrence": "2"},
+        {"value":"PRONDEM", "occurrence": "4"},
+        {"value":"PTC", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

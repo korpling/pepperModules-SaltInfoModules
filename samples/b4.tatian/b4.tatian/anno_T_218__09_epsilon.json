@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"ex", "occurrence": "1"},
+        {"value":"fornicatione", "occurrence": "1"},
+        {"value":"natj", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"nos", "occurrence": "1"},
+        {"value":"sumus", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

@@ -1,0 +1,33 @@
+{
+        "gf": [
+            {"value":"ADVTEMP", "occurrence": "1"},
+        {"value":"DO", "occurrence": "1"},
+        {"value":"INF", "occurrence": "1"},
+        {"value":"PO", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "1"}
+        ],
+                        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"catenis", "occurrence": "1"},
+        {"value":"eum", "occurrence": "1"},
+        {"value":"iam", "occurrence": "1"},
+        {"value":"ligare", "occurrence": "1"},
+        {"value":"neque", "occurrence": "1"},
+        {"value":"poterat", "occurrence": "1"},
+        {"value":"quisquam", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VMOD", "occurrence": "1"}
+        ]
+                        
+        }
+    

@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"agentes", "occurrence": "1"},
+        {"value":"domino", "occurrence": "1"},
+        {"value":"gratias", "occurrence": "1"},
+        {"value":"manducauerunt", "occurrence": "1"},
+        {"value":"panem", "occurrence": "1"},
+        {"value":"ubi", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

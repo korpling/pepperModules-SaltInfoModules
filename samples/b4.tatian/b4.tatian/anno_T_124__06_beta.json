@@ -1,0 +1,28 @@
+{
+        "gf": [
+            {"value":"ADVCOND", "occurrence": "1"},
+        {"value":"ADVTEMP", "occurrence": "1"},
+        {"value":"DO", "occurrence": "1"},
+        {"value":"PO", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "1"}
+        ],
+                        "LAT": [
+            {"value":"habebitis", "occurrence": "1"},
+        {"value":"In", "occurrence": "1"},
+        {"value":"nisi manducaueritis/...", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"uitam", "occurrence": "1"},
+        {"value":"uobis", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

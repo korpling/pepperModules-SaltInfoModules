@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"agro", "occurrence": "1"},
+        {"value":"bonum", "occurrence": "1"},
+        {"value":"domine", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"nonne", "occurrence": "1"},
+        {"value":"semen", "occurrence": "1"},
+        {"value":"seminasti", "occurrence": "1"},
+        {"value":"tuo", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

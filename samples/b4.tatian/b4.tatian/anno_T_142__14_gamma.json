@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"de", "occurrence": "1"},
+        {"value":"dixi", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"pane", "occurrence": "1"},
+        {"value":"quia", "occurrence": "1"},
+        {"value":"uobis", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

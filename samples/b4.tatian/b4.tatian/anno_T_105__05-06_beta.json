@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"cum", "occurrence": "1"},
+        {"value":"decem", "occurrence": "1"},
+        {"value":"ei", "occurrence": "1"},
+        {"value":"milibus", "occurrence": "1"},
+        {"value":"occurrere", "occurrence": "1"},
+        {"value":"possit", "occurrence": "1"},
+        {"value":"si", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"NUM", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VMOD", "occurrence": "1"}
+        ]
+                        
+        }
+    

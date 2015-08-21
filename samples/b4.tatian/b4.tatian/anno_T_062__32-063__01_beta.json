@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"ad", "occurrence": "1"},
+        {"value":"altare", "occurrence": "1"},
+        {"value":"ergo", "occurrence": "1"},
+        {"value":"munus", "occurrence": "1"},
+        {"value":"offeres", "occurrence": "1"},
+        {"value":"Si", "occurrence": "1"},
+        {"value":"tuum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

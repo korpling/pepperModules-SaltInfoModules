@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"autem", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"laxabo", "occurrence": "1"},
+        {"value":"r&e", "occurrence": "1"},
+        {"value":"tuo", "occurrence": "1"},
+        {"value":"uerbo", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

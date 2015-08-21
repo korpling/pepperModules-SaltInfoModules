@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"diligis", "occurrence": "1"},
+        {"value":"Ipsum", "occurrence": "1"},
+        {"value":"proximum", "occurrence": "1"},
+        {"value":"sicut", "occurrence": "1"},
+        {"value":"té", "occurrence": "1"},
+        {"value":"tuum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

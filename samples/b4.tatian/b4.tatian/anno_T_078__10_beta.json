@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"eritis", "occurrence": "1"},
+        {"value":"meum", "occurrence": "1"},
+        {"value":"nomen", "occurrence": "1"},
+        {"value":"odio", "occurrence": "1"},
+        {"value":"omnibus", "occurrence": "1"},
+        {"value":"propter", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "2"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

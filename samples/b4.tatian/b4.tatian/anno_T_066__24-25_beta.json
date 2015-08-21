@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"coram", "occurrence": "1"},
+        {"value":"faciatis", "occurrence": "1"},
+        {"value":"hominibus", "occurrence": "1"},
+        {"value":"iustitiam", "occurrence": "1"},
+        {"value":"ne", "occurrence": "1"},
+        {"value":"uestram", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

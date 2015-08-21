@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"deserto", "occurrence": "1"},
+        {"value":"ergo", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"nobis", "occurrence": "1"},
+        {"value":"panes", "occurrence": "1"},
+        {"value":"tantos", "occurrence": "1"},
+        {"value":"unde", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "2"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

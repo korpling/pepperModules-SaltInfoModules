@@ -1,0 +1,32 @@
+{
+        "gf": [
+            {"value":"ADVTEMP", "occurrence": "1"},
+        {"value":"PARTPF", "occurrence": "1"},
+        {"value":"PO", "occurrence": "1"},
+        {"value":"PRD", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "1"}
+        ],
+                        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"antequam conuenirent/", "occurrence": "1"},
+        {"value":"de", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"Inuenta", "occurrence": "1"},
+        {"value":"In utero habens", "occurrence": "1"},
+        {"value":"sancto", "occurrence": "1"},
+        {"value":"spiritu", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "2"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

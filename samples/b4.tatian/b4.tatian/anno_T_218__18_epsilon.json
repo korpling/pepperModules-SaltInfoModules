@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"audire", "occurrence": "1"},
+        {"value":"meum", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"potestis", "occurrence": "1"},
+        {"value":"quia", "occurrence": "1"},
+        {"value":"sermonem", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VMOD", "occurrence": "1"}
+        ]
+                        
+        }
+    

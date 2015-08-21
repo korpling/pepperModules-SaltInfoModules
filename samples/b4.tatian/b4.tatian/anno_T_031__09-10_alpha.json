@@ -1,0 +1,23 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"eius", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"Impl&us", "occurrence": "1"},
+        {"value":"pater", "occurrence": "1"},
+        {"value":"sancto", "occurrence": "1"},
+        {"value":"spiritu", "occurrence": "1"},
+        {"value":"zacharias", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

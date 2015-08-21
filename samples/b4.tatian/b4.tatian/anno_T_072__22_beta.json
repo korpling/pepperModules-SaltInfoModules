@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"cubili", "occurrence": "1"},
+        {"value":"In", "occurrence": "1"},
+        {"value":"mecum", "occurrence": "1"},
+        {"value":"mei", "occurrence": "1"},
+        {"value":"pueri", "occurrence": "1"},
+        {"value":"sunt", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "2"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

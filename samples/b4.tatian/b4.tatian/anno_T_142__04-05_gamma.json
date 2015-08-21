@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"fregi", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"milia", "occurrence": "1"},
+        {"value":"panes", "occurrence": "1"},
+        {"value":"quando", "occurrence": "1"},
+        {"value":"quinque", "occurrence": "2"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"NUM", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

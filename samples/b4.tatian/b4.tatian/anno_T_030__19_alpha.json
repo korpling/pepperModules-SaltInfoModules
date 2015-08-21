@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"cum", "occurrence": "1"},
+        {"value":"dominus", "occurrence": "1"},
+        {"value":"illa", "occurrence": "1"},
+        {"value":"magnificauit", "occurrence": "1"},
+        {"value":"misericordiam", "occurrence": "1"},
+        {"value":"quia", "occurrence": "1"},
+        {"value":"suam", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

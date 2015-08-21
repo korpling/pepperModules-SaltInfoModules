@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"dei", "occurrence": "1"},
+        {"value":"illo", "occurrence": "1"},
+        {"value":"In", "occurrence": "1"},
+        {"value":"manifest&ur", "occurrence": "1"},
+        {"value":"opus", "occurrence": "1"},
+        {"value":"ut", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

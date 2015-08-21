@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"estis", "occurrence": "1"},
+        {"value":"illis", "occurrence": "1"},
+        {"value":"magis", "occurrence": "1"},
+        {"value":"Nonne", "occurrence": "1"},
+        {"value":"plures", "occurrence": "1"},
+        {"value":"uos", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"PTC", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

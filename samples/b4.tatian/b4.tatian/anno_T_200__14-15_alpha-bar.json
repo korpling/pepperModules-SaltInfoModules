@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"de", "occurrence": "1"},
+        {"value":"faci&is", "occurrence": "1"},
+        {"value":"ficulnea", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"solum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

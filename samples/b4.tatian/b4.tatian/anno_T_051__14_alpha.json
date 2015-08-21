@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"&", "occurrence": "1"},
+        {"value":"apud", "occurrence": "1"},
+        {"value":"die", "occurrence": "1"},
+        {"value":"eum", "occurrence": "1"},
+        {"value":"illo", "occurrence": "1"},
+        {"value":"manserunt", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

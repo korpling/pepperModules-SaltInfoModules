@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"a", "occurrence": "1"},
+        {"value":"dei", "occurrence": "1"},
+        {"value":"es", "occurrence": "1"},
+        {"value":"longe", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"regno", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    
