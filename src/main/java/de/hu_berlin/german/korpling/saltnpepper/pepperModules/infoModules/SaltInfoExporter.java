@@ -60,24 +60,14 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 /**
- * This is a sample {@link PepperExporter}, which can be used for creating
- * individual Exporters for the Pepper Framework. Therefore you have to take a
- * look to todo's and adapt the code.
- * 
- * <ul>
- * <li>the salt model to fill, manipulate or export can be accessed via
- * {@link #getSaltProject()}</li>
- * <li>special parameters given by Pepper workflow can be accessed via
- * {@link #getSpecialParams()}</li>
- * <li>a place to store temporary data for processing can be accessed via
- * {@link #getTemproraries()}</li>
- * <li>a place where resources of this bundle are, can be accessed via
- * {@link #getResources()}</li>
- * <li>a logService can be accessed via {@link #getLogService()}</li>
- * </ul>
+ * This module produces a corpus-site of a corpus. A corpus-site is a homepage
+ * for the corpus containing all annotation names and their values and the
+ * frequencies of annotations. The corpus site can be extended for further
+ * description, to be used as a documentation.
  * 
  * @author Florian Zipser
  * @author Jakob Schmolling
+ * @author Vivian Voigt
  * @version 0.1
  * 
  */
@@ -97,6 +87,9 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	public SaltInfoExporter() {
 		super();
 		setName("SaltInfoExporter");
+		setSupplierContact(URI.createURI("saltnpepper@lists.hu-berlin.de"));
+		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-SaltInfoModules"));
+		setDesc("This module produces a corpus-site of a corpus. A corpus-site is a homepage for the corpus containing all annotation names and their values and the frequencies of annotations. The corpus site can be extended for further description, to be used as a documentation. ");
 		addSupportedFormat(PepperModule.ENDING_XML, "1.0", null);
 		setProperties(new SaltInfoProperties());
 		setProperties(new SaltInfoProperties());

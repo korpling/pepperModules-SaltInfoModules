@@ -461,8 +461,10 @@ function loadMainPage() {
                 if (license != null) {
                 	$("#license").append("<p>"+license+"</p>");
                 }
-                if (annotators != null) {
-				    var annotatorElement = $("#annotators");
+                if (	(annotators != null)&&
+			(annotators.length>0)) {
+			console.log("annotators: "+ annotators);
+		    var annotatorElement = $("#annotators");
                     for (var i = 0; i < annotators.length; i++) {
                         var span = document.createElement('div');
                         if (annotators[i].eMail != null) {
@@ -473,7 +475,10 @@ function loadMainPage() {
                         }
                         $(annotatorElement).append(span);
                     }
-                }
+                }else{
+			console.log("-------------__> EMPTY");
+			$("#annotators").css("visibility", "hidden");
+		}
             });
 }
 
