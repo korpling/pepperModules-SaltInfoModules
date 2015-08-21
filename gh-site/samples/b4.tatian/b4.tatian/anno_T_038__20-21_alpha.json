@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"cogitationes", "occurrence": "1"},
+        {"value":"cordibus", "occurrence": "1"},
+        {"value":"ex", "occurrence": "1"},
+        {"value":"multis", "occurrence": "1"},
+        {"value":"reuelentur", "occurrence": "1"},
+        {"value":"ut", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

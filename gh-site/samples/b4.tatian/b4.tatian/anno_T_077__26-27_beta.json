@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "2"},
+        {"value":"ad", "occurrence": "2"},
+        {"value":"ducimini", "occurrence": "1"},
+        {"value":"mé", "occurrence": "1"},
+        {"value":"presides", "occurrence": "1"},
+        {"value":"propter", "occurrence": "1"},
+        {"value":"reges", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "3"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

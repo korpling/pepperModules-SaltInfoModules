@@ -1,0 +1,25 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"diuulgabantur", "occurrence": "1"},
+        {"value":"haec", "occurrence": "1"},
+        {"value":"Iudeae", "occurrence": "1"},
+        {"value":"montana", "occurrence": "1"},
+        {"value":"omnia", "occurrence": "2"},
+        {"value":"super", "occurrence": "1"},
+        {"value":"uerba", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

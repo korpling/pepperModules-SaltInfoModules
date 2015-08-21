@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"&", "occurrence": "1"},
+        {"value":"a", "occurrence": "1"},
+        {"value":"acceperat", "occurrence": "1"},
+        {"value":"responsum", "occurrence": "1"},
+        {"value":"sancto", "occurrence": "1"},
+        {"value":"spiritu", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

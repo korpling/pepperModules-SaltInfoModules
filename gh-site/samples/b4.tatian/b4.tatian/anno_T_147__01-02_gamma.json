@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"baptista", "occurrence": "1"},
+        {"value":"de", "occurrence": "1"},
+        {"value":"dixiss&", "occurrence": "1"},
+        {"value":"iohanne", "occurrence": "1"},
+        {"value":"quia", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

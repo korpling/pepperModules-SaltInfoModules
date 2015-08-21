@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"asse", "occurrence": "1"},
+        {"value":"duo", "occurrence": "1"},
+        {"value":"Nonne", "occurrence": "1"},
+        {"value":"passeres", "occurrence": "1"},
+        {"value":"ueneunt", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "2"},
+        {"value":"NUM", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PTC", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

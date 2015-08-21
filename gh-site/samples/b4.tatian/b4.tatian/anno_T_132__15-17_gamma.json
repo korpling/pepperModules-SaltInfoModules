@@ -1,0 +1,25 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "2"},
+        {"value":".", "occurrence": "1"},
+        {"value":"adorabitis", "occurrence": "1"},
+        {"value":"hierosolimis", "occurrence": "1"},
+        {"value":"hoc", "occurrence": "1"},
+        {"value":"in", "occurrence": "2"},
+        {"value":"monte", "occurrence": "1"},
+        {"value":"neque", "occurrence": "2"},
+        {"value":"patrem", "occurrence": "1"},
+        {"value":"quando", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "2"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

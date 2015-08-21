@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"caelo", "occurrence": "1"},
+        {"value":"datum", "occurrence": "1"},
+        {"value":"de", "occurrence": "1"},
+        {"value":"ei", "occurrence": "1"},
+        {"value":"fuerit", "occurrence": "1"},
+        {"value":"nisi", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

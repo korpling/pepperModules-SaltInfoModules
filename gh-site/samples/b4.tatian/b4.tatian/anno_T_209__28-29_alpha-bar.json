@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"corde", "occurrence": "1"},
+        {"value":"diligatur", "occurrence": "1"},
+        {"value":"ex", "occurrence": "1"},
+        {"value":"toto", "occurrence": "1"},
+        {"value":"ut", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

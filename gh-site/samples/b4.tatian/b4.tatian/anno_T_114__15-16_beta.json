@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"audiuimus", "occurrence": "1"},
+        {"value":"capharnaum", "occurrence": "1"},
+        {"value":"facta", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"quanta", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

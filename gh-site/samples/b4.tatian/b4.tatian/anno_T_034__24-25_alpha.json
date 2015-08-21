@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"a", "occurrence": "1"},
+        {"value":"enim", "occurrence": "1"},
+        {"value":"eorum", "occurrence": "1"},
+        {"value":"faci&", "occurrence": "1"},
+        {"value":"Ipse", "occurrence": "1"},
+        {"value":"peccatis", "occurrence": "1"},
+        {"value":"populum suum", "occurrence": "1"},
+        {"value":"saluum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "2"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

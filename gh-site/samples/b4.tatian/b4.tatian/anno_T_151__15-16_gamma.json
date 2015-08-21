@@ -1,0 +1,23 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"ergo", "occurrence": "1"},
+        {"value":"humiliauerit", "occurrence": "1"},
+        {"value":"iste", "occurrence": "1"},
+        {"value":"paruulus", "occurrence": "1"},
+        {"value":"Quicumque", "occurrence": "1"},
+        {"value":"se", "occurrence": "1"},
+        {"value":"sicut", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONREL", "occurrence": "1"},
+        {"value":"PRONRFL", "occurrence": "1"},
+        {"value":"PTC", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

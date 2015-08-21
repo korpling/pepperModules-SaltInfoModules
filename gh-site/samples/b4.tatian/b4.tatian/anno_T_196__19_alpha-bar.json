@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"dei", "occurrence": "1"},
+        {"value":"In", "occurrence": "1"},
+        {"value":"Introire", "occurrence": "1"},
+        {"value":"nisi quis renatus fuerit/ .../", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"potest", "occurrence": "1"},
+        {"value":"regnum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "2"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VMOD", "occurrence": "1"}
+        ]
+                        
+        }
+    

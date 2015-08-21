@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"cogitatis", "occurrence": "1"},
+        {"value":"cordibus", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"mala", "occurrence": "1"},
+        {"value":"Quid", "occurrence": "1"},
+        {"value":"uestris", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

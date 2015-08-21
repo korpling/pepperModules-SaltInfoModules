@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"&", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"mihi", "occurrence": "1"},
+        {"value":"mulier?", "occurrence": "1"},
+        {"value":"Quid", "occurrence": "1"},
+        {"value":"tibi", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONINTERR", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

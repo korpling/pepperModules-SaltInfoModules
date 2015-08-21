@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"&", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"hic", "occurrence": "1"},
+        {"value":"illi", "occurrence": "1"},
+        {"value":"mensis", "occurrence": "1"},
+        {"value":"sextus", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "2"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

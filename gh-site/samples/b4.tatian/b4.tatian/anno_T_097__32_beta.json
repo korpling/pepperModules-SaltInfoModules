@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"autem", "occurrence": "1"},
+        {"value":"cogitationes", "occurrence": "1"},
+        {"value":"eorum", "occurrence": "1"},
+        {"value":"ipse", "occurrence": "1"},
+        {"value":"uidit", "occurrence": "1"},
+        {"value":"ut", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

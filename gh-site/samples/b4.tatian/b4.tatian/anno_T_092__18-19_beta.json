@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"bibens", "occurrence": "1"},
+        {"value":"nemo", "occurrence": "1"},
+        {"value":"nouum", "occurrence": "1"},
+        {"value":"statim", "occurrence": "1"},
+        {"value":"u&us", "occurrence": "1"},
+        {"value":"uult", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "2"},
+        {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"VMOD", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

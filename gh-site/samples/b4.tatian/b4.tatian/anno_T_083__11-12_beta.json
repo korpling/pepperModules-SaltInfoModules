@@ -1,0 +1,34 @@
+{
+        "gf": [
+            {"value":"ADVLOC", "occurrence": "1"},
+        {"value":"ADVMOD", "occurrence": "1"},
+        {"value":"ATTR", "occurrence": "1"},
+        {"value":"PARTPF", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "2"}
+        ],
+                        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"domo", "occurrence": "1"},
+        {"value":"iac&", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"male", "occurrence": "1"},
+        {"value":"meus", "occurrence": "1"},
+        {"value":"paralyticus", "occurrence": "1"},
+        {"value":"puer", "occurrence": "1"},
+        {"value":"torquetur", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "2"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

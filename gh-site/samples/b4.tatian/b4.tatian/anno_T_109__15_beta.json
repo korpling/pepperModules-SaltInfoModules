@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"&", "occurrence": "1"},
+        {"value":"cui", "occurrence": "1"},
+        {"value":"esse", "occurrence": "1"},
+        {"value":"existimabo", "occurrence": "1"},
+        {"value":"illud", "occurrence": "1"},
+        {"value":"simile", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "2"},
+        {"value":"PRONINTERR", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VCOP", "occurrence": "1"}
+        ]
+                        
+        }
+    

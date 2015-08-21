@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"donec", "occurrence": "1"},
+        {"value":"Inimicos", "occurrence": "1"},
+        {"value":"pedum", "occurrence": "1"},
+        {"value":"ponam", "occurrence": "1"},
+        {"value":"scabillum", "occurrence": "1"},
+        {"value":"tuorum", "occurrence": "1"},
+        {"value":"tuos", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "2"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

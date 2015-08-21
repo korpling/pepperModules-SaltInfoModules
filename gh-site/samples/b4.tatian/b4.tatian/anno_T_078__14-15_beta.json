@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"autem", "occurrence": "1"},
+        {"value":"ciuitate", "occurrence": "1"},
+        {"value":"Cum", "occurrence": "1"},
+        {"value":"In", "occurrence": "1"},
+        {"value":"ista", "occurrence": "1"},
+        {"value":"persequentur", "occurrence": "1"},
+        {"value":"uos", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

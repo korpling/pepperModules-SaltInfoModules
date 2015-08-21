@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"autem", "occurrence": "1"},
+        {"value":"coepit", "occurrence": "1"},
+        {"value":"dicere", "occurrence": "1"},
+        {"value":"intra", "occurrence": "1"},
+        {"value":"Phariseus", "occurrence": "1"},
+        {"value":"reputans", "occurrence": "1"},
+        {"value":"se", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "2"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

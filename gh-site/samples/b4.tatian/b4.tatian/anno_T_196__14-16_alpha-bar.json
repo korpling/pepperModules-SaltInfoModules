@@ -1,0 +1,33 @@
+{
+        "gf": [
+            {"value":"ADVMOD", "occurrence": "1"},
+        {"value":"ADVTEMP", "occurrence": "1"},
+        {"value":"DIR", "occurrence": "1"},
+        {"value":"INF", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "1"}
+        ],
+                        "LAT": [
+            {"value":"/", "occurrence": "2"},
+        {"value":"In", "occurrence": "1"},
+        {"value":"Introire", "occurrence": "1"},
+        {"value":"Iterato", "occurrence": "1"},
+        {"value":"matris", "occurrence": "1"},
+        {"value":"numquid", "occurrence": "1"},
+        {"value":"potest", "occurrence": "1"},
+        {"value":"suae", "occurrence": "1"},
+        {"value":"uentrem", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINTERR", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VMOD", "occurrence": "1"}
+        ]
+                        
+        }
+    

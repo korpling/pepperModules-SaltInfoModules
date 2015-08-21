@@ -1,0 +1,23 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "2"},
+        {"value":"ex", "occurrence": "1"},
+        {"value":"ficulnea", "occurrence": "1"},
+        {"value":"fructum", "occurrence": "1"},
+        {"value":"hac", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"quaerens", "occurrence": "1"},
+        {"value":"quo", "occurrence": "1"},
+        {"value":"uenio", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "2"},
+        {"value":"PRONDEM", "occurrence": "2"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

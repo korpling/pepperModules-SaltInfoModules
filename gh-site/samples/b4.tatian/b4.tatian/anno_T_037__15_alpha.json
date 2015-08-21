@@ -1,0 +1,20 @@
+{
+        "LAT": [
+            {"value":"domini", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"In", "occurrence": "1"},
+        {"value":"lege", "occurrence": "1"},
+        {"value":"scriptum", "occurrence": "1"},
+        {"value":"sicut", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

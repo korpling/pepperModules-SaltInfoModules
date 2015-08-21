@@ -1,0 +1,25 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "2"},
+        {"value":"donec", "occurrence": "1"},
+        {"value":"filium", "occurrence": "1"},
+        {"value":"hominis", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"regno", "occurrence": "1"},
+        {"value":"suo", "occurrence": "1"},
+        {"value":"uenientem", "occurrence": "1"},
+        {"value":"uideant", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "2"}
+        ]
+                        
+        }
+    

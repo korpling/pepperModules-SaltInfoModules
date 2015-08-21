@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"&", "occurrence": "1"},
+        {"value":"eorum", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"factus", "occurrence": "1"},
+        {"value":"omnes", "occurrence": "1"},
+        {"value":"super", "occurrence": "1"},
+        {"value":"timor", "occurrence": "1"},
+        {"value":"uicinos", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

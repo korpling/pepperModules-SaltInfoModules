@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"de", "occurrence": "1"},
+        {"value":"eicere", "occurrence": "1"},
+        {"value":"festucam", "occurrence": "1"},
+        {"value":"fratris", "occurrence": "1"},
+        {"value":"oculo", "occurrence": "1"},
+        {"value":"tui", "occurrence": "1"},
+        {"value":"Tunc", "occurrence": "1"},
+        {"value":"uidebis", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

@@ -1,0 +1,32 @@
+{
+        "gf": [
+            {"value":"ADVLOC", "occurrence": "1"},
+        {"value":"ADVTEMP", "occurrence": "1"},
+        {"value":"IO", "occurrence": "1"},
+        {"value":"PARTPF", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "2"},
+        {"value":"VFIN", "occurrence": "1"}
+        ],
+                        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"&", "occurrence": "1"},
+        {"value":"in", "occurrence": "1"},
+        {"value":"ira", "occurrence": "1"},
+        {"value":"omnes", "occurrence": "1"},
+        {"value":"repleti", "occurrence": "1"},
+        {"value":"sinagoga", "occurrence": "1"},
+        {"value":"sunt", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

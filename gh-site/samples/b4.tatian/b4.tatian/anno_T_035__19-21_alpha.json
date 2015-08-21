@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "2"},
+        {"value":"cum", "occurrence": "1"},
+        {"value":"desponsata", "occurrence": "1"},
+        {"value":"maria", "occurrence": "1"},
+        {"value":"pregnante", "occurrence": "1"},
+        {"value":"profiter&ur", "occurrence": "1"},
+        {"value":"sibi", "occurrence": "1"},
+        {"value":"ut", "occurrence": "1"},
+        {"value":"uxore", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "1"},
+        {"value":"ADV", "occurrence": "2"},
+        {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "3"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

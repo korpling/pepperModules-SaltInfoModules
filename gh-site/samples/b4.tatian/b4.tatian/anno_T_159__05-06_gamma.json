@@ -1,0 +1,24 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"conseruis", "occurrence": "1"},
+        {"value":"de", "occurrence": "1"},
+        {"value":"egressus", "occurrence": "1"},
+        {"value":"ille", "occurrence": "1"},
+        {"value":"inuenit", "occurrence": "1"},
+        {"value":"seruus", "occurrence": "1"},
+        {"value":"suis", "occurrence": "1"},
+        {"value":"unum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPOS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

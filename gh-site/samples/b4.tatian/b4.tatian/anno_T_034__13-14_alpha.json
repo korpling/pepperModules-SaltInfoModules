@@ -1,0 +1,21 @@
+{
+        "gf": [
+            {"value":"ADVCAUS", "occurrence": "1"},
+        {"value":"ADVMOD", "occurrence": "1"},
+        {"value":"DO", "occurrence": "1"},
+        {"value":"INF", "occurrence": "1"},
+        {"value":"SUBJ", "occurrence": "1"},
+        {"value":"VFIN", "occurrence": "1"}
+        ]
+                        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"...", "occurrence": "1"},
+        {"value":"dimittere", "occurrence": "1"},
+        {"value":"eam", "occurrence": "1"},
+        {"value":"Ioseph autem / uir eius", "occurrence": "1"},
+        {"value":"occulte", "occurrence": "1"},
+        {"value":"uoluit", "occurrence": "1"}
+        ],
+                        
+        }
+    

@@ -1,0 +1,22 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"amplius", "occurrence": "1"},
+        {"value":"constitutus", "occurrence": "1"},
+        {"value":"est", "occurrence": "1"},
+        {"value":"faciatis", "occurrence": "1"},
+        {"value":"nihil", "occurrence": "1"},
+        {"value":"quam", "occurrence": "1"},
+        {"value":"uobis", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"ADV", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "2"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

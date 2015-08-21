@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"eis", "occurrence": "1"},
+        {"value":"Et", "occurrence": "1"},
+        {"value":"loqubatur", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"parabolis", "occurrence": "1"},
+        {"value":"sine", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "2"},
+        {"value":"V", "occurrence": "1"}
+        ]
+                        
+        }
+    

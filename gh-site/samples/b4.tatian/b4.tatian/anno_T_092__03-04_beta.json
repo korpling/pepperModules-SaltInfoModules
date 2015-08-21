@@ -1,0 +1,21 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"ab", "occurrence": "1"},
+        {"value":"aufer&ur", "occurrence": "1"},
+        {"value":"cum", "occurrence": "1"},
+        {"value":"eis", "occurrence": "1"},
+        {"value":"sponsus", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"CONJ", "occurrence": "1"},
+        {"value":"N", "occurrence": "1"},
+        {"value":"P", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"VAUX", "occurrence": "1"},
+        {"value":"VN", "occurrence": "1"}
+        ]
+                        
+        }
+    

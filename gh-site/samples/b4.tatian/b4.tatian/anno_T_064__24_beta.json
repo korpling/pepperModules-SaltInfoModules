@@ -1,0 +1,27 @@
+{
+        "LAT": [
+            {"value":"/", "occurrence": "1"},
+        {"value":"album", "occurrence": "1"},
+        {"value":"aut", "occurrence": "1"},
+        {"value":"capillum", "occurrence": "1"},
+        {"value":"facere", "occurrence": "1"},
+        {"value":"nigrum", "occurrence": "1"},
+        {"value":"non", "occurrence": "1"},
+        {"value":"potes", "occurrence": "1"},
+        {"value":"quia", "occurrence": "1"},
+        {"value":"unum", "occurrence": "1"}
+        ],
+                        "pos": [
+            {"value":"A", "occurrence": "2"},
+        {"value":"CONJ", "occurrence": "2"},
+        {"value":"N", "occurrence": "2"},
+        {"value":"NEG", "occurrence": "1"},
+        {"value":"PRONDEM", "occurrence": "1"},
+        {"value":"PRONINDEF", "occurrence": "1"},
+        {"value":"PRONPRS", "occurrence": "1"},
+        {"value":"V", "occurrence": "1"},
+        {"value":"VMOD", "occurrence": "1"}
+        ]
+                        
+        }
+    
