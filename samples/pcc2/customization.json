@@ -1,0 +1,34 @@
+{
+        "corpusName" : "pcc2",
+        "shortDescription" : "Potsdam Commentary Corpus - 2 documents",
+        "description" : "<p>This corpus contains 2 documents of the Potsdam Commentary Corpus (PCC) is a corpus of 220 German newspaper commentaries (2.900 sentences, 44.000 tokens) taken from the online issues of the Märkische Allgemeine Zeitung (MAZ subcorpus) and Tagesspiegel (ProCon subcorpus) and is annotated with a range of different types of linguistic information.</p><p>The central subcorpus that we are making publicly available consists of 176 MAZ texts, which are annotated with:<ul>    <li>Sentence Syntax</li>    <li>Coreference</li>    <li>Discourse Structure (RST)</li>    <li>Connectives and their arguments</li></ul>The publication to cite when using the data is <a href='http://www.lrec-conf.org/proceedings/lrec2014/pdf/579_Paper.pdf'>http://www.lrec-conf.org/proceedings/lrec2014/pdf/579_Paper.pdf</a>.</p> To the site of the Potsdam Commentary Corpus follow this link <a href='http://angcl.ling.uni-potsdam.de/resources/pcc.html'>http://angcl.ling.uni-potsdam.de/resources/pcc.html</a>",
+        "annotators" : [ 
+            {"name" : "Manfred Stede", "eMail" : "stede@uni-potsdam.de"}, 
+        {"name" : "Arne Neumann"}
+        ],
+        "license": "Creative Commons Attribution-NonCommercial-ShareAlike",
+        
+            "tooltips_annonames" : [
+            {"name": "func", "tooltip": ""},
+            {"name": "morph", "tooltip": ""},
+            {"name": "lemma", "tooltip": ""}
+        ],
+	"annisLink" : "https://korpling.german.hu-berlin.de/annis3/",
+        
+
+         
+         "structInfoDesc" : "Structural data are those, which were necessary to create the Salt model. Since Salt is a graph-based model, all model elements are either nodes or relations between them. Salt contains a set of subtypes of nodes and relations. Subtypes of nodes are: SToken, STextualDS (primary data), SSpan, SStructure and some more. Subtypes of relations are: SSpanningRelation, SDominanceRelation, SPointingRelation and some more. This section gives an overview of the frequency (Count) for each of those elements (Name) used in this corpus or document.",
+        "metaDataDesc" : "Meta data of a document or a corpus provide information about its origin and the annotation process. Meta data for instance can give information on where the primary data came from, who annotated it, which tools have been used and so on. Thereby the row 'Name' shows the respective categories like 'writer' and the row 'Values' contains a list of the represented values like 'Goethe', 'Schiller', etc.",
+            "annoDesc" : "This section displays all annotations contained in this corpus or documentwhich does not belong to any layer. Annotations being contained in layers are displayed below. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values).",
+        "layerDesc" : [
+        
+        {"name" : "exmaralda_desc" , "desc" : "These are the annotations for the exmaralda layer. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."
+        },
+        {"name" : "mmax_desc" , "desc" : "These are the annotations for the mmax layer. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."
+        },
+        {"name" : "tiger_desc" , "desc" : "These are the annotations for the tiger layer. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."
+        },
+        {"name" : "urml_desc" , "desc" : "These are the annotations for the urml layer. Annotations in Salt are attribute-value-pairs. This table contains the frequencies of all annotation names (Name) and annotation values (Values)."
+        }]
+        }
+    

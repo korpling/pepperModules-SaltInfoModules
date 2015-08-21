@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html>
+   <head>
+      <META http-equiv="Content-Type" content="text/html; charset=UTF-8"></META>
+      <link href="./css/jquery-ui.css" rel="stylesheet"></link>
+      <script src="./js/jquery.js"></script>
+      <script src="./js/jquery-ui.js"></script>
+   </head>
+   <body>
+      <div align="right">
+         <a class="help" onclick="loadHelpPage();">
+            <i class="fa fa-question-circle"></i> Help
+         </a>
+      </div>
+      <h2 id="title">pcc2</h2>
+      <div></div>
+      <br></br>
+      <div>
+         <h3>Annotations</h3>
+         <hr></hr>
+         <p id="annoDescription"></p>
+         <table class="data-table">
+            <thead>
+               <th>Name</th>
+               <th>Values</th>
+            </thead>
+            <tbody>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">func</span>
+                        <span class="anno-count">893</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="func_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','func')"></i>
+                  </td>
+                  <td id="func_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('func', this.innerHTML);">AC</span>
+                        <span class="anno-value-count">27</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('func', this.innerHTML);">adv</span>
+                        <span class="anno-value-count">52</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('func', this.innerHTML);">AG</span>
+                        <span class="anno-value-count">3</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('func', this.innerHTML);">app</span>
+                        <span class="anno-value-count">9</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('func', this.innerHTML);">APP</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">lemma</span>
+                        <span class="anno-count">399</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="lemma_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','lemma')"></i>
+                  </td>
+                  <td id="lemma_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('lemma', this.innerHTML);">-</span>
+                        <span class="anno-value-count">2</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('lemma', this.innerHTML);">,</span>
+                        <span class="anno-value-count">19</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('lemma', this.innerHTML);">!</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('lemma', this.innerHTML);">.</span>
+                        <span class="anno-value-count">27</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('lemma', this.innerHTML);">"</span>
+                        <span class="anno-value-count">2</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">morph</span>
+                        <span class="anno-count">399</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="morph_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','morph')"></i>
+                  </td>
+                  <td id="morph_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('morph', this.innerHTML);">--</span>
+                        <span class="anno-value-count">157</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('morph', this.innerHTML);">*.*.*</span>
+                        <span class="anno-value-count">3</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('morph', this.innerHTML);">*.Sg.Masc</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('morph', this.innerHTML);">3.Acc.Pl</span>
+                        <span class="anno-value-count">3</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('morph', this.innerHTML);">3.Acc.Pl.*</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">pos</span>
+                        <span class="anno-count">399</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="pos_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','pos')"></i>
+                  </td>
+                  <td id="pos_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('pos', this.innerHTML);">$,</span>
+                        <span class="anno-value-count">19</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('pos', this.innerHTML);">$.</span>
+                        <span class="anno-value-count">28</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('pos', this.innerHTML);">$(</span>
+                        <span class="anno-value-count">10</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('pos', this.innerHTML);">ADJA</span>
+                        <span class="anno-value-count">18</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('pos', this.innerHTML);">ADJD</span>
+                        <span class="anno-value-count">14</span>
+                     </span>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <br></br>
+      <div>
+         <h3>exmaralda</h3>
+         <hr></hr>
+         <p class="layer-desc" id="exmaralda_desc"></p>
+         <table class="data-table">
+            <thead>
+               <th>Name</th>
+               <th>Values</th>
+            </thead>
+            <tbody>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">Focus_newInf</span>
+                        <span class="anno-count">23</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="exmaralda:Focus_newInf_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Focus_newInf', this.innerHTML);">nf-unsol</span>
+                        <span class="anno-value-count">23</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">Inf-Stat</span>
+                        <span class="anno-count">78</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="exmaralda:Inf-Stat_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','exmaralda:Inf-Stat')"></i>
+                  </td>
+                  <td id="exmaralda:Inf-Stat_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Inf-Stat', this.innerHTML);">acc-aggr</span>
+                        <span class="anno-value-count">3</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Inf-Stat', this.innerHTML);">acc-gen</span>
+                        <span class="anno-value-count">9</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Inf-Stat', this.innerHTML);">acc-inf</span>
+                        <span class="anno-value-count">12</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Inf-Stat', this.innerHTML);">acc-sit</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Inf-Stat', this.innerHTML);">giv-acitve</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">NP</span>
+                        <span class="anno-count">89</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="exmaralda:NP_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('NP', this.innerHTML);">NP</span>
+                        <span class="anno-value-count">89</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">PP</span>
+                        <span class="anno-count">25</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="exmaralda:PP_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('PP', this.innerHTML);">PP</span>
+                        <span class="anno-value-count">25</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">Sent</span>
+                        <span class="anno-count">28</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="exmaralda:Sent_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Sent', this.innerHTML);">s</span>
+                        <span class="anno-value-count">28</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">Topic</span>
+                        <span class="anno-count">26</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="exmaralda:Topic_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Topic', this.innerHTML);">ab</span>
+                        <span class="anno-value-count">20</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('Topic', this.innerHTML);">fs</span>
+                        <span class="anno-value-count">6</span>
+                     </span>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <br></br>
+      <div>
+         <h3>mmax</h3>
+         <hr></hr>
+         <p class="layer-desc" id="mmax_desc"></p>
+         <table class="data-table">
+            <thead>
+               <th>Name</th>
+               <th>Values</th>
+            </thead>
+            <tbody>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">ambiguity</span>
+                        <span class="anno-count">79</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:ambiguity_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('ambiguity', this.innerHTML);">ambig_ante</span>
+                        <span class="anno-value-count">5</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('ambiguity', this.innerHTML);">ambig_rel</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('ambiguity', this.innerHTML);">not_ambig</span>
+                        <span class="anno-value-count">72</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('ambiguity', this.innerHTML);">not_ambig\</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">anaphor_type</span>
+                        <span class="anno-count">33</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:anaphor_type_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('anaphor_type', this.innerHTML);">anaphor_nominal</span>
+                        <span class="anno-value-count">33</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">complex_np</span>
+                        <span class="anno-count">79</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:complex_np_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('complex_np', this.innerHTML);">no</span>
+                        <span class="anno-value-count">62</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('complex_np', this.innerHTML);">yes</span>
+                        <span class="anno-value-count">17</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">dir_speech</span>
+                        <span class="anno-count">79</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:dir_speech_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('dir_speech', this.innerHTML);">text_leve\l</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('dir_speech', this.innerHTML);">text_level</span>
+                        <span class="anno-value-count">78</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">grammatical_role</span>
+                        <span class="anno-count">79</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:grammatical_role_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('grammatical_role', this.innerHTML);">dir-obj</span>
+                        <span class="anno-value-count">5</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('grammatical_role', this.innerHTML);">not_specified</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('grammatical_role', this.innerHTML);">other</span>
+                        <span class="anno-value-count">48</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('grammatical_role', this.innerHTML);">sbj</span>
+                        <span class="anno-value-count">25</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">np_form</span>
+                        <span class="anno-count">79</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="mmax:np_form_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','mmax:np_form')"></i>
+                  </td>
+                  <td id="mmax:np_form_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('np_form', this.innerHTML);">defnp</span>
+                        <span class="anno-value-count">38</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('np_form', this.innerHTML);">indefnp</span>
+                        <span class="anno-value-count">4</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('np_form', this.innerHTML);">ne</span>
+                        <span class="anno-value-count">15</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('np_form', this.innerHTML);">padv</span>
+                        <span class="anno-value-count">4</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('np_form', this.innerHTML);">pds</span>
+                        <span class="anno-value-count">4</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">phrase_type</span>
+                        <span class="anno-count">79</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:phrase_type_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('phrase_type', this.innerHTML);">np</span>
+                        <span class="anno-value-count">53</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('phrase_type', this.innerHTML);">pp</span>
+                        <span class="anno-value-count">26</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">referentiality</span>
+                        <span class="anno-count">79</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:referentiality_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('referentiality', this.innerHTML);">discourse_cataphor</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('referentiality', this.innerHTML);">discourse-new</span>
+                        <span class="anno-value-count">37</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('referentiality', this.innerHTML);">not_specified</span>
+                        <span class="anno-value-count">4</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('referentiality', this.innerHTML);">other</span>
+                        <span class="anno-value-count">3</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('referentiality', this.innerHTML);">referring</span>
+                        <span class="anno-value-count">34</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">type</span>
+                        <span class="anno-count">75</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="mmax:type_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('type', this.innerHTML);">anaphoric</span>
+                        <span class="anno-value-count">33</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('type', this.innerHTML);">none</span>
+                        <span class="anno-value-count">42</span>
+                     </span>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <br></br>
+      <div>
+         <h3>tiger</h3>
+         <hr></hr>
+         <p class="layer-desc" id="tiger_desc"></p>
+         <table class="data-table">
+            <thead>
+               <th>Name</th>
+               <th>Values</th>
+            </thead>
+            <tbody>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">cat</span>
+                        <span class="anno-count">155</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="tiger:cat_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','tiger:cat')"></i>
+                  </td>
+                  <td id="tiger:cat_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('cat', this.innerHTML);">AP</span>
+                        <span class="anno-value-count">2</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('cat', this.innerHTML);">AVP</span>
+                        <span class="anno-value-count">6</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('cat', this.innerHTML);">CAP</span>
+                        <span class="anno-value-count">2</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('cat', this.innerHTML);">CNP</span>
+                        <span class="anno-value-count">3</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('cat', this.innerHTML);">CO</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <br></br>
+      <div>
+         <h3>urml</h3>
+         <hr></hr>
+         <p class="layer-desc" id="urml_desc"></p>
+         <table class="data-table">
+            <thead>
+               <th>Name</th>
+               <th>Values</th>
+            </thead>
+            <tbody>
+               <tr class="odd">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">rst_relation</span>
+                        <span class="anno-count">28</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                     <i class="fa fa-expand icon tooltip" title="Expands/Collapses annotation values" id="urml:rst_relation_btn" onClick="loadAndExpandAnnoValues('./anno_pcc2.json','urml:rst_relation')"></i>
+                  </td>
+                  <td id="urml:rst_relation_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('rst_relation', this.innerHTML);">concession</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('rst_relation', this.innerHTML);">contrast</span>
+                        <span class="anno-value-count">1</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('rst_relation', this.innerHTML);">elaboration</span>
+                        <span class="anno-value-count">7</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('rst_relation', this.innerHTML);">evaluation</span>
+                        <span class="anno-value-count">10</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('rst_relation', this.innerHTML);">evidence</span>
+                        <span class="anno-value-count">2</span>
+                     </span>
+                  </td>
+               </tr>
+               <tr class="even">
+                  <td class="entry-key">
+                     <span class="sannotationinfo">
+                        <span class="anno-sname" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS(this.innerHTML);">rstRel_type</span>
+                        <span class="anno-count">28</span>
+                     </span>
+                     <i class="fa fa-download btn-download-csv icon tooltip" title="Downloads annotation values and corresponding frequency as CSV file (you need to expand the view to download all values)"></i>
+                     <i class="fa fa-square-o btn-toggle-box icon tooltip" title="Draws boxes around annotation values to find whitespaces"></i>
+                  </td>
+                  <td id="urml:rstRel_type_values">
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('rstRel_type', this.innerHTML);">hypRelation</span>
+                        <span class="anno-value-count">24</span>
+                     </span>
+                     <span class="svalue">
+                        <span class="svalue-text" onmouseover="clickifyMe($(this));" onmouseout="$(this).removeClass(CLASS_CLICKIFY);$(this).addClass(CLASS_DECLICKIFY);" onclick="goANNIS('rstRel_type', this.innerHTML);">parRelation</span>
+                        <span class="anno-value-count">4</span>
+                     </span>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+      <h3>Structural Info</h3>
+      <hr></hr>
+      <p id="structInfoDescription"></p>
+      <table class="data-structuralInfo">
+         <thead>
+            <th>Name</th>
+            <th>Frequency</th>
+         </thead>
+         <tbody>
+            <tr class="odd">
+               <td class="entry-key">
+                  <span class="tooltip" title="Number of relations in the current document or corpus to connect hierarchical nodes (SStructure) with other SStructure, SSpan or SToken objects.">SDominanceRelation
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>525</td>
+            </tr>
+            <tr class="even">
+               <td class="entry-key">
+                  <span class="tooltip" title="Total number of nodes in the current document or corpus. An SNode is an abstract node which could be instantiated as e.g. SToken, SSpan, SStructure, STextualDS and so on.">SNode
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>995</td>
+            </tr>
+            <tr class="odd">
+               <td class="entry-key">
+                  <span class="tooltip" title="Number of relations in the current document or corpus with an underspecified linguistic meaning. A SPointing  relation can connect nodes like SToken, SSpan and SStructure with each other to model for instance anaphoric relations.">SPointingRelation
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>392</td>
+            </tr>
+            <tr class="even">
+               <td class="entry-key">
+                  <span class="tooltip" title="Total number of  relations in the current document or corpus. An SRelation is an abstract relation which could be instantiated as e.g. STextualRelation, SSpanningRelation, SDominanceRelation and so on.">SRelation
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>3400</td>
+            </tr>
+            <tr class="odd">
+               <td class="entry-key">
+                  <span class="tooltip" title="Number of spans in the current document or corpus. A span bundles between 1 and n tokens to a set.">SSpan
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>411</td>
+            </tr>
+            <tr class="even">
+               <td class="entry-key">
+                  <span class="tooltip" title="Number of relations in the current document or corpus to connect spans (SSpan) with tokens (SToken).">SSpanningRelation
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>2084</td>
+            </tr>
+            <tr class="odd">
+               <td class="entry-key">
+                  <span class="tooltip" title="Number of hierarchical structures in the current document or corpus. SStructure objects in Salt are used to represent hierarchies e.g. for constituents.">SStructure
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>183</td>
+            </tr>
+            <tr class="even">
+               <td class="entry-key">
+                  <span class="tooltip" title="Number of relations in the current document or corpus to connect a token (SToken) with a textual data source (STextualDS).">STextualDS
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>2</td>
+            </tr>
+            <tr class="odd">
+               <td class="entry-key">
+                  <span class="tooltip" title="Number of tokens in the current document or corpus. A token in Salt is the smallest annotatable unit of text and has no linguistic meaning. A token could be a character, a syllable, a word, a sentence etc.">SToken
+                     <i class="fa fa-info-circle icon"></i>
+                  </span>
+               </td>
+               <td>399</td>
+            </tr>
+         </tbody>
+      </table>
+      <script>
+         	 addTooltips_MetaData();
+         	 addTooltips_AnnotationNames();
+         	 styleToolTips();
+         	 addDescs();
+         
+      </script>
+   </body>
+</html>
