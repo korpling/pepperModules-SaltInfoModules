@@ -25,14 +25,10 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
  * @author Jakob Schmolling
  *
  */
+@SuppressWarnings("serial")
 public class SaltInfoProperties extends PepperModuleProperties {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8478680295397920096L;
-	public final static String HTML_OUTPUT = "htmlOutput";
-	public final static String INCLUDE_XML_HEADER = "includeXMLHeader";
+	public final static String PROP_HTML_OUTPUT = "htmlOutput";
 	/**
 	 * Property name of the theme
 	 */
@@ -41,20 +37,14 @@ public class SaltInfoProperties extends PepperModuleProperties {
 	public static final String THEME_HISTORIC="historic";
 
 	public SaltInfoProperties() {
-		this.addProperty(new PepperModuleProperty<Boolean>(INCLUDE_XML_HEADER,
-				Boolean.class, "", false));
-		this.addProperty(new PepperModuleProperty<Boolean>(HTML_OUTPUT,
-				Boolean.class, "", true,false));
+		this.addProperty(new PepperModuleProperty<Boolean>(PROP_HTML_OUTPUT,
+				Boolean.class, "Determines whether the SaltInfoExporter should produce a corpus site in html. the deafult is 'true', which produces an html output, change this to 'false' to avoid html output. ", true,false));
 		this.addProperty(new PepperModuleProperty<String>(PROP_THEME,
 				String.class, "Determines the theme of the output HTML project. The theme could be 'historic' or 'default'. ", THEME_DEFAULT, false));
 	}
-
-	public Boolean getIncludeXMLHeader() {
-		return (Boolean) this.getProperty(INCLUDE_XML_HEADER).getValue();
-	}
 	
 	public Boolean isHtmlOutput() {
-		return (Boolean) this.getProperty(HTML_OUTPUT).getValue();
+		return (Boolean) this.getProperty(PROP_HTML_OUTPUT).getValue();
 	}
 	
 	public String getTheme() {
