@@ -561,10 +561,10 @@
                 <xsl:with-param name="index"><xsl:value-of select="$index + 1"/></xsl:with-param>
                 <xsl:with-param name="max"><xsl:value-of select="$max"/></xsl:with-param>
             </xsl:call-template>
-            <xsl:if test="exists(sAnnotationInfo[not(parent::sLayerInfo)]) and count(preceding::sAnnotationInfo[not(parent::sLayerInfo)])  &lt; $NumOfTooltips">
+            <xsl:if test="exists(sAnnotationInfo[not(parent::sLayerInfo)]) and count(preceding::sAnnotationInfo[not(parent::sLayerInfo)])  &lt; $NumOfTooltips and position() != last()">
                 <xsl:apply-templates mode="annoTooltips" select="sLayerInfo/sAnnotationInfo[position() = $index + count(sAnnotationInfo[not(parent::sLayerInfo)]) - count(preceding::sAnnotationInfo[parent::sLayerInfo])]">
                     <xsl:with-param name="index"><xsl:value-of select="$index + count(sAnnotationInfo[not(parent::sLayerInfo)])"/></xsl:with-param>
-                    <xsl:with-param name="max"><xsl:value-of select="$max"/></xsl:with-param>
+                    <!--<xsl:with-param name="max"><xsl:value-of select="$max"/></xsl:with-param>-->
                     <xsl:sort select="@sName" lang="de"/>
                 </xsl:apply-templates>
             </xsl:if>
