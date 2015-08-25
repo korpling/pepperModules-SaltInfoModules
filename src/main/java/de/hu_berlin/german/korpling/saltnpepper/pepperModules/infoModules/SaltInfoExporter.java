@@ -50,6 +50,7 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleNotReadyException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperExporterImpl;
+import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.ContainerInfo.STATUS;
 import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
@@ -100,12 +101,24 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 
 	@Override
 	public boolean isReadyToStart() throws PepperModuleNotReadyException {
+		boolean isReady= super.isReadyToStart();
 		siteResources = URI.createFileURI(getResources().toFileString() + SITE_RESOURCES);
 		cssResources = URI.createFileURI(getResources().toFileString() + SITE_RESOURCES + CSS_RESOURCES);
 
+		File file= new File(siteResources.toFileString());
+		if (!file.exists()){
+			logger.warn("Pepper module '{}' is not startable, because the folder '{}' does not exist in resource folder: {}.", getName(), SITE_RESOURCES,file.getAbsolutePath());
+			isReady= false;
+		}
+		file= new File(cssResources.toFileString());
+		if (!file.exists()){
+			logger.warn("Pepper module '{}' is not startable, because the folder '{}' does not exist in resource folder: {}.", getName(), CSS_RESOURCES,file.getAbsolutePath());
+			isReady= false;
+		}
+		
 		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 		transFac = TransformerFactory.newInstance();
-		return super.isReadyToStart();
+		return(isReady);
 	}
 
 	/**
@@ -226,9 +239,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 			theme_value = SaltInfoProperties.THEME_DEFAULT;
 		} else if (SaltInfoProperties.THEME_HISTORIC.equals(((SaltInfoProperties) getProperties()).getTheme())) {
 			theme_value = SaltInfoProperties.THEME_HISTORIC;
-
 		}
-
 		File theme = new File(getCorpusDesc().getCorpusPath().toFileString() + "/css/theme/");
 		File[] cssFiles = cssFolder.listFiles();
 		for (File css : cssFiles) {
@@ -285,35 +296,41 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	 **/
 	private void writeContainerInfoRec(ContainerInfo cont, XMLStreamWriter xml) throws XMLStreamException {
 		if (cont != null) {
-			String containerTag = null;
-			if (cont instanceof CorpusInfo) {
-				containerTag = TAG_SCORPUS_INFO;
-			} else if (cont instanceof DocumentInfo) {
-				containerTag = TAG_SDOCUMENT_INFO;
-			}
-			xml.writeStartElement(containerTag);
-			xml.writeAttribute(ATT_SNAME, cont.getsName());
-			xml.writeAttribute(ATT_SID, cont.getSId());
-			String location = "";
 			if (cont.getExportFile() == null) {
-				throw new PepperModuleException("Cannot store project info file, because no file is given for ContainerInfo '" + cont.getSId() + "'. ");
-			}
-			try {
-				location = cont.getExportFile().getCanonicalPath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
-			} catch (IOException e) {
-				location = cont.getExportFile().getAbsolutePath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
-			}
-			// remove prefixing /
-			if (location.startsWith("/")) {
-				location.replaceFirst("/", "");
-			}
-			xml.writeAttribute(ATT_LOCATION, location);
-			if (cont instanceof CorpusInfo) {
-				for (ContainerInfo sub : ((CorpusInfo) cont).getContainerInfos()) {
-					writeContainerInfoRec(sub, xml);
+				logger.warn("Cannot store project info file, because no file is given for ContainerInfo '" + cont.getSId() + "'. ");
+				cont.setStatus(STATUS.ERROR);
+				// throw new
+				// PepperModuleException("Cannot store project info file, because no file is given for ContainerInfo '"
+				// + cont.getSId() + "'. ");
+			} else {
+				String containerTag = null;
+				if (cont instanceof CorpusInfo) {
+					containerTag = TAG_SCORPUS_INFO;
+				} else if (cont instanceof DocumentInfo) {
+					containerTag = TAG_SDOCUMENT_INFO;
 				}
+				xml.writeStartElement(containerTag);
+				xml.writeAttribute(ATT_SNAME, cont.getsName());
+				xml.writeAttribute(ATT_SID, cont.getSId());
+				String location = "";
+
+				try {
+					location = cont.getExportFile().getCanonicalPath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
+				} catch (IOException e) {
+					location = cont.getExportFile().getAbsolutePath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
+				}
+				// remove prefixing /
+				if (location.startsWith("/")) {
+					location.replaceFirst("/", "");
+				}
+				xml.writeAttribute(ATT_LOCATION, location);
+				if (cont instanceof CorpusInfo) {
+					for (ContainerInfo sub : ((CorpusInfo) cont).getContainerInfos()) {
+						writeContainerInfoRec(sub, xml);
+					}
+				}
+				xml.writeEndElement();
 			}
-			xml.writeEndElement();
 		}
 	}
 

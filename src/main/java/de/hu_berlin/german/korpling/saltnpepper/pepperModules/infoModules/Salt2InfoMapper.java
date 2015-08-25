@@ -61,7 +61,7 @@ public class Salt2InfoMapper extends PepperMapperImpl{
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
-						throw new PepperModuleException(this, "Cannot send thread to sleep. ", e);
+						throw new PepperModuleException(this, "Cannot send thread to sleep, which is storing corpus '"+getSCorpus().getSId()+"'. ", e);
 					}
 				}
 			}
