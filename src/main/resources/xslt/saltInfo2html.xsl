@@ -395,7 +395,7 @@
             </xsl:apply-templates>
             <xsl:choose>
                 <!-- check for following sLayer -->
-                <xsl:when test="exists(following::sAnnotationInfo[compare($curName, @sName) &lt; 0]) or exists(preceding::sAnnotationInfo[compare($curName, @sName) &lt; 0])">],
+                <xsl:when test="exists(following::sAnnotationInfo[compare(upper-case($curName), upper-case(@sName)) &lt; 0]) or exists(preceding::sAnnotationInfo[compare(upper-case($curName), upper-case(@sName)) &lt; 0])">],
                 </xsl:when>
                 <xsl:otherwise>]
                 </xsl:otherwise>
@@ -415,13 +415,13 @@
                 <xsl:variable name="curSLayer"><xsl:value-of select="parent::sLayerInfo/@sName"/></xsl:variable>
             <xsl:choose>
                 <!-- check for annotations that are following the current one, lexically -->
-                <xsl:when test="exists(following-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(following::sLayerInfo[compare($curSLayer, @sName) &lt; 0 and exists(./sAnnotationInfo[count(.//sValue) &gt; $minNumOfAnnos])]) or exists(preceding::sLayerInfo[compare($curSLayer, @sName) &lt; 0 and exists(./sAnnotationInfo[count(.//sValue) &gt; $minNumOfAnnos])])">],
+                <xsl:when test="exists(following-sibling::sAnnotationInfo[compare(upper-case($curName), upper-case(@sName)) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding-sibling::sAnnotationInfo[compare(upper-case($curName), upper-case(@sName)) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(following::sLayerInfo[compare(upper-case($curSLayer), upper-case(@sName)) &lt; 0 and exists(./sAnnotationInfo[count(.//sValue) &gt; $minNumOfAnnos])]) or exists(preceding::sLayerInfo[compare(upper-case($curSLayer), upper-case(@sName)) &lt; 0 and exists(./sAnnotationInfo[count(.//sValue) &gt; $minNumOfAnnos])])">],
                 </xsl:when>
                 <xsl:otherwise>]</xsl:otherwise>
             </xsl:choose></xsl:when>
                 <xsl:otherwise>
                     <xsl:choose>
-                        <xsl:when test="exists(following-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding-sibling::sAnnotationInfo[compare($curName, @sName) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(//sLayerInfo[count(//sAnnotationInfo//sValue) &gt; $minNumOfAnnos])">],
+                        <xsl:when test="exists(following-sibling::sAnnotationInfo[compare(upper-case($curName), upper-case(@sName)) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(preceding-sibling::sAnnotationInfo[compare(upper-case($curName), upper-case(@sName)) &lt; 0 and count(.//sValue) &gt; $minNumOfAnnos]) or exists(//sLayerInfo[count(//sAnnotationInfo//sValue) &gt; $minNumOfAnnos])">],
                         </xsl:when>
                         <xsl:otherwise>]
                         </xsl:otherwise>
@@ -507,6 +507,7 @@
             </body>
         </html>
     </xsl:template>
+    
     
     <!-- create customization file with information like corpus name, corpus description etc. -->
     <xsl:template name="customization">{
