@@ -50,7 +50,7 @@
     <!-- get all main corpora -->
     <xsl:template match="sCorpusInfo" mode="main"> { 
         "text" : "<xsl:value-of select="@sName"/>",
-        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+        "metadata" : { "href" : "./<xsl:call-template name="replaceSpecialSigns"/>" },
          a_attr : { "title" : "<xsl:value-of select="@sName"/>" },
         "state" : { "opened" : true }, icon : "fa fa-folder-o"<xsl:if
             test="not(empty(child::node()))">, 
@@ -67,7 +67,7 @@
     <!-- get all subcorpora of the corpus -->
     <xsl:template match="sCorpusInfo" mode="sub"> { 
         "text" : "<xsl:value-of select="@sName"/>",
-        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+        "metadata" : { "href" : "./<xsl:call-template name="replaceSpecialSigns"/>" },
         a_attr : { "title" : "<xsl:value-of select="@sName"/>" },
         icon : "fa fa-folder-o"<xsl:if test="not(empty(*))">, 
         "children" : 
@@ -86,7 +86,7 @@
     <xsl:template match="sDocumentInfo"> { 
         "text" : "<xsl:value-of select="@sName"/>", 
         icon : "fa fa-file-o", 
-        "metadata" : { "href" : "./<xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>" },
+        "metadata" : { "href" : "./<xsl:call-template name="replaceSpecialSigns"/>" },
         a_attr : { "title" : "<xsl:value-of select="@sName"/>" }
         },
     </xsl:template>
@@ -120,5 +120,10 @@
                 </div>
             </footer>
         </div>
+    </xsl:template>
+    
+    <xsl:template name="replaceSpecialSigns">
+        <xsl:variable name="docName"><xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/></xsl:variable>
+        <xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(replace(replace($docName, '&quot;', '_'), '\+','_'), '\*', '_'), ',', '_'), '%', '_'),'&lt;', '_'), '&gt;', '_'), '=','_'), '&amp;', '_')"/>
     </xsl:template>
 </xsl:stylesheet>
