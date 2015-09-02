@@ -123,7 +123,6 @@
     </xsl:template>
     
     <xsl:template name="replaceSpecialSigns">
-        <xsl:variable name="docName"><xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/></xsl:variable>
-        <xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(replace(replace($docName, '&quot;', '_'), '\+','_'), '\*', '_'), ',', '_'), '%', '_'),'&lt;', '_'), '&gt;', '_'), '=','_'), '&amp;', '_')"/>
+        <xsl:value-of select="replace(replace(@rel-location, '\\', '/'), 'xml','html')"/>
     </xsl:template>
 </xsl:stylesheet>
