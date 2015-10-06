@@ -92,6 +92,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-SaltInfoModules"));
 		setDesc("This module produces a corpus-site of a corpus. A corpus-site is a homepage for the corpus containing all annotation names and their values and the frequencies of annotations. The corpus site can be extended for further description, to be used as a documentation. ");
 		addSupportedFormat(PepperModule.ENDING_XML, "1.0", null);
+		addSupportedFormat("html", "5.0", null);
 		setProperties(new SaltInfoProperties());
 		setProperties(new SaltInfoProperties());
 	}
