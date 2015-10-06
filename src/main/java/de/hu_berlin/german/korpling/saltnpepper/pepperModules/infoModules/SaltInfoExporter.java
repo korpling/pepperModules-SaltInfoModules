@@ -69,7 +69,6 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
  * @author Florian Zipser
  * @author Jakob Schmolling
  * @author Vivian Voigt
- * @version 0.1
  * 
  */
 @Component(name = "SaltInfoExporterComponent", factory = "PepperExporterComponentFactory")
