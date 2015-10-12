@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
+package org.corpus_tools.peppermodules.infoModules;
 
 import java.io.File;
 import java.io.FileWriter;

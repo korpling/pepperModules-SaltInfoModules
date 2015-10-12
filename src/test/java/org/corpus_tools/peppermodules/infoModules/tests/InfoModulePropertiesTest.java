@@ -18,14 +18,14 @@
 /**
  * 
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.tests;
+package org.corpus_tools.peppermodules.infoModules.tests;
 
+import org.corpus_tools.peppermodules.infoModules.SaltInfoProperties;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.SaltInfoProperties;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author jschmolling

@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.tests;
+package org.corpus_tools.peppermodules.infoModules.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,6 +37,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.corpus_tools.peppermodules.infoModules.SaltInfoDictionary;
+import org.corpus_tools.peppermodules.infoModules.StructuralInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -44,8 +46,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperModuleTest;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.SaltInfoDictionary;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.StructuralInfo;
 
 public class StructuralInfoTest {
 

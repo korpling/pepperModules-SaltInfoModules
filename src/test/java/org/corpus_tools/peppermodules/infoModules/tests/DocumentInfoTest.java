@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.tests;
+package org.corpus_tools.peppermodules.infoModules.tests;
 
 import static org.junit.Assert.*;
 
@@ -31,13 +31,13 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.corpus_tools.peppermodules.infoModules.DocumentInfo;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperModuleTest;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.DocumentInfo;
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
 import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;

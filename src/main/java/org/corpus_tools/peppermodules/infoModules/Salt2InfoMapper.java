@@ -15,17 +15,17 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules;
+package org.corpus_tools.peppermodules.infoModules;
 
 import javax.xml.transform.Transformer;
 
+import org.corpus_tools.peppermodules.infoModules.ContainerInfo.STATUS;
 import org.eclipse.emf.common.util.URI;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
-import de.hu_berlin.german.korpling.saltnpepper.pepperModules.infoModules.ContainerInfo.STATUS;
 /**
  * 
  * @author Florian Zipser
