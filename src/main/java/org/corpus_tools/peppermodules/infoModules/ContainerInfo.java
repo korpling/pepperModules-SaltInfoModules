@@ -31,17 +31,17 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.corpus_tools.pepper.modules.exceptions.PepperModuleException;
+import org.corpus_tools.salt.common.SCorpus;
+import org.corpus_tools.salt.common.SDocument;
+import org.corpus_tools.salt.common.SDocumentGraph;
+import org.corpus_tools.salt.core.SAnnotation;
+import org.corpus_tools.salt.core.SLayer;
+import org.corpus_tools.salt.core.SNode;
+import org.corpus_tools.salt.core.SRelation;
+
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SLayer;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
 
 /**
  * Contains all information concerning a {@link SDocumentGraph} to be exported as salt info.
@@ -83,11 +83,11 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	/** The id of the document or corpus **/
 	private String sId="null";
 	/**@return The id of the document or corpus **/
-	public String getSId() {
+	public String getId() {
 		return sId;
 	}
 	/** @param sId The id of the document or corpus**/
-	public void setSIdf(String sId) {
+	public void setIdf(String sId) {
 		this.sId = sId;
 	}
 	/** file to export salt info**/
@@ -153,7 +153,7 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 	 */
 	public void write(SNode sNode){
 		if (getExportFile()== null){
-			throw new PepperModuleException("Cannot create SaltInfo for '"+sNode.getSId()+"', because no file to export is given. ");
+			throw new PepperModuleException("Cannot create SaltInfo for '"+sNode.getId()+"', because no file to export is given. ");
 		}
 		if (!getExportFile().getParentFile().exists()){
 			getExportFile().getParentFile().mkdirs();
@@ -186,8 +186,8 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 					Date date = new Date();
 					DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					xml.writeAttribute(ATT_GENERATED_ON, dformat.format(date));
-					xml.writeAttribute(ATT_SNAME, (sNode.getSName()!= null?sNode.getSName():""));
-					xml.writeAttribute(ATT_SID, (sNode.getSId()!= null?sNode.getSId():""));
+					xml.writeAttribute(ATT_SNAME, (sNode.getName()!= null?sNode.getName():""));
+					xml.writeAttribute(ATT_SID, (sNode.getId()!= null?sNode.getId():""));
 					//write meta data
 					writeMetaDataInfo(xml);
 					//write structural info
@@ -209,7 +209,7 @@ public abstract class ContainerInfo implements SaltInfoDictionary{
 			xml.flush();
 		} catch (XMLStreamException e) {
 			setStatus(STATUS.ERROR);
-			throw new PepperModuleException("Cannot write salt info of sDocument or SCorpus '"+sNode.getSId()+"' to stream. ", e);
+			throw new PepperModuleException("Cannot write salt info of sDocument or SCorpus '"+sNode.getId()+"' to stream. ", e);
 		}	
 		setStatus(STATUS.FINISHED);
 	}

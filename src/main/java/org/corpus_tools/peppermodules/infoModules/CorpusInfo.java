@@ -22,11 +22,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SMetaAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
+import org.corpus_tools.salt.common.SCorpus;
+import org.corpus_tools.salt.common.SDocument;
+import org.corpus_tools.salt.common.SDocumentGraph;
+import org.corpus_tools.salt.core.SMetaAnnotation;
+import org.corpus_tools.salt.core.SNode;
 
 /**
  * Contains all information concerning a {@link SDocumentGraph} to be exported as salt info.
@@ -54,9 +54,9 @@ public class CorpusInfo extends ContainerInfo implements SaltInfoDictionary{
 	public void retrieveData(SCorpus sCorpus){
 		if (sCorpus!= null){
 			// integrate meta data
-			if (sCorpus.getSMetaAnnotations()!= null){
-				for (SMetaAnnotation sMeta: sCorpus.getSMetaAnnotations()){
-					getMetaDataInfo().put(sMeta.getSName(), sMeta.getSValueSTEXT());
+			if (sCorpus.getMetaAnnotations()!= null){
+				for (SMetaAnnotation sMeta: sCorpus.getMetaAnnotations()){
+					getMetaDataInfo().put(sMeta.getName(), sMeta.getValue_STEXT());
 				}
 			}
 		}

@@ -17,7 +17,7 @@
  */
 package org.corpus_tools.peppermodules.infoModules.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,18 +31,17 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.corpus_tools.pepper.testFramework.PepperModuleTest;
 import org.corpus_tools.peppermodules.infoModules.CorpusInfo;
 import org.corpus_tools.peppermodules.infoModules.DocumentInfo;
+import org.corpus_tools.salt.SaltFactory;
+import org.corpus_tools.salt.common.SCorpus;
+import org.corpus_tools.salt.common.SDocument;
+import org.corpus_tools.salt.samples.SampleGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperModuleTest;
-import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
-import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
 public class SCorpusInfoTest {
 
@@ -78,27 +77,27 @@ public class SCorpusInfoTest {
 	 */
 	@Test
 	public void testWriteData() throws FileNotFoundException, SAXException, IOException, XPathExpressionException {
-		SDocument sDocument= SaltFactory.eINSTANCE.createSDocument();
+		SDocument sDocument= SaltFactory.createSDocument();
 		SampleGenerator.createMorphologyAnnotations(sDocument);
 		SampleGenerator.createSyntaxAnnotations(sDocument);
 		SampleGenerator.createAnaphoricAnnotations(sDocument);
-		sDocument.createSMetaAnnotation(null, "att1", "value1");
-		sDocument.createSMetaAnnotation(null, "att2", "value2");
+		sDocument.createMetaAnnotation(null, "att1", "value1");
+		sDocument.createMetaAnnotation(null, "att2", "value2");
 		DocumentInfo docInfo1= new DocumentInfo();
 		docInfo1.retrieveData(sDocument);
 		
-		SDocument sDocument2= SaltFactory.eINSTANCE.createSDocument();
+		SDocument sDocument2= SaltFactory.createSDocument();
 		SampleGenerator.createMorphologyAnnotations(sDocument2);
 		SampleGenerator.createSyntaxAnnotations(sDocument2);
 		SampleGenerator.createAnaphoricAnnotations(sDocument2);
-		sDocument2.createSMetaAnnotation(null, "att1", "value1");
-		sDocument2.createSMetaAnnotation(null, "att2", "value2");
+		sDocument2.createMetaAnnotation(null, "att1", "value1");
+		sDocument2.createMetaAnnotation(null, "att2", "value2");
 		DocumentInfo docInfo2= new DocumentInfo();
 		docInfo2.retrieveData(sDocument2);
 		
-		SCorpus sCorpus= SaltFactory.eINSTANCE.createSCorpus();
-		sCorpus.createSMetaAnnotation(null, "newMeta1", "metaValue1");
-		sCorpus.createSMetaAnnotation(null, "newMeta2", "metaValue2");
+		SCorpus sCorpus= SaltFactory.createSCorpus();
+		sCorpus.createMetaAnnotation(null, "newMeta1", "metaValue1");
+		sCorpus.createMetaAnnotation(null, "newMeta2", "metaValue2");
 		
 		getFixture().getContainerInfos().add(docInfo1);
 		getFixture().getContainerInfos().add(docInfo2);
@@ -123,14 +122,14 @@ public class SCorpusInfoTest {
 		assertEquals("2", xpath.evaluate("//sCorpusInfo/structuralInfo/entry[@key='SPointingRelation']/text()", document, XPathConstants.STRING));
 		
 		//annotationsInfo
-		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='lemma']/@occurrence", document, XPathConstants.STRING));
 		//tests some examples if they are aggregated correctly
-		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/sValue[text()='be']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='lemma']/sValue[text()='be']/@occurrence", document, XPathConstants.STRING));
 		
-		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("22", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='pos']/@occurrence", document, XPathConstants.STRING));
 		//tests some examples if they are aggregated correctly
-		assertEquals("2", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='JJ']/@occurrence", document, XPathConstants.STRING));
-		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='VBZ']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("2", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='pos']/sValue[text()='JJ']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("4", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='pos']/sValue[text()='VBZ']/@occurrence", document, XPathConstants.STRING));
 		
 		assertEquals("24", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/@occurrence", document, XPathConstants.STRING));
 		assertEquals("6", xpath.evaluate("//sCorpusInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='VP']/@occurrence", document, XPathConstants.STRING));

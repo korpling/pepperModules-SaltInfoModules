@@ -17,7 +17,9 @@
  */
 package org.corpus_tools.peppermodules.infoModules.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,16 +33,15 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.corpus_tools.pepper.testFramework.PepperModuleTest;
 import org.corpus_tools.peppermodules.infoModules.DocumentInfo;
+import org.corpus_tools.salt.SaltFactory;
+import org.corpus_tools.salt.common.SDocument;
+import org.corpus_tools.salt.samples.SampleGenerator;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperModuleTest;
-import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
-import de.hu_berlin.german.korpling.saltnpepper.salt.samples.SampleGenerator;
 
 public class DocumentInfoTest {
 	private DocumentInfo fixture= null; 
@@ -76,12 +77,12 @@ public class DocumentInfoTest {
 	 */
 	@Test
 	public void testRetrieveData() throws FileNotFoundException, SAXException, IOException, XPathExpressionException {
-		SDocument sDocument= SaltFactory.eINSTANCE.createSDocument();
+		SDocument sDocument= SaltFactory.createSDocument();
 		SampleGenerator.createMorphologyAnnotations(sDocument);
 		SampleGenerator.createSyntaxAnnotations(sDocument);
 		SampleGenerator.createAnaphoricAnnotations(sDocument);
-		sDocument.createSMetaAnnotation(null, "att1", "value1");
-		sDocument.createSMetaAnnotation(null, "att2", "value2");
+		sDocument.createMetaAnnotation(null, "att1", "value1");
+		sDocument.createMetaAnnotation(null, "att2", "value2");
 		
 		getFixture().retrieveData(sDocument);
 		
@@ -105,14 +106,14 @@ public class DocumentInfoTest {
 		assertNotNull(getFixture().getAnnotations().get(DocumentInfo.NO_LAYER));
 		
 		assertNotNull(getFixture().getAnnotations().get("morphology"));
-		assertEquals(new Integer(11), getFixture().getAnnotations().get("morphology").get("LEMMA").occurrence);
+		assertEquals(new Integer(11), getFixture().getAnnotations().get("morphology").get("lemma").occurrence);
 		//tests some examples if they are aggregated correctly
-		assertEquals(new Integer(1), getFixture().getAnnotations().get("morphology").get("LEMMA").get("to"));
-		assertEquals(new Integer(2), getFixture().getAnnotations().get("morphology").get("LEMMA").get("be"));
-		assertEquals(new Integer(11), getFixture().getAnnotations().get("morphology").get("POS").occurrence);
+		assertEquals(new Integer(1), getFixture().getAnnotations().get("morphology").get("lemma").get("to"));
+		assertEquals(new Integer(2), getFixture().getAnnotations().get("morphology").get("lemma").get("be"));
+		assertEquals(new Integer(11), getFixture().getAnnotations().get("morphology").get("pos").occurrence);
 		//tests some examples if they are aggregated correctly
-		assertEquals(new Integer(1), getFixture().getAnnotations().get("morphology").get("POS").get("VB"));
-		assertEquals(new Integer(2), getFixture().getAnnotations().get("morphology").get("POS").get("VBZ"));
+		assertEquals(new Integer(1), getFixture().getAnnotations().get("morphology").get("pos").get("VB"));
+		assertEquals(new Integer(2), getFixture().getAnnotations().get("morphology").get("pos").get("VBZ"));
 		
 		assertNotNull(getFixture().getAnnotations().get("syntax"));
 		assertEquals(new Integer(12), getFixture().getAnnotations().get("syntax").get("const").occurrence);
@@ -132,12 +133,12 @@ public class DocumentInfoTest {
 	@Test
 	public void testWriteData() throws FileNotFoundException, SAXException, IOException, XPathExpressionException {
 		File out= new File(PepperModuleTest.getTempPath_static("saltInfoExporter").getAbsoluteFile()+"/saltInfo.xml");
-		SDocument sDocument= SaltFactory.eINSTANCE.createSDocument();
+		SDocument sDocument= SaltFactory.createSDocument();
 		SampleGenerator.createMorphologyAnnotations(sDocument);
 		SampleGenerator.createSyntaxAnnotations(sDocument);
 		SampleGenerator.createAnaphoricAnnotations(sDocument);
-		sDocument.createSMetaAnnotation(null, "att1", "value1");
-		sDocument.createSMetaAnnotation(null, "att2", "value2");
+		sDocument.createMetaAnnotation(null, "att1", "value1");
+		sDocument.createMetaAnnotation(null, "att2", "value2");
 		
 		getFixture().setExportFile(out);
 		getFixture().write(sDocument);
@@ -157,14 +158,14 @@ public class DocumentInfoTest {
 		assertEquals("1", xpath.evaluate("//sDocumentInfo/structuralInfo/entry[@key='SPointingRelation']/text()", document, XPathConstants.STRING));
 		
 		//annotationsInfo
-		assertEquals("11", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("11", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='lemma']/@occurrence", document, XPathConstants.STRING));
 		//tests some examples if they are aggregated correctly
-		assertEquals("2", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='LEMMA']/sValue[text()='be']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("2", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='lemma']/sValue[text()='be']/@occurrence", document, XPathConstants.STRING));
 		
-		assertEquals("11", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("11", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='pos']/@occurrence", document, XPathConstants.STRING));
 		//tests some examples if they are aggregated correctly
-		assertEquals("1", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='JJ']/@occurrence", document, XPathConstants.STRING));
-		assertEquals("2", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='POS']/sValue[text()='VBZ']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("1", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='pos']/sValue[text()='JJ']/@occurrence", document, XPathConstants.STRING));
+		assertEquals("2", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='morphology']/sAnnotationInfo[@sName='pos']/sValue[text()='VBZ']/@occurrence", document, XPathConstants.STRING));
 		
 		assertEquals("12", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/@occurrence", document, XPathConstants.STRING));
 		assertEquals("3", xpath.evaluate("//sDocumentInfo/sLayerInfo[@sName='syntax']/sAnnotationInfo[@sName='const']/sValue[text()='VP']/@occurrence", document, XPathConstants.STRING));

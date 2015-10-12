@@ -18,16 +18,17 @@
 package org.corpus_tools.peppermodules.infoModules;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDocumentGraph;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotatableElement;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SLayer;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SMetaAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
+import org.corpus_tools.salt.common.SDocument;
+import org.corpus_tools.salt.common.SDocumentGraph;
+import org.corpus_tools.salt.core.SAnnotation;
+import org.corpus_tools.salt.core.SAnnotationContainer;
+import org.corpus_tools.salt.core.SLayer;
+import org.corpus_tools.salt.core.SMetaAnnotation;
+import org.corpus_tools.salt.core.SNode;
+import org.corpus_tools.salt.core.SRelation;
 
 /**
  * Contains all information concerning a {@link SDocumentGraph} to be exported as salt info.
@@ -40,58 +41,58 @@ public class DocumentInfo extends ContainerInfo implements SaltInfoDictionary{
 	 * agregator objects of this object, like {@link #getStructuralInfo()}, {@link #getMetaDataInfo()}
 	 * and {@link #getAnnotations()}.  
 	 */
-	public void retrieveData(SDocument sDocument){
+	public void retrieveData(SDocument document){
 		//retrieve meta data
-		for (SMetaAnnotation sMeta: sDocument.getSMetaAnnotations()){
-			getMetaDataInfo().put(sMeta.getQName(), sMeta.getSValueSTEXT());
+		for (SMetaAnnotation sMeta: document.getMetaAnnotations()){
+			getMetaDataInfo().put(sMeta.getQName(), sMeta.getValue_STEXT());
 		}
 		
 		//retrieve structural data
-		if (sDocument.getSDocumentGraph().getSNodes().size()!= 0){
-			getStructuralInfo().occurance_SNode= sDocument.getSDocumentGraph().getSNodes().size();
+		if (document.getDocumentGraph().getNodes().size()!= 0){
+			getStructuralInfo().occurance_SNode= document.getDocumentGraph().getNodes().size();
 		}
-		if (sDocument.getSDocumentGraph().getSTimeline()!= null){
+		if (document.getDocumentGraph().getTimeline()!= null){
 			getStructuralInfo().occurance_STimeline= 1;;
 		}
-		if (sDocument.getSDocumentGraph().getSTextualDSs().size()!= 0){
-			getStructuralInfo().occurance_STextualDS= sDocument.getSDocumentGraph().getSTextualDSs().size();
+		if (document.getDocumentGraph().getTextualDSs().size()!= 0){
+			getStructuralInfo().occurance_STextualDS= document.getDocumentGraph().getTextualDSs().size();
 		}
-		if (sDocument.getSDocumentGraph().getSTokens().size()!= 0){
-			getStructuralInfo().occurance_SToken= sDocument.getSDocumentGraph().getSTokens().size();
+		if (document.getDocumentGraph().getTokens().size()!= 0){
+			getStructuralInfo().occurance_SToken= document.getDocumentGraph().getTokens().size();
 		}
-		if (sDocument.getSDocumentGraph().getSSpans().size()!= 0){
-			getStructuralInfo().occurance_SSpan= sDocument.getSDocumentGraph().getSSpans().size();
+		if (document.getDocumentGraph().getSpans().size()!= 0){
+			getStructuralInfo().occurance_SSpan= document.getDocumentGraph().getSpans().size();
 		}
-		if (sDocument.getSDocumentGraph().getSStructures().size()!= 0){
-			getStructuralInfo().occurance_SStructure= sDocument.getSDocumentGraph().getSStructures().size();
+		if (document.getDocumentGraph().getStructures().size()!= 0){
+			getStructuralInfo().occurance_SStructure= document.getDocumentGraph().getStructures().size();
 		}
-		if (sDocument.getSDocumentGraph().getSRelations().size()!= 0){
-			getStructuralInfo().occurance_SRelation= sDocument.getSDocumentGraph().getSRelations().size();
+		if (document.getDocumentGraph().getRelations().size()!= 0){
+			getStructuralInfo().occurance_SRelation= document.getDocumentGraph().getRelations().size();
 		}
-		if (sDocument.getSDocumentGraph().getSSpanningRelations().size()!= 0){
-			getStructuralInfo().occurance_SSpanningRelation= sDocument.getSDocumentGraph().getSSpanningRelations().size();
+		if (document.getDocumentGraph().getSpanningRelations().size()!= 0){
+			getStructuralInfo().occurance_SSpanningRelation= document.getDocumentGraph().getSpanningRelations().size();
 		}
-		if (sDocument.getSDocumentGraph().getSDominanceRelations().size()!= 0){
-			getStructuralInfo().occurance_SDominanceRelation= sDocument.getSDocumentGraph().getSDominanceRelations().size();
+		if (document.getDocumentGraph().getDominanceRelations().size()!= 0){
+			getStructuralInfo().occurance_SDominanceRelation= document.getDocumentGraph().getDominanceRelations().size();
 		}
-		if (sDocument.getSDocumentGraph().getSOrderRelations().size()!= 0){
-			getStructuralInfo().occurance_SOrderRelation= sDocument.getSDocumentGraph().getSOrderRelations().size();
+		if (document.getDocumentGraph().getOrderRelations().size()!= 0){
+			getStructuralInfo().occurance_SOrderRelation= document.getDocumentGraph().getOrderRelations().size();
 		}
-		if (sDocument.getSDocumentGraph().getSPointingRelations().size()!= 0){
-			getStructuralInfo().occurance_SPointingRelation= sDocument.getSDocumentGraph().getSPointingRelations().size();
+		if (document.getDocumentGraph().getPointingRelations().size()!= 0){
+			getStructuralInfo().occurance_SPointingRelation= document.getDocumentGraph().getPointingRelations().size();
 		}
 		//retrieve annotations for nodes
-		for (SNode sNode: sDocument.getSDocumentGraph().getSNodes()){
-			if (	(sNode.getSLayers()!= null)&&
-					(sNode.getSLayers().size()>0)){
-				for (SLayer sLayer: sNode.getSLayers()){
-					Map<String, AnnotationInfo> annos= getAnnotations().get(sLayer.getSName());
+		for (SNode node: document.getDocumentGraph().getNodes()){
+			if (	(node.getLayers()!= null)&&
+					(node.getLayers().size()>0)){
+				for (SLayer sLayer: node.getLayers()){
+					Map<String, AnnotationInfo> annos= getAnnotations().get(sLayer.getName());
 					
 					if (annos== null){
 						annos= new Hashtable<>();
-						getAnnotations().put(sLayer.getSName(), annos);
+						getAnnotations().put(sLayer.getName(), annos);
 					}
-					retrieveAnnotations(sNode, annos);
+					retrieveAnnotations(node, annos);
 				}
 			}else{
 				Map<String, AnnotationInfo> annos= getAnnotations().get(NO_LAYER);
@@ -99,21 +100,23 @@ public class DocumentInfo extends ContainerInfo implements SaltInfoDictionary{
 					annos= new Hashtable<>();
 					getAnnotations().put(NO_LAYER, annos);
 				}
-				retrieveAnnotations(sNode, annos);
+				retrieveAnnotations(node, annos);
 			}
 		}
 		
 		//retrieve annotations for relations
-		for (SRelation sRel: sDocument.getSDocumentGraph().getSRelations()){
-			if (	(sRel.getSLayers()== null)&&
-					(sRel.getSLayers().size()>0)){
-				for (SLayer sLayer: sRel.getSLayers()){
-					Map<String, AnnotationInfo> annos= getAnnotations().get(sLayer.getSName());
+		for (SRelation rel: document.getDocumentGraph().getRelations()){
+			if (	(rel.getLayers()== null)&&
+					(rel.getLayers().size()>0)){
+				Iterator<SLayer> it= rel.getLayers().iterator();
+				while(it.hasNext()){
+					SLayer layer= it.next();
+					Map<String, AnnotationInfo> annos= getAnnotations().get(layer.getName());
 					if (annos== null){
 						annos= new Hashtable<>();
-						getAnnotations().put(sLayer.getSName(), annos);
+						getAnnotations().put(layer.getName(), annos);
 					}
-					retrieveAnnotations(sRel, annos);
+					retrieveAnnotations(rel, annos);
 				}
 			}else{
 				Map<String, AnnotationInfo> annos= getAnnotations().get(NO_LAYER);
@@ -121,7 +124,7 @@ public class DocumentInfo extends ContainerInfo implements SaltInfoDictionary{
 					annos= new Hashtable<>();
 					getAnnotations().put(NO_LAYER, annos);
 				}
-				retrieveAnnotations(sRel, annos);
+				retrieveAnnotations(rel, annos);
 			}
 		}
 	}
@@ -131,16 +134,16 @@ public class DocumentInfo extends ContainerInfo implements SaltInfoDictionary{
 	 * @param sElem
 	 * @param annotations
 	 */
-	private void retrieveAnnotations(SAnnotatableElement sElem, Map<String, AnnotationInfo> annotations){
+	private void retrieveAnnotations(SAnnotationContainer sElem, Map<String, AnnotationInfo> annotations){
 		if (	(sElem!= null)&&
 				(annotations!= null)){
-			for (SAnnotation sAnno: sElem.getSAnnotations()){
-				AnnotationInfo annoInfo= annotations.get(sAnno.getSName());
+			for (SAnnotation sAnno: sElem.getAnnotations()){
+				AnnotationInfo annoInfo= annotations.get(sAnno.getName());
 				if (annoInfo== null){
 					annoInfo= new AnnotationInfo();
-					annotations.put(sAnno.getSName(), annoInfo);
+					annotations.put(sAnno.getName(), annoInfo);
 				}
-				annoInfo.add(sAnno.getSValueSTEXT());
+				annoInfo.add(sAnno.getValue_STEXT());
 			}
 		}
 	}

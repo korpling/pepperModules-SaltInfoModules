@@ -19,13 +19,12 @@ package org.corpus_tools.peppermodules.infoModules;
 
 import javax.xml.transform.Transformer;
 
+import org.corpus_tools.pepper.common.DOCUMENT_STATUS;
+import org.corpus_tools.pepper.impl.PepperMapperImpl;
+import org.corpus_tools.pepper.modules.PepperModule;
+import org.corpus_tools.pepper.modules.exceptions.PepperModuleException;
 import org.corpus_tools.peppermodules.infoModules.ContainerInfo.STATUS;
 import org.eclipse.emf.common.util.URI;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
 /**
  * 
  * @author Florian Zipser
@@ -54,18 +53,18 @@ public class Salt2InfoMapper extends PepperMapperImpl{
 	}
 	@Override
 	public DOCUMENT_STATUS mapSCorpus() {
-		if (getSCorpus()!= null){
+		if (getCorpus()!= null){
 			for (ContainerInfo cont: ((CorpusInfo)getContainerInfo()).getContainerInfos()){
 				while	(	(!STATUS.FINISHED.equals(cont.getStatus()))&&
 							(!STATUS.ERROR.equals(cont.getStatus()))){
 					try {
 						Thread.sleep(50);
 					} catch (InterruptedException e) {
-						throw new PepperModuleException(this, "Cannot send thread to sleep, which is storing corpus '"+getSCorpus().getSId()+"'. ", e);
+						throw new PepperModuleException(this, "Cannot send thread to sleep, which is storing corpus '"+getCorpus().getId()+"'. ", e);
 					}
 				}
 			}
-			getContainerInfo().write(getSCorpus());
+			getContainerInfo().write(getCorpus());
 			if (((SaltInfoProperties) getProperties()).isHtmlOutput()) {
 				URI htmlOutput= URI.createFileURI(getResourceURI().toFileString().replace("."+PepperModule.ENDING_XML, ".html"));
 				SaltInfoExporter.applyXSLT(getXsltTransformer(), getResourceURI(), htmlOutput);
@@ -76,10 +75,10 @@ public class Salt2InfoMapper extends PepperMapperImpl{
 	
 	@Override
 	public DOCUMENT_STATUS mapSDocument() {
-		if (	(getSDocument()!= null)&&
-				(getSDocument().getSDocumentGraph()!= null)){
-			((DocumentInfo)getContainerInfo()).retrieveData(getSDocument());
-			getContainerInfo().write(getSDocument());
+		if (	(getDocument()!= null)&&
+				(getDocument().getDocumentGraph()!= null)){
+			((DocumentInfo)getContainerInfo()).retrieveData(getDocument());
+			getContainerInfo().write(getDocument());
 			if (((SaltInfoProperties) getProperties()).isHtmlOutput()) {
 				URI htmlOutput= URI.createFileURI(getResourceURI().toFileString().replace("."+PepperModule.ENDING_XML, ".html"));
 				SaltInfoExporter.applyXSLT(getXsltTransformer(), getResourceURI(), htmlOutput);

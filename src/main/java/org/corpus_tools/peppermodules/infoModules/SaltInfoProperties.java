@@ -17,8 +17,10 @@
  */
 package org.corpus_tools.peppermodules.infoModules;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
+import org.corpus_tools.pepper.modules.PepperModuleProperties;
+import org.corpus_tools.pepper.modules.PepperModuleProperty;
+
+
 /**
  * 
  * @author Florian Zipser

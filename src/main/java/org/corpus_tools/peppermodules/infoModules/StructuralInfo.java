@@ -20,19 +20,20 @@ package org.corpus_tools.peppermodules.infoModules;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SDominanceRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SOrderRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SPointingRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpan;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpanningRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SStructure;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STimeline;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STimelineRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SRelation;
+import org.corpus_tools.pepper.modules.exceptions.PepperModuleException;
+import org.corpus_tools.salt.common.SDominanceRelation;
+import org.corpus_tools.salt.common.SOrderRelation;
+import org.corpus_tools.salt.common.SPointingRelation;
+import org.corpus_tools.salt.common.SSpan;
+import org.corpus_tools.salt.common.SSpanningRelation;
+import org.corpus_tools.salt.common.SStructure;
+import org.corpus_tools.salt.common.STextualDS;
+import org.corpus_tools.salt.common.STextualRelation;
+import org.corpus_tools.salt.common.STimeline;
+import org.corpus_tools.salt.common.STimelineRelation;
+import org.corpus_tools.salt.common.SToken;
+import org.corpus_tools.salt.core.SNode;
+import org.corpus_tools.salt.core.SRelation;
 /**
  * Contains all occurances of elements to be stored in {@link SaltInfoDictionary#TAG_STRUCTURAL_INFO}.
  * @author Florian Zipser

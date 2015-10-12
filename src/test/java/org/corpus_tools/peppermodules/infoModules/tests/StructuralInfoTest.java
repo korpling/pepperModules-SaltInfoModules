@@ -37,6 +37,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.corpus_tools.pepper.testFramework.PepperModuleTest;
 import org.corpus_tools.peppermodules.infoModules.SaltInfoDictionary;
 import org.corpus_tools.peppermodules.infoModules.StructuralInfo;
 import org.junit.Before;
@@ -44,8 +45,6 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.testFramework.PepperModuleTest;
 
 public class StructuralInfoTest {
 

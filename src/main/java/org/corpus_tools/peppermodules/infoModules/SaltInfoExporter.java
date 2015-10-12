@@ -39,26 +39,27 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.FileUtils;
+import org.corpus_tools.pepper.impl.PepperExporterImpl;
+import org.corpus_tools.pepper.modules.PepperExporter;
+import org.corpus_tools.pepper.modules.PepperMapper;
+import org.corpus_tools.pepper.modules.PepperModule;
+import org.corpus_tools.pepper.modules.exceptions.PepperModuleException;
+import org.corpus_tools.pepper.modules.exceptions.PepperModuleNotReadyException;
 import org.corpus_tools.peppermodules.infoModules.ContainerInfo.STATUS;
+import org.corpus_tools.salt.common.SCorpus;
+import org.corpus_tools.salt.common.SCorpusDocumentRelation;
+import org.corpus_tools.salt.common.SCorpusGraph;
+import org.corpus_tools.salt.common.SCorpusRelation;
+import org.corpus_tools.salt.common.SDocument;
+import org.corpus_tools.salt.common.SaltProject;
+import org.corpus_tools.salt.core.SNode;
+import org.corpus_tools.salt.core.SPathElement;
+import org.corpus_tools.salt.graph.Identifier;
+import org.corpus_tools.salt.graph.Relation;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperExporter;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleNotReadyException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperExporterImpl;
-import de.hu_berlin.german.korpling.saltnpepper.salt.graph.Edge;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.SaltProject;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpus;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusDocumentRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusGraph;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SCorpusRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sCorpusStructure.SDocument;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 /**
  * This module produces a corpus-site of a corpus. A corpus-site is a homepage
@@ -122,10 +123,10 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	}
 
 	/**
-	 * Stores {@link SElementId}s to all {@link SDocument} and {@link SCorpus}
+	 * Stores {@link Identifier}s to all {@link SDocument} and {@link SCorpus}
 	 * objects and the corresponding {@link ContainerInfo} objects.
 	 **/
-	private Map<SElementId, ContainerInfo> sElementId2Container = null;
+	private Map<Identifier, ContainerInfo> sElementId2Container = null;
 
 	/**
 	 * Fill table {@link #sElementId2Container} and creates a
@@ -136,42 +137,42 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	public void start() throws PepperModuleException {
 		sElementId2Container = new Hashtable<>();
 		ContainerInfo cont = null;
-		for (SCorpusGraph sCorpusGraph : getSaltProject().getSCorpusGraphs()) {
-			for (SCorpus sCorpus : sCorpusGraph.getSCorpora()) {
+		for (SCorpusGraph sCorpusGraph : getSaltProject().getCorpusGraphs()) {
+			for (SCorpus sCorpus : sCorpusGraph.getCorpora()) {
 				cont = new CorpusInfo();
-				cont.setsName(sCorpus.getSName());
-				cont.setSIdf(sCorpus.getSId());
-				sElementId2Container.put(sCorpus.getSElementId(), cont);
+				cont.setsName(sCorpus.getName());
+				cont.setIdf(sCorpus.getId());
+				sElementId2Container.put(sCorpus.getIdentifier(), cont);
 			}
-			for (SDocument sDocument : sCorpusGraph.getSDocuments()) {
+			for (SDocument sDocument : sCorpusGraph.getDocuments()) {
 				cont = new DocumentInfo();
-				cont.setsName(sDocument.getSName());
-				cont.setSIdf(sDocument.getSId());
-				sElementId2Container.put(sDocument.getSElementId(), cont);
+				cont.setsName(sDocument.getName());
+				cont.setIdf(sDocument.getId());
+				sElementId2Container.put(sDocument.getIdentifier(), cont);
 			}
 		}
 		super.start();
 	}
 
 	@Override
-	public PepperMapper createPepperMapper(SElementId sElementId) {
+	public PepperMapper createPepperMapper(Identifier id) {
 		Salt2InfoMapper mapper = new Salt2InfoMapper();
-		mapper.setContainerInfo(sElementId2Container.get(sElementId));
-		if ((sElementId != null) && (sElementId.getSIdentifiableElement() != null)) {
-			if (sElementId.getSIdentifiableElement() instanceof SDocument) {
+		mapper.setContainerInfo(sElementId2Container.get(id));
+		if ((id != null) && (id.getIdentifiableElement() != null)) {
+			if (id.getIdentifiableElement() instanceof SDocument) {
 
-			} else if (sElementId.getSIdentifiableElement() instanceof SCorpus) {
-				SCorpus sCorpus = (SCorpus) sElementId.getSIdentifiableElement();
+			} else if (id.getIdentifiableElement() instanceof SCorpus) {
+				SCorpus sCorpus = (SCorpus) id.getIdentifiableElement();
 				CorpusInfo corpInfo = (CorpusInfo) mapper.getContainerInfo();
-				for (Edge edge : sCorpus.getSCorpusGraph().getOutEdges(sCorpus.getSId())) {
+				for (Relation edge : sCorpus.getGraph().getOutRelations(sCorpus.getId())) {
 					if ((edge instanceof SCorpusRelation) || (edge instanceof SCorpusDocumentRelation)) {
-						ContainerInfo cont = sElementId2Container.get((SElementId) edge.getTarget().getIdentifier());
+						ContainerInfo cont = sElementId2Container.get((Identifier) edge.getTarget().getIdentifier());
 						corpInfo.getContainerInfos().add(cont);
 					}
 				}
 			}
 			URI resource = URI.createFileURI(getCorpusDesc().getCorpusPath().toFileString());
-			for (String segment : sElementId.getSElementPath().segments()) {
+			for (String segment : ((SPathElement)id.getIdentifiableElement()).getPath().segments()) {
 				resource = resource.appendSegment(segment);
 			}
 			resource = resource.appendFileExtension(PepperModule.ENDING_XML);
@@ -265,10 +266,10 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		xml.writeStartDocument();
 		xml.writeStartElement(TAG_SPROJECT);
 		String name = PROJECT_INFO_FILE;
-		if (saltProject.getSCorpusGraphs().size() == 1) {
-			List<SCorpus> roots = saltProject.getSCorpusGraphs().get(0).getSRootCorpus();
+		if (saltProject.getCorpusGraphs().size() == 1) {
+			List<SNode> roots = saltProject.getCorpusGraphs().get(0).getRoots();
 			if (roots.size() == 1) {
-				name = roots.get(0).getSName();
+				name = roots.get(0).getName();
 			}
 		}
 		xml.writeAttribute(ATT_SNAME, name);
@@ -276,11 +277,11 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 		Date date = new Date();
 		DateFormat dformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		xml.writeAttribute(ATT_GENERATED_ON, dformat.format(date));
-		for (SCorpusGraph sCorpusGraph : saltProject.getSCorpusGraphs()) {
-			List<SCorpus> roots = sCorpusGraph.getSRootCorpus();
+		for (SCorpusGraph sCorpusGraph : saltProject.getCorpusGraphs()) {
+			List<SNode> roots = sCorpusGraph.getRoots();
 			if ((roots != null) && (!roots.isEmpty())) {
-				for (SCorpus sRoot : roots) {
-					ContainerInfo cont = sElementId2Container.get(sRoot.getSElementId());
+				for (SNode sRoot : roots) {
+					ContainerInfo cont = sElementId2Container.get(sRoot.getIdentifier());
 					writeContainerInfoRec(cont, xml);
 				}
 			}
@@ -297,11 +298,11 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 	private void writeContainerInfoRec(ContainerInfo cont, XMLStreamWriter xml) throws XMLStreamException {
 		if (cont != null) {
 			if (cont.getExportFile() == null) {
-				logger.warn("Cannot store project info file, because no file is given for ContainerInfo '" + cont.getSId() + "'. ");
+				logger.warn("Cannot store project info file, because no file is given for ContainerInfo '" + cont.getId() + "'. ");
 				cont.setStatus(STATUS.ERROR);
 				// throw new
 				// PepperModuleException("Cannot store project info file, because no file is given for ContainerInfo '"
-				// + cont.getSId() + "'. ");
+				// + cont.getId() + "'. ");
 			} else {
 				String containerTag = null;
 				if (cont instanceof CorpusInfo) {
@@ -311,7 +312,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements PepperExport
 				}
 				xml.writeStartElement(containerTag);
 				xml.writeAttribute(ATT_SNAME, cont.getsName());
-				xml.writeAttribute(ATT_SID, cont.getSId());
+				xml.writeAttribute(ATT_SID, cont.getId());
 				String location = "";
 
 				try {
