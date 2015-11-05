@@ -37,12 +37,15 @@ public class SaltInfoProperties extends PepperModuleProperties {
 	public final static String PROP_THEME = "theme";
 	public static final String THEME_DEFAULT="default";
 	public static final String THEME_HISTORIC="historic";
+	public static final String PROP_HTML_INTERPRETED="htmlInterpreted";
 
 	public SaltInfoProperties() {
 		this.addProperty(new PepperModuleProperty<Boolean>(PROP_HTML_OUTPUT,
 				Boolean.class, "Determines whether the SaltInfoExporter should produce a corpus site in html. the deafult is 'true', which produces an html output, change this to 'false' to avoid html output. ", true,false));
 		this.addProperty(new PepperModuleProperty<String>(PROP_THEME,
 				String.class, "Determines the theme of the output HTML project. The theme could be 'historic' or 'default'. ", THEME_DEFAULT, false));
+		this.addProperty(new PepperModuleProperty<Boolean>(PROP_HTML_INTERPRETED,
+				Boolean.class, "Determines whether the short description in the html output will be interpreted as html code. The default is 'false' ", false, false));
 	}
 	
 	public Boolean isHtmlOutput() {
@@ -51,5 +54,9 @@ public class SaltInfoProperties extends PepperModuleProperties {
 	
 	public String getTheme() {
 		return (String) this.getProperty(PROP_THEME).getValue();
+	}
+	
+	public Boolean getHtmlInterpretation() {
+		return (Boolean) this.getProperty(PROP_HTML_INTERPRETED).getValue();
 	}
 }
