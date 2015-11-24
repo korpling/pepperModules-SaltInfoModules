@@ -247,17 +247,6 @@ header {
     padding:5px
 }
 
-header a {
-    color:#EFC17E;
-    text-decoration:none
-}
-
-#header a:hover {
-    color:#FB3815;
-    text-decoration:underline
-}
-
-
 #header_wrap {
     font-family:'Junicode';
     background:-moz-linear-gradient(top,#361B01,#361B01);
