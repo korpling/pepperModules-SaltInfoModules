@@ -272,20 +272,12 @@ The table below contains an overview of all usable properties to customize the b
 | Name of property | Type of property | optional/mandatory | default value |
 |------------------|------------------|--------------------|---------------|
 | theme | default|historic | optional | default |
-|htmlInterpreted | Boolean | optional | false |
 
 ### <a name="sec_theme">theme</a>
 Determines the theme of the output HTML project. The theme could be 'historic' or 'default'.
 To use the historic theme set use the property in the workflow description as follows:
 ```xml
 <property key="theme">historic</property>
-```
-
-### <a name="sec_htmlInterpr">htmlInterpreted</a>
-Determines whether the short description in the html output will be interpreted as html code. The default is 'false'.
-To use the htmlInterpreted set use the property in the workflow description as follows:
-```xml
-<property key="htmlInterpreted">true</property>
 ```
 
 ## Contribute
