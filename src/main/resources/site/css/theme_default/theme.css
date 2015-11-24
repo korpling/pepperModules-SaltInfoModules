@@ -225,15 +225,6 @@ a.help:hover {
 	text-align: center;
 	padding: 5px;
 }
-
-a:hover, a:focus {
-	text-decoration: underline;
-}
-
-header a {
-	color: white;
-	text-decoration: underline;
-}
  
 #header_wrap {
 	background: -moz-linear-gradient(top, #373737, #212121);
