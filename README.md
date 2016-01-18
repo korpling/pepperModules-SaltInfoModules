@@ -1,6 +1,6 @@
 ![SaltNPepper project](./gh-site/img/SaltNPepper_logo2010.png)
 # pepperModules-SaltInfoModules
-The SaltInfoExporter helps you to get an overview of your corpus. It illustrates, which annotations (names and values as well) are used and how often they occur in a single document or in the entire corpus. The SaltInfoExporter is a module to be plugged in the linguistic converter framework Pepper (see https://u.hu-berlin.de/saltnpepper). This allows, to create a corpus overview for each corpus which is processable with one of Pepper's importer modules. The module produces two outputs, an xml output for further processing and a html output for illustration.  Both outputs lists all annotation names and values and the corresponding frequencies. 
+The SaltInfoExporter helps you to get an overview of your corpus. It illustrates, which annotations (names and values as well) are used and how often they occur in a single document or in the entire corpus. The SaltInfoExporter is a module to be plugged in the linguistic converter framework Pepper (see http://corpus-tools.org/pepper/). This allows, to create a corpus overview for each corpus which is processable with one of Pepper's importer modules. The module produces two outputs, an xml output for further processing and a html output for illustration.  Both outputs lists all annotation names and values and the corresponding frequencies. 
 
 ![sample html output for pcc corpus](./gh-site/img/sample_pcc_all.png)
 
@@ -36,12 +36,12 @@ bash pepperStart.sh
 
 Then type in command *is* and the path from where to install the module:
 ```
-pepper> update de.hu_berlin.german.korpling.saltnpepper::pepperModules-pepperModules-SaltInfoModules::https://korpling.german.hu-berlin.de/maven2/
+pepper> update org.corpus-tools::pepperModules-pepperModules-SaltInfoModules
 ```
 
 ## Usage
 To use this module in your Pepper workflow, put the following lines into the workflow description file. Note the fixed order of xml elements in the workflow description file: &lt;importer/>, &lt;manipulator/>, &lt;exporter/>. The SaltInfoExporter is an exporter module, which can be addressed by one of the following alternatives.
-A detailed description of the Pepper workflow can be found on the [Pepper project site](https://u.hu-berlin.de/saltnpepper). 
+A detailed description of the Pepper workflow can be found on the [Pepper project site](http://corpus-tools.org/pepper/). 
 
 ### a) Identify the module by name
 
