@@ -8,7 +8,7 @@ Visualizing your corpus with the SaltInfoExporter gives you the following benefi
 * all corpus and document meta data
 * all annotation names and values of your corpus at once 
 * frequencies to all names and values
-* direct link to single values in the corpus search and visualization system ANNIS (see: http://annis-tools.org)
+* direct link to single values in the corpus search and visualization system ANNIS (see: http://corpus-tools.org)
 * highly customizable for creating a corpus homepage via json (corpus descripton, authors, description to single annotation names and values) and css
 * export to CSV format for further frequency analyzes
 
