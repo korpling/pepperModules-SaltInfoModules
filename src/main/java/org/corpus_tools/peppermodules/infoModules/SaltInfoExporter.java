@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -77,9 +78,9 @@ import org.slf4j.LoggerFactory;
  * 
  */
 @Component(name = "SaltInfoExporterComponent", factory = "PepperExporterComponentFactory")
-public class SaltInfoExporter extends PepperExporterImpl implements
-		PepperExporter, SaltInfoDictionary {
-	static final Logger logger = LoggerFactory.getLogger("SaltInfoExporter");
+public class SaltInfoExporter extends PepperExporterImpl implements PepperExporter, SaltInfoDictionary {
+	public static final String MODULE_NAME = "SaltInfoExporter";
+	static final Logger logger = LoggerFactory.getLogger(MODULE_NAME);
 
 	public static final String SITE_RESOURCES = "site/";
 	public static final String CSS_RESOURCES = "css/";
@@ -92,10 +93,9 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 
 	public SaltInfoExporter() {
 		super();
-		setName("SaltInfoExporter");
+		setName(MODULE_NAME);
 		setSupplierContact(URI.createURI("saltnpepper@lists.hu-berlin.de"));
-		setSupplierHomepage(URI
-				.createURI("https://github.com/korpling/pepperModules-SaltInfoModules"));
+		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-SaltInfoModules"));
 		setDesc("This module produces a corpus-site of a corpus. A corpus-site is a homepage for the corpus containing all annotation names and their values and the frequencies of annotations. The corpus site can be extended for further description, to be used as a documentation. ");
 		addSupportedFormat(PepperModule.ENDING_XML, "1.0", null);
 		addSupportedFormat("html", "5.0", null);
@@ -109,28 +109,21 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 	@Override
 	public boolean isReadyToStart() throws PepperModuleNotReadyException {
 		boolean isReady = super.isReadyToStart();
-		siteResources = URI.createFileURI(getResources().toFileString()
-				+ SITE_RESOURCES);
-		cssResources = URI.createFileURI(getResources().toFileString()
-				+ SITE_RESOURCES + CSS_RESOURCES);
+		siteResources = URI.createFileURI(getResources().toFileString() + (!getResources().toFileString().endsWith("/") ? "/" : "") + SITE_RESOURCES);
+		cssResources = URI.createFileURI(getResources().toFileString() + (!getResources().toFileString().endsWith("/") ? "/" : "") + SITE_RESOURCES + CSS_RESOURCES);
 
 		File file = new File(siteResources.toFileString());
 		if (!file.exists()) {
-			logger.warn(
-					"Pepper module '{}' is not startable, because the folder '{}' does not exist in resource folder: {}.",
-					getName(), SITE_RESOURCES, file.getAbsolutePath());
+			logger.warn("Pepper module '{}' is not startable, because the folder '{}' does not exist in resource folder: {}.", getName(), SITE_RESOURCES, file.getAbsolutePath());
 			isReady = false;
 		}
 		file = new File(cssResources.toFileString());
 		if (!file.exists()) {
-			logger.warn(
-					"Pepper module '{}' is not startable, because the folder '{}' does not exist in resource folder: {}.",
-					getName(), CSS_RESOURCES, file.getAbsolutePath());
+			logger.warn("Pepper module '{}' is not startable, because the folder '{}' does not exist in resource folder: {}.", getName(), CSS_RESOURCES, file.getAbsolutePath());
 			isReady = false;
 		}
 
-		System.setProperty("javax.xml.transform.TransformerFactory",
-				"net.sf.saxon.TransformerFactoryImpl");
+		System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
 		transFac = TransformerFactory.newInstance();
 		return (isReady);
 	}
@@ -177,30 +170,22 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 			} else if (id.getIdentifiableElement() instanceof SCorpus) {
 				SCorpus sCorpus = (SCorpus) id.getIdentifiableElement();
 				CorpusInfo corpInfo = (CorpusInfo) mapper.getContainerInfo();
-				for (Relation edge : sCorpus.getGraph().getOutRelations(
-						sCorpus.getId())) {
-					if ((edge instanceof SCorpusRelation)
-							|| (edge instanceof SCorpusDocumentRelation)) {
-						ContainerInfo cont = sElementId2Container
-								.get((Identifier) edge.getTarget()
-										.getIdentifier());
+				for (Relation edge : sCorpus.getGraph().getOutRelations(sCorpus.getId())) {
+					if ((edge instanceof SCorpusRelation) || (edge instanceof SCorpusDocumentRelation)) {
+						ContainerInfo cont = sElementId2Container.get((Identifier) edge.getTarget().getIdentifier());
 						corpInfo.getContainerInfos().add(cont);
 					}
 				}
 			}
-			URI resource = URI.createFileURI(getCorpusDesc().getCorpusPath()
-					.toFileString());
-			for (String segment : ((SPathElement) id.getIdentifiableElement())
-					.getPath().segments()) {
+			URI resource = URI.createFileURI(getCorpusDesc().getCorpusPath().toFileString());
+			for (String segment : ((SPathElement) id.getIdentifiableElement()).getPath().segments()) {
 				resource = resource.appendSegment(segment);
 			}
 			resource = resource.appendFileExtension(PepperModule.ENDING_XML);
 			mapper.setResourceURI(resource);
-			mapper.getContainerInfo().setExportFile(
-					new File(resource.toFileString()));
+			mapper.getContainerInfo().setExportFile(new File(resource.toFileString()));
 
-			URI xslt = URI.createFileURI(getResources().toFileString()
-					+ XSLT_INFO_TO_HTML);
+			URI xslt = URI.createFileURI(getResources().toFileString() + (!getResources().toFileString().endsWith("/") ? "/" : "") + XSLT_INFO_TO_HTML);
 
 			Transformer transformer = loadXSLTTransformer(xslt.toFileString());
 			mapper.setXsltTransformer(transformer);
@@ -218,29 +203,21 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
 		XMLStreamWriter xml;
-		File projectInfoFile = new File(getCorpusDesc().getCorpusPath()
-				.appendSegment(PROJECT_INFO_FILE)
-				.appendFileExtension(PepperModule.ENDING_XML).toFileString());
+		File projectInfoFile = new File(getCorpusDesc().getCorpusPath().appendSegment(PROJECT_INFO_FILE).appendFileExtension(PepperModule.ENDING_XML).toFileString());
 		try {
 			xml = xof.createXMLStreamWriter(new FileWriter(projectInfoFile));
 		} catch (XMLStreamException | IOException e) {
-			throw new PepperModuleException("Cannot write salt info to file '"
-					+ projectInfoFile + "'. ", e);
+			throw new PepperModuleException("Cannot write salt info to file '" + projectInfoFile + "'. ", e);
 		}
 		try {
 			writeProjectInfo(getSaltProject(), xml);
 		} catch (XMLStreamException e) {
-			throw new PepperModuleException(this,
-					"Cannot write salt info project file '" + projectInfoFile
-							+ "'. ", e);
+			throw new PepperModuleException(this, "Cannot write salt info project file '" + projectInfoFile + "'. ", e);
 		}
 		if (((SaltInfoProperties) getProperties()).isHtmlOutput()) {
-			URI htmlOutput = getCorpusDesc().getCorpusPath()
-					.appendSegment(PROJECT_INFO_FILE)
-					.appendFileExtension("html");
+			URI htmlOutput = getCorpusDesc().getCorpusPath().appendSegment(PROJECT_INFO_FILE).appendFileExtension("html");
 			URI xmlInput = URI.createFileURI(projectInfoFile.getAbsolutePath());
-			URI xslt = URI.createFileURI(getResources().toFileString()
-					+ XSLT_INDEX_TO_HTML);
+			URI xslt = URI.createFileURI(getResources().toFileString() + (!getResources().toFileString().endsWith("/") ? "/" : "") + XSLT_INDEX_TO_HTML);
 			Transformer transformer = loadXSLTTransformer(xslt.toFileString());
 			applyXSLT(transformer, xmlInput, htmlOutput);
 		}
@@ -250,57 +227,45 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 		// first copy the whole site-folder except for the theme-*-folder under
 		// the css-directory
 		if ((resourceFolder != null) && (!resourceFolder.exists())) {
-			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: "
-					+ resourceFolder);
+			logger.warn("Cannot export the resources for project site, since the resource folder is null or does not exist: " + resourceFolder);
 		} else {
 			try {
-				if (((SaltInfoProperties) getProperties())
-						.getHtmlInterpretation()) {
+				if (((SaltInfoProperties) getProperties()).getHtmlInterpretation()) {
 					try {
-			            File jsFile = new File(getResources().toFileString()+"site/js/saltinfo.js");
-			            String fileContext = FileUtils.readFileToString(jsFile);
-			            fileContext = fileContext.replaceAll("var INTERPRET_AS_HTML = false;", "var INTERPRET_AS_HTML = true;");
-			            FileUtils.write(jsFile, fileContext);
-			        } catch (IOException e) {
-			        	SaltInfoExporter.logger.warn("No java script file found. Html elements in the short corpus description will be escaped.");
-			        }					
+						File jsFile = new File(getResources().toFileString() + "site/js/saltinfo.js");
+						String fileContext = FileUtils.readFileToString(jsFile);
+						fileContext = fileContext.replaceAll("var INTERPRET_AS_HTML = false;", "var INTERPRET_AS_HTML = true;");
+						FileUtils.write(jsFile, fileContext);
+					} catch (IOException e) {
+						SaltInfoExporter.logger.warn("No java script file found. Html elements in the short corpus description will be escaped.");
+					}
 				}
-				
-				FileUtils.copyDirectory(resourceFolder, new File(
-						getCorpusDesc().getCorpusPath().toFileString()),
-						new FileFilter() {
-							public boolean accept(File pathname) {
-								String name = pathname.getName();
 
-								return !(name.contains("theme_") && pathname
-										.isDirectory());
-							}
-						}, true);
+				FileUtils.copyDirectory(resourceFolder, new File(getCorpusDesc().getCorpusPath().toFileString()), new FileFilter() {
+					public boolean accept(File pathname) {
+						String name = pathname.getName();
+
+						return !(name.contains("theme_") && pathname.isDirectory());
+					}
+				}, true);
 			} catch (IOException e) {
-				logger.warn("Cannot export the resources for project site, because of a nested exception: "
-						+ e.getMessage());
+				logger.warn("Cannot export the resources for project site, because of a nested exception: " + e.getMessage());
 			}
 		}
 		String theme_value = null;
-		if (SaltInfoProperties.THEME_DEFAULT
-				.equals(((SaltInfoProperties) getProperties()).getTheme())) {
+		if (SaltInfoProperties.THEME_DEFAULT.equals(((SaltInfoProperties) getProperties()).getTheme())) {
 			theme_value = SaltInfoProperties.THEME_DEFAULT;
-		} else if (SaltInfoProperties.THEME_HISTORIC
-				.equals(((SaltInfoProperties) getProperties()).getTheme())) {
+		} else if (SaltInfoProperties.THEME_HISTORIC.equals(((SaltInfoProperties) getProperties()).getTheme())) {
 			theme_value = SaltInfoProperties.THEME_HISTORIC;
 		}
-		File theme = new File(getCorpusDesc().getCorpusPath().toFileString()
-				+ "/css/theme/");
+		File theme = new File(getCorpusDesc().getCorpusPath().toFileString() + "/css/theme/");
 		File[] cssFiles = cssFolder.listFiles();
 		for (File css : cssFiles) {
 			if (css.isDirectory()) {
 				try {
-					FileUtils.copyDirectory(
-							new File(cssResources.toFileString() + "theme_"
-									+ theme_value), theme);
+					FileUtils.copyDirectory(new File(cssResources.toFileString() + "theme_" + theme_value), theme);
 				} catch (IOException e) {
-					logger.warn("Cannot export the css_theme-resources for project site, because of a nested exception: "
-							+ e.getMessage());
+					logger.warn("Cannot export the css_theme-resources for project site, because of a nested exception: " + e.getMessage());
 				}
 			}
 		}
@@ -314,8 +279,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 	 * @param xml
 	 * @throws XMLStreamException
 	 */
-	private void writeProjectInfo(SaltProject saltProject, XMLStreamWriter xml)
-			throws XMLStreamException {
+	private void writeProjectInfo(SaltProject saltProject, XMLStreamWriter xml) throws XMLStreamException {
 		xml.writeStartDocument();
 		xml.writeStartElement(TAG_SPROJECT);
 		String name = PROJECT_INFO_FILE;
@@ -334,8 +298,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 			List<SNode> roots = sCorpusGraph.getRoots();
 			if ((roots != null) && (!roots.isEmpty())) {
 				for (SNode sRoot : roots) {
-					ContainerInfo cont = sElementId2Container.get(sRoot
-							.getIdentifier());
+					ContainerInfo cont = sElementId2Container.get(sRoot.getIdentifier());
 					writeContainerInfoRec(cont, xml);
 				}
 			}
@@ -349,15 +312,14 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 	 * Writes single entries for corpora and documents into passed xml stream.
 	 * This method is recursive to write the entire corpus structure.
 	 **/
-	private void writeContainerInfoRec(ContainerInfo cont, XMLStreamWriter xml)
-			throws XMLStreamException {
+	private void writeContainerInfoRec(ContainerInfo cont, XMLStreamWriter xml) throws XMLStreamException {
 		if (cont != null) {
 			if (cont.getExportFile() == null) {
-				logger.warn("Cannot store project info file, because no file is given for ContainerInfo '"
-						+ cont.getId() + "'. ");
+				logger.warn("Cannot store project info file, because no file is given for ContainerInfo '" + cont.getId() + "'. ");
 				cont.setStatus(STATUS.ERROR);
 				// throw new
-				// PepperModuleException("Cannot store project info file, because no file is given for ContainerInfo '"
+				// PepperModuleException("Cannot store project info file,
+				// because no file is given for ContainerInfo '"
 				// + cont.getId() + "'. ");
 			} else {
 				String containerTag = null;
@@ -372,19 +334,9 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 				String location = "";
 
 				try {
-					location = cont
-							.getExportFile()
-							.getCanonicalPath()
-							.replace(
-									getCorpusDesc().getCorpusPath()
-											.toFileString(), "");
+					location = cont.getExportFile().getCanonicalPath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
 				} catch (IOException e) {
-					location = cont
-							.getExportFile()
-							.getAbsolutePath()
-							.replace(
-									getCorpusDesc().getCorpusPath()
-											.toFileString(), "");
+					location = cont.getExportFile().getAbsolutePath().replace(getCorpusDesc().getCorpusPath().toFileString(), "");
 				}
 				// remove prefixing /
 				if (location.startsWith("/")) {
@@ -392,8 +344,7 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 				}
 				xml.writeAttribute(ATT_LOCATION, location);
 				if (cont instanceof CorpusInfo) {
-					for (ContainerInfo sub : ((CorpusInfo) cont)
-							.getContainerInfos()) {
+					for (ContainerInfo sub : ((CorpusInfo) cont).getContainerInfos()) {
 						writeContainerInfoRec(sub, xml);
 					}
 				}
@@ -407,14 +358,12 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 		StreamResult result = new StreamResult(new File(out.toFileString()));
 		try {
 			transformer.transform(source, result);
-			logger.debug(String.format("XSL-Transformation completed %s",
-					out.path()));
+			logger.debug(String.format("XSL-Transformation completed %s", out.path()));
 		} catch (TransformerException e) {
 			logger.debug("Failed to transform to :\t\t" + out.toFileString());
 			logger.debug("from:\t\t" + xml.toFileString());
 			logger.debug("with:\t\t" + transformer.toString());
-			throw new PepperModuleException(String.format(
-					"Can't generate HTML output %s", xml), e);
+			throw new PepperModuleException(String.format("Can't generate HTML output %s", xml), e);
 		}
 	}
 
@@ -426,17 +375,14 @@ public class SaltInfoExporter extends PepperExporterImpl implements
 	private static Transformer loadXSLTTransformer(String path) {
 		File xslt = new File(path);
 		if (!xslt.exists()) {
-			throw new PepperModuleException(
-					"Cannot find xslt transformation to create html output at location "
-							+ xslt.getAbsolutePath());
+			throw new PepperModuleException("Cannot find xslt transformation to create html output at location " + xslt.getAbsolutePath());
 		}
 		Transformer t = null;
 		try {
 			Source xsltSource = new StreamSource(xslt);
 			t = transFac.newTransformer(xsltSource);
 		} catch (Exception e) {
-			throw new PepperModuleException(
-					"Can't create xslt transformer for " + path, e);
+			throw new PepperModuleException("Can't create xslt transformer for " + path, e);
 		}
 		return t;
 	}
