@@ -1,7 +1,5 @@
 package org.corpus_tools.peppermodules.infoModules.tests;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -27,7 +25,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-
 public class SeleniumTest extends PepperExporterTest {
 
 	public SeleniumTest() {
@@ -38,108 +35,98 @@ public class SeleniumTest extends PepperExporterTest {
 		this.supportedFormatsCheck.add(new FormatDesc().setFormatName(PepperModule.ENDING_XML).setFormatVersion("1.0"));
 		this.supportedFormatsCheck.add(new FormatDesc().setFormatName("html").setFormatVersion("5.0"));
 	}
-	@Test
-	public void convertPcc2CorpusWithoutCustomizations() throws IOException {
-		URI importFolder= URI.createFileURI(PepperTestUtil.getTestResources()+"/selenium/salt");
-		URI exportFolder= getTempURI("SaltInfoTest/selenium");
-		getFixture().getSaltProject().loadSaltProject(importFolder);
-		
-		getFixture().setCorpusDesc(new CorpusDesc().setFormatDesc(new FormatDesc().setFormatName(SaltInfoExporter.MODULE_NAME)).setCorpusPath(exportFolder));
-		
-		start();
-		
-		URI corpusSiteURL= exportFolder.appendFragment("index.html");
-		
-		assertTrue(new File(corpusSiteURL.toFileString()).exists());
-		
-		
+
+	private WebDriver driver;
+	private boolean acceptNextAlert = true;
+	private StringBuffer verificationErrors = new StringBuffer();
+
+	@After
+	public void tearDown() throws Exception {
+		if (driver != null) {
+			driver.quit();
+		}
+		String verificationErrorString = verificationErrors.toString();
+		if (!"".equals(verificationErrorString)) {
+			fail(verificationErrorString);
+		}
 	}
 
-	
-	private WebDriver driver;
-	  private String baseUrl;
-	  private boolean acceptNextAlert = true;
-	  private StringBuffer verificationErrors = new StringBuffer();
+	@Test
+	public void convertPcc2CorpusWithoutCustomizations() throws IOException {
+		URI importFolder = URI.createFileURI(PepperTestUtil.getTestResources() + "/selenium/salt");
+		URI exportFolder = getTempURI("SaltInfoTest/selenium");
+		getFixture().getSaltProject().loadSaltProject(importFolder);
 
-	  @Before
-	  public void setUp() throws Exception {
-	    driver = new FirefoxDriver();
-	    baseUrl = "/tmp/pepper-test_florian/pepper-test/SaltInfoTest/selenium/index.html";
-	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	  }
+		getFixture().setCorpusDesc(new CorpusDesc().setFormatDesc(new FormatDesc().setFormatName(SaltInfoExporter.MODULE_NAME)).setCorpusPath(exportFolder));
 
-	  @Test
-	  public void testJUnitWebDriver() throws Exception {
-	    driver.get(baseUrl + "file:///tmp/pepper-test_florian/pepper-test/SaltInfoTest/selenium/index.html");
-	    try {
-	      assertEquals("pcc2", driver.findElement(By.id("project_title")).getText());
-	    } catch (Error e) {
-	      verificationErrors.append(e.toString());
-	    }
-	    try {
-	      assertEquals("short description of myCorpus", driver.findElement(By.id("project_tagline")).getText());
-	    } catch (Error e) {
-	      verificationErrors.append(e.toString());
-	    }
-	  }
+		start();
 
-	  @After
-	  public void tearDown() throws Exception {
-	    driver.quit();
-	    String verificationErrorString = verificationErrors.toString();
-	    if (!"".equals(verificationErrorString)) {
-	      fail(verificationErrorString);
-	    }
-	  }
+		URI corpusSiteURL = exportFolder.appendSegment("index.html");
 
-	  private boolean isElementPresent(By by) {
-	    try {
-	      driver.findElement(by);
-	      return true;
-	    } catch (NoSuchElementException e) {
-	      return false;
-	    }
-	  }
+		assertTrue(new File(corpusSiteURL.toFileString()).exists());
 
-	  private boolean isAlertPresent() {
-	    try {
-	      driver.switchTo().alert();
-	      return true;
-	    } catch (NoAlertPresentException e) {
-	      return false;
-	    }
-	  }
+		driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.get("file://"+corpusSiteURL.toFileString());
+		try {
+			assertEquals("pcc2", driver.getTitle());
+			assertEquals("pcc2", driver.findElement(By.id("project_title")).getText());
+			assertEquals("short description of myCorpus", driver.findElement(By.id("project_tagline")).getText());
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
 
-	  private String closeAlertAndGetItsText() {
-	    try {
-	      Alert alert = driver.switchTo().alert();
-	      String alertText = alert.getText();
-	      if (acceptNextAlert) {
-	        alert.accept();
-	      } else {
-	        alert.dismiss();
-	      }
-	      return alertText;
-	    } finally {
-	      acceptNextAlert = true;
-	    }
-	  }
+	private boolean isElementPresent(By by) {
+		try {
+			driver.findElement(by);
+			return true;
+		} catch (NoSuchElementException e) {
+			return false;
+		}
+	}
 
-	
-//	@Test
-//	public void test1Doc1Text() throws IOException {
-//		URI importFolder= URI.createFileURI(PepperTestUtil.getTestResources()+"/selenium/salt");
-//		URI customFolder= URI.createFileURI(PepperTestUtil.getTestResources()+"/selenium/custom");
-//		getFixture().getSaltProject().loadSaltProject(importFolder);
-//		
-//		getFixture().setCorpusDesc(new CorpusDesc().setFormatDesc(new FormatDesc().setFormatName(SaltInfoExporter.MODULE_NAME)).setCorpusPath(getTempURI("SaltInfoTest/selenium")));
-//		PepperModuleProperties prop= new PepperModuleProperties();
-//		prop.setPropertyValue("pepper.after.copyRes", "./custom/customization.json->./site/;./custom/impressum.html->./site/");
-//		((PepperModuleProperty<String>)getFixture().getProperties().getProperty("pepper.after.copyRes")).setValue("./custom/customization.json->./site/;./custom/impressum.html->./site/");
-//		
-//		start();
-//
-//		
-//	}
+	private boolean isAlertPresent() {
+		try {
+			driver.switchTo().alert();
+			return true;
+		} catch (NoAlertPresentException e) {
+			return false;
+		}
+	}
 
+	private String closeAlertAndGetItsText() {
+		try {
+			Alert alert = driver.switchTo().alert();
+			String alertText = alert.getText();
+			if (acceptNextAlert) {
+				alert.accept();
+			} else {
+				alert.dismiss();
+			}
+			return alertText;
+		} finally {
+			acceptNextAlert = true;
+		}
+	}
+
+	// @Test
+	// public void test1Doc1Text() throws IOException {
+	// URI importFolder=
+	// URI.createFileURI(PepperTestUtil.getTestResources()+"/selenium/salt");
+	// URI customFolder=
+	// URI.createFileURI(PepperTestUtil.getTestResources()+"/selenium/custom");
+	// getFixture().getSaltProject().loadSaltProject(importFolder);
+	//
+	// getFixture().setCorpusDesc(new CorpusDesc().setFormatDesc(new
+	// FormatDesc().setFormatName(SaltInfoExporter.MODULE_NAME)).setCorpusPath(getTempURI("SaltInfoTest/selenium")));
+	// PepperModuleProperties prop= new PepperModuleProperties();
+	// prop.setPropertyValue("pepper.after.copyRes",
+	// "./custom/customization.json->./site/;./custom/impressum.html->./site/");
+	// ((PepperModuleProperty<String>)getFixture().getProperties().getProperty("pepper.after.copyRes")).setValue("./custom/customization.json->./site/;./custom/impressum.html->./site/");
+	//
+	// start();
+	//
+	//
+	// }
 }
