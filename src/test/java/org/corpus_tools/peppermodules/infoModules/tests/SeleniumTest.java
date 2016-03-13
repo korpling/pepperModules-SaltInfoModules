@@ -52,7 +52,7 @@ public class SeleniumTest extends PepperExporterTest {
 	}
 
 	@Test
-	public void convertPcc2CorpusWithoutCustomizations() throws IOException {
+	public void test_convertPcc2CorpusWithoutCustomizations() throws IOException {
 		URI importFolder = URI.createFileURI(PepperTestUtil.getTestResources() + "/selenium/salt");
 		URI exportFolder = getTempURI("SaltInfoTest/selenium");
 		getFixture().getSaltProject().loadSaltProject(importFolder);
