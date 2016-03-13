@@ -67,14 +67,19 @@ public class SeleniumTest extends PepperExporterTest {
 
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		driver.get("file://"+corpusSiteURL.toFileString());
-		try {
-			assertEquals("pcc2", driver.getTitle());
-			assertEquals("pcc2", driver.findElement(By.id("project_title")).getText());
-			assertEquals("short description of myCorpus", driver.findElement(By.id("project_tagline")).getText());
-		} catch (Error e) {
-			verificationErrors.append(e.toString());
-		}
+		driver.get("file://" + corpusSiteURL.toFileString());
+
+		assertEquals("pcc2", driver.getTitle());
+		assertEquals("pcc2", driver.findElement(By.id("project_title")).getText());
+		assertEquals("short description of myCorpus", driver.findElement(By.id("project_tagline")).getText());
+
+		// check navigation
+		assertTrue("Text was '" + driver.findElement(By.xpath(".//*[@id='navigation']/span")).getText() + "'", "Home".contains(driver.findElement(By.xpath(".//*[@id='navigation']/span")).getText()));
+
+		// check dynamic navigation
+		assertTrue("11299".contains(driver.findElement(By.xpath(".//*[@id='j1_2']/a")).getText()));
+		assertTrue("4282".contains(driver.findElement(By.xpath(".//*[@id='j1_3']/a")).getText()));
+
 	}
 
 	private boolean isElementPresent(By by) {
