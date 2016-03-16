@@ -2,7 +2,9 @@ package org.corpus_tools.peppermodules.infoModules.tests;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.PhantomReference;
 
+import org.apache.commons.io.FileUtils;
 import org.corpus_tools.pepper.common.CorpusDesc;
 import org.corpus_tools.pepper.common.FormatDesc;
 import org.corpus_tools.pepper.exceptions.PepperTestException;
@@ -23,7 +25,9 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
+
 
 public class SeleniumTest extends PepperExporterTest {
 
@@ -40,6 +44,12 @@ public class SeleniumTest extends PepperExporterTest {
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 
+	URI exportFolder = getTempURI("SaltInfoTest/selenium");
+	@Before
+	public void setUp() throws IOException{
+		FileUtils.deleteDirectory(new File(exportFolder.toFileString()));
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 		if (driver != null) {
@@ -54,7 +64,7 @@ public class SeleniumTest extends PepperExporterTest {
 	@Test
 	public void test_convertPcc2CorpusWithoutCustomizations() throws IOException {
 		URI importFolder = URI.createFileURI(PepperTestUtil.getTestResources() + "/selenium/salt");
-		URI exportFolder = getTempURI("SaltInfoTest/selenium");
+		
 		getFixture().getSaltProject().loadSaltProject(importFolder);
 
 		getFixture().setCorpusDesc(new CorpusDesc().setFormatDesc(new FormatDesc().setFormatName(SaltInfoExporter.MODULE_NAME)).setCorpusPath(exportFolder));
@@ -65,8 +75,10 @@ public class SeleniumTest extends PepperExporterTest {
 
 		assertTrue(new File(corpusSiteURL.toFileString()).exists());
 
-		driver = new FirefoxDriver();
+//		driver = new FirefoxDriver();
+		driver = new PhantomJSDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		
 		driver.get("file://" + corpusSiteURL.toFileString());
 
 		assertEquals("pcc2", driver.getTitle());

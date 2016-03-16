@@ -107,6 +107,8 @@ var annisLink = null;
 var tooltips_metadata = null;
 /** A table containing tooltips for annotation  **/
 var tooltips_annonames = null;
+/** A table containing tooltips for structure part  **/
+var tooltips_structuralInfo=null;
 
 /** Defines an object of type Author having a name and aemail address**/
 function Author(name, eMail) {
