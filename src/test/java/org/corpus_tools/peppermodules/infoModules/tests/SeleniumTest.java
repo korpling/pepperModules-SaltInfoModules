@@ -25,9 +25,9 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.Select;
-
 
 public class SeleniumTest extends PepperExporterTest {
 
@@ -45,11 +45,7 @@ public class SeleniumTest extends PepperExporterTest {
 	private StringBuffer verificationErrors = new StringBuffer();
 
 	URI exportFolder = getTempURI("SaltInfoTest/selenium");
-	@Before
-	public void setUp() throws IOException{
-		FileUtils.deleteDirectory(new File(exportFolder.toFileString()));
-	}
-	
+
 	@After
 	public void tearDown() throws Exception {
 		if (driver != null) {
@@ -64,21 +60,22 @@ public class SeleniumTest extends PepperExporterTest {
 	@Test
 	public void test_convertPcc2CorpusWithoutCustomizations() throws IOException {
 		URI importFolder = URI.createFileURI(PepperTestUtil.getTestResources() + "/selenium/salt");
-		
+
 		getFixture().getSaltProject().loadSaltProject(importFolder);
 
 		getFixture().setCorpusDesc(new CorpusDesc().setFormatDesc(new FormatDesc().setFormatName(SaltInfoExporter.MODULE_NAME)).setCorpusPath(exportFolder));
 
-		start();
+//		FileUtils.deleteDirectory(new File(exportFolder.toFileString()));
+//		start();
 
 		URI corpusSiteURL = exportFolder.appendSegment("index.html");
 
 		assertTrue(new File(corpusSiteURL.toFileString()).exists());
 
-//		driver = new FirefoxDriver();
+		// driver = new FirefoxDriver();
 		driver = new PhantomJSDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		
+
 		driver.get("file://" + corpusSiteURL.toFileString());
 
 		assertEquals("pcc2", driver.getTitle());
@@ -92,6 +89,24 @@ public class SeleniumTest extends PepperExporterTest {
 		assertTrue("11299".contains(driver.findElement(By.xpath(".//*[@id='j1_2']/a")).getText()));
 		assertTrue("4282".contains(driver.findElement(By.xpath(".//*[@id='j1_3']/a")).getText()));
 
+		// open aggregation for super corpus pcc2
+		driver.findElement(By.linkText("pcc2")).click();
+		assertEquals("pcc2", driver.findElement(By.id("title")).getText());
+		assertEquals("func", driver.findElement(By.xpath(".//*[@id='content']/div[3]/table/tbody/tr[1]/td[1]/span/span[1]")).getText());
+		assertEquals("AC", driver.findElement(By.xpath(".//*[@id='func_values']/span[1]/span[1]")).getText());
+		
+		//check expand/collapse for annotation value
+		assertEquals(5, driver.findElements(By.xpath(".//*[@id='func_values']/span")).size());
+		driver.findElement(By.xpath(".//*[@id='func_btn']")).click();
+		assertEquals(52, driver.findElements(By.xpath(".//*[@id='func_values']/span")).size());
+		driver.findElement(By.xpath(".//*[@id='func_btn']")).click();
+		assertEquals(5, driver.findElements(By.xpath(".//*[@id='func_values']/span")).size());
+		
+		//does not work, since the id of tooltip is changing
+//		//check tooltip
+//		Actions action = new Actions(driver);
+//		action.moveToElement(driver.findElement(By.xpath(".//*[@id='content']/table/tbody/tr[2]/td[1]/span/i"))).build().perform();
+//		assertEquals("Total number of nodes in the current document or corpus. An SNode is an abstract node which could be instantiated as e.g. SToken, SSpan, SStructure, STextualDS and so on.",driver.findElement(By.xpath(".//*[@id='ui-tooltip-45']/div")).getText());
 	}
 
 	private boolean isElementPresent(By by) {
