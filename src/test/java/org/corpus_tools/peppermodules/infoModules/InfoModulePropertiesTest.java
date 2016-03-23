@@ -31,10 +31,9 @@ import org.junit.Test;
  *
  */
 public class InfoModulePropertiesTest {
-	
-	private SaltInfoProperties fixture= null;
-	
-	
+
+	private SaltInfoProperties fixture = null;
+
 	public SaltInfoProperties getFixture() {
 		return fixture;
 	}
@@ -44,6 +43,7 @@ public class InfoModulePropertiesTest {
 	}
 
 	public static final URI PROP_URI = URI.createURI("./src/main/resources/sample-config/default.properties");
+
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -57,11 +57,12 @@ public class InfoModulePropertiesTest {
 		SaltInfoProperties properties = new SaltInfoProperties();
 		properties.addProperties(PROP_URI);
 	}
-	
+
 	@Test
 	public void testGetTheme_default() {
 		assertEquals(SaltInfoProperties.THEME_DEFAULT, getFixture().getTheme());
 	}
+
 	@Test
 	public void testGetTheme_historic() {
 		getFixture().setPropertyValue(SaltInfoProperties.PROP_THEME, SaltInfoProperties.THEME_HISTORIC);

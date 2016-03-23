@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+
 public class WhenExportingPcc2WithoutCustomizationTest {
 
 	private static WebDriver driver;
@@ -74,43 +75,46 @@ public class WhenExportingPcc2WithoutCustomizationTest {
 		assertEquals("pcc2", driver.findElement(By.id("project_title")).getText());
 		assertEquals("short description of myCorpus", driver.findElement(By.id("project_tagline")).getText());
 	}
-	
+
 	@Test
-	public void shouldContainCorpusAndDocumentsInNavigation(){
+	public void shouldContainCorpusAndDocumentsInNavigation() {
 		assertTrue("Text was '" + driver.findElement(By.xpath(".//*[@id='navigation']/span")).getText() + "'", "Home".contains(driver.findElement(By.xpath(".//*[@id='navigation']/span")).getText()));
 		assertTrue("11299".contains(driver.findElement(By.xpath(".//*[@id='j1_2']/a")).getText()));
 		assertTrue("4282".contains(driver.findElement(By.xpath(".//*[@id='j1_3']/a")).getText()));
 	}
 
 	@Test
-	public void shouldContainSingleValuesInContent(){
+	public void shouldContainSingleValuesInContent() {
 		driver.findElement(By.linkText("pcc2")).click();
 		assertEquals("pcc2", driver.findElement(By.id("title")).getText());
 		assertEquals("func", driver.findElement(By.xpath(".//*[@id='content']/div[3]/table/tbody/tr[1]/td[1]/span/span[1]")).getText());
 		assertEquals("AC", driver.findElement(By.xpath(".//*[@id='func_values']/span[1]/span[1]")).getText());
 	}
-	
+
 	@Test
-	public void shouldExpandAndCollapseAnnotationsInContent(){
+	public void shouldExpandAndCollapseAnnotationsInContent() {
 		driver.findElement(By.linkText("pcc2")).click();
-		
+
 		assertEquals(5, driver.findElements(By.xpath(".//*[@id='func_values']/span")).size());
 		driver.findElement(By.xpath(".//*[@id='func_btn']")).click();
 		assertEquals(52, driver.findElements(By.xpath(".//*[@id='func_values']/span")).size());
 		driver.findElement(By.xpath(".//*[@id='func_btn']")).click();
 		assertEquals(5, driver.findElements(By.xpath(".//*[@id='func_values']/span")).size());
 	}
-	
-//	@Test
-//	public void whenHoverOverISymbol_shouldDisplayTooltip() throws IOException {
-//		driver.findElement(By.linkText("pcc2")).click();
-//		// does not work, since the id of tooltip is changing
-//		// //check tooltip
-//		// Actions action = new Actions(driver);
-//		// action.moveToElement(driver.findElement(By.xpath(".//*[@id='content']/table/tbody/tr[2]/td[1]/span/i"))).build().perform();
-//		// assertEquals("Total number of nodes in the current document or
-//		// corpus. An SNode is an abstract node which could be instantiated as
-//		// e.g. SToken, SSpan, SStructure, STextualDS and so
-//		// on.",driver.findElement(By.xpath(".//*[@id='ui-tooltip-45']/div")).getText());
-//	}
+
+	// @Test
+	// public void whenHoverOverISymbol_shouldDisplayTooltip() throws
+	// IOException {
+	// driver.findElement(By.linkText("pcc2")).click();
+	// // does not work, since the id of tooltip is changing
+	// // //check tooltip
+	// // Actions action = new Actions(driver);
+	// //
+	// action.moveToElement(driver.findElement(By.xpath(".//*[@id='content']/table/tbody/tr[2]/td[1]/span/i"))).build().perform();
+	// // assertEquals("Total number of nodes in the current document or
+	// // corpus. An SNode is an abstract node which could be instantiated as
+	// // e.g. SToken, SSpan, SStructure, STextualDS and so
+	// //
+	// on.",driver.findElement(By.xpath(".//*[@id='ui-tooltip-45']/div")).getText());
+	// }
 }

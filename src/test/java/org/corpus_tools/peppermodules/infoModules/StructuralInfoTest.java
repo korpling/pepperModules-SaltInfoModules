@@ -46,8 +46,8 @@ import org.xml.sax.SAXException;
 
 public class StructuralInfoTest {
 
-	private StructuralInfo fixture= null;
-	
+	private StructuralInfo fixture = null;
+
 	public StructuralInfo getFixture() {
 		return fixture;
 	}
@@ -60,22 +60,24 @@ public class StructuralInfoTest {
 	public void setUp() throws Exception {
 		setFixture(new StructuralInfo());
 		XMLOutputFactory xof = XMLOutputFactory.newInstance();
-		fixtureFile= new File(PepperModuleTest.getTempPath_static("saltInfoExporter").getAbsolutePath()+"/structuralInfo.xml");
-        xml = xof.createXMLStreamWriter(new FileWriter(fixtureFile));
-        
-        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+		fixtureFile = new File(PepperModuleTest.getTempPath_static("saltInfoExporter").getAbsolutePath() + "/structuralInfo.xml");
+		xml = xof.createXMLStreamWriter(new FileWriter(fixtureFile));
+
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 		builder = builderFactory.newDocumentBuilder();
-		
+
 		XPathFactory xPathfactory = XPathFactory.newInstance();
 		xpath = xPathfactory.newXPath();
 	}
-	
-	private File fixtureFile= null;
-	private XMLStreamWriter xml= null;
+
+	private File fixtureFile = null;
+	private XMLStreamWriter xml = null;
 	private DocumentBuilder builder = null;
-	private XPath xpath= null;
+	private XPath xpath = null;
+
 	/**
 	 * Writes an empty structural info tag.
+	 * 
 	 * @throws XMLStreamException
 	 * @throws FileNotFoundException
 	 * @throws SAXException
@@ -89,17 +91,18 @@ public class StructuralInfoTest {
 		getFixture().write(xml);
 		xml.writeEndDocument();
 		xml.flush();
-		
+
 		Document document = builder.parse(new FileInputStream(fixtureFile));
-		XPathExpression expr= xpath.compile("//node()");
-		NodeList nodes = (NodeList)expr.evaluate(document, XPathConstants.NODESET);
-		
+		XPathExpression expr = xpath.compile("//node()");
+		NodeList nodes = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
+
 		assertEquals(1, nodes.getLength());
 		assertEquals(SaltInfoDictionary.TAG_STRUCTURAL_INFO, nodes.item(0).getNodeName());
 	}
-	
+
 	/**
 	 * Writes a filled structural info tag.
+	 * 
 	 * @throws XMLStreamException
 	 * @throws FileNotFoundException
 	 * @throws SAXException
@@ -109,26 +112,26 @@ public class StructuralInfoTest {
 	 */
 	@Test
 	public void testWrite_full() throws XMLStreamException, FileNotFoundException, SAXException, IOException, ParserConfigurationException, XPathExpressionException {
-		getFixture().occurance_SNode= 1;
-		getFixture().occurance_STextualDS= 2;
-		getFixture().occurance_STimeline= 3;
-		getFixture().occurance_SToken= 4;
-		getFixture().occurance_SSpan= 5;
-		getFixture().occurance_SStructure= 6;
-		
-		getFixture().occurance_SRelation= 10;
-		getFixture().occurance_STimelineRelation= 11;
-		getFixture().occurance_STextualRelation= 12;
-		getFixture().occurance_SSpanningRelation= 13;
-		getFixture().occurance_SDominanceRelation= 14;
-		getFixture().occurance_SPointingRelation= 15;
-		getFixture().occurance_SOrderRelation= 16;
-		
+		getFixture().occurance_SNode = 1;
+		getFixture().occurance_STextualDS = 2;
+		getFixture().occurance_STimeline = 3;
+		getFixture().occurance_SToken = 4;
+		getFixture().occurance_SSpan = 5;
+		getFixture().occurance_SStructure = 6;
+
+		getFixture().occurance_SRelation = 10;
+		getFixture().occurance_STimelineRelation = 11;
+		getFixture().occurance_STextualRelation = 12;
+		getFixture().occurance_SSpanningRelation = 13;
+		getFixture().occurance_SDominanceRelation = 14;
+		getFixture().occurance_SPointingRelation = 15;
+		getFixture().occurance_SOrderRelation = 16;
+
 		xml.writeStartDocument();
 		getFixture().write(xml);
 		xml.writeEndDocument();
 		xml.flush();
-		
+
 		Document document = builder.parse(new FileInputStream(fixtureFile));
 		assertEquals(StructuralInfo.KEY_SNODE, xpath.evaluate("//structuralInfo/entry[1]/@key", document, XPathConstants.STRING));
 		assertEquals("1", xpath.evaluate("//structuralInfo/entry[1]/text()", document, XPathConstants.STRING));
@@ -142,7 +145,7 @@ public class StructuralInfoTest {
 		assertEquals("5", xpath.evaluate("//structuralInfo/entry[5]/text()", document, XPathConstants.STRING));
 		assertEquals(StructuralInfo.KEY_SSTRUCTURE, xpath.evaluate("//structuralInfo/entry[6]/@key", document, XPathConstants.STRING));
 		assertEquals("6", xpath.evaluate("//structuralInfo/entry[6]/text()", document, XPathConstants.STRING));
-		
+
 		assertEquals(StructuralInfo.KEY_SRELATION, xpath.evaluate("//structuralInfo/entry[7]/@key", document, XPathConstants.STRING));
 		assertEquals("10", xpath.evaluate("//structuralInfo/entry[7]/text()", document, XPathConstants.STRING));
 		assertEquals(StructuralInfo.KEY_STEXTUAL_RELATION, xpath.evaluate("//structuralInfo/entry[8]/@key", document, XPathConstants.STRING));
