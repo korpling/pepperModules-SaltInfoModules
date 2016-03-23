@@ -22,8 +22,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-
-public class WhenExportingPcc2WithoutCustomization {
+public class WhenExportingPcc2WithoutCustomizationTest {
 
 	private static WebDriver driver;
 
