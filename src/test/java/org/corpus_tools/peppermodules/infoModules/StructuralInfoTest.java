@@ -15,7 +15,7 @@
  *
  *
  */
-package org.corpus_tools.peppermodules.infoModules.tests;
+package org.corpus_tools.peppermodules.infoModules;
 
 import static org.junit.Assert.assertEquals;
 

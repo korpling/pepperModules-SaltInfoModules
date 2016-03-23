@@ -18,7 +18,7 @@
 /**
  * 
  */
-package org.corpus_tools.peppermodules.infoModules.tests;
+package org.corpus_tools.peppermodules.infoModules;
 
 import org.corpus_tools.peppermodules.infoModules.SaltInfoProperties;
 import org.eclipse.emf.common.util.URI;
