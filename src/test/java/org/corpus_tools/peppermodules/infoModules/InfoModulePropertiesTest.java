@@ -20,12 +20,11 @@
  */
 package org.corpus_tools.peppermodules.infoModules;
 
-import org.corpus_tools.peppermodules.infoModules.SaltInfoProperties;
+import static org.junit.Assert.assertEquals;
+
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * @author jschmolling
