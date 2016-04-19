@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.corpus-tools</groupId>
@@ -8,7 +7,7 @@
 	</parent>
 	<artifactId>pepperModules-SaltInfoModules</artifactId>
 	<name>${project.groupId}.${project.artifactId}</name>
-	<version>1.0.8-SNAPSHOT</version>
+	<version>1.0.8</version>
 	<packaging>bundle</packaging>
 	<description>This project provides a exporter module to render information on the Salt model that is used in  a given corpus. </description>
 	<url>http://korpling.github.io/pepperModules-SaltInfoModule</url>
@@ -28,7 +27,7 @@
 		<connection>scm:git:git://github.com/korpling/pepperModules-SaltInfoModules.git</connection>
 		<developerConnection>scm:git:git@github.com:korpling/pepperModules-SaltInfoModules.git</developerConnection>
 		<url>https://github.com/korpling/pepperModules-SaltInfoModules</url>
-		<tag>HEAD</tag>
+		<tag>pepperModules-SaltInfoModules-1.0.8</tag>
 	</scm>
 	<dependencies>
 		<dependency>
