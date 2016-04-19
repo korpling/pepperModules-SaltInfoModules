@@ -34,144 +34,162 @@ import org.corpus_tools.salt.common.STimelineRelation;
 import org.corpus_tools.salt.common.SToken;
 import org.corpus_tools.salt.core.SNode;
 import org.corpus_tools.salt.core.SRelation;
+
 /**
- * Contains all occurances of elements to be stored in {@link SaltInfoDictionary#TAG_STRUCTURAL_INFO}.
+ * Contains all occurances of elements to be stored in
+ * {@link SaltInfoDictionary#TAG_STRUCTURAL_INFO}.
+ * 
  * @author Florian Zipser
  *
  */
 public class StructuralInfo {
-	public static final String KEY_SNODE="SNode";
-	public static final String KEY_STOKEN="SToken";
-	public static final String KEY_SSPAN="SSpan";
-	public static final String KEY_SSTRUCTURE="SStructure";
-	public static final String KEY_STIMELINE="STimeline";
-    public static final String KEY_STEXTUAL_DS="STextualDS";
-    
-    public static final String KEY_SRELATION="SRelation";
-	public static final String KEY_STEXTUAL_RELATION="STextualRelation";
-    public static final String KEY_SSPANNING_RELATION="SSpanningRelation";
-    public static final String KEY_SPOINTING_RELATION="SPointingRelation";
-    public static final String KEY_SDOMINANCE_RELATION="SDominanceRelation";
-    public static final String KEY_SORDER_RELATION="SOrderRelation";
-    public static final String KEY_STIMELINE_RELATION="STimelineRelation";
-    
-	/** Stores the number of occurances of all {@link SNode} objects.**/
-	public Integer occurance_SNode=0;
-	/** Stores the number of occurances of all {@link STimeline} objects.**/
-	public Integer occurance_STimeline=0;
-	/** Stores the number of occurances of all {@link STextualDS} objects.**/
-	public Integer occurance_STextualDS=0;
-	/** Stores the number of occurances of all {@link SToken} objects.**/
-	public Integer occurance_SToken=0;
-	/** Stores the number of occurances of all {@link SSpan} objects.**/
-	public Integer occurance_SSpan=0;
-	/** Stores the number of occurances of all {@link SStructure} objects.**/
-	public Integer occurance_SStructure=0;
-	
-	/** Stores the number of occurances of all {@link SRelation} objects.**/
-	public Integer occurance_SRelation=0;
-	/** Stores the number of occurances of all {@link SSpanningRelation} objects.**/
-	public Integer occurance_SSpanningRelation=0;
-	/** Stores the number of occurances of all {@link SDominanceRelation} objects.**/
-	public Integer occurance_SDominanceRelation=0;
-	/** Stores the number of occurances of all {@link SPointingRelation} objects.**/
-	public Integer occurance_SPointingRelation=0;
-	/** Stores the number of occurances of all {@link STextualRelation} objects.**/
-	public Integer occurance_STextualRelation=0;
-	/** Stores the number of occurances of all {@link STimelineRelation} objects.**/
-	public Integer occurance_STimelineRelation=0;
-	/** Stores the number of occurances of all {@link SOrderRelation} objects.**/
-	public Integer occurance_SOrderRelation=0;
+	public static final String KEY_SNODE = "SNode";
+	public static final String KEY_STOKEN = "SToken";
+	public static final String KEY_SSPAN = "SSpan";
+	public static final String KEY_SSTRUCTURE = "SStructure";
+	public static final String KEY_STIMELINE = "STimeline";
+	public static final String KEY_STEXTUAL_DS = "STextualDS";
+
+	public static final String KEY_SRELATION = "SRelation";
+	public static final String KEY_STEXTUAL_RELATION = "STextualRelation";
+	public static final String KEY_SSPANNING_RELATION = "SSpanningRelation";
+	public static final String KEY_SPOINTING_RELATION = "SPointingRelation";
+	public static final String KEY_SDOMINANCE_RELATION = "SDominanceRelation";
+	public static final String KEY_SORDER_RELATION = "SOrderRelation";
+	public static final String KEY_STIMELINE_RELATION = "STimelineRelation";
+
+	/** Stores the number of occurances of all {@link SNode} objects. **/
+	public Integer occurance_SNode = 0;
+	/** Stores the number of occurances of all {@link STimeline} objects. **/
+	public Integer occurance_STimeline = 0;
+	/** Stores the number of occurances of all {@link STextualDS} objects. **/
+	public Integer occurance_STextualDS = 0;
+	/** Stores the number of occurances of all {@link SToken} objects. **/
+	public Integer occurance_SToken = 0;
+	/** Stores the number of occurances of all {@link SSpan} objects. **/
+	public Integer occurance_SSpan = 0;
+	/** Stores the number of occurances of all {@link SStructure} objects. **/
+	public Integer occurance_SStructure = 0;
+
+	/** Stores the number of occurances of all {@link SRelation} objects. **/
+	public Integer occurance_SRelation = 0;
+	/**
+	 * Stores the number of occurances of all {@link SSpanningRelation} objects.
+	 **/
+	public Integer occurance_SSpanningRelation = 0;
+	/**
+	 * Stores the number of occurances of all {@link SDominanceRelation}
+	 * objects.
+	 **/
+	public Integer occurance_SDominanceRelation = 0;
+	/**
+	 * Stores the number of occurances of all {@link SPointingRelation} objects.
+	 **/
+	public Integer occurance_SPointingRelation = 0;
+	/**
+	 * Stores the number of occurances of all {@link STextualRelation} objects.
+	 **/
+	public Integer occurance_STextualRelation = 0;
+	/**
+	 * Stores the number of occurances of all {@link STimelineRelation} objects.
+	 **/
+	public Integer occurance_STimelineRelation = 0;
+	/**
+	 * Stores the number of occurances of all {@link SOrderRelation} objects.
+	 **/
+	public Integer occurance_SOrderRelation = 0;
 
 	/**
-	 * Writes the part of {@link SaltInfoDictionary#TAG_STRUCTURAL_INFO} to passed stream.
+	 * Writes the part of {@link SaltInfoDictionary#TAG_STRUCTURAL_INFO} to
+	 * passed stream.
+	 * 
 	 * @param xml
-	 * @throws XMLStreamException 
+	 * @throws XMLStreamException
 	 */
-	public void write(XMLStreamWriter xml) throws XMLStreamException{
-		if (xml== null){
+	public void write(XMLStreamWriter xml) throws XMLStreamException {
+		if (xml == null) {
 			throw new PepperModuleException("Cannot write structural info, because no output stream was passed. ");
 		}
 		xml.writeStartElement(SaltInfoDictionary.TAG_STRUCTURAL_INFO);
-			if (occurance_SNode!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SNODE);
-					xml.writeCharacters(occurance_SNode.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_STimeline!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STIMELINE);
-					xml.writeCharacters(occurance_STimeline.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_STextualDS!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STEXTUAL_DS);
-					xml.writeCharacters(occurance_STextualDS.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_SToken!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STOKEN);
-					xml.writeCharacters(occurance_SToken.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_SSpan!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SSPAN);
-					xml.writeCharacters(occurance_SSpan.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_SStructure!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SSTRUCTURE);
-					xml.writeCharacters(occurance_SStructure.toString());
-				xml.writeEndElement();
-			}
-			
-			if (occurance_SRelation!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SRELATION);
-					xml.writeCharacters(occurance_SRelation.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_STextualRelation!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STEXTUAL_RELATION);
-					xml.writeCharacters(occurance_STextualRelation.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_STimelineRelation!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STIMELINE_RELATION);
-					xml.writeCharacters(occurance_STimelineRelation.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_SSpanningRelation!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SSPANNING_RELATION);
-					xml.writeCharacters(occurance_SSpanningRelation.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_SDominanceRelation!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SDOMINANCE_RELATION);
-					xml.writeCharacters(occurance_SDominanceRelation.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_SOrderRelation!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SORDER_RELATION);
-					xml.writeCharacters(occurance_SOrderRelation.toString());
-				xml.writeEndElement();
-			}
-			if (occurance_SPointingRelation!= 0){
-				xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
-					xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SPOINTING_RELATION);
-					xml.writeCharacters(occurance_SPointingRelation.toString());
-				xml.writeEndElement();
-			}
+		if (occurance_SNode != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SNODE);
+			xml.writeCharacters(occurance_SNode.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_STimeline != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STIMELINE);
+			xml.writeCharacters(occurance_STimeline.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_STextualDS != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STEXTUAL_DS);
+			xml.writeCharacters(occurance_STextualDS.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_SToken != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STOKEN);
+			xml.writeCharacters(occurance_SToken.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_SSpan != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SSPAN);
+			xml.writeCharacters(occurance_SSpan.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_SStructure != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SSTRUCTURE);
+			xml.writeCharacters(occurance_SStructure.toString());
+			xml.writeEndElement();
+		}
+
+		if (occurance_SRelation != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SRELATION);
+			xml.writeCharacters(occurance_SRelation.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_STextualRelation != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STEXTUAL_RELATION);
+			xml.writeCharacters(occurance_STextualRelation.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_STimelineRelation != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_STIMELINE_RELATION);
+			xml.writeCharacters(occurance_STimelineRelation.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_SSpanningRelation != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SSPANNING_RELATION);
+			xml.writeCharacters(occurance_SSpanningRelation.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_SDominanceRelation != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SDOMINANCE_RELATION);
+			xml.writeCharacters(occurance_SDominanceRelation.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_SOrderRelation != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SORDER_RELATION);
+			xml.writeCharacters(occurance_SOrderRelation.toString());
+			xml.writeEndElement();
+		}
+		if (occurance_SPointingRelation != 0) {
+			xml.writeStartElement(SaltInfoDictionary.TAG_ENTRY);
+			xml.writeAttribute(SaltInfoDictionary.ATT_KEY, KEY_SPOINTING_RELATION);
+			xml.writeCharacters(occurance_SPointingRelation.toString());
+			xml.writeEndElement();
+		}
 		xml.writeEndElement();
 	}
 }
