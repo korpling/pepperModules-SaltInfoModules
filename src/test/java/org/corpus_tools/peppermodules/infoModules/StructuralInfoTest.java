@@ -37,7 +37,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.corpus_tools.pepper.testFramework.PepperModuleTest;
+import org.corpus_tools.pepper.testFramework.helpers.PepperModuleTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;

@@ -1,15 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.corpus-tools</groupId>
 		<artifactId>pepper-parentModule</artifactId>
-		<version>3.0.0</version>
+		<version>3.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>pepperModules-SaltInfoModules</artifactId>
 	<name>${project.groupId}.${project.artifactId}</name>
 	<version>1.0.10-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<description>This project provides a exporter module to render information on the Salt model that is used in  a given corpus. </description>
+	<description>This project provides an exporter module to render information on the Salt model that is used in  a given corpus. </description>
 	<url>http://korpling.github.io/pepperModules-SaltInfoModule</url>
 	<issueManagement>
 		<system>Github</system>
@@ -21,7 +22,7 @@
 	</ciManagement>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
-		<name>Humboldt-Universität zu Berlin</name>
+		<name>Humboldt-Universit&#228;t zu Berlin</name>
 	</organization>
 	<scm>
 		<connection>scm:git:git://github.com/korpling/pepperModules-SaltInfoModules.git</connection>
@@ -34,11 +35,19 @@
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>Saxon-HE</artifactId>
 			<version>9.6.0-7</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xml-resolver</groupId>
+			<artifactId>xml-resolver</artifactId>
+			<version>1.2</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -70,11 +79,8 @@
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-RequiredExecutionEnvironment>JavaSE-${java.version}</Bundle-RequiredExecutionEnvironment>
 						<Service-Component>${allServiceComponents}</Service-Component>
-						<Bundle-ClassPath>.,{maven-dependencies},lib/Saxon-HE-9.6.0-7.jar,
-							lib/xml-resolver-1.2.jar</Bundle-ClassPath>
-						<Include-Resource>{maven-resources}, LICENSE, NOTICE,
-							lib/Saxon-HE-9.6.0-7.jar=lib/Saxon-HE-9.6.0-7.jar,
-							lib/xml-resolver-1.2.jar=lib/xml-resolver-1.2.jar</Include-Resource>
+						<Include-Resource>{maven-resources}, LICENSE, NOTICE</Include-Resource>
+						<Embed-Dependency>Saxon-HE,xml-resolver</Embed-Dependency>
 					</instructions>
 				</configuration>
 			</plugin>
