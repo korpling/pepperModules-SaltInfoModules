@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>pepperModules-SaltInfoModules</artifactId>
 	<name>${project.groupId}.${project.artifactId}</name>
-	<version>1.0.10-SNAPSHOT</version>
+	<version>1.0.10</version>
 	<packaging>bundle</packaging>
 	<description>This project provides an exporter module to render information on the Salt model that is used in  a given corpus. </description>
 	<url>http://korpling.github.io/pepperModules-SaltInfoModule</url>
@@ -21,13 +21,13 @@
 	</ciManagement>
 	<inceptionYear>2013</inceptionYear>
 	<organization>
-		<name>Humboldt-Universit&#228;t zu Berlin</name>
+		<name>Humboldt-Universität zu Berlin</name>
 	</organization>
 	<scm>
 		<connection>scm:git:git://github.com/korpling/pepperModules-SaltInfoModules.git</connection>
 		<developerConnection>scm:git:git@github.com:korpling/pepperModules-SaltInfoModules.git</developerConnection>
 		<url>https://github.com/korpling/pepperModules-SaltInfoModules</url>
-		<tag>HEAD</tag>
+		<tag>pepperModules-SaltInfoModules-1.0.10</tag>
 	</scm>
 	<dependencies>
 		<dependency>
